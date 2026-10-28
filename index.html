@@ -598,7 +598,7 @@ html, body { margin: 0; background: #14161b; }
     const m = manual(r);
     if (m) return show({ url: m.url, author: m.credit || '', license: '' });
     const t = r.photo;
-    if (!t || location.protocol === 'file:' && !window.__ALLOW_REMOTE) return show(null);
+    if (!t) return show(null);
     if (photoCache[t] !== undefined) return show(photoCache[t]);
     box.appendChild(el('div', 'nophoto', '…'));
     const u = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=640&titles=' + encodeURIComponent('File:' + t);
