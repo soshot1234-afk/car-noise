@@ -416,6 +416,8 @@ html, body { margin: 0; background: #14161b; }
 @media (max-width: 760px) { .vd .made { display: none; } .vd .thm { padding: 5px 10px; font-size: 12px; } .vd .topbar { flex-direction: row !important; } }
 .vd .madeby { color: var(--gold); font-weight: 600; letter-spacing: .1em; }
 .vd .tab[aria-selected=true]:hover { background: var(--club); }
+.vd .pside .style { margin-bottom: 4px !important; font-size: 16px; }
+.vd .stdesc { margin: 0 0 12px; font-size: 12.5px; color: var(--mu); line-height: 1.5; }
 </style>
 </head><body>
 <div class="vd">
@@ -647,37 +649,53 @@ html, body { margin: 0; background: #14161b; }
     size: [3600, 4700, 5200], room: [2400, 2850, 3200], cargo: [200, 450, 700], agile: [15, 9, 4], seats: [2, 5, 9]
   };
   function qtl(v, q) { const i = (v.length - 1) * q, lo = Math.floor(i), hi = Math.ceil(i); return v[lo] + (v[hi] - v[lo]) * (i - lo); }
+  // FM식 등급 분포: 일반 차종(슈퍼카·1.5억↑ 제외) 안에서 줄 세운 위치(백분위) → 1~20점
+  // 하위 5% 1~4 · 5~20% 5~8 · 20~75% 9~14 · 75~90% 15~16 · 90~97% 17~18 · 상위 3% 19~20
+  const BANDS = [[0, 1], [0.05, 4.5], [0.20, 8.5], [0.75, 14.5], [0.90, 16.5], [0.97, 18.5], [1, 20]];
+  function pct2score(p) {
+    for (let i = 1; i < BANDS.length; i++) { const [p0, s0] = BANDS[i - 1], [p1, s1] = BANDS[i]; if (p <= p1) return Math.max(1, Math.min(20, Math.round(s0 + (s1 - s0) * (p - p0) / (p1 - p0)))); }
+    return 20;
+  }
+  function safetyPts(r) {
+    const t = r.safety_text || ''; if (!t) return NaN;
+    const parts = [];
+    let m = t.match(/KNCAP (\d)등급/); if (m) parts.push({ 1: 10, 2: 7, 3: 4 }[m[1]] || 2);
+    m = t.match(/Euro NCAP ★(\d)/); if (m) parts.push({ 5: 10, 4: 7, 3: 4 }[m[1]] || 2);
+    m = t.match(/IIHS ([^(]+)/); if (m) parts.push(/\+|PLUS/i.test(m[1]) ? 10 : 8);
+    m = t.match(/ANCAP ★(\d)/); if (m) parts.push({ 5: 9, 4: 6 }[m[1]] || 3);
+    if (!parts.length) return NaN;
+    parts.sort((x, y) => y - x);
+    let v = parts[0] + 0.35 * parts.slice(1).reduce((x, y) => x + y, 0);
+    if (/이전 세대|만료/.test(t)) v -= 2;
+    return Math.round(v * 10) / 10;
+  }
   function scoreAll() {
+    CARS.forEach((r) => { r.safety_pts = safetyPts(r); });
     ATTR.forEach((a) => {
-      if (a.raw) {
-        CARS.forEach((r) => {
-          const v = num(r[a.f]);
-          r['s_' + a.k] = isNaN(v) ? NaN : (a.k === 'seats' ? Math.max(1, Math.min(20, Math.round(4 + (v - 2) * 2.7))) : Math.round(v));
-        });
-        return;
-      }
+      const f = a.k === 'safety' ? 'safety_pts' : a.f;
       const pools = a.pool === 'fe' ? ['km/ℓ', 'km/kWh', 'km/kg'] : [null];
       pools.forEach((p) => {
         const noisy = a.k === 'quiet' || a.k === 'qvalue';
-        const ok = (r) => !isNaN(num(r[a.f])) && (p === null || r.fe_unit === p) && !(noisy && r.noise_conf === '낮음');
+        const ok = (r) => !isNaN(num(r[f])) && (p === null || r.fe_unit === p) && !(noisy && r.noise_conf === '낮음');
         let ref = CARS.filter((r) => ok(r) && !r.ex);
         if (ref.length < 8) ref = CARS.filter(ok);
-        const tf = (v) => (LOGK[a.k] ? Math.log(Math.max(v, 1e-6)) : v);
-        const vals = ref.map((r) => tf(num(r[a.f]))).sort((x, y) => x - y);
-        if (vals.length < 2) return;
-        let lo = qtl(vals, 0.05), md = qtl(vals, 0.5), hi = qtl(vals, 0.95);
-        const FX = FIXED[a.k + (p ? '|' + p : '')] || FIXED[a.k];
-        if (FX) { const f = FX.map(tf); if (a.dir < 0) { lo = f[2]; md = f[1]; hi = f[0]; } else { lo = f[0]; md = f[1]; hi = f[2]; } }
-        if (md <= lo) md = lo + 1e-6; if (hi <= md) hi = md + 1e-6;
+        // 좋은 쪽이 큰 값이 되도록 정렬
+        const g = (r) => num(r[f]) * (a.dir < 0 ? -1 : 1);
+        const vals = ref.map(g).sort((x, y) => x - y);
+        const n = vals.length; if (n < 2) return;
         const key = a.k + (p ? '|' + p : '');
-        ANCH[key] = { worst: a.dir < 0 ? hi : lo, mid: md, best: a.dir < 0 ? lo : hi, log: !!LOGK[a.k], unit: p };
+        const raw = (q) => { const i = Math.min(n - 1, Math.max(0, Math.round(q * (n - 1)))); return vals[i] * (a.dir < 0 ? -1 : 1); };
+        ANCH[key] = { worst: raw(0.05), mid: raw(0.5), best: raw(0.97), unit: p, n };
         CARS.forEach((r) => {
           if (p !== null && r.fe_unit !== p) return;
-          const v = num(r[a.f]);
-          if (isNaN(v)) { if (p === null) r['s_' + a.k] = NaN; return; }
-          const x = tf(v);
-          let t = x <= md ? 0.5 * (x - lo) / (md - lo) : 0.5 + 0.5 * (x - md) / (hi - md); if (a.dir < 0) t = 1 - t;
-          r['s_' + a.k] = Math.max(1, Math.min(20, Math.round(1 + t * 19)));
+          if (!ok(r)) { if (p === null) r['s_' + a.k] = NaN; return; }
+          const v = g(r);
+          let lo = 0, hi = n; while (lo < hi) { const m = (lo + hi) >> 1; if (vals[m] < v) lo = m + 1; else hi = m; }
+          let lo2 = lo; while (lo2 < n && vals[lo2] === v) lo2++;
+          // 같은 값끼리는 묶음의 가운데 순위를 줌 (단, 맨 위 묶음은 위쪽에 가깝게)
+          let pc = lo2 >= n ? (lo + 2 * lo2) / 3 / n : ((lo + lo2) / 2) / n;
+          if (lo === n) pc = 1; // 기준표 밖(최고치 초과)
+          r['s_' + a.k] = pct2score(Math.max(0, Math.min(1, pc)));
         });
       });
       if (a.pool === 'fe') CARS.forEach((r) => { if (blank(r.fe)) r['s_' + a.k] = NaN; });
@@ -912,26 +930,72 @@ html, body { margin: 0; background: #14161b; }
   function traits(r) {
     const t = [];
     const s = (k) => r['s_' + k];
-    if (s('quiet') >= 17) t.push('고속에서도 실내가 조용함');
-    if (s('qvalue') >= 17) t.push('가격대에 비해 유난히 조용함');
-    if (s('accel') >= 17) t.push('출발이 매우 빠름');
-    if (s('brake') >= 17) t.push('짧은 제동거리');
-    if (s('eff') >= 17) t.push('기름값을 아끼는 지구력');
-    if (s('resale') >= 17) t.push('중고값이 잘 버팀');
-    if (s('cargo') >= 17) t.push('짐을 많이 실음');
-    if (s('room') >= 17) t.push('뒷좌석이 넉넉함');
-    if (s('safety') >= 18) t.push('충돌 안전 최상위');
-    if (s('quiet') <= 4) t.push('실내 소음이 큰 편');
-    if (s('qvalue') <= 4) t.push('가격에 비해 시끄러움');
-    if (s('resale') <= 4) t.push('감가가 큰 편');
-    if (s('eff') <= 4) t.push('연비가 아쉬움');
-    if (s('upkeep') <= 4) t.push('유지비가 많이 듦');
+    const add = (c, x) => { if (c) t.push(x); };
+    add(s('quiet') >= 17, '고속에서도 도서관처럼 조용함');
+    add(s('qvalue') >= 17 && s('quiet') < 17, '가격대 치고 유난히 조용함');
+    add(s('accel') >= 18, '신호 대기 1등 — 출발이 폭발적');
+    add(s('accel') >= 15 && s('accel') < 18, '추월이 시원시원함');
+    add(s('power') >= 17, '넘치는 힘');
+    add(s('agile') >= 17, '무게 대비 출력이 좋아 몸놀림이 가벼움');
+    add(s('brake') >= 16, '짧은 제동거리 — 멈출 땐 확실하게');
+    add(s('eff') >= 18, '주유소 갈 일이 거의 없음');
+    add(s('eff') >= 15 && s('eff') < 18, '기름값을 아끼는 지구력');
+    add(s('upkeep') >= 17, '유지비 부담이 적음');
+    add(s('resale') >= 18, '중고값 방어의 달인');
+    add(s('resale') >= 15 && s('resale') < 18, '중고값이 잘 버팀');
+    add(s('cargo') >= 17, '캠핑 짐도 거뜬한 트렁크');
+    add(s('room') >= 17, '뒷좌석이 넉넉함');
+    add(s('seats') >= 15, '대가족도 OK — 3열 시트');
+    add(s('size') >= 18, '도로 위 존재감');
+    add(s('size') <= 4, '골목길·주차가 편한 작은 차체');
+    add(s('pricev') >= 18, '몸값이 착한 실속파');
+    add(s('safety') >= 20 && t.length < 3, '충돌 안전 최상위');
+    add(s('quiet') <= 4, '실내 소음이 큰 편');
+    add(s('qvalue') <= 4, '가격에 비해 시끄러움');
+    add(s('accel') <= 3, '느긋한 출발');
+    add(s('resale') <= 4, '감가가 큰 편');
+    add(s('eff') <= 4, '연비가 아쉬움');
+    add(s('upkeep') <= 4, '유지비가 많이 듦');
+    add(s('pricev') <= 3, '몸값이 비쌈');
+    add(r.legend, '단종됐지만 중고로 여전히 인기');
     return t;
   }
+  // 플레이 스타일: 그룹 점수를 전체 평균과 비교해(표준점수) 가장 두드러진 두 가지 조합으로 결정
+  const GSTAT = {};
+  function gstat() {
+    GROUPS.forEach((g) => { const v = CARS.filter((r) => !r.ex && !isNaN(r['g_' + g.k])).map((r) => r['g_' + g.k]); const m = v.reduce((a, b) => a + b, 0) / v.length; const sd = Math.sqrt(v.reduce((a, b) => a + (b - m) ** 2, 0) / v.length) || 1; GSTAT[g.k] = [m, sd]; });
+  }
+  const PAIR = {
+    '정숙+성능': ['우아한 테크니션', '조용한데 빠르다. 고속 크루징과 추월 모두 능숙한 타입'],
+    '정숙+효율': ['침착한 레지스타', '조용하고 기름도 아끼는, 경기 템포를 지배하는 타입'],
+    '정숙+공간': ['품격 있는 리베로', '넓고 조용한 실내로 뒷좌석 손님까지 챙기는 타입'],
+    '정숙+안전': ['노련한 주장', '조용하고 안전해 장거리 가족여행에 믿고 맡기는 타입'],
+    '정숙+가치': ['실속형 플레이메이커', '가격 대비 정숙성이 뛰어난 숨은 에이스'],
+    '성능+효율': ['효율 좋은 스트라이커', '빠른데 연비까지 챙기는, 전기·하이브리드형 골잡이'],
+    '성능+공간': ['파워형 타깃맨', '큰 덩치에 힘까지 갖춘 피지컬 괴물'],
+    '성능+안전': ['공수겸장 미드필더', '빠르고 안전한 올라운더'],
+    '성능+가치': ['가성비 윙어', '몸값 대비 달리기 실력이 뛰어난 저평가 유망주'],
+    '효율+공간': ['지치지 않는 풀백', '넓고 연비 좋은, 매일 출퇴근·주말 나들이 겸용 타입'],
+    '효율+안전': ['자기관리형 베테랑', '연비와 안전을 꼼꼼히 챙기는 모범생'],
+    '효율+가치': ['알뜰한 박스투박스', '적게 먹고 많이 뛰는, 유지비 최강 타입'],
+    '공간+안전': ['든든한 센터백', '넓고 튼튼한 패밀리카의 정석'],
+    '공간+가치': ['가성비 홀딩 미드필더', '몸값 대비 공간이 넉넉한 실속 패밀리카'],
+    '안전+가치': ['믿음직한 골키퍼', '튀진 않지만 실수 없는, 첫 차로 무난한 타입']
+  };
   function style(r) {
-    const g = (k) => r['g_' + k] || 0;
-    const best = GROUPS.map((x) => [x.k, g(x.k)]).sort((a, b) => b[1] - a[1])[0];
-    return { 정숙: '조용한 플레이메이커', 성능: '폭발적인 스트라이커', 효율: '지칠 줄 모르는 박스투박스', 공간: '든든한 센터백(패밀리)', 안전: '믿음직한 골키퍼', 가치: '가성비 이적생' }[best[0]] || '';
+    if (!Object.keys(GSTAT).length) gstat();
+    const s = (k) => r['s_' + k];
+    if (r.brand === '롤스로이스' || (r.brand === '벤틀리' && r.body !== '쿠페' && r.body !== '컨버터블')) return ['VIP 사령관', '돈이 아깝지 않은 품격 — 뒷좌석이 상석인 타입'];
+    if (r.ex === '슈퍼카' || (r.perf && r.price >= 15000 && s('accel') >= 19)) return ['월드클래스 에이스', '경기장에 서는 것만으로 분위기를 바꾸는 슈퍼스타'];
+    if (r.ex && s('quiet') >= 15 && (s('room') >= 15 || s('size') >= 17)) return ['VIP 사령관', '돈이 아깝지 않은 품격 — 뒷좌석이 상석인 타입'];
+    if (s('size') <= 5 && s('pricev') >= 16) return ['작은 거인', '작고 가볍지만 몸값과 유지비로 승부하는 도심형 윙어'];
+    if (r.perf && s('accel') >= 15) return ['스피드 스타', '펀카 기질이 넘치는 공격수 — 주말 와인딩 담당'];
+    const z = GROUPS.map((g) => { const v = r['g_' + g.k]; if (isNaN(v)) return [g.k, -9]; const [m, sd] = GSTAT[g.k]; return [g.k, (v - m) / sd]; }).sort((a, b) => b[1] - a[1]);
+    if (z[0][1] < 0.2) return ['밸런스형 로테이션 멤버', '특별히 튀는 건 없지만 빈자리를 고루 메우는 타입'];
+    const order = GROUPS.map((g) => g.k);
+    const pair = [z[0][0], z[1][0]].sort((a, b) => order.indexOf(a) - order.indexOf(b)).join('+');
+    const p = PAIR[pair] || ['올라운더', ''];
+    return r.legend ? [p[0] + ' · 레전드', p[1]] : p;
   }
   const FLAG = { 현대: 'KOR', 기아: 'KOR', 제네시스: 'KOR', KGM: 'KOR', 르노코리아: 'KOR', 르노: 'KOR', 쉐보레: 'USA', 벤츠: 'GER', BMW: 'GER', 아우디: 'GER', 폭스바겐: 'GER', 포르쉐: 'GER', 미니: 'ENG', 볼보: 'SWE', 폴스타: 'SWE', 렉서스: 'JPN', 토요타: 'JPN', 혼다: 'JPN', 테슬라: 'USA', 포드: 'USA', 링컨: 'USA', 캐딜락: 'USA', GMC: 'USA', 지프: 'USA', 램: 'USA', 랜드로버: 'ENG', 푸조: 'FRA', BYD: 'CHN', 지커: 'CHN', 마세라티: 'ITA', 람보르기니: 'ITA', 페라리: 'ITA', 벤틀리: 'ENG', 롤스로이스: 'ENG', 애스턴마틴: 'ENG', 맥라렌: 'ENG', 로터스: 'ENG', 이네오스: 'ENG' };
 
@@ -978,7 +1042,7 @@ html, body { margin: 0; background: #14161b; }
     // right traits
     const R = box.appendChild(el('div', 'pside'));
     R.appendChild(el('h4', null, '플레이 스타일'));
-    R.appendChild(el('p', 'style', style(r)));
+    const st = style(r); R.appendChild(el('p', 'style', st[0])); if (st[1]) R.appendChild(el('p', 'stdesc', st[1]));
     R.appendChild(el('h4', null, '선수 특성'));
     const tl = traits(r);
     const ul = R.appendChild(el('ul', 'traits'));
@@ -1149,7 +1213,7 @@ html, body { margin: 0; background: #14161b; }
   function renderHow() {
     const box = $('#how'); if (box.childElementCount) return;
     const t = box.appendChild(el('table', 'how'));
-    const h = t.appendChild(el('tr')); ['능력치', '원자료', '1점', '10점 (일반차 평균)', '20점', '자료 있는 차'].forEach((x) => h.appendChild(el('th', null, x)));
+    const h = t.appendChild(el('tr')); ['능력치', '원자료', '하위 5% (4점 이하)', '중간 (11~12점)', '상위 3% (19점 이상)', '자료 있는 차'].forEach((x) => h.appendChild(el('th', null, x)));
     const src = { accel: '0→100km/h: 오토뷰 실측 우선, 없으면 제조사 발표', power: '최고출력, 제조사 제원', torque: '최대토크, 제조사 제원', brake: '100→0km/h 제동거리, 오토뷰 실측', eff: '공인 복합연비 (연료별 따로)', quiet: '80km/h 실내소음: 오토뷰 실측 우선, 없으면 해외 측정 환산', qvalue: '같은 가격대 평균보다 몇 dB 조용한지', safety: 'KNCAP 우선, 없으면 Euro NCAP·IIHS', resale: '엔카 3~7만km 시세 ÷ 신차가', upkeep: '연 1.5만km 연료·충전비 + 자동차세', pricev: '신차가', size: '전장', room: '휠베이스', cargo: '트렁크 용량', agile: '무게 대비 출력 (공차중량 ÷ 마력)', seats: '승차 정원' };
     const U = { accel: '초', power: 'ps', torque: 'kgf·m', brake: 'm', quiet: 'dBA', qvalue: 'dB', resale: '%', upkeep: '만 원/년', pricev: '만 원', size: 'mm', room: 'mm', cargo: 'ℓ', agile: 'kg/ps', seats: '인승' };
     const fv = (k, an, v) => { let x = an.log ? Math.exp(v) : v; const d = ['accel', 'brake', 'quiet', 'qvalue', 'torque'].includes(k) || (an.unit && an.unit !== 'km/ℓ') ? 1 : 0; return (k === 'qvalue' && x > 0 ? '+' : '') + Number(x.toFixed(d)).toLocaleString('ko-KR') + ' ' + (an.unit || U[k] || ''); };
@@ -1157,11 +1221,11 @@ html, body { margin: 0; background: #14161b; }
       const keys = Object.keys(ANCH).filter((k) => k.split('|')[0] === a.k);
       const tr = t.appendChild(el('tr')); tr.appendChild(el('td', null, a.label)); tr.appendChild(el('td', null, src[a.k]));
       const w = tr.appendChild(el('td')), m = tr.appendChild(el('td')), b = tr.appendChild(el('td'));
-      if (a.k === 'safety') { w.textContent = '등급 그대로'; m.textContent = 'KNCAP 3등급·별 3개 수준'; b.textContent = 'KNCAP 1등급·별 5개'; }
+      if (a.k === 'safety') { w.textContent = '낮은 등급 / 평가 1개'; m.textContent = '최고 등급 평가 1개'; b.textContent = 'KNCAP 1등급 + Euro NCAP ★5 + IIHS TSP+ 등 여러 곳 최고'; }
       else keys.forEach((k) => { w.appendChild(el('div', null, fv(a.k, ANCH[k], ANCH[k].worst))); m.appendChild(el('div', null, fv(a.k, ANCH[k], ANCH[k].mid))); b.appendChild(el('div', null, fv(a.k, ANCH[k], ANCH[k].best))); });
       tr.appendChild(el('td', 'num', CARS.filter((r) => !isNaN(r['s_' + a.k])).length + '대'));
     });
-    box.appendChild(el('p', 'note', '기준은 "일반 차종"입니다. 슈퍼카 브랜드(페라리·람보르기니·롤스로이스·벤틀리·맥라렌·애스턴마틴·로터스·마세라티)와 신차가 1억 5천만 원 이상은 논외로 빼고, 국내 일반 승용차 감각에 맞춰 능력치마다 1점·10점·20점 기준을 직접 정했습니다. 10점이 일반 승용차 평균 수준입니다. 그 사이는 고르게 나눴고(출력·토크·가격은 비율로), 기준을 넘으면 20점, 못 미치면 1점입니다. 안전은 평가 등급을 그대로 옮겼습니다(KNCAP 1등급·별 5개 = 20점). 해외 측정 환산 소음은 오차가 ±1.5dB 정도라 1~2점 차이는 비슷하다고 보시면 됩니다.'));
+    box.appendChild(el('p', 'note', '점수는 FM처럼 등급 분포로 매깁니다. 슈퍼카 브랜드와 신차가 1억 5천만 원 이상을 뺀 일반 차종을 능력치마다 한 줄로 세운 뒤, 상위 3%는 19~20점, 3~10%는 17~18점, 10~25%는 15~16점, 가운데 55%는 9~14점, 하위 5~20%는 5~8점, 하위 5%는 1~4점을 줍니다. 그래서 20점은 정말 손에 꼽히고, 10점 언저리가 보통입니다. 같은 값이 많은 항목(승차 인원 등)은 같은 점수를 받습니다. 안전은 KNCAP·Euro NCAP·IIHS·ANCAP 결과를 합쳐서 여러 곳에서 최고 등급을 받은 차일수록 높게 매깁니다. 논외인 슈퍼카도 같은 줄에 대 보고 점수를 매기므로 대부분 상위권에 걸립니다. 해외 측정 환산 소음은 오차가 ±1.5dB 정도라 1~2점 차이는 비슷하다고 보시면 됩니다.'));
   }
 
 
@@ -1308,7 +1372,8 @@ html, body { margin: 0; background: #14161b; }
   // theme
   (function () { const root = document.querySelector('.vd'); const b = $('#thm');
     const apply = (t) => { root.setAttribute('data-theme', t); b.textContent = t === 'light' ? '☾ 어둡게' : '☀ 밝게'; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = '#14161c'; };
-    apply(LS.get('carro_theme') === 'dark' ? 'dark' : 'light');
+    const saved = LS.get('carro_theme'); let sys = 'light'; try { sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch (e) {}
+    apply(saved === 'dark' || saved === 'light' ? saved : sys);
     b.addEventListener('click', () => { const t = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'; LS.set('carro_theme', t); apply(t); render(); });
   })();
   // mobile filter toggle
@@ -1328,7 +1393,7 @@ html, body { margin: 0; background: #14161b; }
   f.appendChild(el('p', 'madeby', 'made by ktc'));
   f.appendChild(el('p', null, '능력치는 재미를 위한 상대 점수입니다. 실제 구매 전에는 시승과 최신 가격표를 꼭 확인하세요.'));
   computeUpkeep(15000); scoreAll(); funAll(); fillSel(); buildWeights(); readHash(); ovrAll();
-  updAdmin(); show(cur);
+  window.__carroStyle = style; updAdmin(); show(cur);
 })();
 </script>
 </body></html>
