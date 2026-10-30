@@ -473,6 +473,13 @@ html, body { margin: 0; background: #14161b; }
 .vd .wfit{text-align:center}.vd .wfit b{display:block;font-size:34px;font-family:"Barlow Condensed",sans-serif;color:#e3b448}.vd .wfit span{font-size:12px;opacity:.7}
 .vd .chip.share{border-color:#e3b448;color:#e3b448}
 @media (max-width:700px){.vd .wcard{grid-template-columns:36px 1fr 64px}.vd .wcard .ph{display:none}.vd .wbud b{font-size:17px}}
+
+.cardov{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:16px}
+.cardov .cardbox{max-width:480px;width:100%;max-height:100%;overflow:auto;text-align:center}
+.cardov img{width:100%;height:auto;display:block;border-radius:6px;-webkit-touch-callout:default}
+.cardov .cardtip{color:#fff;font-size:14px;margin:0 0 10px}
+.cardov .cardbtns{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.cardov .chip{background:#242832;color:#fff;border:1px solid #3b414e;padding:8px 14px;font-size:14px;text-decoration:none}
 </style>
 </head><body>
 <div class="vd">
@@ -1501,23 +1508,34 @@ html, body { margin: 0; background: #14161b; }
     g.textAlign = 'right'; g.fillStyle = '#e3b448'; g.fillText('made by ktc', W - 40, H - 26); g.textAlign = 'left';
     return new Promise((res) => cv.toBlob((b) => res(b), 'image/png'));
   }
+  function cardOverlay(blob, fn) {
+    const url = URL.createObjectURL(blob);
+    const ov = document.body.appendChild(el('div', 'cardov'));
+    const bx = ov.appendChild(el('div', 'cardbox'));
+    bx.appendChild(el('p', 'cardtip', '이미지를 길게 눌러 "사진에 저장" → 카톡에서 사진으로 보내세요'));
+    const im = bx.appendChild(el('img')); im.src = url; im.alt = fn;
+    const row = bx.appendChild(el('div', 'cardbtns'));
+    const d = row.appendChild(el('a', 'chip', '파일로 저장')); d.href = url; d.download = fn;
+    const c = row.appendChild(el('button', 'chip', '닫기'));
+    const close = () => { ov.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
+    c.addEventListener('click', close); ov.addEventListener('click', (e) => { if (e.target === ov) close(); });
+  }
   async function shareCard(r, btn) {
     const old = btn.textContent; btn.textContent = '카드 만드는 중…'; btn.disabled = true;
+    let blob = null;
+    const fn = 'carrodor_' + r.id + '.png';
     try {
-      const blob = await makeCard(r);
-      const fn = `카롱도르_${r.name.replace(/[\\/:*?"<>| ]+/g, '_')}.png`;
+      blob = await makeCard(r);
       const file = new File([blob], fn, { type: 'image/png' });
-      const url = location.origin + location.pathname + '#tab=prof&p=' + r.id;
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: r.name + ' · 카롱도르 선수 카드', text: `${r.name} OVR ${r._ovr} — 카롱도르에서 보기: ${url}` });
-      } else {
-        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fn; document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-        btn.textContent = '저장됨 — 카톡에 사진으로 보내세요'; setTimeout(() => { btn.textContent = old; btn.disabled = false; }, 2500); return;
-      }
-    } catch (e) { if (e && e.name !== 'AbortError') alert('카드를 만들지 못했어요: ' + e.message); }
+        await navigator.share({ files: [file] });
+      } else cardOverlay(blob, fn);
+    } catch (e) {
+      if (!(e && e.name === 'AbortError')) { if (blob) cardOverlay(blob, fn); else alert('카드를 만들지 못했어요: ' + (e && e.message)); }
+    }
     btn.textContent = old; btn.disabled = false;
   }
+
 
   // ------------------------------------------------------------------ tabs & hash
   const TABS = [['t-rank', 'p-rank'], ['t-wiz', 'p-wiz'], ['t-prof', 'p-prof'], ['t-cmp', 'p-cmp'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
