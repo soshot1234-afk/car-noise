@@ -731,7 +731,7 @@ html, body { margin: 0; background: #14161b; }
     { k: 'room', label: '실내 공간', fm: '시야', col: '차체', f: 'wb', dir: 1, fmtv: (r) => fmt(r.wb) + 'mm (휠베이스)' },
     { k: 'cargo', label: '적재력', fm: '활동량', col: '차체', f: 'trunk', dir: 1, fmtv: (r) => fmt(r.trunk) + 'ℓ' },
     { k: 'agile', label: '민첩성', fm: '민첩성', col: '차체', f: 'pw', dir: -1, fmtv: (r) => r.pw + 'kg/ps (공차 ' + fmt(r.weight) + 'kg ÷ ' + fmt(r.ps) + 'ps)' },
-    { k: 'seats', label: '승차 인원', fm: '팀워크', col: '차체', f: 'seats', dir: 1, fmtv: (r) => r.seats + '인승' }
+    { k: 'seats', label: '거주성', fm: '팀워크', col: '차체', f: 'seats', dir: 1, fmtv: (r) => r.seats + '인승' }
   ];
   const GROUPS = [
     { k: '정숙', a: ['quiet', 'qvalue'] }, { k: '성능', a: ['accel', 'power', 'torque', 'brake'] },
@@ -1387,7 +1387,7 @@ html, body { margin: 0; background: #14161b; }
       else keys.forEach((k) => { w.appendChild(el('div', null, fv(a.k, ANCH[k], ANCH[k].worst))); m.appendChild(el('div', null, fv(a.k, ANCH[k], ANCH[k].mid))); b.appendChild(el('div', null, fv(a.k, ANCH[k], ANCH[k].best))); });
       tr.appendChild(el('td', 'num', CARS.filter((r) => !isNaN(r['s_' + a.k])).length + '대'));
     });
-    box.appendChild(el('p', 'note', '점수는 FM처럼 등급 분포로 매깁니다. 슈퍼카 브랜드와 신차가 1억 5천만 원 이상을 뺀 일반 차종을 능력치마다 한 줄로 세운 뒤, 상위 3%는 19~20점, 3~10%는 17~18점, 10~25%는 15~16점, 가운데 55%는 9~14점, 하위 5~20%는 5~8점, 하위 5%는 1~4점을 줍니다. 그래서 20점은 정말 손에 꼽히고, 10점 언저리가 보통입니다. 같은 값이 많은 항목(승차 인원 등)은 같은 점수를 받습니다. 안전은 KNCAP·Euro NCAP·IIHS·ANCAP 결과를 합쳐서 여러 곳에서 최고 등급을 받은 차일수록 높게 매깁니다. 논외인 슈퍼카도 같은 줄에 대 보고 점수를 매기므로 대부분 상위권에 걸립니다. 해외 측정 환산 소음은 오차가 ±1.5dB 정도라 1~2점 차이는 비슷하다고 보시면 됩니다.'));
+    box.appendChild(el('p', 'note', '점수는 FM처럼 등급 분포로 매깁니다. 슈퍼카 브랜드와 신차가 1억 5천만 원 이상을 뺀 일반 차종을 능력치마다 한 줄로 세운 뒤, 상위 3%는 19~20점, 3~10%는 17~18점, 10~25%는 15~16점, 가운데 55%는 9~14점, 하위 5~20%는 5~8점, 하위 5%는 1~4점을 줍니다. 그래서 20점은 정말 손에 꼽히고, 10점 언저리가 보통입니다. 같은 값이 많은 항목(거주성 등)은 같은 점수를 받습니다. 안전은 KNCAP·Euro NCAP·IIHS·ANCAP 결과를 합쳐서 여러 곳에서 최고 등급을 받은 차일수록 높게 매깁니다. 논외인 슈퍼카도 같은 줄에 대 보고 점수를 매기므로 대부분 상위권에 걸립니다. 해외 측정 환산 소음은 오차가 ±1.5dB 정도라 1~2점 차이는 비슷하다고 보시면 됩니다.'));
   }
 
 
