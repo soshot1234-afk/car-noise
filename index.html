@@ -1924,7 +1924,17 @@ html, body { margin: 0; background: #14161b; }
   }
 
   // ------------------------------------------------------------------ FM 카드 이미지
-  function loadImg(src) { return new Promise((res) => { if (!src) return res(null); const i = new Image(); i.crossOrigin = 'anonymous'; i.referrerPolicy = 'no-referrer'; i.onload = () => res(i); i.onerror = () => res(null); i.src = src; setTimeout(() => res(null), 6000); }); }
+  // 카드용 사진: 화면에 이미 뜬 사진(캐시)과 섞이지 않게 따로 받아서 그림 (사파리·크롬 캐시 CORS 문제 회피)
+  function imgFromUrl(u, ms) { return new Promise((res) => { const i = new Image(); i.crossOrigin = 'anonymous'; i.referrerPolicy = 'no-referrer'; i.onload = () => res(i); i.onerror = () => res(null); i.src = u; setTimeout(() => res(null), ms || 12000); }); }
+  async function loadImg(src, r) {
+    if (!src) return null;
+    const tries = [];
+    try { const b = await fetch(src, { mode: 'cors', cache: 'no-store', referrerPolicy: 'no-referrer' }).then((x) => (x.ok ? x.blob() : null)); if (b) { const im = await imgFromUrl(URL.createObjectURL(b)); if (im) return im; } } catch (e) {}
+    tries.push(src + (src.includes('?') ? '&' : '?') + 'card=' + Date.now());
+    if (r && r.photo) { try { const j = await fetch('https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url&iiurlwidth=960&titles=' + encodeURIComponent('File:' + r.photo)).then((x) => x.json()); const pg = Object.values((j.query || {}).pages || {})[0]; const ii = pg && pg.imageinfo && pg.imageinfo[0]; if (ii) tries.push(ii.thumburl || ii.url); } catch (e) {} }
+    for (const u of tries) { const im = await imgFromUrl(u); if (im) return im; }
+    return null;
+  }
   async function makeCard(r) {
     const W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
     const g = cv.getContext('2d');
@@ -1938,7 +1948,7 @@ html, body { margin: 0; background: #14161b; }
     g.fillStyle = '#fff'; g.font = F('600', 26); g.fillText('카롱도르 · 2026 시즌 선수 카드', 330, 60);
     // photo
     const info = photoCache[r.photo]; const m = manual(r);
-    const img = await loadImg(m ? m.url : (thumbUrl(r, 960) || (info && info.url)));
+    const img = await loadImg(m ? m.url : (thumbUrl(r, 960) || (info && info.url)), m ? null : r);
     const py = 96, ph = 520;
     if (img) { const sc = Math.max(W / img.width, ph / img.height), iw = img.width * sc, ih = img.height * sc; g.save(); g.beginPath(); g.rect(0, py, W, ph); g.clip(); g.drawImage(img, (W - iw) / 2, py + (ph - ih) / 2, iw, ih); g.restore(); }
     else { g.fillStyle = '#242832'; g.fillRect(0, py, W, ph); g.fillStyle = '#8a92a3'; g.font = C('700', 90); g.textAlign = 'center'; g.fillText(r.brand, W / 2, py + ph / 2 + 30); g.textAlign = 'left'; }
