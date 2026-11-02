@@ -1994,14 +1994,15 @@ html, body { margin: 0; background: #14161b; }
     g.textAlign = 'right'; g.fillStyle = '#e3b448'; g.fillText('made by ktc', W - 40, H - 26); g.textAlign = 'left';
     return new Promise((res) => cv.toBlob((b) => res(b), 'image/png'));
   }
-  function cardOverlay(blob, fn) {
+  function cardOverlay(blob, fn, saved) {
     const url = URL.createObjectURL(blob);
     const ov = document.body.appendChild(el('div', 'cardov'));
     const bx = ov.appendChild(el('div', 'cardbox'));
-    bx.appendChild(el('p', 'cardtip', '이미지를 길게 눌러 "사진에 저장" → 카톡에서 사진으로 보내세요'));
+    bx.appendChild(el('p', 'cardtip', saved ? `✅ "다운로드" 폴더에 ${fn} 로 저장했어요 — 카톡 PC에 끌어다 놓거나, 이미지를 복사해 붙여 넣으세요` : '이미지를 길게 눌러 "사진에 저장" → 카톡에서 사진으로 보내세요'));
     const im = bx.appendChild(el('img')); im.src = url; im.alt = fn;
     const row = bx.appendChild(el('div', 'cardbtns'));
-    const d = row.appendChild(el('a', 'chip', '파일로 저장')); d.href = url; d.download = fn;
+    const d = row.appendChild(el('a', 'chip', saved ? '다시 저장' : '파일로 저장')); d.href = url; d.download = fn;
+    if (navigator.clipboard && window.ClipboardItem) { const cp = row.appendChild(el('button', 'chip', '📋 이미지 복사')); cp.addEventListener('click', async () => { try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]); cp.textContent = '복사됨 — 카톡 창에 Ctrl+V'; } catch (e) { cp.textContent = '복사 실패 — 저장 파일을 쓰세요'; } }); }
     const c = row.appendChild(el('button', 'chip', '닫기'));
     const close = () => { ov.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
     c.addEventListener('click', close); ov.addEventListener('click', (e) => { if (e.target === ov) close(); });
@@ -2013,9 +2014,13 @@ html, body { margin: 0; background: #14161b; }
     try {
       blob = await makeCard(r);
       const file = new File([blob], fn, { type: 'image/png' });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      const mobile = (window.matchMedia && matchMedia('(pointer: coarse)').matches) || /Android|iPhone|iPad/i.test(navigator.userAgent);
+      if (mobile && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({ files: [file] });
-      } else cardOverlay(blob, fn);
+      } else { // 컴퓨터: 바로 다운로드 폴더에 저장 + 미리보기
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fn; document.body.appendChild(a); a.click(); a.remove();
+        cardOverlay(blob, fn, true);
+      }
     } catch (e) {
       if (!(e && e.name === 'AbortError')) { if (blob) cardOverlay(blob, fn); else alert('카드를 만들지 못했어요: ' + (e && e.message)); }
     }
