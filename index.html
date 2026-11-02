@@ -1014,7 +1014,13 @@ html, body { margin: 0; background: #14161b; }
       box.textContent = '';
       if (!info) { box.appendChild(el('div', 'nophoto', r.brand)); adminTools(box, r); return; }
       const img = box.appendChild(el('img')); img.src = info.url; img.alt = r.name; img.loading = 'lazy'; img.referrerPolicy = 'no-referrer';
-      img.addEventListener('error', () => { img.remove(); box.insertBefore(el('div', 'nophoto', r.brand + ' (사진 주소 오류)'), box.firstChild); });
+      img.addEventListener('error', () => {
+        if (info.fb && r.photo) { // 직접 주소가 안 되면 위키미디어에 물어서 다시
+          fetch('https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&prop=imageinfo&iiprop=url&iiurlwidth=500&titles=' + encodeURIComponent('File:' + r.photo)).then((x) => x.json()).then((j) => { const p = Object.values((j.query || {}).pages || {})[0]; const ii = p && p.imageinfo && p.imageinfo[0]; if (ii) { img.src = ii.thumburl || ii.url; info.fb = false; } else throw 0; }).catch(() => { img.remove(); box.insertBefore(el('div', 'nophoto', r.brand), box.firstChild); });
+          info.fb = false; return;
+        }
+        img.remove(); box.insertBefore(el('div', 'nophoto', r.brand + ' (사진 주소 오류)'), box.firstChild);
+      });
       if (info.page || info.author || info.license) {
         const cap = box.appendChild(el(info.page ? 'a' : 'span', 'credit'));
         if (info.page) { cap.href = info.page; cap.target = '_blank'; cap.rel = 'noopener'; }
@@ -1028,7 +1034,7 @@ html, body { margin: 0; background: #14161b; }
     if (!t) return show(null);
     if (r.ph) {
       const big = box.classList.contains('big');
-      show({ url: thumbUrl(r, big ? 960 : 480) });
+      show({ url: thumbUrl(r, big ? 960 : 500), fb: true });
       if (big) { // 크게 볼 때만 저작자 정보 불러오기
         const done = (ci) => { if (!ci || !ci.author && !ci.license) return; const cap = box.appendChild(el('a', 'credit')); cap.href = ci.page; cap.target = '_blank'; cap.rel = 'noopener'; cap.textContent = '사진: ' + [ci.author, ci.license].filter(Boolean).join(' · '); };
         if (photoCache[t] !== undefined) done(photoCache[t]);
@@ -1665,7 +1671,7 @@ html, body { margin: 0; background: #14161b; }
   const naverUrl = (r) => 'https://search.naver.com/search.naver?query=' + encodeURIComponent(r.name);
   const encarBase = (r) => r.ea ? `https://www.encar.com/${r.ek === 'for' ? 'fc/fc' : 'dc/dc'}_carsearchlist.do?carType=${r.ek || 'kor'}` : '';
   const recItems = (r) => (r.rf && window.__REC && window.__REC[r.rf]) || [];
-  const thumbUrl = (r, w) => { if (!r.photo || !r.ph) return ''; const f = encodeURIComponent(r.photo.replace(/ /g, '_')).replace(/%2C/g, ','); return `https://upload.wikimedia.org/wikipedia/commons/thumb/${r.ph[0]}/${r.ph}/${f}/${w || 480}px-${f}`; };
+  const thumbUrl = (r, w) => { if (!r.photo || !r.ph) return ''; const f = encodeURIComponent(r.photo.replace(/ /g, '_')).replace(/%2C/g, ','); return `https://upload.wikimedia.org/wikipedia/commons/thumb/${r.ph[0]}/${r.ph}/${f}/${w || 500}px-${f}`; };
 
   // ------------------------------------------------------------------ 똑똑한 검색
   const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
@@ -1839,7 +1845,7 @@ html, body { margin: 0; background: #14161b; }
   }
   function renderStats() {
     const vn = $('#visN');
-    if (vn && STATS) { vn.hidden = false; vn.textContent = ''; vn.appendChild(el('span', 'dot')); vn.appendChild(el('b', null, '오늘 ' + fmt(Math.max(STATS.today || 0, 1)) + '명')); vn.appendChild(el('span', null, ' 방문 · 누적 ' + fmt(Math.max(STATS.total || 0, 1)) + '명')); }
+    if (vn && STATS) { vn.hidden = false; vn.textContent = ''; vn.appendChild(el('span', 'dot')); vn.appendChild(el('b', null, '오늘 ' + fmt(STATS.today || 0) + '명')); vn.appendChild(el('span', null, ' 방문 · 누적 ' + fmt(STATS.total || 0) + '명')); }
     const box = $('#statbox'); if (!box || !STATS) return;
     box.textContent = ''; box.hidden = false;
     const h = box.appendChild(el('div', 'sth'));
