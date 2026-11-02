@@ -14,6 +14,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://upload.wikimedia.org">
 <meta name="theme-color" content="#0f1115">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="카롱도르">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2230%22 fill=%22%23a8142f%22/%3E%3Ccircle cx=%2232%22 cy=%2234%22 r=%2217%22 fill=%22none%22 stroke=%22%23e3b448%22 stroke-width=%225%22/%3E%3Cpath d=%22M32 30V17M28 37 17 42M36 37 47 42%22 stroke=%22%23e3b448%22 stroke-width=%224.5%22 stroke-linecap=%22round%22/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>/* CARRO D'OR — Football Manager skin */
 html, body { margin: 0; background: #14161b; }
@@ -584,13 +589,30 @@ html, body { margin: 0; background: #14161b; }
 .vd .precord{overflow-x:auto}
 @media (max-width:700px){.vd .precord table{width:100%}.vd .precord td.src{word-break:break-all;font-size:11.5px}.vd .precord th{white-space:normal}}
 .vd #how{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* 앱 설치 */
+.vd .inst{appearance:none;border:1px solid #e3b448;background:#e3b448;color:#1b1f27;font:700 12.5px/1 "IBM Plex Sans KR",sans-serif;padding:6px 10px;border-radius:16px;cursor:pointer;white-space:nowrap}
+.vd .inst[hidden]{display:none!important}
+.cardov .instguide{background:#1b1f27;color:#e6e9ef;border-radius:10px;padding:18px 18px 14px;text-align:left;max-width:360px}
+.cardov .instguide h3{margin:0 0 10px;font-size:17px}
+.cardov .instguide ol{margin:0 0 14px;padding-left:20px;line-height:1.7;font-size:14.5px}
+@media (max-width:760px){.vd .inst{padding:5px 8px;font-size:11.5px}.vd .tright:has(.inst:not([hidden])) .made{display:none}}
+
+/* 오늘 방문자 */
+.vd .bright{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.vd .visn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.28);border:1px solid rgba(227,180,72,.55);color:#fff;border-radius:16px;padding:5px 12px;font-size:13px;white-space:nowrap}
+.vd .visn[hidden]{display:none!important}
+.vd .visn b{color:#e3b448}
+.vd .visn .dot{width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 0 rgba(61,220,132,.7);animation:vpulse 1.8s infinite}
+@keyframes vpulse{0%{box-shadow:0 0 0 0 rgba(61,220,132,.6)}70%{box-shadow:0 0 0 7px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
+@media (max-width:760px){.vd .bright{flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px}.vd .visn{font-size:12px;padding:4px 10px}}
 </style>
 </head><body>
-<script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = '';</script>
+<script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';</script>
 <div class="vd">
   <header class="topbar">
     <div class="brand"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2c2"/><stop offset=".5" stop-color="#e3b448"/><stop offset="1" stop-color="#9a7428"/></linearGradient></defs><circle cx="32" cy="32" r="30" fill="#a8142f"/><circle cx="32" cy="32" r="30" fill="none" stroke="url(#lg)" stroke-width="2.5"/><circle cx="32" cy="34" r="17" fill="none" stroke="url(#lg)" stroke-width="4.5"/><circle cx="32" cy="34" r="4.5" fill="url(#lg)"/><path d="M32 29.5V17.5M27.8 36.6 17.6 42M36.2 36.6 46.4 42" stroke="url(#lg)" stroke-width="4" stroke-linecap="round"/><path d="m32 4.8 1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6z" fill="url(#lg)"/></svg><div><b>CARRO D'OR</b><small>카롱도르 · 올해의 황금 자동차</small></div></div>
-    <div class="tright"><span class="made">made by <b>ktc</b></span><span class="thmwrap"><button class="thm" id="thm" type="button" role="switch" aria-checked="false" aria-label="화면 밝기 바꾸기"><span class="ti sun">☀️</span><span class="trk"><span class="knob"></span></span><span class="ti moon">🌙</span></button><span class="thmtip" id="thmtip" hidden>눈이 피곤하면 여기서 화면 밝기를 바꿀 수 있어요 👆<button type="button" id="thmtipx" aria-label="닫기">✕</button></span></span></div>
+    <div class="tright"><button class="inst" id="instBtn" type="button" hidden>📲 앱 설치</button><span class="made">made by <b>ktc</b></span><span class="thmwrap"><button class="thm" id="thm" type="button" role="switch" aria-checked="false" aria-label="화면 밝기 바꾸기"><span class="ti sun">☀️</span><span class="trk"><span class="knob"></span></span><span class="ti moon">🌙</span></button><span class="thmtip" id="thmtip" hidden>눈이 피곤하면 여기서 화면 밝기를 바꿀 수 있어요 👆<button type="button" id="thmtipx" aria-label="닫기">✕</button></span></span></div>
   </header>
   <nav class="tabs" role="tablist">
       <button class="tab" role="tab" id="t-rank" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span><b>랭킹</b><small>종합 순위</small></span></button>
@@ -604,7 +626,7 @@ html, body { margin: 0; background: #14161b; }
   </nav>
   <div class="band">
     <div class="bt"><h1>2026 시즌</h1><p>일반 승용차 <b id="nAll">253</b>종 기준 · 슈퍼카·1.5억↑ <b id="nEx">204</b>종은 논외 · 소음 · 가속 · 제동 · 공간 · 안전 · 유지비 · 중고값을 1–20 능력치로</p></div>
-    <span class="fnote" id="cnt"></span>
+    <div class="bright"><span class="visn" id="visN" hidden></span><span class="fnote" id="cnt"></span></div>
   </div>
   <button class="ftog" id="ftog" aria-expanded="false">필터 <span id="fsum">전체</span><i>▾</i></button>
   <div class="filters" id="filters">
@@ -1813,8 +1835,11 @@ html, body { margin: 0; background: #14161b; }
   function loadStats() {
     if (!STATS_URL) return;
     fetch(STATS_URL + (STATS_URL.includes('?') ? '&' : '?') + 'q=stats').then((x) => x.json()).then((j) => { STATS = j; renderStats(); }).catch(() => {});
+    if (!loadStats.t) loadStats.t = setInterval(loadStats, 300000);
   }
   function renderStats() {
+    const vn = $('#visN');
+    if (vn && STATS) { vn.hidden = false; vn.textContent = ''; vn.appendChild(el('span', 'dot')); vn.appendChild(el('b', null, '오늘 ' + fmt(Math.max(STATS.today || 0, 1)) + '명')); vn.appendChild(el('span', null, ' 방문 · 누적 ' + fmt(Math.max(STATS.total || 0, 1)) + '명')); }
     const box = $('#statbox'); if (!box || !STATS) return;
     box.textContent = ''; box.hidden = false;
     const h = box.appendChild(el('div', 'sth'));
@@ -2097,6 +2122,31 @@ html, body { margin: 0; background: #14161b; }
   { const fp = f.appendChild(el('p')); fp.appendChild(document.createTextNode('틀린 정보를 발견하셨나요? ')); const fa = fp.appendChild(el('a', null, '🛠 오류 제보하기 (' + REPORT_TO + ')')); fa.href = reportLink(null); }
   f.appendChild(el('p', null, '능력치는 재미를 위한 상대 점수입니다. 실제 구매 전에는 시승과 최신 가격표를 꼭 확인하세요.'));
   computeUpkeep(15000); scoreAll(); funAll(); fillSel(); buildWeights(); readHash(); ovrAll();
+
+  // ------------------------------------------------------------------ 앱으로 설치 (PWA)
+  (function () {
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('sw.js').catch(() => {});
+    const standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
+    if (standalone) return;
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios/i.test(navigator.userAgent);
+    const inApp = /KAKAOTALK|NAVER|Instagram|FBAN|FBAV|Line\//i.test(navigator.userAgent);
+    let deferred = null;
+    const btn = $('#instBtn');
+    const showBtn = () => { btn.hidden = false; };
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferred = e; showBtn(); });
+    if (ios || inApp) showBtn();
+    window.addEventListener('appinstalled', () => { btn.hidden = true; });
+    btn.addEventListener('click', async () => {
+      if (deferred) { deferred.prompt(); const r = await deferred.userChoice; if (r && r.outcome === 'accepted') btn.hidden = true; deferred = null; return; }
+      const ov = document.body.appendChild(el('div', 'cardov')); const bx = ov.appendChild(el('div', 'cardbox instguide'));
+      bx.appendChild(el('h3', null, '📲 카롱도르를 앱으로 설치하기'));
+      const ol = bx.appendChild(el('ol'));
+      (inApp ? ['오른쪽 위(또는 아래) ⋮ / 공유 메뉴를 누르세요', '"다른 브라우저로 열기"(사파리·크롬)를 고르세요', '열린 화면에서 이 버튼을 다시 누르면 설치할 수 있어요']
+        : ios ? ['사파리 아래쪽의 공유 버튼(□↑)을 누르세요', '메뉴를 내려 "홈 화면에 추가"를 누르세요', '오른쪽 위 "추가"를 누르면 홈 화면에 카롱도르 아이콘이 생겨요']
+        : ['크롬 오른쪽 위 ⋮ 메뉴를 누르세요', '"앱 설치" 또는 "홈 화면에 추가"를 누르세요', '설치하면 앱처럼 주소창 없이 열려요']).forEach((t) => ol.appendChild(el('li', null, t)));
+      const c = bx.appendChild(el('button', 'chip', '닫기')); c.addEventListener('click', () => ov.remove()); ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
+    });
+  })();
   window.__carroStyle = style; updAdmin(); show(cur); track('visit'); loadStats();
 })();
 </script>
