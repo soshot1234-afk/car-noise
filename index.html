@@ -655,6 +655,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .cklist li.weak .ckcat{background:#d9534f;color:#fff;border-color:#d9534f;opacity:1}
 .vd .cklist input:checked~span:last-child{text-decoration:line-through;opacity:.55}
 @media (max-width:760px){.vd .pcommute table{font-size:12.5px}.vd .pcommute th:nth-child(2),.vd .pcommute td:nth-child(2){display:none}.vd .pcommute td small{display:block}.vd .cmbig{grid-template-columns:1fr 1fr}.vd .cmbig>div:first-child{grid-column:1 / -1}.vd .sref em{display:none}.vd .tbar{grid-template-columns:1fr auto}.vd .tbar .tinfo{grid-column:1;grid-row:2}.vd .tbar .tdiff{grid-column:2}}
+.backtoast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(20,22,28,.92);color:#fff;font-size:14px;padding:10px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:.25s;z-index:1000}.backtoast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head><body>
 <script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';</script>
@@ -1449,7 +1450,7 @@ html, body { margin: 0; background: #14161b; }
         const x = s.appendChild(el('button', 'x', '✕')); x.title = '빼기'; x.addEventListener('click', () => toggleCmp(r.id));
       } else {
         const iw = s.appendChild(el('div', 'sw')); const inp = iw.appendChild(el('input')); inp.placeholder = (i + 1) + '번째 차 검색 (초성·영문 OK)'; inp.autocomplete = 'off';
-        suggestBox(inp, (r2) => toggleCmp(r2.id));
+        suggestBox(inp, (r2) => { toggleCmp(r2.id); setTimeout(() => { const nx = $('#slots .slot.empty input'); if (nx && state.cmp.length < 4) nx.focus(); }, 50); });
       }
     }
     radar($('#radar'), cars);
@@ -2412,24 +2413,38 @@ html, body { margin: 0; background: #14161b; }
   // ------------------------------------------------------------------ tabs & hash
   const TABS = [['t-rank', 'p-rank'], ['t-wiz', 'p-wiz'], ['t-prof', 'p-prof'], ['t-cmp', 'p-cmp'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
   let cur = 't-rank';
-  function show(id) { cur = id; TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); render(); writeHash(); window.scrollTo({ top: Math.min(window.scrollY, $('.tabs').offsetTop - 8) }); }
+  function show(id) { cur = id; TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); render(); writeHash(true); window.scrollTo({ top: Math.min(window.scrollY, $('.tabs').offsetTop - 8) }); }
   TABS.forEach(([t]) => $('#' + t).addEventListener('click', () => show(t)));
   function openProfile(id) { state.prof = id; show('t-prof'); }
-  function writeHash() {
+  let navPop = false;
+  function writeHash(push) {
     const p = new URLSearchParams();
     if (isAdmin()) p.set('admin', '1');
     p.set('tab', cur.slice(2));
     if (state.cmp.length) p.set('c', state.cmp.join(','));
     if (state.prof && cur === 't-prof') p.set('p', state.prof);
-    try { history.replaceState(null, '', '#' + p.toString()); } catch (e) {}
+    const nh = '#' + p.toString();
+    try { if (push && !navPop && nh !== location.hash) history.pushState({ carro: 1 }, '', nh); else history.replaceState(history.state, '', nh); } catch (e) {}
   }
   function readHash() {
     const p = new URLSearchParams(location.hash.slice(1));
     const c = (p.get('c') || '').split(',').filter((x) => byId[x]); if (c.length) state.cmp = c.slice(0, 4);
     if (p.get('p') && byId[p.get('p')]) state.prof = p.get('p');
     $('#cmpN').textContent = state.cmp.length;
-    const t = p.get('tab'); if (t && $('#t-' + t)) cur = 't-' + t;
+    const t = p.get('tab'); cur = t && $('#t-' + t) ? 't-' + t : 't-rank';
   }
+  // 휴대폰 뒤로가기: 열린 창 닫기 → 이전 탭/차로 → 첫 화면에서는 한 번 더 눌러야 나가기
+  let exitArm = 0;
+  function backToast(msg) { let t = $('#backToast'); if (!t) { t = document.body.appendChild(el('div', 'backtoast')); t.id = 'backToast'; } t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1800); }
+  window.addEventListener('popstate', (e) => {
+    const ov = document.querySelector('.cardov'); if (ov) { ov.remove(); try { history.pushState({ carro: 1 }, '', location.hash); } catch (er) {} return; }
+    if (e.state && e.state.base) { // 맨 처음 화면까지 돌아옴
+      if (Date.now() - exitArm < 2000) { history.back(); return; }
+      exitArm = Date.now(); backToast('뒤로가기를 한 번 더 누르면 나가요');
+      try { history.pushState({ carro: 1 }, '', location.hash); } catch (er) {} return;
+    }
+    navPop = true; readHash(); show(cur); navPop = false;
+  });
 
   // ------------------------------------------------------------------ filters
   function chips(attr, fn) {
@@ -2462,7 +2477,7 @@ html, body { margin: 0; background: #14161b; }
   $('#wReset').addEventListener('click', () => setWeights(DEFAULT_W));
   $$('[data-preset]').forEach((b) => b.addEventListener('click', () => setWeights(PRESETS[b.dataset.preset])));
   ['km', 'yrs', 'pG', 'pD', 'pL', 'pE'].forEach((id) => $('#' + id).addEventListener('input', () => { computeUpkeep(num($('#km').value) || 0); scoreAll(); ovrAll(); render(); }));
-  suggestBox($('#pq'), (r) => { state.prof = r.id; render(); writeHash(); });
+  suggestBox($('#pq'), (r) => { state.prof = r.id; render(); writeHash(true); });
   bindSort('tRank', 'rank'); bindSort('tFun', 'fun'); bindSort('tUsed', 'used'); bindSort('tAll', 'all');
 
 
@@ -2478,7 +2493,7 @@ html, body { margin: 0; background: #14161b; }
     if (cur === 't-how') renderHow();
     $('#cnt').textContent = `${rows.length}대 · 순위 대상 ${rows.filter((r) => !isNaN(r._ovr)).length}대`;
   }
-  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 200); });
+  let rt, lastW = window.innerWidth; window.addEventListener('resize', () => { if (window.innerWidth === lastW) return; /* 키보드가 열리며 높이만 바뀐 경우는 무시 */ const ae = document.activeElement; if (ae && /INPUT|TEXTAREA|SELECT/.test(ae.tagName)) return; lastW = window.innerWidth; clearTimeout(rt); rt = setTimeout(render, 200); });
 
   // admin
   $('#adminExport').addEventListener('click', () => {
@@ -2549,7 +2564,7 @@ html, body { margin: 0; background: #14161b; }
       const c = bx.appendChild(el('button', 'chip', '닫기')); c.addEventListener('click', () => ov.remove()); ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
     });
   })();
-  window.__carroStyle = style; updAdmin(); show(cur); track('visit'); loadStats();
+  window.__carroStyle = style; updAdmin(); navPop = true; show(cur); navPop = false; try { if (!(history.state && history.state.carro)) { history.replaceState({ base: 1 }, '', location.hash); history.pushState({ carro: 1 }, '', location.hash); } } catch (e) {} track('visit'); loadStats();
 })();
 </script>
 </body></html>
