@@ -15,13 +15,16 @@
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://upload.wikimedia.org">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<link rel="preload" href="fonts/yg-jalnan.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="theme-color" content="#0f1115">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="카스쿼드">
-<link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
 <style>/* CAR SQUAD — 엠블럼 톤: 네이비 + FM 능력치 4색 + 금색 포인트 */
 html, body { margin: 0; background: #14161b; }
 .vd {
@@ -29,8 +32,8 @@ html, body { margin: 0; background: #14161b; }
   --tx: #e8eaef; --mu: #8d93a1; --mu2: #626876;
   --club: #e3b448; --club2: #b8892a; --clubtx: #15171c; --gold: #e3b448; --sel: #3d5687;
   --a20: #45d37f; --a15: #c8d758; --a10: #e5a443; --a5: #e2554c;
-  --cond: "Barlow Condensed", "IBM Plex Sans KR", sans-serif;
-  font-family: "IBM Plex Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --cond: "Barlow Condensed", "Pretendard Variable", Pretendard, sans-serif;
+  font-family: "Pretendard Variable", Pretendard, "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
   font-size: 13.5px; line-height: 1.45; color: var(--tx); background: var(--bg);
   min-height: 100vh; font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
   display: flex; flex-direction: column;
@@ -54,7 +57,7 @@ html, body { margin: 0; background: #14161b; }
 
 /* ---- club band ---- */
 .vd .band { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; padding: 14px 16px 12px; background: linear-gradient(90deg, #121620, #1b2130 55%, #141925); border-bottom: 4px solid #45d37f; border-image: linear-gradient(90deg, #e2554c 0 25%, #e5a443 25% 50%, #c8d758 50% 75%, #45d37f 75% 100%) 1; }
-.vd .band h1 { margin: 0; font: 700 26px/1.1 "IBM Plex Sans KR", sans-serif; letter-spacing: -.01em; color: #fff; }
+.vd .band h1 { margin: 0; font: 700 26px/1.1 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: -.01em; color: #fff; }
 .vd .band p { margin: 3px 0 0; font-size: 12.5px; color: rgba(255,255,255,.78); }
 .vd .band .fnote { color: rgba(255,255,255,.8); font: 600 13px/1 var(--cond); letter-spacing: .04em; }
 
@@ -206,7 +209,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .traits li { padding: 5px 0 5px 12px; border-bottom: 1px solid var(--sep); position: relative; }
 .vd .traits li::before { content: ""; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; background: var(--sel); }
 .vd .precord { grid-column: 1 / -1; padding: 0 12px 6px; }
-.vd .precord table th { position: static; background: none; font: 500 12.5px/1.4 "IBM Plex Sans KR", sans-serif; letter-spacing: 0; text-transform: none; color: var(--mu); padding: 6px 8px; border-bottom: 1px solid var(--sep); white-space: normal; }
+.vd .precord table th { position: static; background: none; font: 500 12.5px/1.4 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; text-transform: none; color: var(--mu); padding: 6px 8px; border-bottom: 1px solid var(--sep); white-space: normal; }
 .vd .precord td.v { font-weight: 600; } .vd .precord td.src { color: var(--mu); font-size: 11.5px; }
 
 /* ---- compare ---- */
@@ -224,7 +227,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .rlegend i { display: inline-block; width: 10px; height: 10px; margin-right: 5px; vertical-align: -1px; }
 .vd #p-cmp .tw, .vd #p-how .tw { max-height: none; }
 .vd #tCmp th, .vd #tTco th, .vd table.how th { position: static; padding: 7px 8px; }
-.vd #tCmp tbody th, .vd #tCmp tr > th:first-child { color: var(--tx); font: 500 13px/1.3 "IBM Plex Sans KR", sans-serif; letter-spacing: 0; text-transform: none; background: transparent; border-bottom: 1px solid var(--sep); }
+.vd #tCmp tbody th, .vd #tCmp tr > th:first-child { color: var(--tx); font: 500 13px/1.3 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; text-transform: none; background: transparent; border-bottom: 1px solid var(--sep); }
 .vd #tCmp td small { display: block; margin-top: 2px; font-size: 11px; color: var(--mu); }
 .vd #tCmp tr.sect td { padding: 10px 8px 5px; background: var(--hd) !important; font: 700 12.5px/1 var(--cond); letter-spacing: .1em; text-transform: uppercase; color: var(--tx); }
 .vd .av.best { outline: 1px solid var(--a20); }
@@ -255,12 +258,12 @@ html, body { margin: 0; background: #14161b; }
   .vd .pd { grid-template-columns: 104px 1fr; }
   .vd input[type=search] { flex: 1 1 100%; }
 }
-.vd h2.pname { font: 700 18px/1.3 "IBM Plex Sans KR", sans-serif; letter-spacing: -.01em; text-transform: none; }
+.vd h2.pname { font: 700 18px/1.3 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: -.01em; text-transform: none; }
 .vd .tag { color: var(--mu); border-color: var(--line2); }
 .vd .tag.legend { color: #ff8a80; border-color: #6b2323; }
 /* polish */
 .vd h2 { text-transform: none; letter-spacing: .04em; }
-.vd #tCmp tr:first-child th.num, .vd #tTco tr:first-child th.num { font: 600 12.5px/1.3 "IBM Plex Sans KR", sans-serif; text-transform: none; letter-spacing: 0; color: var(--tx); text-align: center; }
+.vd #tCmp tr:first-child th.num, .vd #tTco tr:first-child th.num { font: 600 12.5px/1.3 "Pretendard Variable", Pretendard, sans-serif; text-transform: none; letter-spacing: 0; color: var(--tx); text-align: center; }
 .vd #tCmp td.num, .vd #tTco td.num { text-align: center; }
 .vd #tCmp tr > th:first-child, .vd #tTco tr > th:first-child { width: 9rem; }
 .vd .radar.small { max-width: 320px; }
@@ -317,19 +320,19 @@ html, body { margin: 0; background: #14161b; }
 /* main tabs — bigger, higher contrast, Korean-friendly */
 .vd .topbar { height: 58px; gap: 22px; }
 .vd .brand b { font-size: 19px; }
-.vd .tab { font: 600 16.5px/1 "IBM Plex Sans KR", sans-serif; letter-spacing: 0; text-transform: none; color: #b4bac6; padding: 0 18px; border-bottom-width: 3px; }
+.vd .tab { font: 600 16.5px/1 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; text-transform: none; color: #b4bac6; padding: 0 18px; border-bottom-width: 3px; }
 .vd .tab:hover { color: #fff; }
 .vd .tab[aria-selected=true] { color: #fff; font-weight: 700; background: var(--hover); box-shadow: inset 0 -3px 0 var(--club); border-bottom-color: transparent; }
 .vd .tab .badge { font-size: 12px; padding: 2px 6px; vertical-align: 2px; }
 .vd .band { padding: 16px 16px 14px; }
 .vd .band h1 { font-size: 28px; }
 .vd .band p { font-size: 13.5px; }
-.vd .flab { font: 600 12.5px/1 "IBM Plex Sans KR", sans-serif; letter-spacing: 0; text-transform: none; color: #9aa1ad; }
+.vd .flab { font: 600 12.5px/1 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; text-transform: none; color: #9aa1ad; }
 .vd .chip { font-size: 13.5px; padding: 5px 11px; }
 .vd select { font-size: 13.5px; padding: 5px 28px 5px 10px; }
-.vd h2 { font: 700 17px/1.2 "IBM Plex Sans KR", sans-serif; letter-spacing: -.01em; }
+.vd h2 { font: 700 17px/1.2 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: -.01em; }
 /* profile attributes: larger, roomier, clear toggle */
-.vd .acol h4, .vd .pside h4, .vd .precord h4 { font: 700 14px/1.2 "IBM Plex Sans KR", sans-serif; letter-spacing: 0; }
+.vd .acol h4, .vd .pside h4, .vd .precord h4 { font: 700 14px/1.2 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; }
 .vd .arow { font-size: 15.5px; padding: 7px 6px; margin: 0 -6px; }
 .vd .arow .av { font-size: 21px; min-width: 26px; }
 .vd .arow .ar { gap: 10px; }
@@ -341,7 +344,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .vsw { font-size: 13px !important; padding: 5px 12px !important; }
 .vd .pname { font-size: 20px !important; }
 .vd .bio b { font-size: 14px; }
-.vd .lbl, .vd .pval .lbl { font: 600 11.5px/1.3 "IBM Plex Sans KR", sans-serif; letter-spacing: 0; text-transform: none; }
+.vd .lbl, .vd .pval .lbl { font: 600 11.5px/1.3 "Pretendard Variable", Pretendard, sans-serif; letter-spacing: 0; text-transform: none; }
 .vd .traits { font-size: 13.5px; }
 .vd .precord table th { font-size: 13.5px; }
 @media (max-width: 760px) { .vd .topbar { height: auto; } .vd .tab { font-size: 15px; padding: 12px 13px; } .vd .band h1 { font-size: 23px; } }
@@ -351,7 +354,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .pbtns .chip { white-space: nowrap; }
 .vd .ftog { display: none; }
 @media (max-width: 760px) {
-  .vd .ftog { display: flex; align-items: center; gap: 8px; appearance: none; width: 100%; border: 0; border-bottom: 1px solid var(--line); background: var(--pn); color: var(--tx); padding: 11px 12px; font: 600 14.5px/1 "IBM Plex Sans KR", sans-serif; text-align: left; cursor: pointer; }
+  .vd .ftog { display: flex; align-items: center; gap: 8px; appearance: none; width: 100%; border: 0; border-bottom: 1px solid var(--line); background: var(--pn); color: var(--tx); padding: 11px 12px; font: 600 14.5px/1 "Pretendard Variable", Pretendard, sans-serif; text-align: left; cursor: pointer; }
   .vd .ftog span { color: var(--link); font-weight: 500; font-size: 13px; flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .vd .ftog i { font-style: normal; color: var(--mu); transition: transform .15s; }
   .vd .ftog[aria-expanded=true] i { transform: rotate(180deg); }
@@ -364,13 +367,13 @@ html, body { margin: 0; background: #14161b; }
 .vd .brand { gap: 12px; }
 .vd .brand .logo { width: 44px; height: 44px; flex: none; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
 .vd .brand b { font: 700 22px/1 var(--cond); letter-spacing: .08em; color: #fff; }
-.vd .brand small { font: 500 12.5px/1.3 "IBM Plex Sans KR", sans-serif; color: var(--gold); letter-spacing: 0; margin-top: 4px; }
+.vd .brand small { font: 500 12.5px/1.3 "Pretendard Variable", Pretendard, sans-serif; color: var(--gold); letter-spacing: 0; margin-top: 4px; }
 .vd .tabs { position: sticky; top: 0; z-index: 25; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0; background: #1b1f27; border-top: 1px solid #2a2f3a; border-bottom: 1px solid #000; overflow-x: auto; }
 .vd .tab { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 8px; min-height: 60px; border: 0; border-right: 1px solid #262b35; background: transparent; color: #d7dbe3; text-align: left; box-shadow: none; white-space: nowrap; }
 .vd .tab svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
 .vd .tab span { display: flex; flex-direction: column; gap: 3px; }
-.vd .tab b { font: 700 17px/1 "IBM Plex Sans KR", sans-serif; color: inherit; letter-spacing: -.01em; }
-.vd .tab small { font: 500 11.5px/1 "IBM Plex Sans KR", sans-serif; color: var(--mu); }
+.vd .tab b { font: 700 17px/1 "Pretendard Variable", Pretendard, sans-serif; color: inherit; letter-spacing: -.01em; }
+.vd .tab small { font: 500 11.5px/1 "Pretendard Variable", Pretendard, sans-serif; color: var(--mu); }
 .vd .tab:hover { background: #232836; color: #fff; }
 .vd .tab[aria-selected=true] { background: #0f1115; color: #fff; box-shadow: inset 0 -3px 0 var(--club); }
 .vd .tab[aria-selected=true] svg { stroke: var(--club); }
@@ -425,7 +428,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .tright { display: flex; align-items: center; gap: 12px; }
 .vd .made { font: 600 12.5px/1 var(--cond); letter-spacing: .12em; text-transform: uppercase; color: #9aa1ad; }
 .vd .made b { color: var(--gold); font-weight: 700; letter-spacing: .14em; font-size: inherit; font-family: inherit; display: inline; }
-.vd .thm { appearance: none; border: 1px solid #3a404c; background: #1f232c; color: #e6e9ef; border-radius: 18px; padding: 6px 12px; font: 600 13px/1 "IBM Plex Sans KR", sans-serif; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.vd .thm { appearance: none; border: 1px solid #3a404c; background: #1f232c; color: #e6e9ef; border-radius: 18px; padding: 6px 12px; font: 600 13px/1 "Pretendard Variable", Pretendard, sans-serif; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
 .vd .thm:hover { border-color: #5a6272; }
 @media (max-width: 760px) { .vd .made { font-size: 10.5px; letter-spacing: .06em; } .vd .tright { gap: 8px; } .vd .topbar { flex-direction: row !important; } }
 .vd .madeby { color: var(--gold); font-weight: 600; letter-spacing: .1em; }
@@ -436,12 +439,12 @@ html, body { margin: 0; background: #14161b; }
 /* videos */
 .vd .pvideo { grid-column: 1 / -1; background: var(--pn); border: 1px solid var(--line); border-radius: 3px; padding: 0 12px 12px; }
 .vd .pvideo .vhead { display: flex; justify-content: space-between; align-items: center; margin: 0 -12px 10px; padding: 7px 12px; background: var(--hd); border-bottom: 1px solid var(--line); }
-.vd .pvideo .vhead h4 { margin: 0; font: 700 14px/1.2 "IBM Plex Sans KR", sans-serif; }
+.vd .pvideo .vhead h4 { margin: 0; font: 700 14px/1.2 "Pretendard Variable", Pretendard, sans-serif; }
 .vd .vmore { font-size: 12.5px; color: var(--link); text-decoration: none; }
 .vd .vgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .vd .vcard { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
 .vd .vcard.none { justify-content: center; align-items: flex-start; border: 1px dashed var(--line2); border-radius: 3px; padding: 12px; min-height: 120px; }
-.vd .vlab { align-self: flex-start; font: 700 11.5px/1 "IBM Plex Sans KR", sans-serif; padding: 4px 7px; border-radius: 2px; color: #fff; background: #5b6372; }
+.vd .vlab { align-self: flex-start; font: 700 11.5px/1 "Pretendard Variable", Pretendard, sans-serif; padding: 4px 7px; border-radius: 2px; color: #fff; background: #5b6372; }
 .vd .vl-j { background: #2f62d0; } .vd .vl-a { background: #b3123a; } .vd .vl-o { background: #5a6b2c; }
 .vd .vthumb { appearance: none; position: relative; padding: 0; border: 0; cursor: pointer; aspect-ratio: 16/9; border-radius: 3px; overflow: hidden; background: #000; }
 .vd .vthumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .2s; }
@@ -504,7 +507,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .thm[aria-checked=true] .trk{background:#4b5bd6}
 .vd .thm[aria-checked=true] .knob{left:21px}
 .vd .thm[aria-checked=false] .sun,.vd .thm[aria-checked=true] .moon{opacity:1}
-.vd .thmtip{position:absolute;top:calc(100% + 10px);right:0;z-index:60;width:max-content;max-width:230px;background:#e3b448;color:#1b1f27;font:600 13px/1.45 "IBM Plex Sans KR",sans-serif;padding:9px 30px 9px 12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.35);animation:thmpop .35s ease-out}
+.vd .thmtip{position:absolute;top:calc(100% + 10px);right:0;z-index:60;width:max-content;max-width:230px;background:#e3b448;color:#1b1f27;font:600 13px/1.45 "Pretendard Variable", Pretendard,sans-serif;padding:9px 30px 9px 12px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.35);animation:thmpop .35s ease-out}
 .vd .thmtip::before{content:"";position:absolute;top:-6px;right:26px;border:6px solid transparent;border-top:0;border-bottom-color:#e3b448}
 .vd .thmtip button{position:absolute;top:5px;right:6px;border:0;background:none;color:#1b1f27;font-size:13px;cursor:pointer;padding:2px 4px}
 .vd .thmtip[hidden]{display:none!important}
@@ -567,10 +570,10 @@ html, body { margin: 0; background: #14161b; }
 .vd .pvalue .vsum{margin:0;font-size:14.5px}.vd .pvalue .vsum b{color:#e3b448;font-size:17px}
 .vd svg.vchart{width:100%;max-width:720px;height:auto}
 .vd svg.vchart .g{stroke:var(--line);stroke-width:1}
-.vd svg.vchart .tx{fill:var(--mu,#8a92a3);font-size:11px;font-family:"IBM Plex Sans KR",sans-serif}
+.vd svg.vchart .tx{fill:var(--mu,#8a92a3);font-size:11px;font-family:"Pretendard Variable", Pretendard,sans-serif}
 .vd svg.vchart .ln{fill:none;stroke:#e3b448;stroke-width:3}
 .vd svg.vchart .k{fill:#e3b448}.vd svg.vchart .k3{fill:#45d37f;stroke:#e3b448;stroke-width:2}
-.vd svg.vchart .kl{fill:var(--tx);font-size:12px;font-weight:700;font-family:"IBM Plex Sans KR",sans-serif}
+.vd svg.vchart .kl{fill:var(--tx);font-size:12px;font-weight:700;font-family:"Pretendard Variable", Pretendard,sans-serif}
 .vd svg.vchart .pe{fill:#4b5bd6;opacity:.75}.vd svg.vchart .ph{fill:#3ddc84;opacity:.8}
 .vd .pmoney select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line2);background:var(--pn);color:var(--tx);border-radius:3px}
 .vd .pmoney label{display:flex;flex-direction:column;gap:3px;font-size:12px}.vd .pmoney label span{opacity:.7}
@@ -594,7 +597,7 @@ html, body { margin: 0; background: #14161b; }
 .vd #how{overflow-x:auto;-webkit-overflow-scrolling:touch}
 
 /* 앱 설치 */
-.vd .inst{appearance:none;border:1px solid #e3b448;background:#e3b448;color:#1b1f27;font:700 12.5px/1 "IBM Plex Sans KR",sans-serif;padding:6px 10px;border-radius:16px;cursor:pointer;white-space:nowrap}
+.vd .inst{appearance:none;border:1px solid #e3b448;background:#e3b448;color:#1b1f27;font:700 12.5px/1 "Pretendard Variable", Pretendard,sans-serif;padding:6px 10px;border-radius:16px;cursor:pointer;white-space:nowrap}
 .vd .inst[hidden]{display:none!important}
 .cardov .instguide{background:#1b1f27;color:#e6e9ef;border-radius:10px;padding:18px 18px 14px;text-align:left;max-width:360px}
 .cardov .instguide h3{margin:0 0 10px;font-size:17px}
@@ -707,6 +710,15 @@ html, body { margin: 0; background: #14161b; }
 .vd button.fav { appearance: none; border: 0; background: none; color: var(--mu2); font-size: 17px; line-height: 1; padding: 2px 5px; margin-left: 2px; cursor: pointer; vertical-align: -1px; }
 .vd button.fav:hover { color: #e2554c; }
 .vd button.fav.on { color: #e2554c; }
+
+/* ===== 글씨체: 제목·로고 = 여기어때 잘난체(㈜지씨컴퍼니), 본문 = 프리텐다드, 숫자 = Barlow Condensed ===== */
+@font-face { font-family: "Jalnan"; src: url("fonts/yg-jalnan.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+.vd .brand b, .vd .band h1, .vd h2, .vd h2.pname, .vd .sqhead h2, .vd .pcard .pname { font-family: "Jalnan", "Pretendard Variable", Pretendard, sans-serif; font-weight: 400; letter-spacing: 0; }
+.vd .brand b { font-size: 23px; letter-spacing: .02em; }
+.vd .band h1 { font-size: 26px; }
+.vd .ch h2 { font-size: 16.5px; }
+.vd .sqhead h2 { font-size: 22px; }
+@media (max-width: 760px) { .vd .brand b { font-size: 20px; } .vd .band h1 { font-size: 22px; } }
 .backtoast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(20,22,28,.92);color:#fff;font-size:14px;padding:10px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:.25s;z-index:1000}.backtoast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head><body>
@@ -2381,8 +2393,8 @@ html, body { margin: 0; background: #14161b; }
   async function makeCard(r) {
     const W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
     const g = cv.getContext('2d');
-    const F = (w, s) => `${w} ${s}px "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif`;
-    const C = (w, s) => `${w} ${s}px "Barlow Condensed", "IBM Plex Sans KR", sans-serif`;
+    const F = (w, s) => `${w} ${s}px "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif`;
+    const C = (w, s) => `${w} ${s}px "Barlow Condensed", "Pretendard Variable", Pretendard, sans-serif`;
     try { await document.fonts.ready; } catch (e) {}
     const grd = g.createLinearGradient(0, 0, 0, H); grd.addColorStop(0, '#1b1f27'); grd.addColorStop(1, '#0f1116'); g.fillStyle = grd; g.fillRect(0, 0, W, H);
     // header
@@ -2743,6 +2755,7 @@ html, body { margin: 0; background: #14161b; }
   const f = $('#foot');
   f.appendChild(el('p', null, '감가 예측: 엔카 등록 매물 연식별 시세 + 헤이딜러 판매 차량(약 2,900대) 연차별 시세(2026.11). 리콜: 한국교통안전공단(공공데이터포털). 자료 출처 — 소음: 오토뷰 로드테스트·시승기(80km/h 실측), Car Confections(55mph)·Car and Driver(70mph)를 오토뷰 기준으로 환산. 제로백·제동거리: 오토뷰 실측(없으면 제로백은 제조사 발표). 제원·가격·연비: 제조사 가격표·제원, 카눈, 카동, 겟차, 카이즈유(2026.10). 안전: KNCAP·Euro NCAP·IIHS. 중고 시세: 엔카(2026.10.26). 사진: 위키미디어 공용(각 사진에 촬영자·라이선스 표기).'));
   f.appendChild(el('p', 'madeby', 'made by ktc'));
+  { const fp = f.appendChild(el('p')); fp.appendChild(document.createTextNode('글꼴: 여기어때 잘난체(㈜지씨컴퍼니 제공, ')); const fa = fp.appendChild(el('a', null, '라이선스')); fa.href = 'fonts/JALNAN-LICENSE.txt'; fp.appendChild(document.createTextNode(') · 프리텐다드(OFL) · Barlow Condensed(OFL)')); }
   { const fp = f.appendChild(el('p')); fp.appendChild(document.createTextNode('틀린 정보를 발견하셨나요? ')); const fa = fp.appendChild(el('a', null, '🛠 오류 제보하기 (' + REPORT_TO + ')')); fa.href = reportLink(null); }
   f.appendChild(el('p', null, '능력치는 재미를 위한 상대 점수입니다. 실제 구매 전에는 시승과 최신 가격표를 꼭 확인하세요.'));
   computeUpkeep(15000); scoreAll(); funAll(); fillSel(); buildWeights(); readHash(); ovrAll();
