@@ -1,7 +1,7 @@
 {
-  "name": "CARRO D'OR · 카롱도르",
-  "short_name": "카롱도르",
-  "description": "국내 판매 승용차를 축구게임 선수처럼 1~20 능력치로 비교",
+  "name": "카스쿼드 · CAR SQUAD",
+  "short_name": "카스쿼드",
+  "description": "국내 승용차를 축구게임 선수처럼 1~20 능력치로 비교하고, 찜한 차로 내 스쿼드 짜기",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -10,8 +10,23 @@
   "theme_color": "#0f1115",
   "lang": "ko",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

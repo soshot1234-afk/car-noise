@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="ko"><head>
-<script>/* 예전 깃허브 주소로 오면 새 주소로 이동 */(function(){var h=location.hostname;if(/github\.io$/.test(h)){location.replace('https://carrodor.pages.dev'+location.pathname.replace(/^\/car-noise/,'')+location.search+location.hash);}})();</script>
-<link rel="canonical" href="https://carrodor.pages.dev/">
+<script>/* 예전 주소(깃허브·carrodor)로 오면 새 주소로 이동 */(function(){var h=location.hostname,p=location.pathname;if(/github\.io$/.test(h)){p=p.replace(/^\/car-noise/,'');}else if(!/(^|\.)carrodor\.pages\.dev$/.test(h)){return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>
+<link rel="canonical" href="https://carsquad.pages.dev/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CARRO D'OR · 카롱도르</title>
+<title>카스쿼드 · CAR SQUAD — 차를 선수처럼 비교하고 내 스쿼드 짜기</title>
 <meta name="description" content="국내 승용차 760여 종(이전 세대 포함)을 축구게임 선수처럼 1~20 능력치로 비교 — 소음·제로백·안전·감가·리콜까지">
-<meta property="og:title" content="CARRO D'OR · 카롱도르 — 올해의 황금 자동차">
+<meta property="og:title" content="카스쿼드 CAR SQUAD — 차를 선수처럼 비교하고 내 스쿼드 짜기">
 <meta property="og:description" content="국내 승용차 760여 종(이전 세대 포함)을 축구게임 선수처럼 1~20 능력치로 비교 — 소음·제로백·안전·감가·리콜까지">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://carrodor.pages.dev/">
-<meta property="og:site_name" content="카롱도르">
-<meta property="og:image" content="https://carrodor.pages.dev/og.png">
+<meta property="og:url" content="https://carsquad.pages.dev/">
+<meta property="og:site_name" content="카스쿼드">
+<meta property="og:image" content="https://carsquad.pages.dev/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://upload.wikimedia.org">
@@ -20,14 +20,14 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="카롱도르">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2230%22 fill=%22%23a8142f%22/%3E%3Ccircle cx=%2232%22 cy=%2234%22 r=%2217%22 fill=%22none%22 stroke=%22%23e3b448%22 stroke-width=%225%22/%3E%3Cpath d=%22M32 30V17M28 37 17 42M36 37 47 42%22 stroke=%22%23e3b448%22 stroke-width=%224.5%22 stroke-linecap=%22round%22/%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>/* CARRO D'OR — Football Manager skin */
+<meta name="apple-mobile-web-app-title" content="카스쿼드">
+<link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>/* CAR SQUAD — 엠블럼 톤: 네이비 + FM 능력치 4색 + 금색 포인트 */
 html, body { margin: 0; background: #14161b; }
 .vd {
   --bg: #14161b; --pn: #1d2027; --pn2: #242832; --hd: #2c313c; --row: #1a1d23; --line: #2f343f; --line2: #3b414e;
   --tx: #e8eaef; --mu: #8d93a1; --mu2: #626876;
-  --club: #a8142f; --club2: #7c0e22; --gold: #e3b448; --sel: #3d6fd6;
+  --club: #e3b448; --club2: #b8892a; --clubtx: #15171c; --gold: #e3b448; --sel: #3d5687;
   --a20: #45d37f; --a15: #c8d758; --a10: #e5a443; --a5: #e2554c;
   --cond: "Barlow Condensed", "IBM Plex Sans KR", sans-serif;
   font-family: "IBM Plex Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
@@ -43,17 +43,17 @@ html, body { margin: 0; background: #14161b; }
 /* ---- top bar (FM header) ---- */
 .vd .topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: stretch; gap: 18px; background: #0f1115; border-bottom: 1px solid #000; padding: 0 16px; height: 48px; }
 .vd .brand { display: flex; align-items: center; gap: 10px; flex: none; }
-.vd .brand .mark { width: 28px; height: 28px; display: grid; place-items: center; background: var(--club); color: #fff; font: 700 18px/1 var(--cond); border-radius: 3px; }
+.vd .brand .mark { width: 28px; height: 28px; display: grid; place-items: center; background: var(--club); color: var(--clubtx); font: 700 18px/1 var(--cond); border-radius: 3px; }
 .vd .brand b { display: block; font: 700 17px/1 var(--cond); letter-spacing: .06em; }
 .vd .brand small { display: block; font-size: 10.5px; color: var(--mu); letter-spacing: .04em; margin-top: 2px; }
 .vd .tabs { display: flex; align-items: stretch; overflow-x: auto; scrollbar-width: none; }
 .vd .tab { appearance: none; background: none; border: 0; border-bottom: 3px solid transparent; padding: 0 14px; font: 600 15px/1 var(--cond); letter-spacing: .05em; color: var(--mu); cursor: pointer; white-space: nowrap; text-transform: uppercase; }
 .vd .tab:hover { color: var(--tx); background: var(--hover); }
 .vd .tab[aria-selected=true] { color: #fff; border-bottom-color: var(--club); background: var(--hover); }
-.vd .tab .badge { display: inline-block; min-width: 16px; padding: 1px 4px; margin-left: 4px; background: var(--club); color: #fff; font: 700 11px/1.2 var(--cond); border-radius: 2px; text-align: center; }
+.vd .tab .badge { display: inline-block; min-width: 16px; padding: 1px 4px; margin-left: 4px; background: var(--club); color: var(--clubtx); font: 700 11px/1.2 var(--cond); border-radius: 2px; text-align: center; }
 
 /* ---- club band ---- */
-.vd .band { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; padding: 14px 16px 12px; background: linear-gradient(90deg, var(--club2), var(--club) 40%, #5d0c1c); border-bottom: 1px solid #000; }
+.vd .band { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; padding: 14px 16px 12px; background: linear-gradient(90deg, #121620, #1b2130 55%, #141925); border-bottom: 4px solid #45d37f; border-image: linear-gradient(90deg, #e2554c 0 25%, #e5a443 25% 50%, #c8d758 50% 75%, #45d37f 75% 100%) 1; }
 .vd .band h1 { margin: 0; font: 700 26px/1.1 "IBM Plex Sans KR", sans-serif; letter-spacing: -.01em; color: #fff; }
 .vd .band p { margin: 3px 0 0; font-size: 12.5px; color: rgba(255,255,255,.78); }
 .vd .band .fnote { color: rgba(255,255,255,.8); font: 600 13px/1 var(--cond); letter-spacing: .04em; }
@@ -66,7 +66,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .seg .chip:nth-of-type(1), .vd .frow .chip:first-of-type { border-radius: 3px 0 0 3px; }
 .vd .seg .chip:last-child, .vd .frow .chip:last-of-type { border-radius: 0 3px 3px 0; }
 .vd .chip:hover { color: var(--tx); background: var(--hd); }
-.vd .chip[aria-pressed=true] { background: var(--sel); border-color: var(--sel); color: #fff; position: relative; z-index: 1; }
+.vd .chip[aria-pressed=true] { background: var(--sel); border-color: var(--sel); color: #fff; position: relative; z-index: 1; box-shadow: inset 0 -3px 0 #e3b448; }
 .vd .chip.sm { padding: 3px 9px; font-size: 12px; border-radius: 3px; margin: 0; }
 .vd select { font: inherit; font-size: 12.5px; padding: 4px 26px 4px 9px; border: 1px solid var(--line2); border-radius: 3px; background: var(--pn2); color: var(--tx); appearance: none; cursor: pointer;
   background-image: linear-gradient(45deg, transparent 50%, var(--mu) 50%), linear-gradient(135deg, var(--mu) 50%, transparent 50%); background-position: calc(100% - 13px) 52%, calc(100% - 9px) 52%; background-size: 4px 4px; background-repeat: no-repeat; }
@@ -174,7 +174,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .pcard, .vd .pattrs, .vd .pside, .vd .precord { background: var(--pn); border: 1px solid var(--line); border-radius: 3px; min-width: 0; }
 .vd .pcard { display: flex; flex-direction: column; gap: 0; overflow: hidden; }
 .vd .pcard > * { padding-left: 12px; padding-right: 12px; }
-.vd .pcard .pos { padding-top: 8px; padding-bottom: 8px; background: var(--club); color: #fff; font: 700 13px/1 var(--cond); letter-spacing: .12em; text-transform: uppercase; }
+.vd .pcard .pos { padding-top: 8px; padding-bottom: 8px; background: #1a1e26; color: #e3b448; border-bottom: 3px solid #e3b448; font: 700 13px/1 var(--cond); letter-spacing: .12em; text-transform: uppercase; }
 .vd .pcard .ph.big { margin: 0; padding: 0; border: 0; border-radius: 0; aspect-ratio: 4/3; }
 .vd .pname { margin: 10px 0 2px; font-size: 18px; font-weight: 700; line-height: 1.25; }
 .vd .pbadges:empty { display: none; }
@@ -365,30 +365,31 @@ html, body { margin: 0; background: #14161b; }
 .vd .brand .logo { width: 44px; height: 44px; flex: none; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
 .vd .brand b { font: 700 22px/1 var(--cond); letter-spacing: .08em; color: #fff; }
 .vd .brand small { font: 500 12.5px/1.3 "IBM Plex Sans KR", sans-serif; color: var(--gold); letter-spacing: 0; margin-top: 4px; }
-.vd .tabs { position: sticky; top: 0; z-index: 25; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0; background: #1b1f27; border-top: 1px solid #2a2f3a; border-bottom: 1px solid #000; overflow-x: auto; }
+.vd .tabs { position: sticky; top: 0; z-index: 25; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0; background: #1b1f27; border-top: 1px solid #2a2f3a; border-bottom: 1px solid #000; overflow-x: auto; }
 .vd .tab { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 8px; min-height: 60px; border: 0; border-right: 1px solid #262b35; background: transparent; color: #d7dbe3; text-align: left; box-shadow: none; white-space: nowrap; }
 .vd .tab svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
 .vd .tab span { display: flex; flex-direction: column; gap: 3px; }
 .vd .tab b { font: 700 17px/1 "IBM Plex Sans KR", sans-serif; color: inherit; letter-spacing: -.01em; }
 .vd .tab small { font: 500 11.5px/1 "IBM Plex Sans KR", sans-serif; color: var(--mu); }
 .vd .tab:hover { background: #232836; color: #fff; }
-.vd .tab[aria-selected=true] { background: var(--club); color: #fff; box-shadow: none; }
+.vd .tab[aria-selected=true] { background: #0f1115; color: #fff; box-shadow: inset 0 -3px 0 var(--club); }
+.vd .tab[aria-selected=true] svg { stroke: var(--club); }
 .vd .tab[aria-selected=true] small { color: rgba(255,255,255,.8); }
 .vd .tab[aria-selected=true] svg { opacity: 1; }
-.vd .tab .badge { font: 700 12px/1 var(--cond); font-style: normal; background: #fff; color: var(--club); border-radius: 9px; padding: 2px 6px; margin-left: 6px; vertical-align: 2px; }
-.vd .tab:not([aria-selected=true]) .badge { background: var(--club); color: #fff; }
+.vd .tab .badge { font: 700 12px/1 var(--cond); font-style: normal; background: var(--club); color: var(--clubtx); border-radius: 9px; padding: 2px 6px; margin-left: 6px; vertical-align: 2px; }
+.vd .tab:not([aria-selected=true]) .badge { background: var(--club); color: var(--clubtx); }
 .vd .band { padding: 12px 16px 10px; }
 .vd .band h1 { font-size: 22px; }
 @media (max-width: 1100px) { .vd .tab small { display: none; } .vd .tab { min-height: 52px; } }
 @media (max-width: 760px) {
   .vd .topbar { padding: 8px 12px; } .vd .brand .logo { width: 36px; height: 36px; } .vd .brand b { font-size: 19px; }
-  .vd .tabs { grid-template-columns: repeat(8, auto); }
+  .vd .tabs { grid-template-columns: repeat(9, auto); }
   .vd .tab { flex-direction: column; gap: 4px; min-height: 58px; padding: 8px 12px; }
   .vd .tab svg { width: 20px; height: 20px; }
   .vd .tab b { font-size: 13.5px; }
 }
 @media (max-width: 760px) {
-  .vd .tabs { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .vd .tabs { grid-template-columns: repeat(9, minmax(56px, 1fr)); }
   .vd .tab { padding: 8px 2px; border-right: 0; }
   .vd .tab b { font-size: 12px; letter-spacing: -.03em; }
   .vd .tab .badge { position: absolute; margin: -30px 0 0 22px; font-size: 10px; padding: 1px 4px; }
@@ -396,12 +397,12 @@ html, body { margin: 0; background: #14161b; }
 @media (max-width: 760px) { .vd .tab { position: relative; } .vd .tab .badge { position: absolute; top: 5px; left: 50%; margin: 0 0 0 6px; } }
 
 /* ===== themes ===== */
-.vd { --bg: #20232b; --pn: #2a2e38; --pn2: #323743; --hd: #383e4b; --row: #262a33; --line: #3b414d; --line2: #4a5160; --cell: #1f2229; --deep: #181a20;
-  --sep: #343944; --hover: #343a48; --open: #2e3a52; --hintbg: #24324f; --tx: #eceef2; --mu: #a6acb8; --mu2: #7d8492; --hi: #ffffff; --link: #9dbbff;
-  --gold: #e8bd55; --a20: #4cd98a; --a15: #cfdc63; --a10: #eca94c; --a5: #ee6a62; --sel: #4677e0; background: var(--bg); }
+.vd { --bg: #141821; --pn: #1c212c; --pn2: #232936; --hd: #2a3140; --row: #191e28; --line: #2f3746; --line2: #3e4757; --cell: #161a23; --deep: #10131a;
+  --sep: #2a313e; --hover: #2a3242; --open: #24324c; --hintbg: #24324f; --tx: #eceef2; --mu: #a6acb8; --mu2: #7d8492; --hi: #ffffff; --link: #9dbbff;
+  --gold: #e8bd55; --a20: #4cd98a; --a15: #cfdc63; --a10: #eca94c; --a5: #ee6a62; --sel: #3d5687; background: var(--bg); }
 .vd[data-theme=light] { --bg: #eceef2; --pn: #ffffff; --pn2: #f5f6f8; --hd: #e4e7ec; --row: #f8f9fb; --line: #dce0e6; --line2: #c6ccd5; --cell: #eef1f5; --deep: #ffffff;
   --sep: #e8ebef; --hover: #e9effc; --open: #e5edfd; --hintbg: #e8f0ff; --tx: #1c2028; --mu: #596170; --mu2: #8a919d; --hi: #10131a; --link: #2a59cc;
-  --gold: #9c7313; --a20: #0f8f47; --a15: #6f8400; --a10: #c26600; --a5: #cc2f28; --sel: #2f62d0; }
+  --gold: #9c7313; --a20: #0f8f47; --a15: #6f8400; --a10: #c26600; --a5: #cc2f28; --sel: #1f2a44; }
 .vd[data-theme=light] .av, .vd[data-theme=light] .ac { background: var(--cell); }
 .vd[data-theme=light] .ph .nophoto { background: repeating-linear-gradient(135deg, #e6e9ee 0 8px, #eef0f3 8px 16px); color: #9aa1ad; }
 .vd[data-theme=light] .ph { background: #e6e9ee; }
@@ -415,8 +416,8 @@ html, body { margin: 0; background: #14161b; }
 .vd[data-theme=light] .pside .style { color: #9c7313; }
 .vd[data-theme=light] .admin { background: #fff1f2; }
 /* header stays dark in both themes */
-.vd .topbar { background: #14161c; }
-.vd .tabs { background: #1d2029; border-top-color: #2c313c; }
+.vd .topbar { background: #0f1115; }
+.vd .tabs { background: #171b24; border-top-color: #262c38; }
 .vd .tab { border-right-color: #2a2f39; color: #dde1e8; }
 .vd .tab small { color: #9aa1ad; }
 .vd .tab:hover { background: #272c38; }
@@ -428,7 +429,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .thm:hover { border-color: #5a6272; }
 @media (max-width: 760px) { .vd .made { font-size: 10.5px; letter-spacing: .06em; } .vd .tright { gap: 8px; } .vd .topbar { flex-direction: row !important; } }
 .vd .madeby { color: var(--gold); font-weight: 600; letter-spacing: .1em; }
-.vd .tab[aria-selected=true]:hover { background: var(--club); }
+.vd .tab[aria-selected=true]:hover { background: #0f1115; }
 .vd .pside .style { margin-bottom: 4px !important; font-size: 16px; }
 .vd .stdesc { margin: 0 0 12px; font-size: 12.5px; color: var(--mu); line-height: 1.5; }
 
@@ -568,7 +569,7 @@ html, body { margin: 0; background: #14161b; }
 .vd svg.vchart .g{stroke:var(--line);stroke-width:1}
 .vd svg.vchart .tx{fill:var(--mu,#8a92a3);font-size:11px;font-family:"IBM Plex Sans KR",sans-serif}
 .vd svg.vchart .ln{fill:none;stroke:#e3b448;stroke-width:3}
-.vd svg.vchart .k{fill:#e3b448}.vd svg.vchart .k3{fill:#a8142f;stroke:#e3b448;stroke-width:2}
+.vd svg.vchart .k{fill:#e3b448}.vd svg.vchart .k3{fill:#45d37f;stroke:#e3b448;stroke-width:2}
 .vd svg.vchart .kl{fill:var(--tx);font-size:12px;font-weight:700;font-family:"IBM Plex Sans KR",sans-serif}
 .vd svg.vchart .pe{fill:#4b5bd6;opacity:.75}.vd svg.vchart .ph{fill:#3ddc84;opacity:.8}
 .vd .pmoney select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line2);background:var(--pn);color:var(--tx);border-radius:3px}
@@ -657,13 +658,62 @@ html, body { margin: 0; background: #14161b; }
 .vd .cklist li.weak .ckcat{background:#d9534f;color:#fff;border-color:#d9534f;opacity:1}
 .vd .cklist input:checked~span:last-child{text-decoration:line-through;opacity:.55}
 @media (max-width:760px){.vd .pcommute table{font-size:12.5px}.vd .pcommute th:nth-child(2),.vd .pcommute td:nth-child(2){display:none}.vd .pcommute td small{display:block}.vd .cmbig{grid-template-columns:1fr 1fr}.vd .cmbig>div:first-child{grid-column:1 / -1}.vd .sref em{display:none}.vd .tbar{grid-template-columns:1fr auto}.vd .tbar .tinfo{grid-column:1;grid-row:2}.vd .tbar .tdiff{grid-column:2}}
+
+/* ===== 내 스쿼드 ===== */
+.vd #p-sq { padding: 0 0 24px; }
+.vd .sqhead { padding: 14px 16px 4px; }
+.vd .sqhead h2 { margin: 0 0 4px; }
+.vd .sqhead p { margin: 0; font-size: 13.5px; color: var(--mu); line-height: 1.55; }
+.vd #squad { padding: 10px 16px 0; }
+.vd .sqtop { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.vd .sqtop .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.vd .sqstat { display: flex; gap: 20px; flex-wrap: wrap; }
+.vd .sqstat div { display: flex; flex-direction: column; gap: 3px; }
+.vd .sqstat b { font: 700 22px/1 var(--cond); color: var(--hi); }
+.vd .sqstat div:first-child b { color: var(--gold); font-size: 30px; }
+.vd .sqacts { display: flex; gap: 6px; flex-wrap: wrap; }
+.vd .sqmain { display: grid; grid-template-columns: minmax(0, 540px) minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (max-width: 900px) { .vd .sqmain { grid-template-columns: minmax(0, 1fr); } }
+.vd .sqboard { position: relative; aspect-ratio: 4 / 5; border-radius: 12px; overflow: hidden; border: 1px solid #000; box-shadow: inset 0 0 0 3px rgba(0,0,0,.25); max-width: 540px; width: 100%; }
+.vd .sqboard.pitch, .vd .sqboard.diamond { background: repeating-linear-gradient(180deg, #173f2e 0 10%, #1b4734 10% 20%); }
+.vd .sqboard.court { background: repeating-linear-gradient(90deg, #3a2a1d 0 7%, #423022 7% 14%); }
+.vd .sqboard .field { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vd .sqs { position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; gap: 3px; width: 96px; padding: 4px 2px; border: 0; background: none; color: #fff; cursor: pointer; border-radius: 8px; }
+.vd .sqs:hover { background: rgba(255,255,255,.1); }
+.vd .sqs.sel { background: rgba(227,180,72,.18); outline: 2px solid #e3b448; }
+.vd .sqs .dot { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; font: 700 19px/1 var(--cond); background: #0f1115; color: #fff; border: 2px solid rgba(255,255,255,.9); box-shadow: 0 2px 6px rgba(0,0,0,.45); }
+.vd .sqs.empty .dot { background: rgba(15,17,21,.45); border-style: dashed; color: rgba(255,255,255,.85); font-size: 24px; }
+.vd .sqs .dot.c-hi { background: #45d37f; color: #0f1115; }
+.vd .sqs .dot.c-md { background: #c8d758; color: #0f1115; }
+.vd .sqs .dot.c-lo { background: #e5a443; color: #0f1115; }
+.vd .sqs .dot.c-bad { background: #e2554c; color: #fff; }
+.vd .sqs b { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 600; line-height: 1.25; background: rgba(15,17,21,.8); padding: 2px 6px; border-radius: 4px; }
+.vd .sqs small { font-size: 10.5px; color: rgba(255,255,255,.8); line-height: 1; text-shadow: 0 1px 2px #000; }
+@media (max-width: 520px) { .vd .sqs { width: 72px; } .vd .sqs .dot { width: 34px; height: 34px; font-size: 16px; } .vd .sqs b { font-size: 10.5px; padding: 1px 4px; } .vd .sqs small { display: none; } }
+.vd .sqside { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.vd .sqside .card { margin: 0; }
+.vd .sqside .note { margin: 8px 12px 10px; font-size: 13px; color: var(--mu); line-height: 1.55; }
+.vd .sqlist { display: flex; flex-direction: column; max-height: 440px; overflow: auto; }
+.vd .sqit { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 0; border-top: 1px solid var(--sep); background: none; text-align: left; width: 100%; color: var(--tx); font: inherit; }
+.vd button.sqit { cursor: pointer; }
+.vd button.sqit:hover { background: var(--hover); }
+.vd .sqit.on { background: var(--open); }
+.vd .sqit .av { min-width: 34px; text-align: center; font: 700 18px/1 var(--cond); }
+.vd .sqit .nm2 { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.vd .sqit .nm2 b, .vd .sqit .nm2 .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; text-align: left; }
+.vd .sqit small { font-size: 12px; color: var(--mu); }
+.vd .sqsearch { padding: 10px 12px 12px; border-top: 1px solid var(--sep); }
+.vd .sqsearch input { width: 100%; }
+.vd button.fav { appearance: none; border: 0; background: none; color: var(--mu2); font-size: 17px; line-height: 1; padding: 2px 5px; margin-left: 2px; cursor: pointer; vertical-align: -1px; }
+.vd button.fav:hover { color: #e2554c; }
+.vd button.fav.on { color: #e2554c; }
 .backtoast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(20,22,28,.92);color:#fff;font-size:14px;padding:10px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:.25s;z-index:1000}.backtoast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head><body>
 <script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';</script>
 <div class="vd">
   <header class="topbar">
-    <div class="brand"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2c2"/><stop offset=".5" stop-color="#e3b448"/><stop offset="1" stop-color="#9a7428"/></linearGradient></defs><circle cx="32" cy="32" r="30" fill="#a8142f"/><circle cx="32" cy="32" r="30" fill="none" stroke="url(#lg)" stroke-width="2.5"/><circle cx="32" cy="34" r="17" fill="none" stroke="url(#lg)" stroke-width="4.5"/><circle cx="32" cy="34" r="4.5" fill="url(#lg)"/><path d="M32 29.5V17.5M27.8 36.6 17.6 42M36.2 36.6 46.4 42" stroke="url(#lg)" stroke-width="4" stroke-linecap="round"/><path d="m32 4.8 1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6z" fill="url(#lg)"/></svg><div><b>CARRO D'OR</b><small>카롱도르 · 올해의 황금 자동차</small></div></div>
+    <div class="brand"><svg class="logo" viewBox="0 0 200 200" aria-hidden="true"><g fill="#e2554c"><circle cx="149.5" cy="149.5" r="13"/><circle cx="121.6" cy="166.6" r="13"/><circle cx="89.1" cy="169.1" r="13"/></g><g fill="#e5a443"><circle cx="58.9" cy="156.6" r="13"/><circle cx="37.6" cy="131.8" r="13"/><circle cx="30" cy="100" r="13"/></g><g fill="#c8d758"><circle cx="37.6" cy="68.2" r="13"/><circle cx="58.9" cy="43.4" r="13"/><circle cx="89.1" cy="30.9" r="13"/></g><g fill="#45d37f"><circle cx="121.6" cy="33.4" r="13"/><circle cx="149.5" cy="50.5" r="13"/></g><polygon points="100,50 108,100 100,117 92,100" fill="#f4efe2" transform="rotate(18 100 100)"/><circle cx="100" cy="100" r="15" fill="#e3b448"/><circle cx="100" cy="100" r="5" fill="#0f1115"/></svg><div><b>CAR SQUAD</b><small>카스쿼드 · 차를 선수처럼, 내 팀처럼</small></div></div>
     <div class="tright"><button class="inst" id="instBtn" type="button" hidden>📲 앱 설치</button><span class="made">made by <b>ktc</b></span><span class="thmwrap"><button class="thm" id="thm" type="button" role="switch" aria-checked="false" aria-label="화면 밝기 바꾸기"><span class="ti sun">☀️</span><span class="trk"><span class="knob"></span></span><span class="ti moon">🌙</span></button><span class="thmtip" id="thmtip" hidden>눈이 피곤하면 여기서 화면 밝기를 바꿀 수 있어요 👆<button type="button" id="thmtipx" aria-label="닫기">✕</button></span></span></div>
   </header>
   <nav class="tabs" role="tablist">
@@ -671,6 +721,7 @@ html, body { margin: 0; background: #14161b; }
       <button class="tab" role="tab" id="t-wiz" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></svg><span><b>추천</b><small>5문항 영입 상담</small></span></button>
       <button class="tab" role="tab" id="t-prof" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span><b>선수</b><small>차 한 대 자세히</small></span></button>
       <button class="tab" role="tab" id="t-cmp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11M11 3l4 4-4 4M20 17H9M13 13l-4 4 4 4"/></svg><span><b>비교 <em class="badge" id="cmpN">0</em></b><small>최대 4대 맞대결</small></span></button>
+      <button class="tab" role="tab" id="t-sq" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3.5 6l2 4.5L8 9.5V21h8V9.5l2.5 1 2-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3Z"/></svg><span><b>스쿼드 <em class="badge" id="sqN">0</em></b><small>찜한 차로 팀 짜기</small></span></button>
       <button class="tab" role="tab" id="t-fun" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9Z"/></svg><span><b>펀카</b><small>슈퍼카~핫해치</small></span></button>
       <button class="tab" role="tab" id="t-used" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span><b>이적시장</b><small>엔카 중고 시세</small></span></button>
       <button class="tab" role="tab" id="t-all" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg><span><b>스카우트</b><small>전체 명단</small></span></button>
@@ -808,6 +859,12 @@ html, body { margin: 0; background: #14161b; }
       <th><button data-k="_ovr">OVR</button></th>
       <th></th>
     </tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <!-- 내 스쿼드 -->
+  <section id="p-sq" hidden>
+    <div class="sqhead"><h2>내 스쿼드</h2><p>찜한 차(♥)로 축구·농구·야구 팀을 짜 보세요. 자리마다 보는 능력치가 달라서, 같은 차라도 어디에 세우느냐에 따라 팀 전력이 바뀝니다.</p></div>
+    <div id="squad"></div>
   </section>
 
   <!-- 06 how -->
@@ -1022,6 +1079,7 @@ html, body { margin: 0; background: #14161b; }
   function nameCell(td, r, sub) {
     const a = td.appendChild(el('button', 'nm', r.name));
     a.addEventListener('click', () => openProfile(r.id));
+    td.appendChild(favBtn(r));
     badge(td, r);
     if (sub) td.appendChild(el('small', null, sub));
   }
@@ -1166,7 +1224,7 @@ html, body { margin: 0; background: #14161b; }
     const pod = $('#podium'); pod.textContent = '';
     ranked.filter((r) => !isNaN(r._rank)).sort((a, b) => a._rank - b._rank).slice(0, 3).forEach((r, i) => {
       const c = pod.appendChild(el('div', 'pd p' + (i + 1)));
-      c.appendChild(el('div', 'no', ['1위 · CARRO D\'OR', '2위', '3위'][i]));
+      c.appendChild(el('div', 'no', ['1위 · 에이스', '2위', '3위'][i]));
       const ph = c.appendChild(el('div', 'ph')); photo(ph, r);
       const h = c.appendChild(el('button', 'pn', r.name)); h.addEventListener('click', () => openProfile(r.id));
       const sc = c.appendChild(el('div', 'sc')); sc.appendChild(el('span', null, String(r._ovr))); sc.appendChild(el('small', null, 'OVR ' + stars(r._ovr)));
@@ -1316,6 +1374,7 @@ html, body { margin: 0; background: #14161b; }
       .forEach(([k, v]) => { const d = bio.appendChild(el('div')); d.appendChild(el('span', 'lbl', k)); d.appendChild(el('b', null, v)); });
     const btns = L.appendChild(el('div', 'pbtns'));
     const cb = btns.appendChild(el('button', 'chip', state.cmp.includes(r.id) ? '비교에서 빼기' : '비교에 담기')); cb.addEventListener('click', () => toggleCmp(r.id));
+    const fb = btns.appendChild(el('button', 'chip' + (isFav(r.id) ? ' on' : ''), isFav(r.id) ? '♥ 스쿼드 찜 해제' : '♡ 스쿼드에 찜')); fb.setAttribute('aria-pressed', isFav(r.id)); fb.addEventListener('click', () => { toggleFav(r.id); render(); });
     const sb = btns.appendChild(el('button', 'chip share', '📇 선수 카드 공유')); sb.addEventListener('click', () => shareCard(r, sb));
     const rp = btns.appendChild(el('a', 'chip rep', '🛠 오류 제보')); rp.href = reportLink(r); rp.title = '틀린 정보를 메일로 알려 주세요';
     myCarPanel(L, r);
@@ -2198,7 +2257,7 @@ html, body { margin: 0; background: #14161b; }
     upd();
     const bt = W.appendChild(el('div', 'pbtns'));
     const cp = bt.appendChild(el('button', 'chip sm', '📋 메모로 복사'));
-    cp.addEventListener('click', async () => { const txt = `[카롱도르] ${r.name} ${mode === 'drive' ? '시승' : '중고차'} 체크리스트\n` + items.map((x, i) => `${S[mode + i] ? '☑' : '☐'} ${x.cat} · ${x.txt}`).join('\n'); try { await navigator.clipboard.writeText(txt); cp.textContent = '복사됨 — 카톡·메모에 붙여 넣으세요'; } catch (e) { cp.textContent = '복사 실패'; } });
+    cp.addEventListener('click', async () => { const txt = `[카스쿼드] ${r.name} ${mode === 'drive' ? '시승' : '중고차'} 체크리스트\n` + items.map((x, i) => `${S[mode + i] ? '☑' : '☐'} ${x.cat} · ${x.txt}`).join('\n'); try { await navigator.clipboard.writeText(txt); cp.textContent = '복사됨 — 카톡·메모에 붙여 넣으세요'; } catch (e) { cp.textContent = '복사 실패'; } });
     const rs = bt.appendChild(el('button', 'chip sm', '체크 초기화'));
     rs.addEventListener('click', () => { Object.keys(S).forEach((k) => { if (k.startsWith(mode)) delete S[k]; }); LS.set(key, JSON.stringify(S)); fillCheck(W, r); });
     W.appendChild(el('p', 'note', '"약점" 항목은 이 차의 능력치·리콜 기록으로 자동으로 골랐어요. 체크한 내용은 이 기기에만 저장돼요.'));
@@ -2207,7 +2266,7 @@ html, body { margin: 0; background: #14161b; }
   // ------------------------------------------------------------------ 오류 제보
   const REPORT_TO = 'soshot1234@gmail.com';
   function reportLink(r) {
-    const sub = `[카롱도르 오류 제보] ${r ? r.name : '사이트'}`;
+    const sub = `[카스쿼드 오류 제보] ${r ? r.name : '사이트'}`;
     const body = r ? `차종: ${r.name} (${r.id})\n화면: ${location.origin + location.pathname}#tab=prof&p=${r.id}\n\n틀린 부분 (예: 가격, 제원, 소음, 사진):\n\n맞는 값 / 출처 링크:\n` : `페이지: ${location.href}\n\n내용:\n`;
     return `mailto:${REPORT_TO}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
   }
@@ -2327,9 +2386,9 @@ html, body { margin: 0; background: #14161b; }
     try { await document.fonts.ready; } catch (e) {}
     const grd = g.createLinearGradient(0, 0, 0, H); grd.addColorStop(0, '#1b1f27'); grd.addColorStop(1, '#0f1116'); g.fillStyle = grd; g.fillRect(0, 0, W, H);
     // header
-    g.fillStyle = '#a8142f'; g.fillRect(0, 0, W, 96);
-    g.fillStyle = '#e3b448'; g.font = C('700', 44); g.fillText("CARRO D'OR", 40, 62);
-    g.fillStyle = '#fff'; g.font = F('600', 26); g.fillText('카롱도르 · 2026 시즌 선수 카드', 330, 60);
+    g.fillStyle = '#0f1115'; g.fillRect(0, 0, W, 96); ['#e2554c', '#e5a443', '#c8d758', '#45d37f'].forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, 90, W / 4, 6); });
+    g.fillStyle = '#e3b448'; g.font = C('700', 44); g.fillText("CAR SQUAD", 40, 62);
+    g.fillStyle = '#fff'; g.font = F('600', 26); g.fillText('카스쿼드 · 2026 시즌 선수 카드', 330, 60);
     // photo
     const info = photoCache[r.photo]; const m = manual(r);
     const img = await loadImg(m ? m.url : (thumbUrl(r, 960) || (info && info.url)), m ? null : r);
@@ -2373,8 +2432,8 @@ html, body { margin: 0; background: #14161b; }
     g.fillText(inj, 40, y);
     traits(r).slice(0, 3).forEach((t) => { y += 40; let s = '· ' + t; while (g.measureText(s).width > W - 80 && s.length > 4) s = s.slice(0, -1); g.fillStyle = '#c9cfdb'; g.fillText(s, 40, y); });
     // footer
-    g.fillStyle = '#a8142f'; g.fillRect(0, H - 70, W, 70);
-    g.fillStyle = '#fff'; g.font = F('600', 24); g.fillText('carrodor.pages.dev', 40, H - 26);
+    g.fillStyle = '#0f1115'; g.fillRect(0, H - 70, W, 70);
+    g.fillStyle = '#fff'; g.font = F('600', 24); g.fillText('carsquad.pages.dev', 40, H - 26);
     g.textAlign = 'right'; g.fillStyle = '#e3b448'; g.fillText('made by ktc', W - 40, H - 26); g.textAlign = 'left';
     return new Promise((res) => cv.toBlob((b) => res(b), 'image/png'));
   }
@@ -2394,7 +2453,7 @@ html, body { margin: 0; background: #14161b; }
   async function shareCard(r, btn) {
     const old = btn.textContent; btn.textContent = '카드 만드는 중…'; btn.disabled = true;
     let blob = null;
-    const fn = 'carrodor_' + r.id + '.png';
+    const fn = 'carsquad_' + r.id + '.png';
     try {
       blob = await makeCard(r);
       const file = new File([blob], fn, { type: 'image/png' });
@@ -2412,8 +2471,151 @@ html, body { margin: 0; background: #14161b; }
   }
 
 
+  // ------------------------------------------------------------------ 내 스쿼드 (찜 + 축구·농구·야구 포메이션)
+  // 자리마다 [약칭, 이름, 기준 능력치 그룹(OVR=종합), x%, y%]
+  const SPORTS = {
+    soccer: { t: '⚽ 축구', n: '11인 4-3-3', board: 'pitch', pos: [
+      ['ST', '스트라이커', '성능', 50, 11], ['LW', '왼쪽 윙어', '성능', 16, 21], ['RW', '오른쪽 윙어', '효율', 84, 21],
+      ['LCM', '중앙 미드필더', '정숙', 25, 44], ['CM', '플레이메이커', 'OVR', 50, 49], ['RCM', '중앙 미드필더', '가치', 75, 44],
+      ['LB', '왼쪽 풀백', '효율', 11, 69], ['LCB', '센터백', '안전', 36, 75], ['RCB', '센터백', '공간', 64, 75], ['RB', '오른쪽 풀백', '가치', 89, 69],
+      ['GK', '골키퍼', '안전', 50, 90]] },
+    basket: { t: '🏀 농구', n: '5인 스타팅', board: 'court', pos: [
+      ['C', '센터', '공간', 50, 22], ['PF', '파워포워드', '안전', 21, 40], ['SF', '스몰포워드', '성능', 79, 40],
+      ['SG', '슈팅가드', '효율', 74, 70], ['PG', '포인트가드', 'OVR', 28, 74]] },
+    base: { t: '⚾ 야구', n: '9인 수비', board: 'diamond', pos: [
+      ['CF', '중견수', '성능', 50, 13], ['LF', '좌익수', '가치', 16, 25], ['RF', '우익수', '효율', 84, 25],
+      ['SS', '유격수', '성능', 36, 45], ['2B', '2루수', '효율', 64, 45], ['3B', '3루수', '정숙', 18, 66], ['1B', '1루수', '공간', 82, 66],
+      ['P', '투수 (에이스)', 'OVR', 50, 70], ['C', '포수', '안전', 50, 92]] }
+  };
+  const BOARD_SVG = {
+    pitch: '<svg class="field" viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="rgba(255,255,255,.3)" stroke-width=".6"><rect x="4" y="4" width="92" height="117"/><line x1="4" y1="62.5" x2="96" y2="62.5"/><circle cx="50" cy="62.5" r="11"/><circle cx="50" cy="62.5" r=".8" fill="rgba(255,255,255,.3)"/><rect x="24" y="4" width="52" height="18"/><rect x="38" y="4" width="24" height="7"/><rect x="24" y="103" width="52" height="18"/><rect x="38" y="114" width="24" height="7"/></g></svg>',
+    court: '<svg class="field" viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="rgba(255,200,140,.5)" stroke-width=".7"><rect x="4" y="4" width="92" height="117"/><rect x="34" y="4" width="32" height="38"/><circle cx="50" cy="42" r="11"/><path d="M10 4 V22 A40 40 0 0 0 90 22 V4"/><circle cx="50" cy="12" r="3"/><line x1="43" y1="8.5" x2="57" y2="8.5"/><path d="M38 121 A12 12 0 0 1 62 121"/></g></svg>',
+    diamond: '<svg class="field" viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true"><path d="M50 116 L2 68 Q50 -14 98 68 Z" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.3)" stroke-width=".6"/><path d="M50 116 L76 90 L50 64 L24 90 Z" fill="rgba(196,146,88,.35)" stroke="rgba(255,255,255,.55)" stroke-width=".6"/><circle cx="50" cy="90" r="4" fill="rgba(196,146,88,.6)"/><g fill="#f4efe2"><rect x="74" y="88" width="4" height="4" transform="rotate(45 76 90)"/><rect x="48" y="62" width="4" height="4" transform="rotate(45 50 64)"/><rect x="22" y="88" width="4" height="4" transform="rotate(45 24 90)"/><rect x="48" y="114" width="4" height="4" transform="rotate(45 50 116)"/></g></svg>'
+  };
+  const SQ = (() => {
+    let v = {}; try { v = JSON.parse(LS.get('carro_squad') || '{}') || {}; } catch (e) {}
+    v.fav = (Array.isArray(v.fav) ? v.fav : []).filter((id) => byId[id]);
+    v.sport = SPORTS[v.sport] ? v.sport : 'soccer'; v.lu = v.lu || {};
+    Object.keys(SPORTS).forEach((k) => { const m = v.lu[k] = v.lu[k] || {}; Object.keys(m).forEach((p) => { if (!byId[m[p]]) delete m[p]; }); });
+    return v;
+  })();
+  let sqSel = null;
+  function saveSQ() { LS.set('carro_squad', JSON.stringify(SQ)); const n = $('#sqN'); if (n) n.textContent = SQ.fav.length; }
+  function isFav(id) { return SQ.fav.includes(id); }
+  function toggleFav(id, on) {
+    const has = isFav(id); if (on === undefined) on = !has;
+    if (on && !has) SQ.fav.push(id);
+    if (!on && has) { SQ.fav = SQ.fav.filter((x) => x !== id); Object.values(SQ.lu).forEach((m) => Object.keys(m).forEach((p) => { if (m[p] === id) delete m[p]; })); }
+    saveSQ();
+  }
+  function favBtn(r) {
+    const on = isFav(r.id);
+    const b = el('button', 'fav' + (on ? ' on' : ''), on ? '♥' : '♡');
+    b.type = 'button'; b.title = on ? '스쿼드 찜 해제' : '스쿼드에 찜하기'; b.setAttribute('aria-label', b.title); b.setAttribute('aria-pressed', on);
+    b.addEventListener('click', (e) => { e.stopPropagation(); toggleFav(r.id); render(); });
+    return b;
+  }
+  const gName = (g) => (g === 'OVR' ? '종합' : g);
+  function fitOf(r, g) { if (!r) return NaN; if (g === 'OVR') return isNaN(r._ovr) ? NaN : r._ovr / 5; const v = r['g_' + g]; return v == null ? NaN : v; }
+  const fit20 = (f) => (isNaN(f) ? NaN : Math.max(1, Math.min(20, Math.round(f))));
+  function autoPlace() {
+    const sp = SPORTS[SQ.sport]; const cars = SQ.fav.map((id) => byId[id]).filter(Boolean);
+    if (!cars.length) { backToast('먼저 차를 ♡ 찜해 주세요'); return; }
+    const pairs = []; sp.pos.forEach((p) => cars.forEach((r) => { const f = fitOf(r, p[2]); pairs.push([isNaN(f) ? -1 : f, p[0], r.id]); }));
+    pairs.sort((a, b) => b[0] - a[0]);
+    const lu = {}, used = new Set();
+    pairs.forEach(([, k, id]) => { if (lu[k] || used.has(id)) return; lu[k] = id; used.add(id); });
+    SQ.lu[SQ.sport] = lu; sqSel = null; saveSQ(); renderSquad();
+  }
+  function sqCode() { const sp = SPORTS[SQ.sport], lu = SQ.lu[SQ.sport]; return SQ.sport + ':' + sp.pos.map((p) => lu[p[0]] || '').join('.'); }
+  function importSquad(code) {
+    const [sport, ids] = String(code).split(':'); const sp = SPORTS[sport]; if (!sp || !ids) return;
+    const arr = ids.split('.'), lu = {};
+    sp.pos.forEach((p, i) => { const id = arr[i]; if (id && byId[id]) { lu[p[0]] = id; if (!isFav(id)) SQ.fav.push(id); } });
+    if (!Object.keys(lu).length) return;
+    SQ.sport = sport; SQ.lu[sport] = lu; saveSQ(); setTimeout(() => backToast('공유받은 스쿼드를 불러왔어요'), 400);
+  }
+  async function shareSquad(btn) {
+    const url = location.origin + location.pathname + '#tab=sq&sq=' + encodeURIComponent(sqCode());
+    const title = `[카스쿼드] 내 ${SPORTS[SQ.sport].t} 스쿼드`;
+    if (navigator.share) { try { await navigator.share({ title, url }); } catch (e) {} return; }
+    try { await navigator.clipboard.writeText(url); btn.textContent = '✓ 링크 복사됨'; setTimeout(() => { btn.textContent = '🔗 스쿼드 공유'; }, 1800); } catch (e) { window.prompt('이 링크를 복사해서 보내세요', url); }
+  }
+  function renderSquad() {
+    const box = $('#squad'); box.textContent = '';
+    const sp = SPORTS[SQ.sport], lu = SQ.lu[SQ.sport];
+    const top = box.appendChild(el('div', 'sqtop'));
+    const seg = top.appendChild(el('div', 'seg'));
+    Object.entries(SPORTS).forEach(([k, s2]) => { const b = seg.appendChild(el('button', 'chip', s2.t + ' · ' + s2.n)); b.setAttribute('aria-pressed', k === SQ.sport); b.addEventListener('click', () => { SQ.sport = k; sqSel = null; saveSQ(); renderSquad(); }); });
+    const placed = sp.pos.map((p) => byId[lu[p[0]]]).filter(Boolean);
+    const fits = sp.pos.map((p) => fitOf(byId[lu[p[0]]], p[2])).filter((v) => !isNaN(v));
+    const power = Math.round(fits.reduce((a, b) => a + b, 0) / sp.pos.length * 5);
+    const ovrs = placed.map((r) => r._ovr).filter((v) => !isNaN(v));
+    const st = top.appendChild(el('div', 'sqstat'));
+    [['팀 전력', String(power), '자리별 기준 능력치 평균(0~100) · 빈 자리는 0점'], ['평균 OVR', ovrs.length ? String(Math.round(ovrs.reduce((a, b) => a + b, 0) / ovrs.length)) : '–', ''], ['선발', placed.length + ' / ' + sp.pos.length, ''], ['몸값 합계', placed.length ? fmt(placed.reduce((a, r) => a + (+r.price || 0), 0)) + '만' : '–', '']]
+      .forEach(([k, v, t]) => { const d = st.appendChild(el('div')); d.appendChild(el('span', 'lbl', k)); d.appendChild(el('b', null, v)); if (t) d.title = t; });
+    const acts = top.appendChild(el('div', 'sqacts'));
+    const ab = acts.appendChild(el('button', 'chip', '✨ 자동 배치')); ab.title = '찜한 차들을 자리마다 가장 잘 맞는 곳에 세웁니다'; ab.addEventListener('click', autoPlace);
+    const cb = acts.appendChild(el('button', 'chip', '비우기')); cb.addEventListener('click', () => { SQ.lu[SQ.sport] = {}; sqSel = null; saveSQ(); renderSquad(); });
+    const shb = acts.appendChild(el('button', 'chip', '🔗 스쿼드 공유')); shb.addEventListener('click', () => shareSquad(shb));
+
+    const main = box.appendChild(el('div', 'sqmain'));
+    const bw = main.appendChild(el('div', 'sqboard ' + sp.board));
+    bw.innerHTML = BOARD_SVG[sp.board];
+    sp.pos.forEach(([k, nm, g, x, y]) => {
+      const r = byId[lu[k]]; const fr = fit20(fitOf(r, g));
+      const b = bw.appendChild(el('button', 'sqs' + (r ? '' : ' empty') + (sqSel === k ? ' sel' : '')));
+      b.type = 'button'; b.style.left = x + '%'; b.style.top = y + '%';
+      b.appendChild(el('span', 'dot' + (r ? ' ' + cellCls(fr) : ''), r ? (isNaN(fr) ? '–' : String(fr)) : '+'));
+      b.appendChild(el('b', null, r ? (r.name.split(' ').length > 1 ? r.name.split(' ').slice(1).join(' ') : r.name) : k));
+      b.appendChild(el('small', null, r ? `${k} · ${gName(g)}` : nm));
+      b.setAttribute('aria-label', `${k} ${nm}, 기준 ${gName(g)}` + (r ? `, ${r.name} 능력치 ${isNaN(fr) ? '없음' : fr}` : ', 빈 자리'));
+      b.addEventListener('click', () => { sqSel = sqSel === k ? null : k; renderSquad(); if (sqSel && window.innerWidth < 900) { const pk = $('#sqpick'); if (pk) pk.scrollIntoView({ behavior: 'smooth', block: 'start' }); } });
+    });
+
+    const side = main.appendChild(el('div', 'sqside'));
+    const pk = side.appendChild(el('div', 'card sqpick')); pk.id = 'sqpick';
+    const selP = sp.pos.find((p) => p[0] === sqSel);
+    if (selP) {
+      const [k, nm, g] = selP; const curR = byId[lu[k]];
+      const h = pk.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, `${k} · ${nm}`));
+      if (curR) { const x = h.appendChild(el('button', 'chip sm', '자리 비우기')); x.addEventListener('click', () => { delete lu[k]; saveSQ(); renderSquad(); }); }
+      pk.appendChild(el('p', 'note', `이 자리는 '${g === 'OVR' ? '종합 OVR' : g}' 능력치가 높은 차가 잘 맞아요. 찜한 차를 잘 맞는 순서로 보여 드려요.`));
+      const list = pk.appendChild(el('div', 'sqlist'));
+      SQ.fav.map((id) => byId[id]).filter(Boolean).sort((a, b) => (fitOf(b, g) || 0) - (fitOf(a, g) || 0)).forEach((r) => {
+        const fr = fit20(fitOf(r, g)); const where = Object.keys(lu).find((p) => lu[p] === r.id);
+        const it = list.appendChild(el('button', 'sqit' + (lu[k] === r.id ? ' on' : ''))); it.type = 'button';
+        it.appendChild(el('span', 'av ' + cellCls(fr), isNaN(fr) ? '–' : String(fr)));
+        const t = it.appendChild(el('span', 'nm2')); t.appendChild(el('b', null, r.name));
+        t.appendChild(el('small', null, `OVR ${isNaN(r._ovr) ? '–' : r._ovr} · ${fmt(r.price)}만` + (where ? ` · 지금 ${where}` : ' · 벤치')));
+        it.addEventListener('click', () => { if (where) delete lu[where]; lu[k] = r.id; sqSel = null; saveSQ(); renderSquad(); });
+      });
+      if (!SQ.fav.length) pk.appendChild(el('p', 'note', '아직 찜한 차가 없어요. 아래 검색창으로 바로 영입하세요.'));
+    } else {
+      const h = pk.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, '자리를 눌러 선수를 넣으세요'));
+      pk.appendChild(el('p', 'note', `판 위의 자리(+)를 누르면 찜한 차를 그 자리에 잘 맞는 순서로 보여 드려요. 동그라미 숫자는 그 자리 기준 능력치(1~20)이고, 색은 능력치 색과 같아요.`));
+    }
+    const sw = pk.appendChild(el('div', 'sqsearch'));
+    const inp = sw.appendChild(el('input')); inp.type = 'search';
+    inp.placeholder = selP ? `${selP[0]} 자리에 넣을 차 검색` : '차를 검색해서 찜하기 (초성 가능)'; inp.setAttribute('aria-label', '스쿼드에 영입할 차 검색');
+    suggestBox(inp, (r) => { toggleFav(r.id, true); if (selP) { const w = Object.keys(lu).find((p) => lu[p] === r.id); if (w) delete lu[w]; lu[selP[0]] = r.id; sqSel = null; } saveSQ(); renderSquad(); });
+
+    const fv = side.appendChild(el('div', 'card'));
+    const fh = fv.appendChild(el('div', 'ch')); fh.appendChild(el('h2', null, `♥ 찜한 차 · ${SQ.fav.length}대`));
+    if (!SQ.fav.length) fv.appendChild(el('p', 'note', '랭킹·스카우트·선수 화면에서 ♡를 누르면 여기 모여요. 그 차들로 축구·농구·야구 팀을 짜 보세요.'));
+    const fl = fv.appendChild(el('div', 'sqlist'));
+    SQ.fav.map((id) => byId[id]).filter(Boolean).forEach((r) => {
+      const where = Object.keys(lu).find((p) => lu[p] === r.id);
+      const it = fl.appendChild(el('div', 'sqit'));
+      it.appendChild(el('span', 'av ' + cellCls(fit20(isNaN(r._ovr) ? NaN : r._ovr / 5)), isNaN(r._ovr) ? '–' : String(r._ovr)));
+      const t = it.appendChild(el('span', 'nm2')); const nb = t.appendChild(el('button', 'nm', r.name)); nb.addEventListener('click', () => openProfile(r.id));
+      t.appendChild(el('small', null, (where ? `선발 ${where}` : '벤치') + ` · ${r.body || ''} · ${fmt(r.price)}만`));
+      it.appendChild(favBtn(r));
+    });
+  }
+
   // ------------------------------------------------------------------ tabs & hash
-  const TABS = [['t-rank', 'p-rank'], ['t-wiz', 'p-wiz'], ['t-prof', 'p-prof'], ['t-cmp', 'p-cmp'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
+  const TABS = [['t-rank', 'p-rank'], ['t-wiz', 'p-wiz'], ['t-prof', 'p-prof'], ['t-cmp', 'p-cmp'], ['t-sq', 'p-sq'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
   let cur = 't-rank';
   function show(id) { cur = id; TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); render(); writeHash(true); window.scrollTo({ top: Math.min(window.scrollY, $('.tabs').offsetTop - 8) }); }
   TABS.forEach(([t]) => $('#' + t).addEventListener('click', () => show(t)));
@@ -2433,6 +2635,8 @@ html, body { margin: 0; background: #14161b; }
     const c = (p.get('c') || '').split(',').filter((x) => byId[x]); if (c.length) state.cmp = c.slice(0, 4);
     if (p.get('p') && byId[p.get('p')]) state.prof = p.get('p');
     $('#cmpN').textContent = state.cmp.length;
+    const sq = p.get('sq'); if (sq) importSquad(sq);
+    $('#sqN').textContent = SQ.fav.length;
     const t = p.get('tab'); cur = t && $('#t-' + t) ? 't-' + t : 't-rank';
   }
   // 휴대폰 뒤로가기: 열린 창 닫기 → 이전 탭/차로 → 첫 화면에서는 한 번 더 눌러야 나가기
@@ -2489,6 +2693,7 @@ html, body { margin: 0; background: #14161b; }
     if (cur === 't-wiz') renderWiz();
     if (cur === 't-prof') renderProfile();
     if (cur === 't-cmp') renderCmp();
+    if (cur === 't-sq') renderSquad();
     if (cur === 't-fun') renderFun();
     if (cur === 't-used') renderUsed(filtered(true));
     if (cur === 't-all') renderAll(rows);
@@ -2558,10 +2763,10 @@ html, body { margin: 0; background: #14161b; }
     btn.addEventListener('click', async () => {
       if (deferred) { deferred.prompt(); const r = await deferred.userChoice; if (r && r.outcome === 'accepted') btn.hidden = true; deferred = null; return; }
       const ov = document.body.appendChild(el('div', 'cardov')); const bx = ov.appendChild(el('div', 'cardbox instguide'));
-      bx.appendChild(el('h3', null, '📲 카롱도르를 앱으로 설치하기'));
+      bx.appendChild(el('h3', null, '📲 카스쿼드를 앱으로 설치하기'));
       const ol = bx.appendChild(el('ol'));
       (inApp ? ['오른쪽 위(또는 아래) ⋮ / 공유 메뉴를 누르세요', '"다른 브라우저로 열기"(사파리·크롬)를 고르세요', '열린 화면에서 이 버튼을 다시 누르면 설치할 수 있어요']
-        : ios ? ['사파리 아래쪽의 공유 버튼(□↑)을 누르세요', '메뉴를 내려 "홈 화면에 추가"를 누르세요', '오른쪽 위 "추가"를 누르면 홈 화면에 카롱도르 아이콘이 생겨요']
+        : ios ? ['사파리 아래쪽의 공유 버튼(□↑)을 누르세요', '메뉴를 내려 "홈 화면에 추가"를 누르세요', '오른쪽 위 "추가"를 누르면 홈 화면에 카스쿼드 아이콘이 생겨요']
         : ['크롬 오른쪽 위 ⋮ 메뉴를 누르세요', '"앱 설치" 또는 "홈 화면에 추가"를 누르세요', '설치하면 앱처럼 주소창 없이 열려요']).forEach((t) => ol.appendChild(el('li', null, t)));
       const c = bx.appendChild(el('button', 'chip', '닫기')); c.addEventListener('click', () => ov.remove()); ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
     });
