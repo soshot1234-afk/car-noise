@@ -368,7 +368,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .brand .logo { width: 44px; height: 44px; flex: none; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
 .vd .brand b { font: 700 22px/1 var(--cond); letter-spacing: .08em; color: #fff; }
 .vd .brand small { font: 500 12.5px/1.3 "Pretendard Variable", Pretendard, sans-serif; color: var(--gold); letter-spacing: 0; margin-top: 4px; }
-.vd .tabs { position: sticky; top: 0; z-index: 25; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 0; background: #1b1f27; border-top: 1px solid #2a2f3a; border-bottom: 1px solid #000; overflow-x: auto; }
+.vd .tabs { position: sticky; top: 0; z-index: 25; display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 0; background: #1b1f27; border-top: 1px solid #2a2f3a; border-bottom: 1px solid #000; overflow-x: auto; }
 .vd .tab { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px 8px; min-height: 60px; border: 0; border-right: 1px solid #262b35; background: transparent; color: #d7dbe3; text-align: left; box-shadow: none; white-space: nowrap; }
 .vd .tab svg { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
 .vd .tab span { display: flex; flex-direction: column; gap: 3px; }
@@ -386,13 +386,13 @@ html, body { margin: 0; background: #14161b; }
 @media (max-width: 1100px) { .vd .tab small { display: none; } .vd .tab { min-height: 52px; } }
 @media (max-width: 760px) {
   .vd .topbar { padding: 8px 12px; } .vd .brand .logo { width: 36px; height: 36px; } .vd .brand b { font-size: 19px; }
-  .vd .tabs { grid-template-columns: repeat(9, auto); }
+  .vd .tabs { grid-template-columns: repeat(11, auto); }
   .vd .tab { flex-direction: column; gap: 4px; min-height: 58px; padding: 8px 12px; }
   .vd .tab svg { width: 20px; height: 20px; }
   .vd .tab b { font-size: 13.5px; }
 }
 @media (max-width: 760px) {
-  .vd .tabs { grid-template-columns: repeat(9, minmax(56px, 1fr)); }
+  .vd .tabs { grid-template-columns: repeat(11, minmax(58px, 1fr)); }
   .vd .tab { padding: 8px 2px; border-right: 0; }
   .vd .tab b { font-size: 12px; letter-spacing: -.03em; }
   .vd .tab .badge { position: absolute; margin: -30px 0 0 22px; font-size: 10px; padding: 1px 4px; }
@@ -719,6 +719,150 @@ html, body { margin: 0; background: #14161b; }
 .vd .ch h2 { font-size: 16.5px; }
 .vd .sqhead h2 { font-size: 22px; }
 @media (max-width: 760px) { .vd .brand b { font-size: 20px; } .vd .band h1 { font-size: 22px; } }
+/* ===== 홈 · 놀이터 · 리뷰 영상관 ===== */
+.vd #homebox, .vd #playbox { padding: 14px 16px 24px; display: flex; flex-direction: column; gap: 14px; max-width: 1100px; }
+.vd #homebox .card, .vd #playbox .card { margin: 0; }
+.vd .vhub { padding-bottom: 12px; }
+.vd .vhnote { padding: 10px 14px 4px; font-size: 13px; }
+.vd .vhq { flex: 1; min-width: 0; max-width: 360px; }
+.vd .vhgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.vd .vhcard { display: flex; flex-direction: column; gap: 8px; background: var(--pn); border: 1px solid var(--line); border-radius: 10px; padding: 8px; min-width: 0; }
+.vd .vhcard iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 6px; }
+.vd .vhinfo { display: flex; align-items: center; gap: 10px; }
+.vd .vhinfo .av { min-width: 32px; text-align: center; font: 700 18px/1 var(--cond); }
+.vd .vhinfo .nm2 { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.vd .vhinfo .nm { text-align: left; font-size: 14px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vd .vhinfo small { font-size: 12px; color: var(--mu); }
+.vd .vhmore { display: flex; justify-content: center; }
+.vd.nofilt .ftog, .vd.nofilt .filters { display: none !important; }
+.vd .chip.gold { background: #e3b448; border-color: #e3b448; color: #15171c; font-weight: 700; margin-left: 0; }
+.vd .chip.gold:hover { background: #f0c45c; color: #15171c; }
+.vd .chip.big { font-size: 16px; padding: 10px 22px; border-radius: 6px; }
+.vd .pseg { display: flex; flex-wrap: wrap; gap: 6px; }
+.vd .pseg .chip { margin-left: 0; border-radius: 6px; }
+.vd .kick { font: 700 12px/1 var(--cond); letter-spacing: .14em; color: var(--gold); text-transform: uppercase; }
+.vd .jal { font-family: "Jalnan", "Pretendard Variable", Pretendard, sans-serif; font-weight: 400; }
+.vd .wbar { position: relative; display: block; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; flex: 1; min-width: 60px; }
+.vd .wbar i { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, #e2554c, #e5a443, #c8d758, #45d37f); border-radius: 3px; }
+.vd .wph { position: relative; aspect-ratio: 16 / 10; background: var(--cell); overflow: hidden; border-radius: 8px; }
+.vd .wph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vd .wph .nophoto { position: absolute; inset: 0; display: grid; place-items: center; color: var(--mu2); font: 700 18px/1 var(--cond); letter-spacing: .1em; }
+.vd .wsub { font-size: 12.5px; color: var(--mu); }
+.vd .wtags { display: flex; flex-wrap: wrap; gap: 4px; }
+.vd .wtags i { font-style: normal; font-size: 12px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: var(--pn2); border: 1px solid var(--line); }
+.vd .wovr { display: inline-grid; place-items: center; min-width: 44px; height: 32px; padding: 0 6px; font: 700 22px/1 var(--cond); border-radius: 6px; background: var(--deep); }
+.vd .wcbtns { display: flex; flex-wrap: wrap; gap: 6px; }
+.vd .wcbtns .chip { margin-left: 0; border-radius: 6px; }
+/* 홈 */
+.vd .hero { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 18px; padding: 16px; align-items: center; border-top: 3px solid #e3b448; }
+@media (max-width: 760px) { .vd .hero { grid-template-columns: minmax(0, 1fr); } }
+.vd .heroinfo { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.vd .heroname { font-size: 28px; line-height: 1.2; text-align: left; color: var(--hi); padding: 0; }
+.vd .herostat { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.vd .quick { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 900px) { .vd .quick { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.vd .qtile { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 14px 14px 12px; border: 1px solid var(--line); background: var(--pn); border-radius: 10px; cursor: pointer; color: var(--tx); text-align: left; font: inherit; min-height: 92px; }
+.vd .qtile:hover { border-color: #e3b448; background: var(--pn2); }
+.vd .qtile .qic { font-size: 24px; line-height: 1; margin-bottom: 4px; }
+.vd .qtile b { font-family: "Jalnan", "Pretendard Variable", sans-serif; font-weight: 400; font-size: 16px; }
+.vd .qtile small { font-size: 12px; color: var(--mu); }
+.vd .recent { display: flex; gap: 8px; overflow-x: auto; padding: 12px; }
+.vd .rchip { flex: none; display: flex; align-items: center; gap: 8px; max-width: 240px; padding: 6px 12px 6px 6px; border: 1px solid var(--line); background: var(--pn2); border-radius: 30px; cursor: pointer; color: var(--tx); font: inherit; font-size: 13px; }
+.vd .rchip span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vd .rchip .av { font: 700 15px/1 var(--cond); min-width: 26px; text-align: center; }
+.vd .news .nitem { display: flex; gap: 12px; padding: 14px 14px; border-top: 1px solid var(--sep); align-items: flex-start; }
+.vd .news .nitem:first-of-type { border-top: 0; }
+.vd .ntag { flex: none; min-width: 64px; text-align: center; font-size: 11.5px; font-weight: 800; padding: 4px 8px; border-radius: 4px; background: var(--deep); color: #e3b448; border: 1px solid #3e4757; }
+.vd .nitem.upd .ntag { background: #45d37f; color: #0f1115; border-color: #45d37f; }
+.vd .nbody { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; align-items: flex-start; }
+.vd .nbody > b { font-size: 15.5px; }
+.vd .nbody > small { font-size: 12.5px; color: var(--mu); }
+.vd .nlist { margin: 6px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 3px; width: 100%; }
+.vd .nlist li { font-size: 14px; }
+.vd .nlist li::marker { color: #e3b448; font-weight: 700; }
+.vd .nlist .nm { font-size: 14px; text-align: left; }
+.vd .nval { margin-left: 8px; font: 600 13px/1 var(--cond); color: var(--mu); }
+.vd .updlog summary { cursor: pointer; padding: 10px 14px; font-weight: 700; }
+.vd .updlog ul { margin: 0; padding: 0 14px 12px; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.vd .updlog li { display: flex; gap: 12px; font-size: 13.5px; }
+.vd .updlog li b { font: 700 14px/1.3 var(--cond); color: var(--gold); min-width: 40px; }
+.vd .mrow { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-top: 1px solid var(--sep); }
+.vd .mrow .av { min-width: 34px; text-align: center; font: 700 18px/1 var(--cond); }
+.vd .mrow .nm2 { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.vd .mrow .nm { text-align: left; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vd .mrow small { font-size: 12px; color: var(--mu); }
+/* 놀이터 */
+.vd .playseg .chip { font-size: 15px; padding: 9px 18px; font-weight: 700; }
+.vd .wcsetup { padding-bottom: 14px; }
+.vd .wcsetup > .note { padding: 10px 14px 4px; font-size: 13.5px; }
+.vd .wcrow { display: flex; gap: 12px; align-items: flex-start; padding: 8px 14px; }
+.vd .wcrow .lbl { flex: none; width: 64px; padding-top: 7px; font-size: 13px; font-weight: 700; color: var(--mu); }
+.vd .wcgo { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 10px 14px 0; padding-top: 12px; border-top: 1px solid var(--sep); }
+.vd .wcgo .note { font-size: 14px; }
+.vd .wcshared { padding: 14px; display: flex; flex-direction: column; gap: 4px; border-top: 3px solid #e3b448; }
+.vd .wcshared p { margin: 0; font-weight: 700; color: var(--gold); }
+.vd .nm.big { font-size: 20px; font-weight: 800; text-align: left; }
+.vd .wchead { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.vd .wchead > b { font-size: 30px; color: var(--hi); }
+.vd .wchead > span:nth-child(2) { font: 700 16px/1 var(--cond); color: var(--mu); }
+.vd .wacts { display: flex; gap: 6px; margin-left: auto; }
+.vd .wcvs { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: stretch; }
+.vd .vsb { align-self: center; font-size: 26px; color: #e3b448; }
+.vd .wcc { display: flex; flex-direction: column; gap: 8px; text-align: left; padding: 12px; border: 2px solid var(--line); background: var(--pn); border-radius: 12px; cursor: pointer; color: var(--tx); font: inherit; min-width: 0; transition: transform .12s, border-color .12s; }
+.vd .wcc:hover { border-color: #e3b448; transform: translateY(-2px); }
+.vd .wcc:active { transform: scale(.98); }
+.vd .wnm { font-size: 18px; line-height: 1.3; color: var(--hi); }
+.vd .wstat { display: flex; align-items: center; gap: 10px; }
+.vd .wcprice { font-weight: 700; font-size: 14px; }
+.vd .wgo { margin-top: auto; text-align: center; padding: 9px; border-radius: 8px; background: var(--deep); color: #e3b448; font-weight: 800; font-size: 14px; }
+.vd .wcc:hover .wgo { background: #e3b448; color: #15171c; }
+@media (max-width: 600px) {
+  .vd .wcvs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+  .vd .vsb { display: none; }
+  .vd .wcc { padding: 8px; gap: 6px; }
+  .vd .wnm { font-size: 14px; }
+  .vd .wsub { font-size: 11px; }
+  .vd .wtags i { font-size: 10.5px; padding: 1px 5px; }
+  .vd .wovr { min-width: 36px; height: 26px; font-size: 18px; }
+  .vd .wcprice { font-size: 12px; }
+  .vd .wcrow { flex-direction: column; gap: 6px; }
+  .vd .wcrow .lbl { padding-top: 0; }
+}
+.vd .wcres { padding: 16px; display: flex; flex-direction: column; gap: 12px; border-top: 3px solid #e3b448; }
+.vd .wctop { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 18px; align-items: center; }
+@media (max-width: 760px) { .vd .wctop { grid-template-columns: minmax(0, 1fr); } }
+.vd .wcinfo { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.vd .wcname { font-size: 30px; line-height: 1.2; color: var(--hi); }
+.vd .mbq { padding-bottom: 16px; }
+.vd .mbprog { display: flex; align-items: center; gap: 12px; padding: 14px 16px 0; font: 700 15px/1 var(--cond); color: var(--mu); }
+.vd .mbqq { margin: 0; padding: 26px 16px 18px; font-size: 26px; line-height: 1.35; color: var(--hi); }
+.vd .mbopts { display: flex; flex-direction: column; gap: 10px; padding: 0 16px 14px; }
+.vd .mbopt { text-align: left; padding: 18px 18px; border: 2px solid var(--line); background: var(--pn2); border-radius: 12px; font: inherit; font-size: 16.5px; font-weight: 600; color: var(--tx); cursor: pointer; }
+.vd .mbopt:hover { border-color: #e3b448; background: var(--hd); }
+.vd .mbq > .chip { margin-left: 16px; }
+.vd .mbres { padding: 22px 18px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; border-top: 3px solid #e3b448; }
+.vd .mbtype { font-size: 72px; line-height: 1.05; color: #e3b448; letter-spacing: .04em; }
+.vd .mbnick { margin: 0; font-size: 26px; color: var(--hi); }
+.vd .mbdesc { margin: 4px 0 0; max-width: 560px; font-size: 15px; line-height: 1.6; }
+.vd .mbaxes { width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.vd .mbax { display: grid; grid-template-columns: 120px minmax(0, 1fr) 120px; gap: 10px; align-items: center; font-size: 13px; color: var(--mu); }
+.vd .mbax .l { text-align: right; } .vd .mbax .r { text-align: left; }
+.vd .mbax .on { color: var(--hi); font-weight: 800; }
+@media (max-width: 520px) { .vd .mbax { grid-template-columns: 92px minmax(0, 1fr) 92px; font-size: 11.5px; } .vd .mbtype { font-size: 58px; } }
+.vd .mbline { margin: 0; font-size: 13px; }
+.vd .mbbadge { font: 700 14px/1 var(--cond); letter-spacing: .08em; padding: 4px 8px; border-radius: 4px; border: 1px solid #e3b448; background: var(--deep); color: #e3b448; cursor: pointer; }
+/* 리뷰 영상관 */
+.vd .vsec { margin: 14px 0 8px; font-size: 12.5px; font-weight: 800; color: var(--mu); letter-spacing: .02em; }
+.vd .vtopics { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.vd .vtopic { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); background: var(--pn2); border-radius: 8px; color: var(--tx); text-decoration: none; font-size: 13.5px; min-width: 0; }
+.vd .vtopic b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vd .vtopic:hover, .vd .vchan:hover { border-color: #e3b448; }
+.vd .vic { font-size: 16px; flex: none; }
+.vd .vchans { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.vd .vchan { display: flex; flex-direction: column; gap: 2px; padding: 9px 12px; border: 1px solid var(--line); border-left: 3px solid #e3b448; background: var(--pn2); border-radius: 6px; text-decoration: none; color: var(--tx); }
+.vd .vchan b { font-size: 13.5px; }
+.vd .vchan small { font-size: 11.5px; color: var(--mu); }
+
 .backtoast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(20,22,28,.92);color:#fff;font-size:14px;padding:10px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:.25s;z-index:1000}.backtoast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head><body>
@@ -729,11 +873,13 @@ html, body { margin: 0; background: #14161b; }
     <div class="tright"><button class="inst" id="instBtn" type="button" hidden>📲 앱 설치</button><span class="made">made by <b>ktc</b></span><span class="thmwrap"><button class="thm" id="thm" type="button" role="switch" aria-checked="false" aria-label="화면 밝기 바꾸기"><span class="ti sun">☀️</span><span class="trk"><span class="knob"></span></span><span class="ti moon">🌙</span></button><span class="thmtip" id="thmtip" hidden>눈이 피곤하면 여기서 화면 밝기를 바꿀 수 있어요 👆<button type="button" id="thmtipx" aria-label="닫기">✕</button></span></span></div>
   </header>
   <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" id="t-home" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7M5.5 9.5V20h5v-6h3v6h5V9.5"/></svg><span><b>홈</b><small>오늘의 선수 · 뉴스</small></span></button>
       <button class="tab" role="tab" id="t-rank" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span><b>랭킹</b><small>종합 순위</small></span></button>
       <button class="tab" role="tab" id="t-wiz" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></svg><span><b>추천</b><small>5문항 영입 상담</small></span></button>
       <button class="tab" role="tab" id="t-prof" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span><b>선수</b><small>차 한 대 자세히</small></span></button>
       <button class="tab" role="tab" id="t-cmp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11M11 3l4 4-4 4M20 17H9M13 13l-4 4 4 4"/></svg><span><b>비교 <em class="badge" id="cmpN">0</em></b><small>최대 4대 맞대결</small></span></button>
       <button class="tab" role="tab" id="t-sq" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3.5 6l2 4.5L8 9.5V21h8V9.5l2.5 1 2-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3Z"/></svg><span><b>스쿼드 <em class="badge" id="sqN">0</em></b><small>찜한 차로 팀 짜기</small></span></button>
+      <button class="tab" role="tab" id="t-play" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.4 1.8L14.5 14h-5l-1.1 1.8A3 3 0 0 1 3 14v-1a4 4 0 0 1 4-4ZM8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg><span><b>놀이터</b><small>월드컵 · MBTI · 영상</small></span></button>
       <button class="tab" role="tab" id="t-fun" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9Z"/></svg><span><b>펀카</b><small>슈퍼카~핫해치</small></span></button>
       <button class="tab" role="tab" id="t-used" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span><b>이적시장</b><small>엔카 중고 시세</small></span></button>
       <button class="tab" role="tab" id="t-all" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg><span><b>스카우트</b><small>전체 명단</small></span></button>
@@ -871,6 +1017,16 @@ html, body { margin: 0; background: #14161b; }
       <th><button data-k="_ovr">OVR</button></th>
       <th></th>
     </tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <!-- 홈 -->
+  <section id="p-home" hidden>
+    <div id="homebox"></div>
+  </section>
+
+  <!-- 놀이터 -->
+  <section id="p-play" hidden>
+    <div id="playbox"></div>
   </section>
 
   <!-- 내 스쿼드 -->
@@ -1410,29 +1566,14 @@ html, body { margin: 0; background: #14161b; }
     const R = box.appendChild(el('div', 'pside'));
     R.appendChild(el('h4', null, '플레이 스타일'));
     const st = style(r); R.appendChild(el('p', 'style', st[0])); if (st[1]) R.appendChild(el('p', 'stdesc', st[1]));
+    R.appendChild(el('h4', null, '차 MBTI'));
+    { const mt = carMBTI(r); const mp = R.appendChild(el('p', 'mbline')); const mb = mp.appendChild(el('button', 'mbbadge', mt)); mb.type = 'button'; mb.title = '나랑 맞는 유형인지 테스트해 보기'; mb.addEventListener('click', () => goPlay('mb')); mp.appendChild(el('span', null, ' ' + MBTI[mt][0])); }
     R.appendChild(el('h4', null, '선수 특성'));
     const tl = traits(r);
     const ul = R.appendChild(el('ul', 'traits'));
     (tl.length ? tl : ['두드러진 특성 없음 — 고른 능력치']).forEach((t) => ul.appendChild(el('li', null, t)));
     // videos
-    const V = box.appendChild(el('div', 'pvideo'));
-    const vh = V.appendChild(el('div', 'vhead')); vh.appendChild(el('h4', null, '영상 · 직접 보고 판단하기'));
-    const ys = vh.appendChild(el('a', 'vmore', '유튜브에서 더 보기 ↗')); ys.href = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(r.name + ' 리뷰'); ys.target = '_blank'; ys.rel = 'noopener';
-    const vv = (window.__VIDS || {})[r.id] || {};
-    const vg = V.appendChild(el('div', 'vgrid'));
-    [['j', '1인칭 주행 POV', '주니TV'], ['a', '오토뷰 리뷰', '실측 데이터 출처'], ['o', '인기 리뷰', '']].forEach(([k, lab]) => {
-      const v = vv[k];
-      const c = vg.appendChild(el('div', 'vcard' + (v ? '' : ' none')));
-      c.appendChild(el('span', 'vlab vl-' + k, lab));
-      if (!v) { const q = { j: r.name + ' 주니TV 1인칭', a: '오토뷰 ' + r.name, o: r.name + ' 리뷰' }[k]; const a = c.appendChild(el('a', 'vsearch', '영상 찾기 ↗')); a.href = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q); a.target = '_blank'; a.rel = 'noopener'; return; }
-      const th = c.appendChild(el('button', 'vthumb')); th.title = '여기서 재생';
-      const AG = { n: '분 전', h: '시간 전', d: '일 전', w: '주 전', m: '개월 전', y: '년 전' }; const age = (v[2] || '').replace(/^(\d+)([nhdwmy])$/, (x, n, u) => n + AG[u]);
-      const im = th.appendChild(el('img')); im.src = 'https://i.ytimg.com/vi/' + v[0] + '/mqdefault.jpg'; im.alt = r.name + ' ' + lab; im.loading = 'lazy';
-      th.appendChild(el('span', 'vplay', '▶'));
-      th.addEventListener('click', () => { const f = document.createElement('iframe'); f.src = 'https://www.youtube-nocookie.com/embed/' + v[0] + '?autoplay=1&rel=0'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.title = r.name + ' ' + lab; th.replaceWith(f); });
-      const t = c.appendChild(el('a', 'vtitle', v[1] + ' 채널에서 보기 ↗')); t.href = 'https://www.youtube.com/watch?v=' + v[0]; t.target = '_blank'; t.rel = 'noopener';
-      if (age) c.appendChild(el('span', 'vch', age + ' 영상'));
-    });
+    videoPanel(box, r);
     // bottom record table
     const J = box.appendChild(el('div', 'pinjury'));
     J.appendChild(el('h4', null, '🩹 부상빈도 (리콜)'));
@@ -2626,10 +2767,469 @@ html, body { margin: 0; background: #14161b; }
     });
   }
 
+  // ------------------------------------------------------------------ 공용 도우미 (홈 · 놀이터 · 영상)
+  const btnEl = (cls, text, fn) => { const b = el('button', cls, text); b.type = 'button'; if (fn) b.addEventListener('click', fn); return b; };
+  const linkEl = (cls, text, href) => { const a = el('a', cls, text); a.href = href; a.target = '_blank'; a.rel = 'noopener'; return a; };
+  // 트림·엔진 표기를 뺀 "모델 이름" (예: 기아 더 뉴 쏘렌토 하이브리드 1.6T → 기아 더 뉴 쏘렌토 하이브리드)
+  function modelKey(r) { const w = r.name.split(' '); const out = []; for (const x of w) { if (/^\d/.test(x) && out.length >= 2) break; out.push(x); } return out.join(' '); }
+  function seedOf(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function shuffle(a, rnd) { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor((rnd || Math.random)() * (i + 1)); [x[i], x[j]] = [x[j], x[i]]; } return x; }
+  const todayKey = () => new Date().toLocaleDateString('sv-SE');
+  const ovrTxt = (r) => (isNaN(r._ovr) ? '–' : String(r._ovr));
+  const priceTxt = (r) => (r.price >= 10000 ? (r.price / 10000).toFixed(r.price % 10000 ? 1 : 0) + '억' : fmt(Math.round(r.price)) + '만');
+  const activePool = () => CARS.filter((r) => !r.og && !r.ex && !isNaN(r._ovr));
+  // 최근 본 선수
+  function pushRecent(id) { if (!id) return; let a = []; try { a = JSON.parse(LS.get('carro_recent') || '[]'); } catch (e) {} a = [id].concat(a.filter((x) => x !== id)).slice(0, 12); LS.set('carro_recent', JSON.stringify(a)); }
+  const recentList = () => { try { return JSON.parse(LS.get('carro_recent') || '[]').filter((id) => byId[id]); } catch (e) { return []; } };
+  // 작은 선수 줄 (홈·결과 목록용)
+  function miniRow(r, sub) {
+    const it = el('div', 'mrow');
+    const av = it.appendChild(el('span', 'av ' + cellCls(isNaN(r._ovr) ? NaN : Math.round(r._ovr / 5)), ovrTxt(r)));
+    av.title = 'OVR';
+    const t = it.appendChild(el('span', 'nm2')); const nb = t.appendChild(el('button', 'nm', r.name)); nb.type = 'button'; nb.addEventListener('click', () => openProfile(r.id));
+    t.appendChild(el('small', null, sub || `${r.powertrain} · ${r.body} · ${priceTxt(r)} 원`));
+    it.appendChild(favBtn(r));
+    return it;
+  }
+  function goPlay(mode) { PLAY.mode = mode; show('t-play'); }
+
+  // ------------------------------------------------------------------ 차 MBTI
+  const MBTI = {
+    ISTJ: ['철벽 수비수형', '조용하고 꼼꼼한 실속파. 연비·안전·감가까지 따져서 고장 없이 오래 타는 차가 맞아요.', '센터백'],
+    ISFJ: ['든든한 수호천사형', '가족을 태우는 날이 많은 배려형. 조용하고 넓고 안전한 차에서 마음이 편해요.', '골키퍼'],
+    INFJ: ['조용한 이상주의자형', '고요한 실내에서 음악 듣는 시간을 사랑하는 감성 미래파. 전동화 차와 궁합이 좋아요.', '플레이메이커'],
+    INTJ: ['전략가형', '새 기술도 숫자로 검증하고 사는 계획형 얼리어답터. 효율과 안전이 확실한 전동화 차가 딱이에요.', '수비형 미드필더'],
+    ISTP: ['만능 정비공형', '말수는 적어도 운전은 즐기는 실용 장인. 쓸데없는 건 빼고 잘 달리는 차를 고르세요.', '풀백'],
+    ISFP: ['감성 크루저형', '분위기와 편안함이 먼저인 드라이버. 조용하면서도 기분 좋게 달리는 차가 어울려요.', '윙어'],
+    INFP: ['몽상가 드라이버형', '혼자만의 드라이브를 즐기는 타입. 조용한 전동화 차에서 생각 정리하기 좋아해요.', '윙어'],
+    INTP: ['분석가형', '제원표를 정독해서 남들이 모르는 가성비 차를 찾아내는 타입. 효율 좋은 신기술 차에 끌려요.', '플레이메이커'],
+    ESTP: ['질주 본능형', '일단 밟아 보는 행동파. 가속과 파워가 곧 행복이고, 실속까지 챙기면 금상첨화.', '스트라이커'],
+    ESFP: ['인싸 드라이버형', '존재감 있는 차로 친구들 태우고 다니는 걸 좋아해요. 힘 있고 넉넉한 차가 어울려요.', '윙어'],
+    ENFP: ['자유로운 탐험가형', '새 차, 새 길, 새 기술이 다 좋은 즉흥 드라이버. 빠르고 새로운 전동화 차와 찰떡.', '공격형 미드필더'],
+    ENTP: ['발명가형', '빠르면서 똑똑한 차에 끌리는 실험가. 성능과 효율을 동시에 잡은 신기술 차를 찾아보세요.', '스트라이커'],
+    ESTJ: ['리더형', '성능도 안전도 확실해야 하는 결단파. 검증된 파워트레인의 믿음직한 차가 맞아요.', '센터백(주장)'],
+    ESFJ: ['분위기 메이커형', '모두를 챙기는 따뜻한 리더. 힘 있고 넓고 안전한 차로 다 같이 떠나요.', '중앙 미드필더'],
+    ENFJ: ['캡틴형', '가족과 동료를 태우고 앞장서는 리더. 넓고 힘 있고 미래적인 차가 잘 어울려요.', '주장'],
+    ENTJ: ['사령관형', '성능·효율·안전 모두 1등이어야 하는 완벽주의자. 빠르고 똑똑한 차만 영입합니다.', '스트라이커']
+  };
+  const MBQ = [
+    ['EI', '고속도로 합류할 때 나는?', '시원하게 밟고 들어간다', '흐름을 보다가 부드럽게 끼어든다'],
+    ['EI', '차 안에서 가장 중요한 건?', '엔진 소리와 가속감', '노래 소리만 들리는 고요함'],
+    ['EI', '주말 드라이브 코스를 고른다면?', '굽이굽이 와인딩 산길', '한적한 해안 도로 크루징'],
+    ['SN', '전기차·자율주행 같은 새 기술은?', '충분히 검증되면 그때', '남들보다 먼저 타 보고 싶다'],
+    ['SN', '주유소 vs 충전소', '5분이면 끝나는 주유가 최고', '집에서 충전하는 삶도 괜찮다'],
+    ['SN', '차를 고를 때 끌리는 쪽은?', '많이 팔리는 검증된 차', '남들이 잘 안 타는 새로운 차'],
+    ['TF', '차값을 비교할 때 나는?', '옵션 하나당 가격까지 계산한다', '마음에 들면 조금 비싸도 산다'],
+    ['TF', '더 끌리는 광고 문구는?', '연비 20km/ℓ, 유지비 연 90만 원', '뒷좌석이 넓어 온 가족이 편안'],
+    ['TF', '친구가 차를 추천해 달라고 하면?', '비교표를 만들어 보내 준다', '어떤 차 타고 싶은지부터 물어본다'],
+    ['JP', '차를 살 때 제일 먼저 보는 것은?', '충돌 안전 등급과 리콜 기록', '타 보고 설레는지'],
+    ['JP', '여행을 떠날 때 나는?', '경로와 휴게소까지 미리 계획', '일단 출발, 가다가 정한다'],
+    ['JP', '10년 뒤 이 차와 나는?', '고장 없이 함께 늙어 가고 싶다', '질리면 다른 차로 갈아탄다']
+  ];
+  function zg(r, k) { const v = r['g_' + k]; if (isNaN(v) || !GSTAT[k]) return 0; const [m, sd] = GSTAT[k]; return (v - m) / sd; }
+  function carMBTI(r) {
+    if (!Object.keys(GSTAT).length) gstat();
+    const E = zg(r, '성능') - zg(r, '정숙') >= 0 ? 'E' : 'I';
+    const N = /전기|PHEV|하이브리드|수소/.test(r.powertrain) ? 'N' : 'S';
+    const T = (zg(r, '가치') + zg(r, '효율')) / 2 - zg(r, '공간') >= 0 ? 'T' : 'F';
+    const J = zg(r, '안전') - (r.fun ? 0.8 : 0) - (/쿠페|컨버터블/.test(r.body) ? 0.6 : 0) >= -0.1 ? 'J' : 'P';
+    return E + N + T + J;
+  }
+  function mbtiMatches(type, n) {
+    const pool = activePool();
+    let a = pool.filter((r) => carMBTI(r) === type);
+    if (a.length < n) { const near = pool.filter((r) => { const t = carMBTI(r); let d = 0; for (let i = 0; i < 4; i++) d += t[i] !== type[i]; return d === 1; }); a = a.concat(near); }
+    const seen = new Set(); return a.sort((x, y) => y._ovr - x._ovr).filter((r) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
+  }
+
+  // ------------------------------------------------------------------ 놀이터: 이상형 월드컵 + 차 MBTI
+  const PLAY = { mode: 'wc', wc: { stage: 'setup', size: 32, filt: 'all', old: false }, mb: { i: 0, ans: [], result: null }, sharedWc: null };
+  const WC_FILTERS = [
+    ['전체', [['all', '🎲 전체 랜덤']]],
+    ['차 모양', [['b:SUV', 'SUV'], ['b:세단', '세단'], ['b:small', '해치백 · 경차 · 왜건'], ['b:MPV', 'RV · 미니밴'], ['b:sport', '쿠페 · 컨버터블'], ['b:픽업', '픽업']]],
+    ['특별 리그', [['fun', '🔥 펀카'], ['o:국산', '국산차'], ['o:수입', '수입차']]],
+    ['연료', [['f:가솔린', '가솔린'], ['f:디젤', '디젤'], ['f:하이브리드', '하이브리드'], ['f:PHEV', 'PHEV'], ['f:ev', '전기 · 수소'], ['f:LPG', 'LPG']]],
+    ['가격', [['p:0-3000', '3천만 원 이하'], ['p:3000-6000', '3천~6천만'], ['p:6000-10000', '6천만~1억'], ['p:10000-999999', '1억 이상']]]
+  ];
+  function wcPool(f, old) {
+    const big = f === 'fun' || f === 'p:10000-999999';
+    let a = CARS.filter((r) => !isNaN(r._ovr) && (old || !r.og) && (big || !r.ex));
+    const [k, v] = f.split(':');
+    if (k === 'b') a = a.filter((r) => (v === 'small' ? /해치백|경차|왜건/.test(r.body) : v === 'sport' ? /쿠페|컨버터블/.test(r.body) : r.body === v));
+    if (k === 'fun') a = a.filter((r) => r.fun);
+    if (k === 'o') a = a.filter((r) => r.origin === v);
+    if (k === 'f') a = a.filter((r) => (v === 'ev' ? /전기|수소/.test(r.powertrain) : r.powertrain === v));
+    if (k === 'p') { const [lo, hi] = v.split('-').map(Number); a = a.filter((r) => r.price > lo && r.price <= hi); }
+    // 같은 모델은 한 대만 (사진 있는 쪽 우선)
+    const best = new Map();
+    a.forEach((r) => { const m = modelKey(r); const o = best.get(m); if (!o || (!o.photo && r.photo) || (!!o.photo === !!r.photo && r._ovr > o._ovr)) best.set(m, r); });
+    return [...best.values()];
+  }
+  const roundName = (n) => (n === 2 ? '결승' : n === 4 ? '준결승' : n + '강');
+  function wcStart() {
+    const W = PLAY.wc; const pool = wcPool(W.filt, W.old);
+    let n = W.size; while (n > pool.length && n > 4) n /= 2;
+    if (pool.length < 4) { backToast('후보가 너무 적어요. 다른 조건을 골라 주세요'); return; }
+    const withPh = shuffle(pool.filter((r) => r.photo)), noPh = shuffle(pool.filter((r) => !r.photo));
+    const pick = shuffle(withPh.concat(noPh).slice(0, n));
+    Object.assign(W, { stage: 'play', n, round: pick.map((r) => r.id), next: [], idx: 0, hist: [], semi: [], final: [], champ: null });
+    if (n < W.size) setTimeout(() => backToast(`후보가 ${pool.length}대라 ${n}강으로 진행해요`), 200);
+    renderPlay();
+  }
+  function wcPick(id) {
+    const W = PLAY.wc;
+    W.hist.push(JSON.stringify({ round: W.round, next: W.next, idx: W.idx, semi: W.semi, final: W.final }));
+    if (W.round.length === 4) W.semi = W.round.slice();
+    if (W.round.length === 2) W.final = W.round.slice();
+    W.next.push(id); W.idx += 2;
+    if (W.idx >= W.round.length) { W.round = W.next; W.next = []; W.idx = 0; if (W.round.length === 1) { W.champ = W.round[0]; W.stage = 'done'; } }
+    renderPlay();
+    const box = $('#playbox'); if (box && window.innerWidth < 900) box.scrollIntoView({ block: 'start' });
+  }
+  function wcUndo() { const W = PLAY.wc; const h = W.hist.pop(); if (!h) return; Object.assign(W, JSON.parse(h), { stage: 'play', champ: null }); renderPlay(); }
+  function wcCard(r, onPick) {
+    const c = el('button', 'wcc'); c.type = 'button'; c.addEventListener('click', onPick);
+    const ph = c.appendChild(el('div', 'wph')); photo(ph, r);
+    c.appendChild(el('b', 'wnm', r.name));
+    c.appendChild(el('span', 'wsub', `${r.brand} · ${r.powertrain} · ${r.body}${r.og ? ' · ' + (r.gyears || '이전 세대') : ''}`));
+    const row = c.appendChild(el('span', 'wstat'));
+    row.appendChild(el('span', 'wovr av ' + cellCls(isNaN(r._ovr) ? NaN : Math.round(r._ovr / 5)), ovrTxt(r)));
+    row.appendChild(el('span', 'wcprice', (r.og && r.used_price ? '중고 ' + fmt(Math.round(r.used_price)) + '만' : priceTxt(r) + ' 원')));
+    const tg = c.appendChild(el('span', 'wtags'));
+    topAttrs(r, 3).forEach((a) => { const v = r['s_' + a.k]; tg.appendChild(el('i', cellCls(Math.round(v)), `${a.label} ${Math.round(v)}`)); });
+    c.appendChild(el('span', 'wgo', '이 차 선택'));
+    return c;
+  }
+  function shareLink(params, title, btn) {
+    const url = location.origin + location.pathname + '#' + params;
+    if (navigator.share) { navigator.share({ title, url }).catch(() => {}); return; }
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { if (btn) { const t = btn.textContent; btn.textContent = '✓ 링크 복사됨'; setTimeout(() => { btn.textContent = t; }, 1800); } }).catch(() => window.prompt('이 링크를 복사해서 보내세요', url));
+  }
+  function renderWC(box) {
+    const W = PLAY.wc;
+    if (PLAY.sharedWc && byId[PLAY.sharedWc] && W.stage === 'setup') {
+      const sr = byId[PLAY.sharedWc]; const bn = box.appendChild(el('div', 'card wcshared'));
+      bn.appendChild(el('p', null, '친구의 드림카 🏆')); const b = bn.appendChild(el('button', 'nm big', sr.name)); b.addEventListener('click', () => openProfile(sr.id));
+      bn.appendChild(el('span', 'note', '나도 해 보고 같은 차가 나오는지 비교해 보세요!'));
+    }
+    if (W.stage === 'setup') {
+      const c = box.appendChild(el('div', 'card wcsetup'));
+      const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, '🏆 자동차 이상형 월드컵'));
+      c.appendChild(el('p', 'note', '두 대 중 더 끌리는 차를 계속 고르면 마지막에 나의 드림카가 남아요. 후보는 매번 무작위로 뽑혀요.'));
+      const s1 = c.appendChild(el('div', 'wcrow')); s1.appendChild(el('span', 'lbl', '대진'));
+      const g1 = s1.appendChild(el('div', 'pseg'));
+      [16, 32, 64].forEach((n) => { const b = g1.appendChild(btnEl('chip', n + '강', () => { W.size = n; renderPlay(); })); b.setAttribute('aria-pressed', W.size === n); });
+      WC_FILTERS.forEach(([lab, opts]) => {
+        const s = c.appendChild(el('div', 'wcrow')); s.appendChild(el('span', 'lbl', lab));
+        const g = s.appendChild(el('div', 'pseg'));
+        opts.forEach(([k, t]) => { const b = g.appendChild(btnEl('chip', t, () => { W.filt = k; renderPlay(); })); b.setAttribute('aria-pressed', W.filt === k); });
+      });
+      const s2 = c.appendChild(el('div', 'wcrow')); s2.appendChild(el('span', 'lbl', '세대'));
+      const g2 = s2.appendChild(el('div', 'pseg'));
+      [[false, '현역만'], [true, '이전 세대 포함']].forEach(([v, t]) => { const b = g2.appendChild(btnEl('chip', t, () => { W.old = v; renderPlay(); })); b.setAttribute('aria-pressed', W.old === v); });
+      const cnt = wcPool(W.filt, W.old).length; let n = W.size; while (n > cnt && n > 4) n /= 2;
+      const go = c.appendChild(el('div', 'wcgo'));
+      go.appendChild(el('span', 'note', `후보 ${cnt}대 중 ${cnt >= 4 ? n + '대로 ' + roundName(n) + ' 진행' : '— 후보가 부족해요'}`));
+      go.appendChild(btnEl('chip big gold', '시작하기 ▶', wcStart)).disabled = cnt < 4;
+      return;
+    }
+    if (W.stage === 'play') {
+      const n = W.round.length; const m = W.idx / 2 + 1;
+      const hd = box.appendChild(el('div', 'wchead'));
+      hd.appendChild(el('b', 'jal', roundName(n)));
+      hd.appendChild(el('span', null, n === 2 ? '마지막 선택!' : `${m} / ${n / 2}`));
+      const bar = hd.appendChild(el('span', 'wbar')); bar.appendChild(el('i')).style.width = ((m - 1) / (n / 2)) * 100 + '%';
+      const acts = hd.appendChild(el('span', 'wacts'));
+      if (W.hist.length) acts.appendChild(btnEl('chip sm', '↶ 되돌리기', wcUndo));
+      acts.appendChild(btnEl('chip sm', '그만하기', () => { W.stage = 'setup'; renderPlay(); }));
+      const vs = box.appendChild(el('div', 'wcvs'));
+      const a = byId[W.round[W.idx]], b = byId[W.round[W.idx + 1]];
+      vs.appendChild(wcCard(a, () => wcPick(a.id)));
+      vs.appendChild(el('span', 'vsb jal', 'VS'));
+      vs.appendChild(wcCard(b, () => wcPick(b.id)));
+      return;
+    }
+    // 결과
+    const r = byId[W.champ]; const ru = W.final.map((id) => byId[id]).find((x) => x && x.id !== W.champ);
+    const res = box.appendChild(el('div', 'card wcres'));
+    res.appendChild(el('span', 'kick', `${roundName(W.n)} 우승 · 나의 드림카`));
+    const top = res.appendChild(el('div', 'wctop'));
+    const ph = top.appendChild(el('div', 'wph')); photo(ph, r);
+    const info = top.appendChild(el('div', 'wcinfo'));
+    info.appendChild(el('b', 'jal wcname', r.name));
+    info.appendChild(el('span', 'wsub', `${r.powertrain} · ${r.body} · ${priceTxt(r)} 원 · OVR ${ovrTxt(r)} · 차 MBTI ${carMBTI(r)}`));
+    const tg = info.appendChild(el('span', 'wtags')); topAttrs(r, 4).forEach((x) => { const v = Math.round(r['s_' + x.k]); tg.appendChild(el('i', cellCls(v), `${x.label} ${v}`)); });
+    const bt = info.appendChild(el('div', 'wcbtns'));
+    bt.appendChild(btnEl('chip gold', '선수 보기', () => openProfile(r.id)));
+    const fb = bt.appendChild(btnEl('chip', isFav(r.id) ? '♥ 찜함' : '♡ 스쿼드에 찜', () => { toggleFav(r.id, true); fb.textContent = '♥ 찜함'; }));
+    if (ru) bt.appendChild(btnEl('chip', '준우승 차와 비교', () => { state.cmp = [r.id, ru.id]; $('#cmpN').textContent = 2; show('t-cmp'); }));
+    const sh = bt.appendChild(btnEl('chip', '🔗 결과 공유', () => shareLink('tab=play&wc=' + r.id, `[카스쿼드] 내 드림카는 ${r.name}!`, sh)));
+    bt.appendChild(btnEl('chip', '↻ 다시 하기', () => { W.stage = 'setup'; renderPlay(); }));
+    const rest = W.semi.map((id) => byId[id]).filter((x) => x && x.id !== r.id);
+    if (rest.length) {
+      const l = box.appendChild(el('div', 'card'));
+      l.appendChild(el('div', 'ch')).appendChild(el('h2', null, '4강까지 올라온 차'));
+      rest.forEach((x) => l.appendChild(miniRow(x, x.id === (ru && ru.id) ? '🥈 준우승 · ' + priceTxt(x) + ' 원' : '🥉 4강 · ' + priceTxt(x) + ' 원')));
+    }
+  }
+  function renderMBTI(box) {
+    const M = PLAY.mb;
+    if (!M.result) {
+      const c = box.appendChild(el('div', 'card mbq'));
+      const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, '🧠 차 MBTI — 나는 어떤 차 체질?'));
+      const q = MBQ[M.i];
+      const pr = c.appendChild(el('div', 'mbprog')); pr.appendChild(el('span', null, `${M.i + 1} / ${MBQ.length}`)); pr.appendChild(el('span', 'wbar')).appendChild(el('i')).style.width = (M.i / MBQ.length) * 100 + '%';
+      c.appendChild(el('p', 'mbqq jal', q[1]));
+      const g = c.appendChild(el('div', 'mbopts'));
+      [2, 3].forEach((k, j) => g.appendChild(btnEl('mbopt', q[k], () => { M.ans[M.i] = j; M.i++; if (M.i >= MBQ.length) M.result = mbtiType(M.ans); renderPlay(); })));
+      if (M.i > 0) c.appendChild(btnEl('chip sm', '↶ 이전 질문', () => { M.i--; renderPlay(); }));
+      return;
+    }
+    const t = M.result.type; const info = MBTI[t];
+    const c = box.appendChild(el('div', 'card mbres'));
+    c.appendChild(el('span', 'kick', '나의 차 MBTI'));
+    c.appendChild(el('b', 'mbtype jal', t));
+    c.appendChild(el('p', 'mbnick jal', info[0]));
+    c.appendChild(el('p', 'mbdesc', info[1]));
+    c.appendChild(el('p', 'note', `스쿼드로 치면 ⚽ ${info[2]} 체질`));
+    const ax = c.appendChild(el('div', 'mbaxes'));
+    [['E', 'I', '달리는 재미', '조용한 편안함'], ['S', 'N', '검증된 실속', '새로운 기술'], ['T', 'F', '숫자 · 가성비', '공간 · 안락함'], ['J', 'P', '안전 · 계획', '설렘 · 즉흥']].forEach(([a, b, la, lb], i) => {
+      const p = M.result.pct[i]; const row = ax.appendChild(el('div', 'mbax'));
+      row.appendChild(el('span', 'l' + (p >= 50 ? ' on' : ''), `${a} ${la}`));
+      const bar = row.appendChild(el('span', 'wbar')); bar.appendChild(el('i')).style.width = p + '%';
+      row.appendChild(el('span', 'r' + (p < 50 ? ' on' : ''), `${lb} ${b}`));
+    });
+    const list = box.appendChild(el('div', 'card'));
+    const lh = list.appendChild(el('div', 'ch')); lh.appendChild(el('h2', null, `나와 같은 ${t} 유형의 차`));
+    const ms = mbtiMatches(t, 6);
+    lh.appendChild(btnEl('chip sm', '♡ 모두 찜해서 스쿼드 짜기', () => { ms.forEach((r) => toggleFav(r.id, true)); show('t-sq'); }));
+    list.appendChild(el('p', 'note', '차마다 능력치로 MBTI를 매겼어요(달리기↔정숙, 전동화 여부, 가성비↔공간, 안전↔재미). 같은 유형 중 OVR 순입니다.'));
+    ms.forEach((r) => list.appendChild(miniRow(r, `${carMBTI(r)} · ${r.powertrain} · ${r.body} · ${priceTxt(r)} 원`)));
+    const bt = box.appendChild(el('div', 'wcbtns'));
+    const sh = bt.appendChild(btnEl('chip gold', '🔗 결과 공유', () => shareLink('tab=play&mb=' + t, `[카스쿼드] 나의 차 MBTI는 ${t} ${info[0]}!`, sh)));
+    bt.appendChild(btnEl('chip', '↻ 다시 하기', () => { PLAY.mb = { i: 0, ans: [], result: null }; renderPlay(); }));
+    bt.appendChild(btnEl('chip', '🏆 이상형 월드컵 하러 가기', () => { PLAY.mode = 'wc'; renderPlay(); }));
+  }
+  function mbtiType(ans) {
+    let t = ''; const pct = [];
+    ['EI', 'SN', 'TF', 'JP'].forEach((ax, i) => { const idx = MBQ.map((q, j) => (q[0] === ax ? j : -1)).filter((j) => j >= 0); const a = idx.filter((j) => ans[j] === 0).length; pct.push(Math.round((a / idx.length) * 100)); t += a * 2 >= idx.length ? ax[0] : ax[1]; });
+    return { type: t, pct };
+  }
+  function renderPlay() {
+    const box = $('#playbox'); box.textContent = '';
+    const seg = box.appendChild(el('div', 'pseg playseg'));
+    [['wc', '🏆 이상형 월드컵'], ['mb', '🧠 차 MBTI'], ['vid', '🎬 리뷰 영상관']].forEach(([k, t]) => { const b = seg.appendChild(btnEl('chip', t, () => { PLAY.mode = k; renderPlay(); writeHash(); })); b.setAttribute('aria-pressed', PLAY.mode === k); });
+    if (PLAY.mode === 'wc') renderWC(box); else if (PLAY.mode === 'vid') renderVidHub(box); else renderMBTI(box);
+  }
+
+  // ------------------------------------------------------------------ 리뷰 영상관 (선수 화면)
+  const vidAge = (a) => String(a || '').replace(/^(\d+)([nhdwmy])$/, (x, n, u) => n + { n: '분 전', h: '시간 전', d: '일 전', w: '주 전', m: '개월 전', y: '년 전' }[u]);
+  const vidDays = (a) => { const m = /^(\d+)([nhdwmy])$/.exec(a || ''); return m ? +m[1] * { n: 0, h: 0, d: 1, w: 7, m: 30, y: 365 }[m[2]] : 9999; };
+  const YT = (q) => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
+  function rivalOf(r) {
+    const mk = modelKey(r);
+    return activePool().filter((x) => x.body === r.body && modelKey(x) !== mk && x.brand !== r.brand).sort((a, b) => Math.abs(a.price - r.price) - Math.abs(b.price - r.price))[0];
+  }
+  function videoPanel(box, r) {
+    const V = box.appendChild(el('div', 'pvideo'));
+    const vh = V.appendChild(el('div', 'vhead')); vh.appendChild(el('h4', null, '🎬 리뷰 영상관 · 직접 보고 판단하기'));
+    vh.appendChild(linkEl('vmore', '유튜브에서 더 보기 ↗', YT(modelKey(r) + ' 리뷰')));
+    const mk = modelKey(r); const vv = (window.__VIDS || {})[r.id] || (window.__VIDS || {})[mk] || {};
+    // 실제 영상이 등록된 차는 바로 재생
+    const have = ['o', 'a', 'j', 'n', 'c'].filter((k) => vv[k]);
+    if (have.length) {
+      const vg = V.appendChild(el('div', 'vgrid'));
+      const LAB = { o: '대표 리뷰', a: '오토뷰 리뷰', j: '1인칭 주행', n: '실내 소음', c: '오너 리뷰' };
+      have.forEach((k) => {
+        const v = vv[k]; const c = vg.appendChild(el('div', 'vcard'));
+        c.appendChild(el('span', 'vlab vl-' + k, LAB[k]));
+        const th = c.appendChild(el('button', 'vthumb')); th.type = 'button'; th.title = '여기서 재생';
+        const im = th.appendChild(el('img')); im.src = 'https://i.ytimg.com/vi/' + v[0] + '/mqdefault.jpg'; im.alt = r.name + ' ' + LAB[k]; im.loading = 'lazy';
+        th.appendChild(el('span', 'vplay', '▶'));
+        th.addEventListener('click', () => { const f = document.createElement('iframe'); f.src = 'https://www.youtube-nocookie.com/embed/' + v[0] + '?autoplay=1&rel=0'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.title = r.name + ' ' + LAB[k]; th.replaceWith(f); });
+        c.appendChild(linkEl('vtitle', (v[1] || '유튜브') + ' 채널에서 보기 ↗', 'https://www.youtube.com/watch?v=' + v[0]));
+        if (v[2]) c.appendChild(el('span', 'vch', vidAge(v[2]) + ' 영상'));
+      });
+    }
+    // 주제별로 찾아보기
+    const rv = rivalOf(r);
+    const topics = [
+      ['🚗', '시승 리뷰', mk + ' 시승기'], ['👍👎', '장단점 총정리', mk + ' 장단점'], ['⚠️', '단점 · 결함', mk + ' 단점 결함'],
+      ['🔇', '실내 소음', mk + ' 실내 소음 측정'], ['⛽', '연비 실측', mk + (/전기|수소/.test(r.powertrain) ? ' 전비 주행거리 실측' : ' 연비 실측')], ['🎥', '1인칭 주행', mk + ' 1인칭 주행'],
+      ['🙋', '오너 리뷰', mk + ' 오너 리뷰 실차주'], ['🛠', '유지비 · 정비', mk + ' 유지비 정비'], ['🆚', rv ? 'vs ' + modelKey(rv).split(' ').slice(1).join(' ') : '경쟁차 비교', rv ? mk + ' vs ' + modelKey(rv) : mk + ' 비교']
+    ];
+    V.appendChild(el('p', 'vsec', '주제별로 골라 보기'));
+    const tg = V.appendChild(el('div', 'vtopics'));
+    topics.forEach(([ic, t, q]) => { const a = tg.appendChild(linkEl('vtopic', '', YT(q))); a.appendChild(el('span', 'vic', ic)); a.appendChild(el('b', null, t)); });
+    V.appendChild(el('p', 'vsec', '믿고 보는 채널에서 찾기'));
+    const ch = V.appendChild(el('div', 'vchans'));
+    [['오토뷰', '실측 데이터'], ['모트라인', '시승 리뷰'], ['카랩', '정비 · 결함'], ['김한용의 MOCAR', '자동차 뉴스'], ['주니TV', '1인칭 주행'], ['차업차득', '비교 · 구매 팁']].forEach(([n, d]) => { const a = ch.appendChild(linkEl('vchan', '', YT(mk + ' ' + n))); a.appendChild(el('b', null, n)); a.appendChild(el('small', null, d)); });
+    V.appendChild(el('p', 'vsec', '글로 된 실제 오너 후기'));
+    const tx = V.appendChild(el('div', 'vchans'));
+    [['네이버 블로그', '오너 장기 시승기', 'https://search.naver.com/search.naver?where=blog&query=' + encodeURIComponent(mk + ' 오너 후기')], ['네이버 카페', '동호회 실사용 글', 'https://search.naver.com/search.naver?where=article&query=' + encodeURIComponent(mk + ' 후기')], ['보배드림', '자동차 커뮤니티', 'https://www.google.com/search?q=' + encodeURIComponent('site:bobaedream.co.kr ' + mk)]].forEach(([n, d, u]) => { const a = tx.appendChild(linkEl('vchan', '', u)); a.appendChild(el('b', null, n)); a.appendChild(el('small', null, d)); });
+  }
+
+  // ------------------------------------------------------------------ 리뷰 영상관 (놀이터)
+  PLAY.vh = { k: 'o', body: 'all', fuel: 'all', q: '', sort: 'ovr', n: 12 };
+  function vidEntries(k) {
+    const m = new Map(); const V = window.__VIDS || {};
+    Object.keys(V).forEach((id) => { const r = byId[id]; const v = V[id][k]; if (!r || !v) return; const e = m.get(v[0]) || { v, cars: [] }; e.cars.push(r); m.set(v[0], e); });
+    return [...m.values()].map((e) => { e.cars.sort((a, b) => (isNaN(b._ovr) ? -1 : b._ovr) - (isNaN(a._ovr) ? -1 : a._ovr)); e.r = e.cars[0]; return e; });
+  }
+  function renderVidHub(box) {
+    const H = PLAY.vh;
+    const c = box.appendChild(el('div', 'card vhub'));
+    const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, '🎬 리뷰 영상관'));
+    c.appendChild(el('p', 'note vhnote', '차마다 대표 리뷰 · 오토뷰 실측 · 1인칭 주행 영상을 모았어요. 썸네일을 누르면 여기서 바로 재생돼요.'));
+    const rows = [
+      ['종류', 'k', [['o', '대표 리뷰'], ['a', '오토뷰 실측'], ['j', '1인칭 주행']]],
+      ['차 모양', 'body', [['all', '전체'], ['SUV', 'SUV'], ['세단', '세단'], ['small', '해치백 · 경차'], ['MPV', 'RV · 미니밴'], ['sport', '쿠페 · 컨버터블']]],
+      ['연료', 'fuel', [['all', '전체'], ['가솔린', '가솔린'], ['하이브리드', '하이브리드'], ['ev', '전기'], ['디젤', '디젤']]],
+      ['정렬', 'sort', [['ovr', 'OVR 높은 순'], ['new', '최신 영상 순'], ['cheap', '몸값 낮은 순']]]
+    ];
+    rows.forEach(([lab, key, opts]) => {
+      const s = c.appendChild(el('div', 'wcrow')); s.appendChild(el('span', 'lbl', lab));
+      const g = s.appendChild(el('div', 'pseg'));
+      opts.forEach(([v, t]) => { const b = g.appendChild(btnEl('chip', t, () => { H[key] = v; H.n = 12; renderPlay(); })); b.setAttribute('aria-pressed', H[key] === v); });
+    });
+    const sr = c.appendChild(el('div', 'wcrow')); sr.appendChild(el('span', 'lbl', '검색'));
+    const inp = sr.appendChild(el('input')); inp.type = 'search'; inp.placeholder = '차 이름 (예: 쏘렌토, 그랜저)'; inp.value = H.q; inp.className = 'vhq'; inp.setAttribute('aria-label', '영상 검색');
+    const grid = box.appendChild(el('div', 'vhgrid'));
+    const more = box.appendChild(el('div', 'vhmore'));
+    const draw = () => {
+      grid.textContent = ''; more.textContent = '';
+      let a = vidEntries(H.k).filter((e) => { const r = e.r; const bd = H.body, fu = H.fuel;
+        if (bd !== 'all' && !(bd === 'small' ? /해치백|경차|왜건/.test(r.body) : bd === 'sport' ? /쿠페|컨버터블/.test(r.body) : r.body === bd)) return false;
+        if (fu !== 'all' && !(fu === 'ev' ? /전기|수소/.test(r.powertrain) : r.powertrain === fu)) return false;
+        if (H.q && !e.cars.some((x) => x.name.replace(/\s/g, '').toLowerCase().includes(H.q.replace(/\s/g, '').toLowerCase()))) return false;
+        return true; });
+      a.sort(H.sort === 'new' ? (x, y) => vidDays(x.v[2]) - vidDays(y.v[2]) : H.sort === 'cheap' ? (x, y) => x.r.price - y.r.price : (x, y) => (isNaN(y.r._ovr) ? -1 : y.r._ovr) - (isNaN(x.r._ovr) ? -1 : x.r._ovr));
+      if (!a.length) { grid.appendChild(el('p', 'note', '조건에 맞는 영상이 없어요. 조건을 바꿔 보세요.')); return; }
+      a.slice(0, H.n).forEach((e) => {
+        const r = e.r, v = e.v; const cd = grid.appendChild(el('div', 'vhcard'));
+        const th = cd.appendChild(el('button', 'vthumb')); th.type = 'button'; th.title = '여기서 재생';
+        const im = th.appendChild(el('img')); im.src = 'https://i.ytimg.com/vi/' + v[0] + '/mqdefault.jpg'; im.alt = modelKey(r) + ' 리뷰 영상'; im.loading = 'lazy';
+        th.appendChild(el('span', 'vplay', '▶'));
+        th.addEventListener('click', () => { const f = document.createElement('iframe'); f.src = 'https://www.youtube-nocookie.com/embed/' + v[0] + '?autoplay=1&rel=0'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.title = modelKey(r) + ' 리뷰'; th.replaceWith(f); });
+        const inf = cd.appendChild(el('div', 'vhinfo'));
+        inf.appendChild(el('span', 'av ' + cellCls(isNaN(r._ovr) ? NaN : Math.round(r._ovr / 5)), ovrTxt(r)));
+        const t = inf.appendChild(el('span', 'nm2')); const nb = t.appendChild(el('button', 'nm', modelKey(r))); nb.type = 'button'; nb.addEventListener('click', () => openProfile(r.id));
+        t.appendChild(el('small', null, `${v[1] || '유튜브'} · ${vidAge(v[2])}${e.cars.length > 1 ? ' · 트림 ' + e.cars.length + '개 공통' : ''}`));
+        inf.appendChild(favBtn(r));
+      });
+      if (a.length > H.n) more.appendChild(btnEl('chip', `더 보기 (${a.length - H.n}개 남음)`, () => { H.n += 12; draw(); }));
+      else more.appendChild(el('span', 'note', `영상 ${a.length}개`));
+    };
+    let tm; inp.addEventListener('input', () => { clearTimeout(tm); tm = setTimeout(() => { H.q = inp.value.trim(); H.n = 12; draw(); }, 200); });
+    draw();
+  }
+
+  // ------------------------------------------------------------------ 홈
+  const UPDATES = [
+    ['11.11', '홈 · 이상형 월드컵 · 차 MBTI · 리뷰 영상관 오픈'],
+    ['11.10', '카롱도르 → 카스쿼드 새 단장 · 내 스쿼드 탭 · 새 엠블럼 · 글씨체'],
+    ['11.09', '휴대폰 비교 입력칸 · 뒤로가기 문제 수정'],
+    ['11.05', '이전 세대 298종 추가 · 한국 도로 기준 점수 보정'],
+    ['11.02', '출퇴근 연료비 · 소음 듣기 · 트림 옵션 · 체크리스트 · 앱 설치']
+  ];
+  function newsItems(rnd) {
+    const P = activePool(); const top = (arr, f, n, asc) => arr.filter((r) => !isNaN(f(r))).sort((a, b) => (asc ? f(a) - f(b) : f(b) - f(a))).slice(0, n || 3);
+    const uniq = (arr) => { const s = new Set(); return arr.filter((r) => { const k = modelKey(r); if (s.has(k)) return false; s.add(k); return true; }); };
+    const G = [];
+    G.push(() => { const a = top(uniq(P.filter((r) => r.price > 0)), (r) => r._ovr / Math.sqrt(r.price), 3); return ['가성비', '💰 몸값 대비 최강 선수', '연봉(가격)에 비해 능력치가 가장 높은 차', a]; });
+    G.push(() => { const a = top(uniq(P.filter((r) => r.dba)), (r) => r.dba, 3, true); return ['기록', '🔇 가장 조용한 선수', '80km/h 실내 소음이 가장 낮은 차 (dBA)', a, (r) => r.dba + 'dBA']; });
+    G.push(() => { const a = top(uniq(P.filter((r) => r.z100)), (r) => r.z100, 3, true); return ['기록', '⚡ 제로백 최강', '0→100km/h 가장 빠른 차 (슈퍼카 제외)', a, (r) => r.z100 + '초']; });
+    G.push(() => { const a = top(uniq(P.filter((r) => r.fe && r.fe_unit === 'km/ℓ')), (r) => r.fe, 3); return ['기록', '⛽ 연비왕', '복합연비가 가장 좋은 차', a, (r) => r.fe + 'km/ℓ']; });
+    G.push(() => { const a = top(uniq(P.filter((r) => r.fe && /kWh/.test(r.fe_unit || ''))), (r) => r.fe, 3); return ['기록', '🔋 전비왕', '전기 1kWh로 가장 멀리 가는 전기차', a, (r) => r.fe + 'km/kWh']; });
+    G.push(() => { const a = top(uniq(P), (r) => r['s_resale'], 3); return ['가치', '🛡 감가 방어왕', '중고로 팔 때 값이 가장 덜 떨어지는 차', a]; });
+    G.push(() => { const a = top(uniq(P.filter((r) => r.rec_n === 0 && +r.rec_since <= 2021)), (r) => r._ovr, 3); return ['부상', '🦾 철강왕', '출시 후 리콜 0회인 차 중 OVR 순', a]; });
+    G.push(() => { const a = top(uniq(CARS.filter((r) => r.og && r.used_price > 0 && !isNaN(r._ovr) && !r.ex)), (r) => r._ovr / Math.sqrt(r.used_price), 3); return ['이적시장', '🔎 저평가 중고 선수', '이전 세대 중 중고 시세 대비 능력치가 좋은 차', a, (r) => '중고 ' + fmt(Math.round(r.used_price)) + '만']; });
+    G.push(() => { const a = top(uniq(P.filter((r) => r.price <= 10000)), (r) => r._ovr, 3); return ['랭킹', '👑 1억 이하 최강', '몸값 1억 원 이하 OVR TOP 3', a]; });
+    G.push(() => { const a = ['SUV', '세단', '해치백', 'MPV'].map((b) => top(P.filter((r) => r.body === b), (r) => r._ovr, 1)[0]).filter(Boolean); return ['랭킹', '🏅 차 모양별 1위', 'SUV · 세단 · 해치백 · 미니밴 OVR 1위', a, (r) => r.body + ' 1위']; });
+    G.push(() => { const a = top(uniq(CARS.filter((r) => r.fun && !isNaN(r['g_성능']))), (r) => r['g_성능'], 3); return ['펀카', '🔥 펀카 리그 공격수', '펀카 중 성능 능력치 TOP 3', a]; });
+    const picked = shuffle(G, rnd).slice(0, 6).map((f) => f()).filter((x) => x[3].length);
+    return picked;
+  }
+  function renderHome() {
+    const box = $('#homebox'); box.textContent = '';
+    const rnd = rng(seedOf(todayKey()));
+    // 오늘의 선수
+    const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
+    const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
+    const hero = box.appendChild(el('div', 'card hero'));
+    const hp = hero.appendChild(el('div', 'wph')); photo(hp, r);
+    const hi = hero.appendChild(el('div', 'heroinfo'));
+    hi.appendChild(el('span', 'kick', `오늘의 선수 · ${todayKey().slice(5).replace('-', '.')}`));
+    const nb = hi.appendChild(el('button', 'nm jal heroname', r.name)); nb.type = 'button'; nb.addEventListener('click', () => openProfile(r.id));
+    hi.appendChild(el('span', 'wsub', `${r.powertrain} · ${r.body} · ${priceTxt(r)} 원 · 차 MBTI ${carMBTI(r)}`));
+    const st = hi.appendChild(el('div', 'herostat'));
+    const ov = st.appendChild(el('span', 'wovr av ' + cellCls(isNaN(r._ovr) ? NaN : Math.round(r._ovr / 5)), ovrTxt(r))); ov.title = 'OVR';
+    const tg = st.appendChild(el('span', 'wtags')); topAttrs(r, 3).forEach((x) => { const v = Math.round(r['s_' + x.k]); tg.appendChild(el('i', cellCls(v), `${x.label} ${v}`)); });
+    const sty = style(r); if (sty && sty[0]) hi.appendChild(el('p', 'note', '플레이 스타일 · ' + sty[0]));
+    const hb = hi.appendChild(el('div', 'wcbtns'));
+    hb.appendChild(btnEl('chip gold', '선수 보기', () => openProfile(r.id)));
+    hb.appendChild(favBtnChip(r));
+    hb.appendChild(linkEl('chip', '🎬 리뷰 영상', YT(modelKey(r) + ' 시승기')));
+    // 바로가기
+    const qk = box.appendChild(el('div', 'quick'));
+    [['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['🧠', '차 MBTI', '나는 어떤 차 체질?', () => goPlay('mb')], ['🎯', '추천받기', '질문 5개로 Top 3', () => show('t-wiz')], ['⚽', '내 스쿼드', `찜한 차 ${SQ.fav.length}대`, () => show('t-sq')], ['📊', '랭킹', '조건 걸고 순위', () => show('t-rank')], ['🎬', '리뷰 영상관', '대표 리뷰 모아보기', () => goPlay('vid')]]
+      .forEach(([ic, t, s, fn]) => { const b = qk.appendChild(btnEl('qtile', '', fn)); b.appendChild(el('span', 'qic', ic)); b.appendChild(el('b', null, t)); b.appendChild(el('small', null, s)); });
+    // 최근 본 선수
+    const rec = recentList().slice(0, 6);
+    if (rec.length) {
+      const rc = box.appendChild(el('div', 'card'));
+      rc.appendChild(el('div', 'ch')).appendChild(el('h2', null, '👀 최근 본 선수'));
+      const sc = rc.appendChild(el('div', 'recent'));
+      rec.forEach((id) => { const x = byId[id]; const b = sc.appendChild(btnEl('rchip', '', () => openProfile(id))); b.appendChild(el('span', 'av ' + cellCls(isNaN(x._ovr) ? NaN : Math.round(x._ovr / 5)), ovrTxt(x))); b.appendChild(el('span', null, x.name)); });
+    }
+    // 뉴스 피드
+    const nf = box.appendChild(el('div', 'card news'));
+    const nh = nf.appendChild(el('div', 'ch')); nh.appendChild(el('h2', null, '📰 카스쿼드 뉴스'));
+    nh.appendChild(el('span', 'note', '매일 새로 뽑혀요'));
+    const up = nf.appendChild(el('div', 'nitem upd'));
+    up.appendChild(el('span', 'ntag', '업데이트'));
+    const ub = up.appendChild(el('div', 'nbody')); ub.appendChild(el('b', null, UPDATES[0][1])); ub.appendChild(el('small', null, '2026.' + UPDATES[0][0]));
+    newsItems(rnd).forEach(([tag, title, sub, cars, fx]) => {
+      const it = nf.appendChild(el('div', 'nitem'));
+      it.appendChild(el('span', 'ntag', tag));
+      const b = it.appendChild(el('div', 'nbody'));
+      b.appendChild(el('b', null, title)); b.appendChild(el('small', null, sub));
+      const ol = b.appendChild(el('ol', 'nlist'));
+      cars.forEach((c) => { const li = ol.appendChild(el('li')); const nb2 = li.appendChild(el('button', 'nm', c.name)); nb2.type = 'button'; nb2.addEventListener('click', () => openProfile(c.id)); li.appendChild(el('span', 'nval', fx ? fx(c) : 'OVR ' + ovrTxt(c))); });
+    });
+    // 오늘의 맞대결
+    const pairPool = pop.filter((x) => x.id !== r.id);
+    const a = pairPool[Math.floor(rnd() * pairPool.length)];
+    const b2 = a && activePool().filter((x) => x.body === a.body && modelKey(x) !== modelKey(a) && x.brand !== a.brand).sort((x, y) => Math.abs(x.price - a.price) - Math.abs(y.price - a.price))[0];
+    if (a && b2) {
+      const it = nf.appendChild(el('div', 'nitem'));
+      it.appendChild(el('span', 'ntag', '맞대결'));
+      const b = it.appendChild(el('div', 'nbody'));
+      b.appendChild(el('b', null, `⚔️ 오늘의 맞대결: ${modelKey(a)} vs ${modelKey(b2)}`));
+      b.appendChild(el('small', null, `비슷한 값의 ${a.body} 두 대, 누가 이길까요?`));
+      b.appendChild(btnEl('chip sm gold', '맞대결 보기', () => { state.cmp = [a.id, b2.id]; $('#cmpN').textContent = 2; show('t-cmp'); }));
+    }
+    // 업데이트 기록
+    const ud = box.appendChild(el('details', 'card updlog'));
+    ud.appendChild(el('summary', null, '🛠 업데이트 기록'));
+    const ul = ud.appendChild(el('ul'));
+    UPDATES.forEach(([d, t]) => { const li = ul.appendChild(el('li')); li.appendChild(el('b', null, d)); li.appendChild(el('span', null, t)); });
+  }
+  function favBtnChip(r) {
+    const on = isFav(r.id); const b = btnEl('chip', on ? '♥ 찜함' : '♡ 스쿼드에 찜', () => { toggleFav(r.id); b.textContent = isFav(r.id) ? '♥ 찜함' : '♡ 스쿼드에 찜'; }); return b;
+  }
+
   // ------------------------------------------------------------------ tabs & hash
-  const TABS = [['t-rank', 'p-rank'], ['t-wiz', 'p-wiz'], ['t-prof', 'p-prof'], ['t-cmp', 'p-cmp'], ['t-sq', 'p-sq'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
-  let cur = 't-rank';
-  function show(id) { cur = id; TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); render(); writeHash(true); window.scrollTo({ top: Math.min(window.scrollY, $('.tabs').offsetTop - 8) }); }
+  const TABS = [['t-home', 'p-home'], ['t-rank', 'p-rank'], ['t-wiz', 'p-wiz'], ['t-prof', 'p-prof'], ['t-cmp', 'p-cmp'], ['t-sq', 'p-sq'], ['t-play', 'p-play'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
+  let cur = 't-home';
+  function show(id) { cur = id; TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); const vdr = document.querySelector('.vd'); if (vdr) vdr.classList.toggle('nofilt', ['t-home', 't-play'].includes(id)); render(); writeHash(true); scrollToSection(id); }
+  function scrollToSection(id) {
+    const pair = TABS.find(([t]) => t === id); const sec = pair && $('#' + pair[1]); if (!sec) return;
+    const tb = $('.tabs'); const cs = tb ? getComputedStyle(tb) : null; const stick = tb && cs.position === 'sticky' ? (parseFloat(cs.top) || 0) + tb.offsetHeight : 0;
+    const target = Math.max(0, sec.getBoundingClientRect().top + window.scrollY - stick - 6);
+    window.scrollTo({ top: id === 't-prof' ? target : Math.min(window.scrollY, target) });
+  }
   TABS.forEach(([t]) => $('#' + t).addEventListener('click', () => show(t)));
   function openProfile(id) { state.prof = id; show('t-prof'); }
   let navPop = false;
@@ -2639,6 +3239,7 @@ html, body { margin: 0; background: #14161b; }
     p.set('tab', cur.slice(2));
     if (state.cmp.length) p.set('c', state.cmp.join(','));
     if (state.prof && cur === 't-prof') p.set('p', state.prof);
+    if (cur === 't-play') p.set('g', PLAY.mode);
     const nh = '#' + p.toString();
     try { if (push && !navPop && nh !== location.hash) history.pushState({ carro: 1 }, '', nh); else history.replaceState(history.state, '', nh); } catch (e) {}
   }
@@ -2649,7 +3250,10 @@ html, body { margin: 0; background: #14161b; }
     $('#cmpN').textContent = state.cmp.length;
     const sq = p.get('sq'); if (sq) importSquad(sq);
     $('#sqN').textContent = SQ.fav.length;
-    const t = p.get('tab'); cur = t && $('#t-' + t) ? 't-' + t : 't-rank';
+    const t = p.get('tab'); cur = t && $('#t-' + t) ? 't-' + t : 't-home';
+    if (p.get('wc') && byId[p.get('wc')]) { PLAY.sharedWc = p.get('wc'); PLAY.mode = 'wc'; }
+    if (p.get('mb') && MBTI[p.get('mb')]) { PLAY.mode = 'mb'; const mt = p.get('mb'); PLAY.mb = { i: MBQ.length, ans: [], result: { type: mt, pct: ['EI', 'SN', 'TF', 'JP'].map((ax, i) => (mt[i] === ax[0] ? 67 : 33)) }, shared: true }; }
+    if (['mb', 'wc', 'vid'].includes(p.get('g'))) PLAY.mode = p.get('g');
   }
   // 휴대폰 뒤로가기: 열린 창 닫기 → 이전 탭/차로 → 첫 화면에서는 한 번 더 눌러야 나가기
   let exitArm = 0;
@@ -2706,6 +3310,9 @@ html, body { margin: 0; background: #14161b; }
     if (cur === 't-prof') renderProfile();
     if (cur === 't-cmp') renderCmp();
     if (cur === 't-sq') renderSquad();
+    if (cur === 't-home') renderHome();
+    if (cur === 't-play') renderPlay();
+    if (cur === 't-prof') pushRecent(state.prof);
     if (cur === 't-fun') renderFun();
     if (cur === 't-used') renderUsed(filtered(true));
     if (cur === 't-all') renderAll(rows);
