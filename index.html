@@ -2,6 +2,7 @@
 <html lang="ko"><head>
 <script>/* 예전 주소(깃허브·carrodor)로 오면 새 주소로 이동 */(function(){var h=location.hostname,p=location.pathname;if(/github\.io$/.test(h)){p=p.replace(/^\/car-noise/,'');}else if(!/(^|\.)carrodor\.pages\.dev$/.test(h)){return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>
 <link rel="canonical" href="https://carsquad.pages.dev/">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>카스쿼드 · CAR SQUAD — 차를 선수처럼 비교하고 내 스쿼드 짜기</title>
@@ -802,6 +803,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .dream textarea:focus{outline:2px solid #e3b448;outline-offset:1px}
 .vd .dft{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .vd .dcnt{font:600 13px/1 var(--cond);color:var(--mu)}
+.vd .seolinks{padding:14px 16px 0;font-size:13px}.vd .seolinks a{color:var(--gold)}
 .vd.nofilt .ftog, .vd.nofilt .filters { display: none !important; }
 .vd .chip.gold { background: #e3b448; border-color: #e3b448; color: #15171c; font-weight: 700; margin-left: 0; }
 .vd .chip.gold:hover { background: #f0c45c; color: #15171c; }
@@ -1119,6 +1121,7 @@ html, body { margin: 0; background: #14161b; }
     <a class="chip sm" href="#" id="adminOff">끄기</a>
     <textarea id="adminOut" hidden spellcheck="false"></textarea>
   </div>
+  <nav class="seolinks" aria-label="전체 차종"><a href="/cars">전체 차종 능력치 목록 (765종)</a></nav>
   <footer class="foot" id="foot"></footer>
 </div>
 
@@ -3600,6 +3603,8 @@ html, body { margin: 0; background: #14161b; }
     ].forEach((t) => d.appendChild(el('p', null, t))); }
   f.appendChild(el('p', null, '능력치는 재미를 위한 상대 점수입니다. 실제 구매 전에는 시승과 최신 가격표를 꼭 확인하세요.'));
   computeUpkeep(15000); scoreAll(); funAll(); fillSel(); buildWeights(); readHash(); ovrAll();
+  // 검색용 차종 페이지를 만들 때 쓰는 내보내기 (tools/build_seo.js)
+  window.__carroExport = () => CARS.map((r) => ({ id: r.id, name: r.name, short: shortName(r.name), model: modelKey(r), brand: r.brand, body: r.body, pt: r.powertrain, origin: r.origin, price: r.price, used: r.used_price, gyears: r.gyears || '', og: !!r.og, ex: !!r.ex, fun: !!r.fun, ovr: r._ovr, rank: r._rank, mbti: carMBTI(r), mbtiNick: MBTI[carMBTI(r)][0], style: style(r), groups: Object.fromEntries(GROUPS.map((g) => [g.k, r['g_' + g.k]])), attrs: ATTR.filter((x) => !isNaN(r['s_' + x.k])).map((x) => [x.k, x.label, r['s_' + x.k], String(x.fmtv(r))]) }));
 
   // ------------------------------------------------------------------ 앱으로 설치 (PWA)
   (function () {
