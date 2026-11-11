@@ -734,6 +734,42 @@ html, body { margin: 0; background: #14161b; }
 .vd .vhinfo .nm { text-align: left; font-size: 14px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vd .vhinfo small { font-size: 12px; color: var(--mu); }
 .vd .vhmore { display: flex; justify-content: center; }
+
+/* 추천 예산 빠른 선택 · 휴대폰 추천 카드 */
+.vd .wbudq { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.vd .wbudq .chip { margin-left: 0; border-radius: 6px; }
+.vd .wcard h4 .nshort { display: none; }
+.vd .wcard ul { list-style: none; padding-left: 0; }
+.vd .wcard li b { font-weight: 700; margin-right: 2px; }
+.vd .wcard li span { color: var(--mu); }
+@media (max-width: 700px) {
+  .vd .wcard { grid-template-columns: 26px minmax(0, 1fr) 50px; gap: 8px; padding: 10px; }
+  .vd .wcard .wrank { font-size: 20px; }
+  .vd .wcard .winfo { min-width: 0; }
+  .vd .wcard h4 { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+  .vd .wcard h4 .nfull { display: none; } .vd .wcard h4 .nshort { display: inline; }
+  .vd .wcard .wprice { font-size: 13px; margin-bottom: 4px; }
+  .vd .wcard ul { font-size: 12.5px; line-height: 1.55; }
+  .vd .wcard li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .vd .wfit b { font-size: 26px; } .vd .wfit span { font-size: 11px; }
+}
+/* 이상형 월드컵 선택 효과 */
+@keyframes wcIn { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes wcPop { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes wcRound { 0% { transform: scale(.7); opacity: 0; } 70% { transform: scale(1.12); } 100% { transform: none; opacity: 1; } }
+@keyframes wcWin { 0% { transform: scale(.94); box-shadow: 0 0 0 0 rgba(227,180,72,.6); } 60% { transform: scale(1.01); box-shadow: 0 0 0 14px rgba(227,180,72,0); } 100% { transform: none; } }
+@keyframes wcShine { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+.vd .wcvs .wcc { animation: wcIn .32s ease both; position: relative; transition: transform .25s ease, opacity .3s ease, filter .3s ease, border-color .2s, box-shadow .25s; }
+.vd .wcvs .wcc:last-child { animation-delay: .06s; }
+.vd .wcc .wpicked { position: absolute; top: 10px; right: 10px; z-index: 2; display: none; padding: 6px 12px; border-radius: 20px; background: #e3b448; color: #15171c; font-weight: 900; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,.35); }
+.vd .wcc.chosen { transform: scale(1.04); border-color: #e3b448; box-shadow: 0 0 0 4px rgba(227,180,72,.35), 0 14px 34px rgba(227,180,72,.28); z-index: 1; }
+.vd .wcc.chosen .wpicked { display: block; animation: wcPop .35s ease both; }
+.vd .wcc.chosen .wgo { background: #e3b448; color: #15171c; }
+.vd .wcc.lost { opacity: .32; transform: scale(.95); filter: grayscale(1); }
+.vd .wchead.newround > b { display: inline-block; animation: wcRound .45s ease both; }
+.vd .wcres.win { animation: wcWin .7s ease both; }
+.vd .wcres.win .wcname { background: linear-gradient(90deg, var(--hi) 40%, #e3b448 50%, var(--hi) 60%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: wcShine 1.6s ease .2s 2 both; }
+@media (prefers-reduced-motion: reduce) { .vd .wcvs .wcc, .vd .wcc.chosen .wpicked, .vd .wchead.newround > b, .vd .wcres.win, .vd .wcres.win .wcname { animation: none !important; } .vd .wcres.win .wcname { color: var(--hi); background: none; } }
 .vd.nofilt .ftog, .vd.nofilt .filters { display: none !important; }
 .vd .chip.gold { background: #e3b448; border-color: #e3b448; color: #15171c; font-weight: 700; margin-left: 0; }
 .vd .chip.gold:hover { background: #f0c45c; color: #15171c; }
@@ -2479,10 +2515,15 @@ html, body { margin: 0; background: #14161b; }
     };
     const bd = Q.appendChild(el('div', 'wqi')); bd.appendChild(el('h4', null, '① 예산은 얼마까지?'));
     const row = bd.appendChild(el('div', 'wbud'));
-    const rg = row.appendChild(el('input')); rg.type = 'range'; rg.min = 1000; rg.max = 15000; rg.step = 500; rg.value = WZ.budget;
-    const lb = row.appendChild(el('b', null, fmt(WZ.budget) + '만 원'));
-    rg.addEventListener('input', () => { lb.textContent = fmt(+rg.value) + '만 원'; });
-    rg.addEventListener('change', () => { WZ.budget = +rg.value; renderWiz(); });
+    const BUD = [1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3250, 3500, 3750, 4000, 4250, 4500, 4750, 5000, 5500, 6000, 7000, 8000, 9000, 10000, 12000, 15000, 20000, 1e9];
+    const budTxt = (v) => (v >= 1e9 ? '제한 없음' : v >= 10000 ? (v / 10000).toFixed(v % 10000 ? 1 : 0) + '억 원' : fmt(v) + '만 원');
+    const bi = () => { let i = BUD.findIndex((v) => v >= WZ.budget); return i < 0 ? BUD.length - 1 : i; };
+    const rg = row.appendChild(el('input')); rg.type = 'range'; rg.min = 0; rg.max = BUD.length - 1; rg.step = 1; rg.value = bi(); rg.setAttribute('aria-label', '예산');
+    const lb = row.appendChild(el('b', null, budTxt(WZ.budget)));
+    rg.addEventListener('input', () => { lb.textContent = budTxt(BUD[+rg.value]); });
+    rg.addEventListener('change', () => { WZ.budget = BUD[+rg.value]; renderWiz(); });
+    const qb = bd.appendChild(el('div', 'wbudq'));
+    [[2000, '2천'], [3000, '3천'], [4000, '4천'], [5000, '5천'], [7000, '7천'], [10000, '1억'], [1e9, '제한 없음']].forEach(([v, t]) => { const c = qb.appendChild(el('button', 'chip sm', t)); c.type = 'button'; c.setAttribute('aria-pressed', WZ.budget === v); c.addEventListener('click', () => { WZ.budget = v; renderWiz(); }); });
     q('② 새 차? 중고차?', 'mode', [['new', '신차'], ['used', '중고(3~7만km)'], ['any', '상관없음']]);
     q('③ 주로 어떻게 쓰나요?', 'use', Object.entries(USES).map(([k, v]) => [k, v[0]]));
     q('④ 차 모양', 'body', [['', '상관없음'], ['세단', '세단'], ['SUV', 'SUV'], ['해치백|경차|왜건', '해치백·경차·왜건'], ['MPV', '미니밴(MPV)'], ['쿠페|컨버터블', '쿠페·오픈카'], ['픽업', '픽업']]);
@@ -2509,12 +2550,12 @@ html, body { margin: 0; background: #14161b; }
       c.appendChild(el('div', 'wrank', ['🥇', '🥈', '🥉'][i]));
       const ph = c.appendChild(el('div', 'ph')); photo(ph, r);
       const info = c.appendChild(el('div', 'winfo'));
-      info.appendChild(el('h4', null, r.name));
+      const h4 = info.appendChild(el('h4')); h4.title = r.name; h4.appendChild(el('span', 'nfull', r.name)); h4.appendChild(el('span', 'nshort', shortName(r.name)));
       const p = num(priceOf(r));
       info.appendChild(el('p', 'wprice', (WZ.mode === 'used' || (WZ.mode === 'any' && p === num(r.used_price)) ? '중고 시세 ' : '신차 ') + fmt(p) + '만 원' + (r.legend ? ' · 단종' : '')));
       const best = Object.keys(w).filter((k) => !isNaN(r['s_' + k])).sort((a, b) => gv(b, r['s_' + b]) * w[b] - gv(a, r['s_' + a]) * w[a]).slice(0, 3);
       const ul = info.appendChild(el('ul'));
-      best.forEach((k) => { const a = A[k]; ul.appendChild(el('li', null, `${a.label} ${r['s_' + k]} — ${a.fmtv(r)}`)); });
+      best.forEach((k) => { const a = A[k]; const li = ul.appendChild(el('li')); li.appendChild(el('b', cellCls(r['s_' + k]), `${a.label} ${r['s_' + k]}`)); li.appendChild(el('span', null, ' ' + String(a.fmtv(r)).replace(/\s*\([^)]*\)\s*$/, ''))); });
       const fit = c.appendChild(el('div', 'wfit')); fit.appendChild(el('b', null, String(x.s))); fit.appendChild(el('span', null, '적합도'));
       if (mine && mine.id !== r.id) { const ms = wizScore(mine, w); if (!isNaN(ms)) fit.appendChild(el('small', x.s - ms >= 0 ? 'up' : 'down', `내 차 대비 ${x.s - ms >= 0 ? '+' : ''}${x.s - ms}`)); }
       c.addEventListener('click', () => openProfile(r.id));
@@ -2770,6 +2811,8 @@ html, body { margin: 0; background: #14161b; }
   }
 
   // ------------------------------------------------------------------ 공용 도우미 (홈 · 놀이터 · 영상)
+  // 휴대폰용 짧은 이름: '더 뉴', '디 올 뉴' 같은 수식어를 뺌
+  function shortName(n) { let x = ' ' + n + ' '; for (let i = 0; i < 3; i++) x = x.replace(/ (더|디|올|뉴|The|All|New)(?= )/g, ''); return x.trim(); }
   const btnEl = (cls, text, fn) => { const b = el('button', cls, text); b.type = 'button'; if (fn) b.addEventListener('click', fn); return b; };
   const linkEl = (cls, text, href) => { const a = el('a', cls, text); a.href = href; a.target = '_blank'; a.rel = 'noopener'; return a; };
   // 트림·엔진 표기를 뺀 "모델 이름" (예: 기아 더 뉴 쏘렌토 하이브리드 1.6T → 기아 더 뉴 쏘렌토 하이브리드)
@@ -2891,7 +2934,7 @@ html, body { margin: 0; background: #14161b; }
   }
   function wcUndo() { const W = PLAY.wc; const h = W.hist.pop(); if (!h) return; Object.assign(W, JSON.parse(h), { stage: 'play', champ: null }); renderPlay(); }
   function wcCard(r, onPick) {
-    const c = el('button', 'wcc'); c.type = 'button'; c.addEventListener('click', onPick);
+    const c = el('button', 'wcc'); c.type = 'button'; c.addEventListener('click', onPick); c.appendChild(el('span', 'wpicked', '✓ 선택!'));
     const ph = c.appendChild(el('div', 'wph')); photo(ph, r);
     c.appendChild(el('b', 'wnm', r.name));
     c.appendChild(el('span', 'wsub', `${r.brand} · ${r.powertrain} · ${r.body}${r.og ? ' · ' + (r.gyears || '이전 세대') : ''}`));
@@ -2947,14 +2990,16 @@ html, body { margin: 0; background: #14161b; }
       acts.appendChild(btnEl('chip sm', '그만하기', () => { W.stage = 'setup'; renderPlay(); }));
       const vs = box.appendChild(el('div', 'wcvs'));
       const a = byId[W.round[W.idx]], b = byId[W.round[W.idx + 1]];
-      vs.appendChild(wcCard(a, () => wcPick(a.id)));
+      let lock = false; const pickFx = (id, me, other) => { if (lock) return; lock = true; me.classList.add('chosen'); other.classList.add('lost'); if (navigator.vibrate) try { navigator.vibrate(15); } catch (e) {} setTimeout(() => wcPick(id), window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 80 : 520); };
+      const ca = vs.appendChild(wcCard(a, () => pickFx(a.id, ca, cb)));
       vs.appendChild(el('span', 'vsb jal', 'VS'));
-      vs.appendChild(wcCard(b, () => wcPick(b.id)));
+      const cb = vs.appendChild(wcCard(b, () => pickFx(b.id, cb, ca)));
+      if (W.idx === 0) hd.classList.add('newround');
       return;
     }
     // 결과
     const r = byId[W.champ]; const ru = W.final.map((id) => byId[id]).find((x) => x && x.id !== W.champ);
-    const res = box.appendChild(el('div', 'card wcres'));
+    const res = box.appendChild(el('div', 'card wcres win'));
     res.appendChild(el('span', 'kick', `${roundName(W.n)} 우승 · 나의 드림카`));
     const top = res.appendChild(el('div', 'wctop'));
     const ph = top.appendChild(el('div', 'wph')); photo(ph, r);
