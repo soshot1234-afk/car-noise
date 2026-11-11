@@ -770,6 +770,38 @@ html, body { margin: 0; background: #14161b; }
 .vd .wcres.win { animation: wcWin .7s ease both; }
 .vd .wcres.win .wcname { background: linear-gradient(90deg, var(--hi) 40%, #e3b448 50%, var(--hi) 60%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: wcShine 1.6s ease .2s 2 both; }
 @media (prefers-reduced-motion: reduce) { .vd .wcvs .wcc, .vd .wcc.chosen .wpicked, .vd .wchead.newround > b, .vd .wcres.win, .vd .wcres.win .wcname { animation: none !important; } .vd .wcres.win .wcname { color: var(--hi); background: none; } }
+
+/* 작은 창(제보·관리자) */
+.csq-ov{position:fixed;inset:0;z-index:1000;background:rgba(8,10,14,.72);display:flex;align-items:center;justify-content:center;padding:16px;font-family:"Pretendard Variable",Pretendard,sans-serif}
+.csq-box{width:100%;max-width:460px;max-height:100%;overflow:auto;background:#1a1e26;color:#f4efe2;border-radius:16px;border-top:4px solid #e3b448;padding:18px 20px 16px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.csq-hd{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.csq-hd h3,.csq-box>h3{margin:0;font-family:Jalnan,"Pretendard Variable",sans-serif;font-weight:400;font-size:21px}
+.csq-x{appearance:none;border:0;background:none;color:#a9afbb;font-size:20px;cursor:pointer;padding:4px 8px;border-radius:6px}
+.csq-x:hover{background:#2a3140;color:#fff}
+.csq-note{margin:8px 0 12px;font-size:14px;color:#c9ced7}
+.csq-small{margin:4px 0 0;font-size:12px;color:#8d93a1;line-height:1.5}
+.csq-status{min-height:18px;margin:8px 0 0;font-size:13px;color:#e5a443}
+.csq-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.csq-chip{appearance:none;font:inherit;font-size:13px;padding:6px 12px;border-radius:20px;border:1px solid #3e4757;background:#232936;color:#d7dbe3;cursor:pointer}
+.csq-chip[aria-pressed=true]{background:#e3b448;border-color:#e3b448;color:#15171c;font-weight:700}
+.csq-f{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;font-size:13px;font-weight:700;color:#c9ced7}
+.csq-f textarea,.csq-f input{font:inherit;font-size:15px;font-weight:400;padding:10px 12px;border-radius:8px;border:1px solid #3e4757;background:#0f1115;color:#f4efe2;resize:vertical}
+.csq-f textarea:focus,.csq-f input:focus{outline:2px solid #e3b448;outline-offset:1px}
+.csq-ft{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+.csq-btn{appearance:none;font:inherit;font-size:15px;font-weight:700;padding:10px 18px;border-radius:8px;border:1px solid #3e4757;background:#232936;color:#f4efe2;cursor:pointer}
+.csq-btn.gold{background:#e3b448;border-color:#e3b448;color:#15171c}
+.csq-btn:disabled{opacity:.5;cursor:default}
+.csq-done{font-size:48px;text-align:center;margin:10px 0 4px}
+.csq-box>h3{text-align:center}.csq-box>.csq-note{text-align:center}
+.vd .linkbtn{appearance:none;border:0;background:none;padding:0;font:inherit;color:var(--gold);text-decoration:underline;cursor:pointer}
+.vd .legal{margin-top:8px}.vd .legal summary{cursor:pointer;font-weight:700}.vd .legal p{margin:6px 0 0;line-height:1.6}
+/* 드림카 한마디 */
+.vd .dream{display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid var(--sep)}
+.vd .dlab{font-size:14px;font-weight:800}
+.vd .dream textarea{font:inherit;font-size:15px;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--cell);color:var(--tx);resize:vertical}
+.vd .dream textarea:focus{outline:2px solid #e3b448;outline-offset:1px}
+.vd .dft{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.vd .dcnt{font:600 13px/1 var(--cond);color:var(--mu)}
 .vd.nofilt .ftog, .vd.nofilt .filters { display: none !important; }
 .vd .chip.gold { background: #e3b448; border-color: #e3b448; color: #15171c; font-weight: 700; margin-left: 0; }
 .vd .chip.gold:hover { background: #f0c45c; color: #15171c; }
@@ -1324,7 +1356,9 @@ html, body { margin: 0; background: #14161b; }
   let LOCAL = {};
   try { LOCAL = JSON.parse(localStorage.getItem(LSK) || '{}') || {}; } catch (e) { LOCAL = {}; }
   const manual = (r) => { const m = LOCAL[r.name] || MANUAL[r.name]; return m && m.url ? m : null; };
-  const isAdmin = () => /(^|[#&])admin(=1)?($|&)/.test(location.hash.slice(1));
+  const wantsAdmin = () => /(^|[#&])admin(=1)?($|&)/.test(location.hash.slice(1));
+  const adminOk = () => LS.get('carro_admin') === 'a216a80851eb4af3fb1a62d2c35a8d73f632dd55f24d37099a2aaaa868f8bfb2';
+  const isAdmin = () => wantsAdmin() && adminOk();
   function saveLocal() { try { localStorage.setItem(LSK, JSON.stringify(LOCAL)); } catch (e) {} updAdmin(); }
   function adminTools(box, r) {
     if (!isAdmin()) return;
@@ -1582,7 +1616,7 @@ html, body { margin: 0; background: #14161b; }
     const cb = btns.appendChild(el('button', 'chip', state.cmp.includes(r.id) ? '비교에서 빼기' : '비교에 담기')); cb.addEventListener('click', () => toggleCmp(r.id));
     const fb = btns.appendChild(el('button', 'chip' + (isFav(r.id) ? ' on' : ''), isFav(r.id) ? '♥ 스쿼드 찜 해제' : '♡ 스쿼드에 찜')); fb.setAttribute('aria-pressed', isFav(r.id)); fb.addEventListener('click', () => { toggleFav(r.id); render(); });
     const sb = btns.appendChild(el('button', 'chip share', '📇 선수 카드 공유')); sb.addEventListener('click', () => shareCard(r, sb));
-    const rp = btns.appendChild(el('a', 'chip rep', '🛠 오류 제보')); rp.href = reportLink(r); rp.title = '틀린 정보를 메일로 알려 주세요';
+    const rp = btns.appendChild(el('button', 'chip rep', '🛠 오류 제보')); rp.type = 'button'; rp.title = '틀린 정보를 알려 주세요'; rp.addEventListener('click', () => openReport(r));
     myCarPanel(L, r);
     const lk = btns.appendChild(el('span', 'lk'));
     [[r.av_url, /autoview/.test(r.av_url || '') ? '오토뷰' : /carconfections/.test(r.av_url || '') ? 'Car Confections' : /auto-motor/.test(r.av_url || '') ? 'auto motor und sport' : '소음 출처'], [encarLink(r, {}), '엔카 매물'], [naverUrl(r), '네이버']].forEach(([u, t]) => { if (u) { const a = lk.appendChild(el('a', null, t)); a.href = u; a.target = '_blank'; a.rel = 'noopener'; } });
@@ -2455,13 +2489,6 @@ html, body { margin: 0; background: #14161b; }
   }
 
   // ------------------------------------------------------------------ 오류 제보
-  const REPORT_TO = 'soshot1234@gmail.com';
-  function reportLink(r) {
-    const sub = `[카스쿼드 오류 제보] ${r ? r.name : '사이트'}`;
-    const body = r ? `차종: ${r.name} (${r.id})\n화면: ${location.origin + location.pathname}#tab=prof&p=${r.id}\n\n틀린 부분 (예: 가격, 제원, 소음, 사진):\n\n맞는 값 / 출처 링크:\n` : `페이지: ${location.href}\n\n내용:\n`;
-    return `mailto:${REPORT_TO}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
-  }
-
   // ------------------------------------------------------------------ 방문자 통계 · 많이 본 차 (Google Apps Script)
   const STATS_URL = (window.CARRO_STATS_URL || '').trim();
   const VID = (() => { let v = LS.get('carro_vid'); if (!v) { v = Math.random().toString(36).slice(2, 10); LS.set('carro_vid', v); } return v; })();
@@ -3011,9 +3038,16 @@ html, body { margin: 0; background: #14161b; }
     bt.appendChild(btnEl('chip gold', '선수 보기', () => openProfile(r.id)));
     const fb = bt.appendChild(btnEl('chip', isFav(r.id) ? '♥ 찜함' : '♡ 스쿼드에 찜', () => { toggleFav(r.id, true); fb.textContent = '♥ 찜함'; }));
     if (ru) bt.appendChild(btnEl('chip', '준우승 차와 비교', () => { state.cmp = [r.id, ru.id]; $('#cmpN').textContent = 2; show('t-cmp'); }));
-    const sh = bt.appendChild(btnEl('chip', '🔗 결과 공유', () => shareLink('tab=play&wc=' + r.id, `[카스쿼드] 내 드림카는 ${r.name}!`, sh)));
+    const sh = bt.appendChild(btnEl('chip', '🔗 결과 공유', () => { const nt = (($('#dreamNote') || {}).value || '').trim(); shareLink('tab=play&wc=' + r.id, `[카스쿼드] 내 드림카는 ${r.name}!` + (nt ? ` "${nt}"` : ''), sh); }));
     bt.appendChild(btnEl('chip', '↻ 다시 하기', () => { W.stage = 'setup'; renderPlay(); }));
     const rest = W.semi.map((id) => byId[id]).filter((x) => x && x.id !== r.id);
+    { const nw = res.appendChild(el('div', 'dream'));
+      const lb = nw.appendChild(el('label', 'dlab', '✍️ 이 차를 고른 이유, 한마디 남기기')); lb.htmlFor = 'dreamNote';
+      const ta = nw.appendChild(el('textarea')); ta.id = 'dreamNote'; ta.rows = 2; ta.maxLength = 80; ta.placeholder = '예) 아빠 차 바꿀 땐 무조건 이거!';
+      let sv = {}; try { sv = JSON.parse(LS.get('carro_dream') || '{}') || {}; } catch (e) {} if (sv.id === r.id) ta.value = sv.note || '';
+      const ft = nw.appendChild(el('div', 'dft')); const cnt = ft.appendChild(el('span', 'dcnt', ta.value.length + ' / 80'));
+      ta.addEventListener('input', () => { cnt.textContent = ta.value.length + ' / 80'; LS.set('carro_dream', JSON.stringify({ id: r.id, note: ta.value, d: todayKey() })); });
+      const db = ft.appendChild(btnEl('chip gold big', '🖼 드림카 카드 저장', () => saveBlob(() => makeDreamCard(r, ta.value, { round: roundName(W.n), semi: rest }), 'carsquad_dreamcar_' + r.id + '.png', db))); }
     if (rest.length) {
       const l = box.appendChild(el('div', 'card'));
       l.appendChild(el('div', 'ch')).appendChild(el('h2', null, '4강까지 올라온 차'));
@@ -3267,6 +3301,152 @@ html, body { margin: 0; background: #14161b; }
     const on = isFav(r.id); const b = btnEl('chip', on ? '♥ 찜함' : '♡ 스쿼드에 찜', () => { toggleFav(r.id); b.textContent = isFav(r.id) ? '♥ 찜함' : '♡ 스쿼드에 찜'; }); return b;
   }
 
+  // ------------------------------------------------------------------ 작은 창(모달) 공용
+  function modal(title) {
+    const ov = document.body.appendChild(el('div', 'csq-ov')); ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-label', title);
+    const bx = ov.appendChild(el('form', 'csq-box')); bx.noValidate = true;
+    const hd = bx.appendChild(el('div', 'csq-hd')); hd.appendChild(el('h3', null, title));
+    const x = hd.appendChild(el('button', 'csq-x', '✕')); x.type = 'button'; x.setAttribute('aria-label', '닫기');
+    const close = () => { ov.remove(); document.removeEventListener('keydown', esc); };
+    const esc = (e) => { if (e.key === 'Escape') close(); };
+    x.addEventListener('click', close); ov.addEventListener('click', (e) => { if (e.target === ov) close(); }); document.addEventListener('keydown', esc);
+    return { ov, bx, close };
+  }
+  function field(bx, label, tag, attrs) {
+    const w = bx.appendChild(el('label', 'csq-f')); w.appendChild(el('span', null, label));
+    const i = w.appendChild(el(tag)); Object.assign(i, attrs || {}); return i;
+  }
+
+  // ------------------------------------------------------------------ 오류·의견 보내기 (이메일 노출 없이)
+  function openReport(r) {
+    const { bx, close } = modal('🛠 오류 · 의견 보내기');
+    bx.appendChild(el('p', 'csq-note', r ? `차종: ${r.name}` : '사이트 전체에 대한 의견도 좋아요.'));
+    const kinds = new Set();
+    const kw = bx.appendChild(el('div', 'csq-chips'));
+    ['가격', '제원', '소음', '사진', '능력치', '영상', '기타'].forEach((k) => { const b = kw.appendChild(el('button', 'csq-chip', k)); b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => { kinds.has(k) ? kinds.delete(k) : kinds.add(k); b.setAttribute('aria-pressed', kinds.has(k)); }); });
+    const msg = field(bx, '어떤 점이 틀렸나요? (필수)', 'textarea', { rows: 5, maxLength: 1000, placeholder: '예) 신차 가격이 3,450만 원으로 올랐어요' });
+    const src = field(bx, '맞는 값의 출처 링크 (선택)', 'input', { type: 'url', maxLength: 300, placeholder: 'https://' });
+    const ct = field(bx, '답변 받을 연락처 (선택)', 'input', { type: 'text', maxLength: 100, placeholder: '이메일이나 카톡 아이디' });
+    bx.appendChild(el('p', 'csq-small', '보낸 내용은 운영자만 봐요. 연락처는 답변할 때만 쓰고 공개하지 않아요.'));
+    const st = bx.appendChild(el('p', 'csq-status')); st.setAttribute('role', 'status');
+    const ft = bx.appendChild(el('div', 'csq-ft'));
+    const cancel = ft.appendChild(el('button', 'csq-btn', '취소')); cancel.type = 'button'; cancel.addEventListener('click', close);
+    const send = ft.appendChild(el('button', 'csq-btn gold', '보내기')); send.type = 'submit';
+    bx.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const m = msg.value.trim(); if (m.length < 3) { st.textContent = '내용을 조금만 더 적어 주세요.'; msg.focus(); return; }
+      const dk = 'carro_rep_' + new Date().toISOString().slice(0, 10); const n = +(LS.get(dk) || 0);
+      if (n >= 10) { st.textContent = '오늘은 제보를 많이 보내셨어요. 내일 다시 보내 주세요.'; return; }
+      if (!STATS_URL) { st.textContent = '지금은 제보를 받을 수 없어요. 잠시 뒤 다시 시도해 주세요.'; return; }
+      send.disabled = true; st.textContent = '보내는 중…';
+      const body = JSON.stringify({ t: 'report', id: r ? r.id : '', name: r ? r.name : '사이트', kinds: [...kinds].join(','), msg: m, src: src.value.trim(), contact: ct.value.trim(), page: location.href, v: VID });
+      fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body })
+        .then(() => { LS.set(dk, String(n + 1)); bx.textContent = ''; bx.appendChild(el('div', 'csq-done', '🙌')); bx.appendChild(el('h3', null, '고마워요! 잘 받았어요')); bx.appendChild(el('p', 'csq-note', '확인해서 빠르게 고칠게요.')); setTimeout(close, 1800); })
+        .catch(() => { send.disabled = false; st.textContent = '보내지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.'; });
+    });
+    setTimeout(() => msg.focus(), 50);
+  }
+
+  // ------------------------------------------------------------------ 관리자 모드 잠금 (#admin + 비밀번호)
+  const ADMIN_HASH = 'a216a80851eb4af3fb1a62d2c35a8d73f632dd55f24d37099a2aaaa868f8bfb2';
+  async function sha256(t) { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map((x) => x.toString(16).padStart(2, '0')).join(''); }
+  let adminAsked = false;
+  function adminGate() {
+    if (!wantsAdmin() || adminOk() || adminAsked || !(window.crypto && crypto.subtle)) return;
+    adminAsked = true;
+    const { bx, close } = modal('🔒 관리자 확인');
+    bx.appendChild(el('p', 'csq-note', '관리자 비밀번호를 입력하세요.'));
+    const pw = field(bx, '비밀번호', 'input', { type: 'password', autocomplete: 'current-password', maxLength: 100 });
+    const st = bx.appendChild(el('p', 'csq-status')); st.setAttribute('role', 'status');
+    const ft = bx.appendChild(el('div', 'csq-ft'));
+    const no = ft.appendChild(el('button', 'csq-btn', '닫기')); no.type = 'button';
+    no.addEventListener('click', () => { close(); location.hash = 'tab=' + cur.slice(2); });
+    const ok = ft.appendChild(el('button', 'csq-btn gold', '들어가기')); ok.type = 'submit';
+    let tries = 0;
+    bx.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (++tries > 5) { st.textContent = '여러 번 틀렸어요. 새로고침 후 다시 시도하세요.'; ok.disabled = true; return; }
+      const h = await sha256('carsquad-admin:' + pw.value);
+      if (h === ADMIN_HASH) { LS.set('carro_admin', h); close(); updAdmin(); render(); backToast('관리자 모드가 켜졌어요'); }
+      else { st.textContent = '비밀번호가 맞지 않아요.'; pw.select(); }
+    });
+    setTimeout(() => pw.focus(), 50);
+  }
+
+  // ------------------------------------------------------------------ 이상형 월드컵: 나의 드림카 카드
+  function wrapLines(g, text, maxW, maxN) {
+    const out = []; let line = '';
+    for (const ch of String(text)) { if (ch === '\n') { out.push(line); line = ''; continue; } const t = line + ch; if (g.measureText(t).width > maxW && line) { out.push(line); line = ch.trim() ? ch : ''; } else line = t; }
+    if (line) out.push(line);
+    if (out.length > maxN) { out.length = maxN; out[maxN - 1] = out[maxN - 1].replace(/.$/, '…'); }
+    return out;
+  }
+  function rr(g, x, y, w, h, r) { g.beginPath(); if (g.roundRect) g.roundRect(x, y, w, h, r); else g.rect(x, y, w, h); }
+  async function makeDreamCard(r, note, info) {
+    const W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+    const P = (w, s) => `${w} ${s}px "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif`;
+    const J = (s) => `${s}px Jalnan, "Pretendard Variable", Pretendard, sans-serif`;
+    const C = (w, s) => `${w} ${s}px "Barlow Condensed", "Pretendard Variable", sans-serif`;
+    try { await Promise.all([document.fonts.load(J(40), '드림카'), document.fonts.load(P('700', 30), '가'), document.fonts.load(C('700', 40), '0')]); await document.fonts.ready; } catch (e) {}
+    const bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#161a22'); bg.addColorStop(1, '#0f1115'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    // 머리줄
+    g.fillStyle = '#0f1115'; g.fillRect(0, 0, W, 96); const COLS = ['#e2554c', '#e5a443', '#c8d758', '#45d37f'];
+    COLS.forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, 90, W / 4, 6); });
+    g.fillStyle = '#e3b448'; g.font = J(40); g.fillText('CAR SQUAD', 44, 62);
+    g.fillStyle = '#c9ced7'; g.font = P('700', 26); g.textAlign = 'right'; g.fillText(`이상형 월드컵 · ${info.round} 우승`, W - 44, 60); g.textAlign = 'left';
+    // 제목
+    g.fillStyle = '#e3b448'; g.font = J(70); g.fillText('🏆 나의 드림카', 44, 190);
+    // 사진
+    const py = 226, ph = 480, px = 44, pw = W - 88;
+    const m = manual(r); const pinfo = photoCache[r.photo];
+    const img = await loadImg(m ? m.url : (thumbUrl(r, 960) || (pinfo && pinfo.url)), m ? null : r);
+    g.save(); rr(g, px, py, pw, ph, 24); g.clip();
+    if (img) { const sc = Math.max(pw / img.width, ph / img.height), iw = img.width * sc, ih = img.height * sc; g.drawImage(img, px + (pw - iw) / 2, py + (ph - ih) / 2, iw, ih); }
+    else { g.fillStyle = '#232936'; g.fillRect(px, py, pw, ph); g.fillStyle = '#5b6372'; g.font = J(96); g.textAlign = 'center'; g.fillText(r.brand, W / 2, py + ph / 2 + 34); g.textAlign = 'left'; }
+    g.restore();
+    g.strokeStyle = '#e3b448'; g.lineWidth = 6; rr(g, px, py, pw, ph, 24); g.stroke();
+    // OVR
+    g.fillStyle = '#e3b448'; rr(g, W - 44 - 190, py + 22, 168, 150, 16); g.fill();
+    g.fillStyle = '#15171c'; g.textAlign = 'center'; g.font = C('700', 96); g.fillText(isNaN(r._ovr) ? '—' : String(r._ovr), W - 44 - 106, py + 122);
+    g.font = P('800', 24); g.fillText('OVR', W - 44 - 106, py + 156); g.textAlign = 'left';
+    // 이름
+    let y = py + ph + 76; g.fillStyle = '#f4efe2'; g.font = J(58);
+    wrapLines(g, r.name, W - 88, 2).forEach((l) => { g.fillText(l, 44, y); y += 70; });
+    g.fillStyle = '#a9afbb'; g.font = P('600', 28);
+    g.fillText(`${r.powertrain} · ${r.body} · ${priceTxt(r)} 원 · 차 MBTI ${carMBTI(r)}`, 44, y - 14); y += 30;
+    // 장점 태그
+    let tx = 44; g.font = P('800', 26);
+    topAttrs(r, 4).forEach((a) => { const v = Math.round(r['s_' + a.k]); const t = `${a.label} ${v}`; const w = g.measureText(t).width + 30; if (tx + w > W - 44) return; g.fillStyle = '#232936'; rr(g, tx, y, w, 46, 10); g.fill(); g.fillStyle = v >= 16 ? '#45d37f' : v >= 11 ? '#c8d758' : v >= 6 ? '#e5a443' : '#e2554c'; g.fillText(t, tx + 15, y + 32); tx += w + 10; });
+    y += 74;
+    // 한마디
+    const qn = String(note || '').trim();
+    if (qn) {
+      g.font = P('700', 34); const lines = wrapLines(g, qn, W - 88 - 80, 3); const bh = 40 + lines.length * 48 + 46;
+      g.fillStyle = '#1f2430'; rr(g, 44, y, W - 88, bh, 20); g.fill(); g.fillStyle = '#e3b448'; g.fillRect(44, y, 8, bh);
+      g.fillStyle = '#e3b448'; g.font = J(64); g.fillText('“', 66, y + 66);
+      g.fillStyle = '#f4efe2'; g.font = P('700', 34); lines.forEach((l, i) => g.fillText(l, 124, y + 58 + i * 48));
+      g.fillStyle = '#8d93a1'; g.font = P('600', 24); g.fillText('— 감독 한마디', 124, y + 58 + lines.length * 48 + 6);
+      y += bh + 22;
+    }
+    // 4강
+    if (info.semi.length) { g.fillStyle = '#8d93a1'; g.font = P('600', 25); g.fillText('4강까지 올라온 차 · ' + wrapLines(g, info.semi.map((x) => shortName(x.name)).join(' · '), W - 330, 1)[0], 44, Math.min(y + 20, H - 120)); }
+    // 바닥
+    g.fillStyle = '#0f1115'; g.fillRect(0, H - 86, W, 86); COLS.forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, H - 8, W / 4, 8); });
+    g.fillStyle = '#e3b448'; g.font = P('800', 32); g.fillText('carsquad.pages.dev', 44, H - 34);
+    g.fillStyle = '#c9ced7'; g.font = P('600', 26); g.textAlign = 'right'; g.fillText('너의 드림카는? 이상형 월드컵 하러 가기', W - 44, H - 36); g.textAlign = 'left';
+    return new Promise((res) => cv.toBlob(res, 'image/png'));
+  }
+  async function saveBlob(make, fn, btn) {
+    const old = btn.textContent; btn.textContent = '카드 만드는 중…'; btn.disabled = true; let blob = null;
+    try {
+      blob = await make(); const file = new File([blob], fn, { type: 'image/png' });
+      const mobile = (window.matchMedia && matchMedia('(pointer: coarse)').matches) || /Android|iPhone|iPad/i.test(navigator.userAgent);
+      if (mobile && navigator.canShare && navigator.canShare({ files: [file] })) await navigator.share({ files: [file] });
+      else { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fn; document.body.appendChild(a); a.click(); a.remove(); cardOverlay(blob, fn, true); }
+    } catch (e) { if (!(e && e.name === 'AbortError')) { if (blob) cardOverlay(blob, fn); else alert('카드를 만들지 못했어요: ' + (e && e.message)); } }
+    btn.textContent = old; btn.disabled = false;
+  }
+
   // ------------------------------------------------------------------ tabs & hash
   const TABS = [['t-home', 'p-home'], ['t-rank', 'p-rank'], ['t-wiz', 'p-wiz'], ['t-prof', 'p-prof'], ['t-cmp', 'p-cmp'], ['t-sq', 'p-sq'], ['t-play', 'p-play'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
   let cur = 't-home';
@@ -3282,7 +3462,7 @@ html, body { margin: 0; background: #14161b; }
   let navPop = false;
   function writeHash(push) {
     const p = new URLSearchParams();
-    if (isAdmin()) p.set('admin', '1');
+    if (wantsAdmin()) p.set('admin', '1');
     p.set('tab', cur.slice(2));
     if (state.cmp.length) p.set('c', state.cmp.join(','));
     if (state.prof && cur === 't-prof') p.set('p', state.prof);
@@ -3381,7 +3561,7 @@ html, body { margin: 0; background: #14161b; }
   });
   $('#adminMissing').addEventListener('click', () => { state.missing = !state.missing; $('#adminMissing').setAttribute('aria-pressed', state.missing); if (state.missing && cur !== 't-all') show('t-all'); else render(); });
   $('#adminOff').addEventListener('click', (e) => { e.preventDefault(); state.missing = false; location.hash = 'tab=' + cur.slice(2); });
-  window.addEventListener('hashchange', () => { updAdmin(); render(); });
+  window.addEventListener('hashchange', () => { adminGate(); updAdmin(); render(); });
   if (location.protocol !== 'file:') fetch('photos.json', { cache: 'no-cache' }).then((x) => x.ok ? x.json() : {}).then((j) => { MANUAL = Object.assign(MANUAL, j || {}); updAdmin(); render(); }).catch(() => {});
 
   // theme
@@ -3410,7 +3590,14 @@ html, body { margin: 0; background: #14161b; }
   f.appendChild(el('p', null, '감가 예측: 엔카 등록 매물 연식별 시세 + 헤이딜러 판매 차량(약 2,900대) 연차별 시세(2026.11). 리콜: 한국교통안전공단(공공데이터포털). 자료 출처 — 소음: 오토뷰 로드테스트·시승기(80km/h 실측), Car Confections(55mph)·Car and Driver(70mph)를 오토뷰 기준으로 환산. 제로백·제동거리: 오토뷰 실측(없으면 제로백은 제조사 발표). 제원·가격·연비: 제조사 가격표·제원, 카눈, 카동, 겟차, 카이즈유(2026.10). 안전: KNCAP·Euro NCAP·IIHS. 중고 시세: 엔카(2026.10.26). 사진: 위키미디어 공용(각 사진에 촬영자·라이선스 표기).'));
   f.appendChild(el('p', 'madeby', 'made by ktc'));
   { const fp = f.appendChild(el('p')); fp.appendChild(document.createTextNode('글꼴: 여기어때 잘난체(㈜지씨컴퍼니 제공, ')); const fa = fp.appendChild(el('a', null, '라이선스')); fa.href = 'fonts/JALNAN-LICENSE.txt'; fp.appendChild(document.createTextNode(') · 프리텐다드(OFL) · Barlow Condensed(OFL)')); }
-  { const fp = f.appendChild(el('p')); fp.appendChild(document.createTextNode('틀린 정보를 발견하셨나요? ')); const fa = fp.appendChild(el('a', null, '🛠 오류 제보하기 (' + REPORT_TO + ')')); fa.href = reportLink(null); }
+  { const fp = f.appendChild(el('p')); fp.appendChild(document.createTextNode('틀린 정보를 발견하셨나요? ')); const fa = fp.appendChild(el('button', 'linkbtn', '🛠 오류 · 의견 보내기')); fa.type = 'button'; fa.addEventListener('click', () => openReport(null)); }
+  { const d = f.appendChild(el('details', 'legal')); d.appendChild(el('summary', null, '이용 안내 · 면책 · 개인정보'));
+    ['카스쿼드는 개인이 운영하는 자동차 비교 사이트로, 자동차 제조사·판매사·데이터 제공처와 관계가 없습니다.',
+     '능력치·순위·추천·차 MBTI는 공개된 자료를 바탕으로 계산한 상대 평가이며 재미와 참고를 위한 것입니다. 정확성과 최신성을 보장하지 않으며, 구매·계약 등 모든 판단과 그 결과에 대한 책임은 이용자에게 있습니다.',
+     '가격·중고 시세·유가·옵션 정보는 수집 시점 기준이라 실제와 다를 수 있습니다. 실제 구매 전에는 제조사 공식 가격표, 시승, 전문가 점검으로 꼭 확인하세요.',
+     '자동차 이름·브랜드·로고는 각 소유자의 상표입니다. 사진·영상·글은 출처가 표시된 제3자 콘텐츠로 권리는 원저작자에게 있으며, 문제가 있으면 오류·의견 보내기로 알려 주시면 바로 내리겠습니다.',
+     '개인정보: 회원가입·로그인이 없습니다. 찜·스쿼드·체크리스트·내 차·최근 본 차는 이 기기(브라우저)에만 저장됩니다. 사이트 개선을 위해 익명 방문 번호와 많이 본 차를 집계하며, 이름·연락처 같은 개인정보는 수집하지 않습니다. 제보할 때 직접 남긴 연락처는 답변에만 쓰고 공개하지 않습니다.'
+    ].forEach((t) => d.appendChild(el('p', null, t))); }
   f.appendChild(el('p', null, '능력치는 재미를 위한 상대 점수입니다. 실제 구매 전에는 시승과 최신 가격표를 꼭 확인하세요.'));
   computeUpkeep(15000); scoreAll(); funAll(); fillSel(); buildWeights(); readHash(); ovrAll();
 
@@ -3438,7 +3625,7 @@ html, body { margin: 0; background: #14161b; }
       const c = bx.appendChild(el('button', 'chip', '닫기')); c.addEventListener('click', () => ov.remove()); ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
     });
   })();
-  window.__carroStyle = style; updAdmin(); navPop = true; show(cur); navPop = false; try { if (!(history.state && history.state.carro)) { history.replaceState({ base: 1 }, '', location.hash); history.pushState({ carro: 1 }, '', location.hash); } } catch (e) {} track('visit'); loadStats();
+  window.__carroStyle = style; adminGate(); updAdmin(); navPop = true; show(cur); navPop = false; try { if (!(history.state && history.state.carro)) { history.replaceState({ base: 1 }, '', location.hash); history.pushState({ carro: 1 }, '', location.hash); } } catch (e) {} track('visit'); loadStats();
 })();
 </script>
 </body></html>
