@@ -780,8 +780,10 @@ html, body { margin: 0; background: #14161b; }
 .vd .nlist { margin: 6px 0 0; padding-left: 20px; display: flex; flex-direction: column; gap: 3px; width: 100%; }
 .vd .nlist li { font-size: 14px; }
 .vd .nlist li::marker { color: #e3b448; font-weight: 700; }
-.vd .nlist .nm { font-size: 14px; text-align: left; }
-.vd .nval { margin-left: 8px; font: 600 13px/1 var(--cond); color: var(--mu); }
+.vd .nlist .nm { display: inline; font-size: 14px; text-align: left; white-space: normal; padding: 0; }
+.vd .nlist li { line-height: 1.45; }
+@media (max-width: 600px) { .vd .qtile { min-height: 80px; padding: 11px 10px 10px; } .vd .qtile b { font-size: 14px; } .vd .qtile small { font-size: 11px; } .vd .qtile .qic { font-size: 20px; } .vd .news .nitem { flex-direction: column; gap: 6px; } .vd .ntag { min-width: 0; } }
+.vd .nval { margin-left: 6px; white-space: nowrap; font: 600 13px/1 var(--cond); color: var(--mu); }
 .vd .updlog summary { cursor: pointer; padding: 10px 14px; font-weight: 700; }
 .vd .updlog ul { margin: 0; padding: 0 14px 12px; list-style: none; display: flex; flex-direction: column; gap: 6px; }
 .vd .updlog li { display: flex; gap: 12px; font-size: 13.5px; }
