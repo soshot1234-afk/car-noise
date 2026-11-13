@@ -1,5 +1,5 @@
 // 카스쿼드 서비스워커 — 오프라인에서도 마지막으로 본 화면을 띄움
-const V = 'carro-v12';
+const V = 'carro-v13';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './favicon.svg'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(V).then((c) => c.addAll(CORE)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', (e) => { e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== V && k.startsWith('carro-')).map((k) => caches.delete(k)))).then(() => self.clients.claim())); });

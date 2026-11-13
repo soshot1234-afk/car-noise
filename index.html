@@ -913,7 +913,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .mbopts { display: flex; flex-direction: column; gap: 10px; padding: 0 16px 14px; }
 .vd .mbopt { text-align: left; padding: 18px 18px; border: 2px solid var(--line); background: var(--pn2); border-radius: 12px; font: inherit; font-size: 16.5px; font-weight: 600; color: var(--tx); cursor: pointer; }
 .vd .mbopt:hover { border-color: #e3b448; background: var(--hd); }
-.vd .mbq > .chip { margin-left: 16px; }
+.vd .mbq > .chip { margin-left: 16px; align-self: flex-start; width: auto; }
 .vd .mbres { padding: 22px 18px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; border-top: 3px solid #e3b448; }
 .vd .mbtype { font-size: 72px; line-height: 1.05; color: #e3b448; letter-spacing: .04em; }
 .vd .mbnick { margin: 0; font-size: 26px; color: var(--hi); }
@@ -925,6 +925,39 @@ html, body { margin: 0; background: #14161b; }
 @media (max-width: 520px) { .vd .mbax { grid-template-columns: 92px minmax(0, 1fr) 92px; font-size: 11.5px; } .vd .mbtype { font-size: 58px; } }
 .vd .mbline { margin: 0; font-size: 13px; }
 .vd .mbbadge { font: 700 14px/1 var(--cond); letter-spacing: .08em; padding: 4px 8px; border-radius: 4px; border: 1px solid #e3b448; background: var(--deep); color: #e3b448; cursor: pointer; }
+.vd .mbpad { margin: 0; padding: 10px 14px 4px; }
+.vd .mbintro { padding: 22px 18px; display: flex; flex-direction: column; gap: 10px; border-top: 3px solid #e3b448; }
+.vd .mbh { margin: 0; font-size: 28px; color: var(--hi); }
+.vd .mbintro .mbdesc { max-width: 640px; }
+.vd .mbaxlist { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; margin-top: 4px; }
+.vd .mbaxi { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--pn2); }
+.vd .mbaxi > b { font: 700 16px/1.2 var(--cond); color: #e3b448; min-width: 42px; }
+.vd .mbaxi span { display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: var(--hi); }
+.vd .mbaxi small { color: var(--mu); font-size: 12px; }
+.vd .mbstart { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.vd .mbstart .chip { margin-left: 0; border-radius: 8px; }
+.vd .mbdex { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; padding: 10px 14px 14px; }
+.vd .mbtile { display: flex; flex-direction: column; gap: 3px; text-align: left; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--pn2); color: var(--tx); font: inherit; cursor: pointer; }
+.vd .mbtile:hover { border-color: #e3b448; }
+.vd .mbtile b { font-size: 24px; color: #e3b448; letter-spacing: .04em; }
+.vd .mbtile .nk { font-weight: 800; color: var(--hi); font-size: 14px; }
+.vd .mbtile .ax { font-size: 11.5px; color: var(--mu); }
+.vd .mbtile .ex { font-size: 12.5px; line-height: 1.4; }
+.vd .mbtile small { color: var(--mu); font-size: 11.5px; }
+@media (max-width: 520px) { .vd .mbdex { grid-template-columns: 1fr 1fr; padding: 10px; } .vd .mbtile b { font-size: 20px; } }
+.vd .mbopt.was { border-color: #e3b448; }
+.vd .mbbud { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 14px 8px; }
+.vd .mbbud .chip { margin-left: 0; }
+.vd .mbpick { display: flex; flex-direction: column; gap: 8px; padding: 10px 14px 14px; }
+.vd .mbpr { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.vd .mbpb { display: flex; align-items: center; gap: 10px; padding: 12px; border: 2px solid var(--line); border-radius: 10px; background: var(--pn2); color: var(--tx); font: inherit; cursor: pointer; text-align: left; }
+.vd .mbpb b { font: 700 24px/1 var(--cond); color: var(--mu); min-width: 18px; }
+.vd .mbpb small { font-size: 12.5px; color: var(--mu); }
+.vd .mbpb[aria-pressed="true"] { border-color: #e3b448; background: var(--hd); }
+.vd .mbpb[aria-pressed="true"] b { color: #e3b448; }
+.vd .mbpb[aria-pressed="true"] small { color: var(--hi); }
+.vd .mbmeres { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 6px 16px 18px; border-top: 1px solid var(--sep); }
+.vd .mbtype.sm { font-size: 52px; }
 /* 리뷰 영상관 */
 .vd .vsec { margin: 14px 0 8px; font-size: 12.5px; font-weight: 800; color: var(--mu); letter-spacing: .02em; }
 .vd .vtopics { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
@@ -2891,18 +2924,30 @@ html, body { margin: 0; background: #14161b; }
     ENTJ: ['사령관형', '성능·효율·안전 모두 1등이어야 하는 완벽주의자. 빠르고 똑똑한 차만 영입합니다.', '스트라이커']
   };
   const MBQ = [
-    ['EI', '고속도로 합류할 때 나는?', '시원하게 밟고 들어간다', '흐름을 보다가 부드럽게 끼어든다'],
-    ['EI', '차 안에서 가장 중요한 건?', '엔진 소리와 가속감', '노래 소리만 들리는 고요함'],
-    ['EI', '주말 드라이브 코스를 고른다면?', '굽이굽이 와인딩 산길', '한적한 해안 도로 크루징'],
-    ['SN', '전기차·자율주행 같은 새 기술은?', '충분히 검증되면 그때', '남들보다 먼저 타 보고 싶다'],
-    ['SN', '주유소 vs 충전소', '5분이면 끝나는 주유가 최고', '집에서 충전하는 삶도 괜찮다'],
-    ['SN', '차를 고를 때 끌리는 쪽은?', '많이 팔리는 검증된 차', '남들이 잘 안 타는 새로운 차'],
+    ['EI', '신호가 초록불로 바뀌면 나는?', '앞차보다 먼저 치고 나간다', '앞차를 따라 부드럽게 출발한다'],
+    ['SN', '전기차·자율주행 같은 새 기술은?', '몇 년 지나 검증되면 그때 탄다', '남들보다 먼저 타 보고 싶다'],
     ['TF', '차값을 비교할 때 나는?', '옵션 하나당 가격까지 계산한다', '마음에 들면 조금 비싸도 산다'],
+    ['JP', '차를 살 때 제일 먼저 확인하는 것은?', '충돌 안전 등급과 리콜 기록', '타 봤을 때 설레는지'],
+    ['EI', '고속도로 합류 구간에서 나는?', '가속 페달을 꾹, 한 번에 합류', '깜빡이 켜고 틈이 날 때까지 기다린다'],
+    ['SN', '주유소 vs 충전기, 나에게 맞는 건?', '5분이면 끝나는 주유가 최고', '집·회사에서 꽂아 두는 충전도 괜찮다'],
     ['TF', '더 끌리는 광고 문구는?', '연비 20km/ℓ, 유지비 연 90만 원', '뒷좌석이 넓어 온 가족이 편안'],
-    ['TF', '친구가 차를 추천해 달라고 하면?', '비교표를 만들어 보내 준다', '어떤 차 타고 싶은지부터 물어본다'],
-    ['JP', '차를 살 때 제일 먼저 보는 것은?', '충돌 안전 등급과 리콜 기록', '타 보고 설레는지'],
-    ['JP', '여행을 떠날 때 나는?', '경로와 휴게소까지 미리 계획', '일단 출발, 가다가 정한다'],
-    ['JP', '10년 뒤 이 차와 나는?', '고장 없이 함께 늙어 가고 싶다', '질리면 다른 차로 갈아탄다']
+    ['JP', '여행을 떠날 때 나는?', '경로와 휴게소까지 미리 계획한다', '일단 출발, 가다가 정한다'],
+    ['EI', '차 안의 BGM은?', '엔진·배기음이 곧 음악', '잔잔한 음악, 바깥 소음은 최대한 차단'],
+    ['SN', '풀체인지 신차가 막 나왔다면?', '초기 결함이 걱정돼 연식 변경 뒤에 산다', '새 모델이 나오면 바로 계약한다'],
+    ['TF', '트림을 고를 때 나는?', '필요한 옵션만 골라 가성비 트림', '통풍 시트·큰 트렁크는 포기 못 해'],
+    ['JP', '차 색상을 고른다면?', '무난하고 잘 팔리는 흰·검·회색', '눈에 확 띄는 나만의 색'],
+    ['EI', '시승할 때 가장 먼저 해 보는 것은?', '밟았을 때 튀어 나가는 느낌 확인', '80km/h에서 풍절음·노면 소음 확인'],
+    ['SN', '차를 고를 때 끌리는 쪽은?', '도로에 많이 보이는 검증된 차', '남들이 잘 안 타는 새로운 차'],
+    ['TF', '친구가 차를 추천해 달라고 하면?', '비교표를 만들어 보내 준다', '어떤 차를 타고 싶은지부터 물어본다'],
+    ['JP', '운전 보조(차선 유지·긴급 제동)는?', '풀옵션 필수, 안전은 타협 없다', '내가 잘 운전하면 된다'],
+    ['EI', '주말 드라이브 코스를 고른다면?', '굽이굽이 와인딩 산길', '한적한 해안 도로 크루징'],
+    ['SN', '화면·무선 업데이트(OTA) 같은 기능은?', '손에 익은 물리 버튼이 편하다', '큰 화면과 업데이트로 새로워지는 차가 좋다'],
+    ['TF', '주유 경고등이 켜지면?', '앱으로 제일 싼 주유소를 찾아간다', '그냥 가까운 곳에서 넣는다'],
+    ['JP', '10년 뒤 이 차와 나는?', '고장 없이 함께 늙어 가고 싶다', '질리면 다른 차로 갈아탄다'],
+    ['EI', '장거리 운전 뒤 기분이 좋은 이유는?', '운전 자체가 재밌어서', '하나도 안 피곤해서'],
+    ['SN', '정비소를 생각하면?', '동네 어디서나 고칠 수 있는 차가 좋다', '서비스센터가 멀어도 새 기술이면 OK'],
+    ['TF', '캠핑·짐이 많은 날을 생각하면?', '그런 날은 렌트하면 된다', '그래서 넉넉한 차가 꼭 필요하다'],
+    ['JP', '쿠페·오픈카는?', '실용성이 없으니 패스', '인생에 한 번은 꼭 타 보고 싶다']
   ];
   function zg(r, k) { const v = r['g_' + k]; if (isNaN(v) || !GSTAT[k]) return 0; const [m, sd] = GSTAT[k]; return (v - m) / sd; }
   function carMBTI(r) {
@@ -2920,8 +2965,39 @@ html, body { margin: 0; background: #14161b; }
     const seen = new Set(); return a.sort((x, y) => y._ovr - x._ovr).filter((r) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
   }
 
+  // 사람 MBTI → 차 고르는 기준(가중치)으로 번역
+  const MBFIT = {
+    E: ['가속·성능', { 성능: 1 }], I: ['정숙성', { 정숙: 1 }],
+    S: ['검증된 실속', { 가치: 0.6 }], N: ['전동화·신기술', {}],
+    T: ['연비·가성비', { 효율: 0.7, 가치: 0.5 }], F: ['공간·안락함', { 공간: 0.7, 정숙: 0.4 }],
+    J: ['안전·신뢰', { 안전: 0.9 }], P: ['재미·개성', { 성능: 0.3 }]
+  };
+  function fitScore(r, type) {
+    if (!Object.keys(GSTAT).length) gstat();
+    const w = {}; type.split('').forEach((c) => Object.entries(MBFIT[c][1]).forEach(([k, v]) => { w[k] = (w[k] || 0) + v; }));
+    let sc = 0; const parts = [];
+    Object.entries(w).forEach(([k, v]) => { const z = zg(r, k); sc += v * z; parts.push([k, v * z]); });
+    const elec = /전기|PHEV|수소/.test(r.powertrain), hyb = /하이브리드/.test(r.powertrain);
+    if (type[1] === 'N') sc += elec ? 1.2 : hyb ? 0.6 : -1; else sc += elec ? -0.6 : 0.2;
+    if (type[3] === 'P') sc += (r.fun ? 0.6 : 0) + (/쿠페|컨버터블/.test(r.body) ? 0.3 : 0);
+    sc += isNaN(r._ovr) ? -1 : (r._ovr - 60) / 15 * 0.6;
+    parts.sort((x, y) => y[1] - x[1]);
+    return { sc, top: parts.filter((x) => x[1] > 0.2).slice(0, 2).map((x) => x[0]) };
+  }
+  function mbBudPool(bud) { return activePool().filter((r) => !isNaN(r._ovr) && (!bud || r.price <= bud)); }
+  function mbFitList(type, n, bud) {
+    const seen = new Set();
+    return mbBudPool(bud).map((r) => [r, fitScore(r, type)]).sort((x, y) => y[1].sc - x[1].sc).filter(([r]) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
+  }
+  function mbSameList(type, n, bud) {
+    const pool = mbBudPool(bud); let a = pool.filter((r) => carMBTI(r) === type);
+    if (a.length < n) a = a.concat(pool.filter((r) => { const t = carMBTI(r); let d = 0; for (let i = 0; i < 4; i++) d += t[i] !== type[i]; return d === 1; }));
+    const seen = new Set(); return a.sort((x, y) => y._ovr - x._ovr).filter((r) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
+  }
+  const MBBUD = [[0, '예산 전체'], [3000, '3천 이하'], [5000, '5천 이하'], [8000, '8천 이하']];
+
   // ------------------------------------------------------------------ 놀이터: 이상형 월드컵 + 차 MBTI
-  const PLAY = { mode: 'wc', wc: { stage: 'setup', size: 32, filt: 'all', old: false }, mb: { i: 0, ans: [], result: null }, sharedWc: null };
+  const PLAY = { mode: 'wc', wc: { stage: 'setup', size: 32, filt: 'all', old: false }, mb: { stage: 'intro', i: 0, ans: [], result: null, me: '', bud: 0 }, sharedWc: null };
   const WC_FILTERS = [
     ['전체', [['all', '🎲 전체 랜덤']]],
     ['차 모양', [['b:SUV', 'SUV'], ['b:세단', '세단'], ['b:small', '해치백 · 경차 · 왜건'], ['b:MPV', 'RV · 미니밴'], ['b:sport', '쿠페 · 컨버터블'], ['b:픽업', '픽업']]],
@@ -3059,43 +3135,123 @@ html, body { margin: 0; background: #14161b; }
       rest.forEach((x) => l.appendChild(miniRow(x, x.id === (ru && ru.id) ? '🥈 준우승 · ' + priceTxt(x) + ' 원' : '🥉 4강 · ' + priceTxt(x) + ' 원')));
     }
   }
+  const MBAX = [['E', 'I', '달리는 재미', '조용한 편안함'], ['S', 'N', '검증된 실속', '새로운 기술'], ['T', 'F', '숫자 · 가성비', '공간 · 안락함'], ['J', 'P', '안전 · 계획', '설렘 · 즉흥']];
+  function mbReset(stage) { const b = PLAY.mb.bud || 0; PLAY.mb = { stage, i: 0, ans: [], result: null, me: '', bud: b }; renderPlay(); scrollToSection('t-play'); }
+  function mbExamples(t, n) {
+    const seen = new Set();
+    const a = mbBudPool(0).filter((r) => carMBTI(r) === t).sort((x, y) => (x.origin === '국산' ? 0 : 1) - (y.origin === '국산' ? 0 : 1) || y._ovr - x._ovr)
+      .filter((r) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n + 3);
+    return a.map((r) => { let w = shortName(r.name).replace(/^(디 올 뉴|더 뉴|올 뉴|뉴|더|디 올)\s+/, '').split(' ');
+      if (r.origin === '국산' && w.length > 1 && /^(현대|기아|제네시스|르노코리아|KGM|쉐보레)$/.test(w[0])) w = w.slice(1);
+      const cut = w.findIndex((x, i) => i > 0 && !(i === 1 && /^\d+$/.test(x)) && /^\d+(\.\d+)?T?$|kWh|HEV|^\(|MPi|^xDrive|4MATIC|quattro|롱레인지|스탠다드|싱글모터|듀얼모터/.test(x));
+      return (cut > 0 ? w.slice(0, cut) : w).join(' ').replace(/^(디 올 뉴|더 뉴|올 뉴|뉴|더)\s+/, ''); }).filter((x, i, arr) => arr.indexOf(x) === i).slice(0, n);
+  }
+  function mbDex(box, title) {
+    const c = box.appendChild(el('div', 'card'));
+    const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, title || '📖 16유형 도감 — 유형별 성향과 대표 차'));
+    c.appendChild(el('p', 'note mbpad', '유형을 누르면 그 유형의 차와 성향 맞춤 추천을 볼 수 있어요.'));
+    const g = c.appendChild(el('div', 'mbdex'));
+    const cnt = {}; activePool().forEach((r) => { if (isNaN(r._ovr)) return; const t = carMBTI(r); cnt[t] = (cnt[t] || 0) + 1; });
+    Object.keys(MBTI).forEach((t) => {
+      const it = g.appendChild(el('button', 'mbtile')); it.type = 'button';
+      it.appendChild(el('b', 'jal', t));
+      it.appendChild(el('span', 'nk', MBTI[t][0]));
+      it.appendChild(el('span', 'ax', t.split('').map((ch, i) => (MBAX[i][0] === ch ? MBAX[i][2] : MBAX[i][3]).split(' · ')[0]).join(' · ')));
+      it.appendChild(el('span', 'ex', '예: ' + (mbExamples(t, 3).join(', ') || '-')));
+      it.appendChild(el('small', null, `⚽ ${MBTI[t][2]} · ${cnt[t] || 0}대`));
+      it.addEventListener('click', () => { PLAY.mb = { stage: 'result', i: 0, ans: [], result: { type: t, pct: null }, me: '', bud: PLAY.mb.bud || 0, dex: true }; renderPlay(); scrollToSection('t-play'); });
+    });
+  }
+  function mbBudChips(box) {
+    const r = box.appendChild(el('div', 'mbbud'));
+    MBBUD.forEach(([v, t]) => { const b = r.appendChild(btnEl('chip sm', t, () => { PLAY.mb.bud = v; renderPlay(); })); b.setAttribute('aria-pressed', (PLAY.mb.bud || 0) === v); });
+  }
+  function mbRecs(box, t, opt) {
+    opt = opt || {}; const bud = PLAY.mb.bud || 0;
+    const f = box.appendChild(el('div', 'card'));
+    const fh = f.appendChild(el('div', 'ch')); fh.appendChild(el('h2', null, `🎯 ${t} 성향 맞춤 추천`));
+    const fl = mbFitList(t, 6, bud);
+    fh.appendChild(btnEl('chip sm', '♡ 모두 찜해서 스쿼드 짜기', () => { fl.forEach(([r]) => toggleFav(r.id, true)); show('t-sq'); }));
+    const why = f.appendChild(el('p', 'note mbpad'));
+    why.textContent = `${t} 성향을 차 고르는 기준으로 바꾸면 → ` + t.split('').map((c) => MBFIT[c][0]).join(' + ') + ' 중시. 이 기준 점수가 높은 순이에요.';
+    mbBudChips(f);
+    if (!fl.length) f.appendChild(el('p', 'note mbpad', '이 예산 안에는 차가 없어요. 예산을 넓혀 보세요.'));
+    fl.forEach(([r, x], i) => f.appendChild(miniRow(r, `${i + 1}위 · ${x.top.length ? x.top.join('·') + ' 강점 · ' : ''}${r.powertrain} · ${r.body} · ${priceTxt(r)} 원`)));
+    const s2 = box.appendChild(el('div', 'card'));
+    const sh = s2.appendChild(el('div', 'ch')); sh.appendChild(el('h2', null, `🪞 차 MBTI도 ${t}인 차 — 나랑 닮은 차`));
+    const ms = mbSameList(t, 6, bud);
+    s2.appendChild(el('p', 'note mbpad', '차마다 능력치로 MBTI를 매겼어요(성능↔정숙, 전동화 여부, 가성비↔공간, 안전↔재미). 같은 유형 중 OVR 순이고, 부족하면 한 글자 다른 유형으로 채웠어요.'));
+    if (!ms.length) s2.appendChild(el('p', 'note mbpad', '이 예산 안에는 같은 유형 차가 없어요.'));
+    ms.forEach((r) => s2.appendChild(miniRow(r, `${carMBTI(r)}${carMBTI(r) === t ? '' : ' (비슷한 유형)'} · ${r.powertrain} · ${r.body} · ${priceTxt(r)} 원`)));
+  }
   function renderMBTI(box) {
-    const M = PLAY.mb;
-    if (!M.result) {
+    const M = PLAY.mb; if (!M.stage) M.stage = M.result ? 'result' : 'intro';
+    if (M.stage === 'intro') {
+      const c = box.appendChild(el('div', 'card mbintro'));
+      c.appendChild(el('span', 'kick', 'CAR MBTI'));
+      c.appendChild(el('h2', 'jal mbh', '🧠 나는 어떤 차 체질일까?'));
+      c.appendChild(el('p', 'mbdesc', `운전 습관과 차 고르는 기준을 묻는 ${MBQ.length}문항(약 3분)으로 나의 차 MBTI를 찾고, 나랑 닮은 차와 성향 맞춤 차를 추천해 드려요.`));
+      const ax = c.appendChild(el('div', 'mbaxlist'));
+      [['E / I', '달리는 재미 ↔ 조용한 편안함', '가속·성능을 즐기는지, 정숙성을 중시하는지'], ['S / N', '검증된 실속 ↔ 새로운 기술', '익숙한 내연기관·검증된 차인지, 전동화·신기술인지'], ['T / F', '숫자·가성비 ↔ 공간·안락함', '연비·유지비를 따지는지, 넓고 편한 게 우선인지'], ['J / P', '안전·계획 ↔ 설렘·즉흥', '안전·신뢰가 먼저인지, 재미와 개성이 먼저인지']].forEach(([k, a, b]) => { const r = ax.appendChild(el('div', 'mbaxi')); r.appendChild(el('b', null, k)); const d = r.appendChild(el('span')); d.appendChild(el('strong', null, a)); d.appendChild(el('small', null, b)); });
+      const bt = c.appendChild(el('div', 'mbstart'));
+      bt.appendChild(btnEl('chip gold big', `▶ 테스트 시작 (${MBQ.length}문항)`, () => { M.stage = 'quiz'; M.i = 0; M.ans = []; renderPlay(); scrollToSection('t-play'); }));
+      bt.appendChild(btnEl('chip big', '⚡ 내 MBTI로 바로 추천받기', () => { M.stage = 'me'; renderPlay(); scrollToSection('t-play'); }));
+      mbDex(box);
+      return;
+    }
+    if (M.stage === 'me') {
+      const c = box.appendChild(el('div', 'card mbme'));
+      const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, '⚡ 내 MBTI로 차 추천받기'));
+      h.appendChild(btnEl('chip sm', '← 처음으로', () => mbReset('intro')));
+      c.appendChild(el('p', 'note mbpad', '평소 알고 있는 내 MBTI를 골라 주세요. 사람 성향을 차 고르는 기준으로 바꿔서 추천해 드려요.'));
+      const g = c.appendChild(el('div', 'mbpick'));
+      const cur = (M.me || '----').split('');
+      const L = { E: '외향', I: '내향', S: '감각', N: '직관', T: '사고', F: '감정', J: '판단', P: '인식' };
+      MBAX.forEach(([a, b], i) => { const row = g.appendChild(el('div', 'mbpr')); [a, b].forEach((ch) => { const bb = row.appendChild(btnEl('mbpb', '', () => { cur[i] = ch; M.me = cur.join(''); renderPlay(); })); bb.appendChild(el('b', null, ch)); bb.appendChild(el('small', null, `${L[ch]} → ${MBFIT[ch][0]}`)); bb.setAttribute('aria-pressed', cur[i] === ch); }); });
+      const t = M.me; if (!t || t.includes('-')) { c.appendChild(el('p', 'note mbpad', '네 칸을 모두 고르면 추천이 바로 나와요.')); return; }
+      const res = c.appendChild(el('div', 'mbmeres'));
+      res.appendChild(el('b', 'mbtype sm jal', t));
+      res.appendChild(el('p', 'mbnick jal', `카스쿼드에선 "${MBTI[t][0]}"`));
+      res.appendChild(el('p', 'mbdesc', MBTI[t][1]));
+      mbRecs(box, t);
+      const bt = box.appendChild(el('div', 'wcbtns'));
+      const sh = bt.appendChild(btnEl('chip gold', '🔗 이 추천 공유', () => shareLink('tab=play&mb=' + t, `[카스쿼드] ${t}에게 어울리는 차는? ${MBTI[t][0]}`, sh)));
+      bt.appendChild(btnEl('chip', '🧠 테스트로 차 체질 확인하기', () => mbReset('quiz')));
+      return;
+    }
+    if (M.stage === 'quiz') {
       const c = box.appendChild(el('div', 'card mbq'));
       const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, '🧠 차 MBTI — 나는 어떤 차 체질?'));
+      h.appendChild(btnEl('chip sm', '✕ 그만하기', () => mbReset('intro')));
       const q = MBQ[M.i];
       const pr = c.appendChild(el('div', 'mbprog')); pr.appendChild(el('span', null, `${M.i + 1} / ${MBQ.length}`)); pr.appendChild(el('span', 'wbar')).appendChild(el('i')).style.width = (M.i / MBQ.length) * 100 + '%';
       c.appendChild(el('p', 'mbqq jal', q[1]));
       const g = c.appendChild(el('div', 'mbopts'));
-      [2, 3].forEach((k, j) => g.appendChild(btnEl('mbopt', q[k], () => { M.ans[M.i] = j; M.i++; if (M.i >= MBQ.length) M.result = mbtiType(M.ans); renderPlay(); })));
+      [2, 3].forEach((k, j) => { const b = g.appendChild(btnEl('mbopt', q[k], () => { M.ans[M.i] = j; M.i++; if (M.i >= MBQ.length) { M.result = mbtiType(M.ans); M.stage = 'result'; scrollToSection('t-play'); } renderPlay(); })); if (M.ans[M.i] === j) b.classList.add('was'); });
       if (M.i > 0) c.appendChild(btnEl('chip sm', '↶ 이전 질문', () => { M.i--; renderPlay(); }));
       return;
     }
     const t = M.result.type; const info = MBTI[t];
     const c = box.appendChild(el('div', 'card mbres'));
-    c.appendChild(el('span', 'kick', '나의 차 MBTI'));
+    c.appendChild(el('span', 'kick', M.dex ? '유형 도감' : M.shared ? '친구의 차 MBTI' : '나의 차 MBTI'));
     c.appendChild(el('b', 'mbtype jal', t));
     c.appendChild(el('p', 'mbnick jal', info[0]));
     c.appendChild(el('p', 'mbdesc', info[1]));
-    c.appendChild(el('p', 'note', `스쿼드로 치면 ⚽ ${info[2]} 체질`));
+    c.appendChild(el('p', 'note', `스쿼드로 치면 ⚽ ${info[2]} 체질 · 대표 차: ${mbExamples(t, 3).join(', ')}`));
     const ax = c.appendChild(el('div', 'mbaxes'));
-    [['E', 'I', '달리는 재미', '조용한 편안함'], ['S', 'N', '검증된 실속', '새로운 기술'], ['T', 'F', '숫자 · 가성비', '공간 · 안락함'], ['J', 'P', '안전 · 계획', '설렘 · 즉흥']].forEach(([a, b, la, lb], i) => {
-      const p = M.result.pct[i]; const row = ax.appendChild(el('div', 'mbax'));
+    MBAX.forEach(([a, b, la, lb], i) => {
+      const p = M.result.pct ? M.result.pct[i] : (t[i] === a ? 100 : 0); const row = ax.appendChild(el('div', 'mbax'));
       row.appendChild(el('span', 'l' + (p >= 50 ? ' on' : ''), `${a} ${la}`));
       const bar = row.appendChild(el('span', 'wbar')); bar.appendChild(el('i')).style.width = p + '%';
       row.appendChild(el('span', 'r' + (p < 50 ? ' on' : ''), `${lb} ${b}`));
     });
-    const list = box.appendChild(el('div', 'card'));
-    const lh = list.appendChild(el('div', 'ch')); lh.appendChild(el('h2', null, `나와 같은 ${t} 유형의 차`));
-    const ms = mbtiMatches(t, 6);
-    lh.appendChild(btnEl('chip sm', '♡ 모두 찜해서 스쿼드 짜기', () => { ms.forEach((r) => toggleFav(r.id, true)); show('t-sq'); }));
-    list.appendChild(el('p', 'note', '차마다 능력치로 MBTI를 매겼어요(달리기↔정숙, 전동화 여부, 가성비↔공간, 안전↔재미). 같은 유형 중 OVR 순입니다.'));
-    ms.forEach((r) => list.appendChild(miniRow(r, `${carMBTI(r)} · ${r.powertrain} · ${r.body} · ${priceTxt(r)} 원`)));
+    mbRecs(box, t);
     const bt = box.appendChild(el('div', 'wcbtns'));
-    const sh = bt.appendChild(btnEl('chip gold', '🔗 결과 공유', () => shareLink('tab=play&mb=' + t, `[카스쿼드] 나의 차 MBTI는 ${t} ${info[0]}!`, sh)));
-    bt.appendChild(btnEl('chip', '↻ 다시 하기', () => { PLAY.mb = { i: 0, ans: [], result: null }; renderPlay(); }));
-    bt.appendChild(btnEl('chip', '🏆 이상형 월드컵 하러 가기', () => { PLAY.mode = 'wc'; renderPlay(); }));
+    const sh = bt.appendChild(btnEl('chip gold', '🔗 결과 공유', () => shareLink('tab=play&mb=' + t, `[카스쿼드] ${M.dex ? '차 MBTI' : '나의 차 MBTI는'} ${t} ${info[0]}!`, sh)));
+    bt.appendChild(btnEl('chip', M.dex || M.shared ? '🧠 나도 테스트하기' : '↻ 다시 하기', () => mbReset('quiz')));
+    bt.appendChild(btnEl('chip', '⚡ 진짜 내 MBTI로 추천받기', () => mbReset('me')));
+    bt.appendChild(btnEl('chip', '📖 16유형 도감', () => mbReset('intro')));
+    if (!M.dex) mbDex(box, '📖 다른 유형도 구경해 보기');
   }
   function mbtiType(ans) {
     let t = ''; const pct = [];
@@ -3213,6 +3369,7 @@ html, body { margin: 0; background: #14161b; }
 
   // ------------------------------------------------------------------ 홈
   const UPDATES = [
+    ['11.13', '차 MBTI 업그레이드 · 24문항 · 16유형 도감 · 내 MBTI로 차 추천'],
     ['11.11', '홈 · 이상형 월드컵 · 차 MBTI · 리뷰 영상관 오픈'],
     ['11.10', '카롱도르 → 카스쿼드 새 단장 · 내 스쿼드 탭 · 새 엠블럼 · 글씨체'],
     ['11.09', '휴대폰 비교 입력칸 · 뒤로가기 문제 수정'],
@@ -3484,7 +3641,7 @@ html, body { margin: 0; background: #14161b; }
     $('#sqN').textContent = SQ.fav.length;
     const t = p.get('tab'); cur = t && $('#t-' + t) ? 't-' + t : 't-home';
     if (p.get('wc') && byId[p.get('wc')]) { PLAY.sharedWc = p.get('wc'); PLAY.mode = 'wc'; }
-    if (p.get('mb') && MBTI[p.get('mb')]) { PLAY.mode = 'mb'; const mt = p.get('mb'); PLAY.mb = { i: MBQ.length, ans: [], result: { type: mt, pct: ['EI', 'SN', 'TF', 'JP'].map((ax, i) => (mt[i] === ax[0] ? 67 : 33)) }, shared: true }; }
+    if (p.get('mb') && MBTI[p.get('mb')]) { PLAY.mode = 'mb'; const mt = p.get('mb'); PLAY.mb = { stage: 'result', i: 0, ans: [], result: { type: mt, pct: null }, me: '', bud: 0, shared: true }; }
     if (['mb', 'wc', 'vid'].includes(p.get('g'))) PLAY.mode = p.get('g');
   }
   // 휴대폰 뒤로가기: 열린 창 닫기 → 이전 탭/차로 → 첫 화면에서는 한 번 더 눌러야 나가기
