@@ -18,7 +18,7 @@ function serve() {
     let f = path.join(ROOT, decodeURIComponent(req.url.split('?')[0]));
     if (f.endsWith('/')) f += 'index.html';
     if (!f.startsWith(ROOT) || !fs.existsSync(f)) { res.writeHead(404); res.end(); return; }
-    res.writeHead(200, { 'Content-Type': types[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(res);
+    res.writeHead(200, { 'Content-Type': types[path.extname(f)] || 'application/octet-stream', 'Access-Control-Allow-Origin': '*' }); fs.createReadStream(f).pipe(res);
   });
   return new Promise((ok) => srv.listen(0, '127.0.0.1', () => ok(srv)));
 }
@@ -27,7 +27,7 @@ const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&':
 const won = (v) => (v == null || isNaN(v) ? '–' : v >= 10000 ? (v / 10000).toFixed(v % 10000 ? 1 : 0) + '억 원' : Math.round(v).toLocaleString('ko-KR') + '만 원');
 const cls = (v) => (isNaN(v) ? 'na' : v >= 16 ? 'hi' : v >= 11 ? 'md' : v >= 6 ? 'lo' : 'bad');
 const josa = (w, a, b) => { const c = String(w).trim().slice(-1).charCodeAt(0); if (c < 0xac00 || c > 0xd7a3) return /[0-9LMNlmnR]$/.test(w) ? a : b; return (c - 0xac00) % 28 ? a : b; };
-const REDIRECT = "<script>(function(){var h=location.hostname,p=location.pathname;if(/github\\.io$/.test(h)){p=p.replace(/^\\/car-noise/,'');}else if(!/(^|\\.)carrodor\\.pages\\.dev$/.test(h)){return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>";
+const REDIRECT = "<script>(function(){var h=location.hostname,p=location.pathname;if(/github\\.io$/.test(h)){p=p.replace(/^\\/car-noise/,'');}else if(!/(^|\\.)carrodor\\.pages\\.dev$/.test(h)){var m=p.match(/^\\/car\\/([\\w-]+)/);if(m&&/[?&]go=1/.test(location.search)){location.replace('/#tab=prof&p='+m[1]);}return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>";
 
 const CSS = `
 @font-face{font-family:Jalnan;src:url(/fonts/yg-jalnan.woff2) format("woff2");font-display:swap}
@@ -63,7 +63,7 @@ footer{max-width:960px;margin:0 auto;padding:0 16px 40px;font-size:12.5px;color:
 @media (max-width:640px){h1{font-size:25px}.hero{grid-template-columns:1fr}.groups{grid-template-columns:repeat(2,minmax(0,1fr))}.ovr{display:flex;align-items:baseline;gap:10px;justify-content:center}.ovr b{font-size:38px}}
 `;
 
-function head({ title, desc, url, jsonld }) {
+function head({ title, desc, url, jsonld, img }) {
   return `<!doctype html>
 <html lang="ko">
 <head>
@@ -78,7 +78,9 @@ ${REDIRECT}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${url}">
-<meta property="og:image" content="${SITE}/og.png">
+<meta property="og:image" content="${img || SITE + '/og.png'}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0f1115">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -99,6 +101,52 @@ const FOOT = `</main>
 </body>
 </html>
 `;
+
+
+// ---------------------------------------------------------------- 미리보기 카드 HTML
+const GCOL = (v) => (isNaN(v) ? '#596170' : v >= 16 ? '#45d37f' : v >= 11 ? '#c8d758' : v >= 6 ? '#e5a443' : '#e2554c');
+function ogHtml(r, port, pt) {
+  const G = ['정숙', '성능', '효율', '공간', '안전', '가치'];
+  const ovr = r.ovr == null || isNaN(r.ovr) ? '–' : Math.round(r.ovr);
+  const ovrCol = GCOL(isNaN(r.ovr) ? NaN : r.ovr / 5);
+  const strong = r.attrs.filter((a) => a[2] >= 15 && a[0] !== 'durab').sort((a, b) => b[2] - a[2]).slice(0, 3).map((a) => a[1]);
+  const price = r.og ? `중고 ${won(r.used)}` : `신차 ${won(r.price)}`;
+  const name = r.name.length > 26 ? r.name.slice(0, 25) + '…' : r.name;
+  const fs = name.length > 18 ? 46 : name.length > 12 ? 54 : 62;
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:J;src:url(http://127.0.0.1:${port}/fonts/yg-jalnan.woff2)}
+${pt ? '@font-face{font-family:P;src:url(http://127.0.0.1:' + port + '/__pt/PretendardVariable.woff2);font-weight:100 900}' : ''}
+*{box-sizing:border-box;margin:0}
+body{width:1200px;height:630px;background:#0f1115;color:#f4efe2;font-family:P,"Noto Sans CJK KR",sans-serif;position:relative;overflow:hidden}
+.bar{position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(90deg,#e2554c 0 25%,#e5a443 25% 50%,#c8d758 50% 75%,#45d37f 75%)}
+.glow{position:absolute;right:-180px;top:-200px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(227,180,72,.16),transparent 65%)}
+.top{position:absolute;left:60px;top:44px;display:flex;align-items:center;gap:14px}
+.top img{width:52px;height:52px}.top b{font-family:J;font-weight:400;font-size:30px;letter-spacing:.02em}.top small{display:block;color:#e3b448;font-size:17px;font-weight:600}
+.l{position:absolute;left:60px;top:178px;width:560px}
+.ovr{display:flex;align-items:flex-end;gap:16px}
+.ovr b{font-family:J;font-weight:400;font-size:150px;line-height:.86;color:${ovrCol}}
+.ovr span{font-size:26px;font-weight:800;color:#a9afbb;letter-spacing:.12em;padding-bottom:10px}
+.nm{margin-top:26px;font-family:J;font-weight:400;font-size:${fs}px;line-height:1.15;color:#fff;word-break:keep-all}
+.sub{margin-top:14px;font-size:24px;color:#c9ced7;font-weight:600}
+.chips{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.chips span{font-size:21px;font-weight:700;padding:7px 16px;border-radius:30px;background:rgba(69,211,127,.14);color:#7ff0ad;border:1px solid rgba(69,211,127,.4)}
+.r{position:absolute;right:60px;top:110px;width:470px;background:#171b23;border:1px solid #2a3140;border-radius:20px;padding:26px 30px}
+.r h3{font-size:19px;color:#a9afbb;font-weight:700;letter-spacing:.08em;margin-bottom:10px}
+.g{display:grid;grid-template-columns:70px 1fr 54px;align-items:center;gap:14px;height:56px}
+.g span{font-size:24px;font-weight:700;color:#e8ebf0}
+.g i{display:block;height:16px;border-radius:9px;background:#262c38;position:relative;overflow:hidden}
+.g i em{position:absolute;left:0;top:0;bottom:0;border-radius:9px}
+.g b{font-family:J;font-weight:400;font-size:32px;text-align:right}
+.url{position:absolute;left:60px;bottom:40px;font-size:21px;color:#8d93a1;font-weight:600}
+</style></head><body><div class="glow"></div>
+<div class="top"><img src="http://127.0.0.1:${port}/favicon.svg"><div><b>CAR SQUAD</b><small>카스쿼드 · 차를 선수처럼</small></div></div>
+<div class="l"><div class="ovr"><b>${ovr}</b><span>OVR</span></div>
+<div class="nm">${esc(name)}</div>
+<div class="sub">${esc([r.pt, r.body, price].filter(Boolean).join(' · '))}</div>
+${strong.length ? `<div class="chips">${strong.map((t) => `<span>💪 ${esc(t)}</span>`).join('')}</div>` : ''}</div>
+<div class="r"><h3>능력치 (1~20)</h3>${G.map((k) => { const v = r.groups[k]; const ok = v != null && !isNaN(v); return `<div class="g"><span>${k}</span><i><em style="width:${ok ? Math.max(4, v / 20 * 100) : 0}%;background:${GCOL(v)}"></em></i><b style="color:${GCOL(v)}">${ok ? Math.round(v) : '–'}</b></div>`; }).join('')}</div>
+<div class="url">carsquad.pages.dev · 765종 능력치 비교</div><div class="bar"></div></body></html>`;
+}
 
 function carPage(r, all, byBrand) {
   const url = `${SITE}/car/${r.id}`;
@@ -127,7 +175,7 @@ function carPage(r, all, byBrand) {
     { '@context': 'https://schema.org', '@type': 'Car', name: r.name, brand: { '@type': 'Brand', name: r.brand }, bodyType: r.body, fuelType: r.pt, url }
   ];
   const ovr = r.ovr == null || isNaN(r.ovr) ? '–' : r.ovr;
-  return head({ title, desc, url, jsonld }) + `
+  return head({ title, desc, url, jsonld, img: `${SITE}/og/${r.id}.jpg` }) + `
 <nav class="crumb"><a href="/">홈</a> › <a href="/cars">전체 차종</a> › <a href="/cars#${encodeURIComponent(r.brand)}">${esc(r.brand)}</a></nav>
 <div class="card">
   <div class="hero">
@@ -177,6 +225,20 @@ ${brands.map((b) => `<h2 class="brand-h" id="${esc(b)}">${esc(b)} <span class="n
   await p.route(/wikimedia|ytimg|youtube|google|jsdelivr|script\.google/, (r) => r.abort());
   await p.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'load' }); await p.waitForTimeout(800);
   const all = await p.evaluate(() => window.__carroExport());
+  // 카톡·SNS 미리보기 카드 (og/<id>.jpg, 1200×630)
+  if (!process.argv.includes('--no-og')) {
+    const ogDir = path.join(ROOT, 'og'); fs.mkdirSync(ogDir, { recursive: true });
+    const pg = await b.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
+    const PT = process.env.PT_DIR; // (선택) Pretendard 폴더: .../pretendard/dist/web/variable/woff2
+    if (PT) await pg.route('**/__pt/**', (rt) => rt.fulfill({ path: path.join(PT, path.basename(new URL(rt.request().url()).pathname)) }));
+    let n = 0;
+    for (const r of all) {
+      await pg.setContent(ogHtml(r, port, !!PT), { waitUntil: 'load' });
+      await pg.evaluate(() => document.fonts.ready);
+      await pg.screenshot({ path: path.join(ogDir, r.id + '.jpg'), type: 'jpeg', quality: 80 });
+      if (++n % 100 === 0) console.log(`미리보기 카드 ${n}장…`);
+    }
+  }
   await b.close(); srv.close();
   if (!all || all.length < 100) throw new Error('데이터를 못 읽었어요');
   all.forEach((r) => { if (r.ovr == null) r.ovr = NaN; });

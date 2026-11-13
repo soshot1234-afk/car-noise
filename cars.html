@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){var h=location.hostname,p=location.pathname;if(/github\.io$/.test(h)){p=p.replace(/^\/car-noise/,'');}else if(!/(^|\.)carrodor\.pages\.dev$/.test(h)){return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>
+<script>(function(){var h=location.hostname,p=location.pathname;if(/github\.io$/.test(h)){p=p.replace(/^\/car-noise/,'');}else if(!/(^|\.)carrodor\.pages\.dev$/.test(h)){var m=p.match(/^\/car\/([\w-]+)/);if(m&&/[?&]go=1/.test(location.search)){location.replace('/#tab=prof&p='+m[1]);}return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>
 <title>국내 승용차 전체 능력치 목록 — 소음 · 연비 · 가격 | 카스쿼드</title>
 <meta name="description" content="국내 판매 승용차와 이전 세대 765종의 정숙·성능·효율·공간·안전·가치 능력치(1~20)와 OVR, 신차 가격·중고 시세를 브랜드별로 정리했습니다.">
 <link rel="canonical" href="https://carsquad.pages.dev/cars">
@@ -13,6 +13,8 @@
 <meta property="og:description" content="국내 판매 승용차와 이전 세대 765종의 정숙·성능·효율·공간·안전·가치 능력치(1~20)와 OVR, 신차 가격·중고 시세를 브랜드별로 정리했습니다.">
 <meta property="og:url" content="https://carsquad.pages.dev/cars">
 <meta property="og:image" content="https://carsquad.pages.dev/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0f1115">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
