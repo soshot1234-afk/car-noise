@@ -1079,7 +1079,7 @@ html, body { margin: 0; background: #14161b; }
         <th class="num hide-n"><button data-k="g_공간">공간</button></th>
         <th class="num hide-n"><button data-k="g_안전">안전</button></th>
         <th class="num hide-n"><button data-k="g_가치">가치</button></th>
-        <th class="num hide-n"><button data-k="g_최신">최신</button></th>
+        <th class="num hide-n"><button data-k="g_테크">테크</button></th>
         <th><button data-k="_ovr">OVR</button></th>
         <th></th>
       </tr></thead><tbody></tbody></table></div>
@@ -1283,7 +1283,7 @@ html, body { margin: 0; background: #14161b; }
     { k: 'cargo', label: '적재력', fm: '활동량', col: '차체', f: 'trunk', dir: 1, fmtv: (r) => fmt(r.trunk) + 'ℓ' },
     { k: 'agile', label: '민첩성', fm: '민첩성', col: '차체', f: 'pw', dir: -1, fmtv: (r) => r.pw + 'kg/ps (공차 ' + fmt(r.weight) + 'kg ÷ ' + fmt(r.ps) + 'ps)' },
     { k: 'seats', label: '거주성', fm: '팀워크', col: '차체', f: 'cabin', dir: 1, fmtv: (r) => '2열 여유 지수 ' + r.cabin + ' · ' + estNote(r, 'cabin') },
-    { k: 'tinfo', label: '인포테인먼트', fm: '테크닉', col: '최신성', f: 'tinfo', dir: 1, fmtv: (r) => estNote(r, 'tinfo') },
+    { k: 'tinfo', label: '화면·연결성', fm: '테크닉', col: '최신성', f: 'tinfo', dir: 1, fmtv: (r) => estNote(r, 'tinfo') },
     { k: 'tadas', label: '주행보조', fm: '경기 운영', col: '최신성', f: 'tadas', dir: 1, fmtv: (r) => estNote(r, 'tadas') },
     { k: 'tconv', label: '편의사양', fm: '센스', col: '최신성', f: 'tconv', dir: 1, fmtv: (r) => estNote(r, 'tconv') },
     { k: 'tage', label: '신선도', fm: '나이', col: '최신성', f: 'tage', dir: -1, fmtv: (r) => estNote(r, 'tage') + ' (출시 직후가 전성기, 해마다 조금씩 하락)' }
@@ -1291,7 +1291,7 @@ html, body { margin: 0; background: #14161b; }
   const GROUPS = [
     { k: '정숙', a: ['quiet', 'qvalue'] }, { k: '성능', a: ['accel', 'power', 'torque', 'brake'] },
     { k: '효율', a: ['eff', 'upkeep'] }, { k: '공간', a: ['size', 'room', 'cargo', 'seats'] },
-    { k: '안전', a: ['safety', 'durab'] }, { k: '가치', a: ['resale', 'pricev'] }, { k: '최신', a: ['tinfo', 'tadas', 'tconv', 'tage'] }
+    { k: '안전', a: ['safety', 'durab'] }, { k: '가치', a: ['resale', 'pricev'] }, { k: '테크', a: ['tinfo', 'tadas', 'tconv', 'tage'] }
   ];
   const DEFAULT_W = { durab: 1, quiet: 3, qvalue: 2, accel: 1, power: 1, torque: 0, brake: 1, eff: 2, safety: 2, resale: 2, upkeep: 1, pricev: 1, size: 0, room: 1, cargo: 1, agile: 0, seats: 1, tinfo: 1, tadas: 1, tconv: 1, tage: 1 };
   const PRESETS = {
@@ -1641,7 +1641,7 @@ html, body { margin: 0; background: #14161b; }
   function dismissHint() { if (hintDone) return; hintDone = true; LS.set('carro_hint', '1'); const h = $('#ahint'); if (h) h.remove(); }
   function attrTable(parent, r, col, firstOpen) {
     const box = parent.appendChild(el('div', 'acol'));
-    box.appendChild(el('h4', null, { 주행: '주행 능력', '감성·가치': '감성 · 가치', 차체: '차체 · 공간', 최신성: '최신성 · 에이징 커브' }[col]));
+    box.appendChild(el('h4', null, { 주행: '주행 능력', '감성·가치': '감성 · 가치', 차체: '차체 · 공간', 최신성: '테크 · 연식' }[col]));
     ATTR.filter((a) => a.col === col).forEach((a) => {
       const v = r['s_' + a.k];
       const row = box.appendChild(el('div', 'arow'));
@@ -1783,7 +1783,7 @@ html, body { margin: 0; background: #14161b; }
     const nReal = ATTR.filter((a) => !isNaN(r['s_' + a.k]) && !isEst(r, a.k)).length, nAll = ATTR.filter((a) => !isNaN(r['s_' + a.k])).length;
     const leg = M.appendChild(el('p', 'note'));
     leg.appendChild(el('b', 'conf ' + (nReal >= 13 ? 'hi' : nReal >= 9 ? 'md' : 'lo'), `데이터 신뢰도: 실측·공식 ${nReal} / ${nAll}`));
-    leg.appendChild(document.createTextNode(' · 빗금 칸은 제원·형제차·동급 평균으로 채운 추정값이에요(OVR에는 낮은 비중). 최신성은 세대 연식·가격대 기준 추정. 1~20점 기준은 기준 탭 참고.'));
+    leg.appendChild(document.createTextNode(' · 빗금 칸은 제원·형제차·동급 평균으로 채운 추정값이에요(OVR에는 낮은 비중). 테크 · 연식 항목은 세대 연식·가격대 기준 추정. 1~20점 기준은 기준 탭 참고.'));
     // radar for single
     const rd = M.appendChild(el('div', 'radar small')); radar(rd, [r]);
     // right traits
@@ -1905,7 +1905,7 @@ html, body { margin: 0; background: #14161b; }
       const omax = Math.max(...cars.map((r) => isNaN(r._ovr) ? -1 : r._ovr));
       cars.forEach((r) => orow.appendChild(el('td', 'num' + (r._ovr === omax && cars.length > 1 ? ' best' : ''), isNaN(r._ovr) ? '—' : r._ovr + ' ' + stars(r._ovr))));
       ['주행', '감성·가치', '차체', '최신성'].forEach((c) => {
-        sect({ 주행: '주행 능력', '감성·가치': '감성 · 가치', 차체: '차체 · 공간', 최신성: '최신성 · 에이징 커브' }[c]);
+        sect({ 주행: '주행 능력', '감성·가치': '감성 · 가치', 차체: '차체 · 공간', 최신성: '테크 · 연식' }[c]);
         ATTR.filter((a) => a.col === c).forEach((a) => {
           const tr = t.appendChild(el('tr')); tr.appendChild(el('th', null, a.label));
           const vals = cars.map((r) => r['s_' + a.k]); const mx = a.bad ? Math.min(...vals.filter((v) => !isNaN(v))) : Math.max(...vals.filter((v) => !isNaN(v)));
@@ -2016,7 +2016,7 @@ html, body { margin: 0; background: #14161b; }
       tr.appendChild(el('td', null, calc ? (a.k === 'seats' ? '계산: 휠베이스·전폭·전고 + 전기차 평평한 바닥·MPV 가산, 쿠페·2인승 감산 (인승 수만으로 매기던 방식 폐지)' : '계산: 엔카 매물 첫 연식 = 세대·부분변경 출시 연도') : tech ? { tinfo: '세대 연도 기준 + 전기차 OTA, 테슬라, 플레오스 커넥트(더 뉴 그랜저·디 올 뉴 아반떼·투싼), ccNC 가산', tadas: '세대 연도·가격대 기준 + 현대차그룹 고속도로 주행보조2급, 테슬라 FSD(감독형: 미국산 모델 S·X·사이버트럭) 가산', tconv: '가격대·세대 연도별 통풍시트·선루프·HUD 보급률로 추정' }[a.k] : hw ? hw[1] : '추정 없음 (전부 실측·공식)'));
       const m = hw && M[hw[0]]; tr.appendChild(el('td', 'num', m ? '±' + m[0] + (hw[2] ? ' ' + hw[2] : '') : '–'));
     });
-    box.appendChild(el('p', 'note', '🕰️ 에이징 커브: 사람 선수처럼 차도 나온 지 오래될수록 인포테인먼트·주행보조·편의사양이 뒤처집니다. "최신성" 그룹(인포테인먼트·주행보조·편의사양·신선도)이 OVR에 함께 들어가서, 같은 능력치라도 최신 세대가 조금 더 높게 나옵니다. 세대 연도는 엔카 매물의 첫 연식(부분변경 단위)으로 잡았습니다.'));
+    box.appendChild(el('p', 'note', '🕰️ 에이징 커브: 사람 선수처럼 차도 나온 지 오래될수록 화면·연결성·주행보조·편의사양이 뒤처집니다. "테크" 그룹(화면·연결성·주행보조·편의사양·신선도)이 OVR에 함께 들어가서, 같은 능력치라도 최신 세대가 조금 더 높게 나옵니다. 세대 연도는 엔카 매물의 첫 연식(부분변경 단위)으로 잡았습니다.'));
     box.appendChild(el('h3', 'howh', '📏 능력치별 점수 기준'));
     const t = box.appendChild(el('table', 'how'));
     const h = t.appendChild(el('tr')); ['능력치', '원자료', '하위 5% (4점 이하)', '중간 (11~12점)', '상위 3% (19점 이상)', '자료 있는 차'].forEach((x) => h.appendChild(el('th', null, x)));
@@ -3728,7 +3728,7 @@ html, body { margin: 0; background: #14161b; }
 
   // ------------------------------------------------------------------ 홈
   const UPDATES = [
-    ['11.14', '점수 신뢰도 개편 · 빈칸 추정 · 거주성 개편 · 최신성(에이징 커브) 신설'],
+    ['11.14', '점수 신뢰도 개편 · 빈칸 추정 · 거주성 개편 · 테크·연식 그룹(에이징 커브) 신설'],
     ['11.13', '갈아타기 비용 계산 · 능력치 퀴즈 · 오너 한줄평 · 카톡 미리보기 카드'],
     ['11.13', '차 MBTI 업그레이드 · 24문항 · 16유형 도감 · 내 MBTI로 차 추천'],
     ['11.11', '홈 · 이상형 월드컵 · 차 MBTI · 리뷰 영상관 오픈'],
