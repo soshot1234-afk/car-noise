@@ -106,7 +106,7 @@ const FOOT = `</main>
 // ---------------------------------------------------------------- 미리보기 카드 HTML
 const GCOL = (v) => (isNaN(v) ? '#596170' : v >= 16 ? '#45d37f' : v >= 11 ? '#c8d758' : v >= 6 ? '#e5a443' : '#e2554c');
 function ogHtml(r, port, pt) {
-  const G = ['정숙', '성능', '효율', '공간', '안전', '가치'];
+  const G = ['피지컬', '멘탈', '테크닉', '히든', '선수정보'];
   const ovr = r.ovr == null || isNaN(r.ovr) ? '–' : Math.round(r.ovr);
   const ovrCol = GCOL(isNaN(r.ovr) ? NaN : r.ovr / 5);
   const strong = r.attrs.filter((a) => a[2] >= 15 && a[0] !== 'durab').sort((a, b) => b[2] - a[2]).slice(0, 3).map((a) => a[1]);
@@ -132,7 +132,7 @@ body{width:1200px;height:630px;background:#0f1115;color:#f4efe2;font-family:P,"N
 .chips span{font-size:21px;font-weight:700;padding:7px 16px;border-radius:30px;background:rgba(69,211,127,.14);color:#7ff0ad;border:1px solid rgba(69,211,127,.4)}
 .r{position:absolute;right:60px;top:110px;width:470px;background:#171b23;border:1px solid #2a3140;border-radius:20px;padding:26px 30px}
 .r h3{font-size:19px;color:#a9afbb;font-weight:700;letter-spacing:.08em;margin-bottom:10px}
-.g{display:grid;grid-template-columns:70px 1fr 54px;align-items:center;gap:14px;height:56px}
+.g{display:grid;grid-template-columns:118px 1fr 54px;align-items:center;gap:14px;height:66px}
 .g span{font-size:24px;font-weight:700;color:#e8ebf0}
 .g i{display:block;height:16px;border-radius:9px;background:#262c38;position:relative;overflow:hidden}
 .g i em{position:absolute;left:0;top:0;bottom:0;border-radius:9px}
