@@ -3124,19 +3124,20 @@ html, body { margin: 0; background: #14161b; }
 
   // ------------------------------------------------------------------ 내 스쿼드 (찜 + 축구·농구·야구 포메이션)
   // 자리마다 [약칭, 이름, 기준 능력치 그룹(OVR=종합), x%, y%]
+  // 포지션마다 FM에서 그 자리에 중요한 능력치로 맞춤도를 계산 (화면엔 포지션 이름만)
   const SPORTS = {
     soccer: { t: '⚽ 축구', n: '11인 4-3-3', board: 'pitch', pos: [
-      ['ST', '스트라이커', '성능', 50, 11], ['LW', '왼쪽 윙어', '성능', 16, 21], ['RW', '오른쪽 윙어', '효율', 84, 21],
-      ['LCM', '중앙 미드필더', '정숙', 25, 44], ['CM', '플레이메이커', 'OVR', 50, 49], ['RCM', '중앙 미드필더', '가치', 75, 44],
-      ['LB', '왼쪽 풀백', '효율', 11, 69], ['LCB', '센터백', '안전', 36, 75], ['RCB', '센터백', '공간', 64, 75], ['RB', '오른쪽 풀백', '가치', 89, 69],
-      ['GK', '골키퍼', '안전', 50, 90]] },
+      ['ST', '스트라이커', ['power', 'accel', 'quiet'], 50, 11], ['LW', '왼쪽 윙어', ['accel', 'agile', 'eff'], 16, 21], ['RW', '오른쪽 윙어', ['accel', 'agile', 'eff'], 84, 21],
+      ['LCM', '중앙 미드필더', ['room', 'seats', 'qvalue'], 25, 44], ['CM', '플레이메이커', 'OVR', 50, 49], ['RCM', '중앙 미드필더', ['room', 'seats', 'qvalue'], 75, 44],
+      ['LB', '왼쪽 풀백', ['eff', 'cargo', 'accel'], 11, 69], ['LCB', '센터백', ['safety', 'torque', 'size'], 36, 75], ['RCB', '센터백', ['safety', 'torque', 'size'], 64, 75], ['RB', '오른쪽 풀백', ['eff', 'cargo', 'accel'], 89, 69],
+      ['GK', '골키퍼', ['safety', 'brake', 'durab'], 50, 90]] },
     basket: { t: '🏀 농구', n: '5인 스타팅', board: 'court', pos: [
-      ['C', '센터', '공간', 50, 22], ['PF', '파워포워드', '안전', 21, 40], ['SF', '스몰포워드', '성능', 79, 40],
-      ['SG', '슈팅가드', '효율', 74, 70], ['PG', '포인트가드', 'OVR', 28, 74]] },
+      ['C', '센터', ['size', 'room', 'torque'], 50, 22], ['PF', '파워포워드', ['torque', 'power', 'safety'], 21, 40], ['SF', '스몰포워드', ['accel', 'agile', 'tinfo'], 79, 40],
+      ['SG', '슈팅가드', ['accel', 'eff', 'tadas'], 74, 70], ['PG', '포인트가드', 'OVR', 28, 74]] },
     base: { t: '⚾ 야구', n: '9인 수비', board: 'diamond', pos: [
-      ['CF', '중견수', '성능', 50, 13], ['LF', '좌익수', '가치', 16, 25], ['RF', '우익수', '효율', 84, 25],
-      ['SS', '유격수', '성능', 36, 45], ['2B', '2루수', '효율', 64, 45], ['3B', '3루수', '정숙', 18, 66], ['1B', '1루수', '공간', 82, 66],
-      ['P', '투수 (에이스)', 'OVR', 50, 70], ['C', '포수', '안전', 50, 92]] }
+      ['CF', '중견수', ['accel', 'room', 'eff'], 50, 13], ['LF', '좌익수', ['power', 'eff'], 16, 25], ['RF', '우익수', ['power', 'eff'], 84, 25],
+      ['SS', '유격수', ['agile', 'accel', 'tadas'], 36, 45], ['2B', '2루수', ['agile', 'accel', 'tadas'], 64, 45], ['3B', '3루수', ['brake', 'quiet'], 18, 66], ['1B', '1루수', ['size', 'cargo'], 82, 66],
+      ['P', '투수 (에이스)', 'OVR', 50, 70], ['C', '포수', ['safety', 'resale', 'durab'], 50, 92]] }
   };
   const BOARD_SVG = {
     pitch: '<svg class="field" viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke="rgba(255,255,255,.3)" stroke-width=".6"><rect x="4" y="4" width="92" height="117"/><line x1="4" y1="62.5" x2="96" y2="62.5"/><circle cx="50" cy="62.5" r="11"/><circle cx="50" cy="62.5" r=".8" fill="rgba(255,255,255,.3)"/><rect x="24" y="4" width="52" height="18"/><rect x="38" y="4" width="24" height="7"/><rect x="24" y="103" width="52" height="18"/><rect x="38" y="114" width="24" height="7"/></g></svg>',
@@ -3166,8 +3167,11 @@ html, body { margin: 0; background: #14161b; }
     b.addEventListener('click', (e) => { e.stopPropagation(); toggleFav(r.id); render(); });
     return b;
   }
-  const gName = (g) => (g === 'OVR' ? '종합' : g);
-  function fitOf(r, g) { if (!r) return NaN; if (g === 'OVR') return isNaN(r._ovr) ? NaN : r._ovr / 5; const v = r['g_' + g]; return v == null ? NaN : v; }
+  const gName = (g) => (g === 'OVR' ? '종합 OVR' : g.map((k) => (A[k] ? A[k].label : k)).join(' · '));
+  function fitOf(r, g) {
+    if (!r) return NaN; if (g === 'OVR') return isNaN(r._ovr) ? NaN : r._ovr / 5;
+    const v = g.map((k) => gv(k, r['s_' + k])).filter((x) => !isNaN(x)); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : NaN;
+  }
   const fit20 = (f) => (isNaN(f) ? NaN : Math.max(1, Math.min(20, Math.round(f))));
   function autoPlace() {
     const sp = SPORTS[SQ.sport]; const cars = SQ.fav.map((id) => byId[id]).filter(Boolean);
@@ -3219,7 +3223,7 @@ html, body { margin: 0; background: #14161b; }
       b.type = 'button'; b.style.left = x + '%'; b.style.top = y + '%';
       b.appendChild(el('span', 'dot' + (r ? ' ' + cellCls(fr) : ''), r ? (isNaN(fr) ? '–' : String(fr)) : '+'));
       b.appendChild(el('b', null, r ? (r.name.split(' ').length > 1 ? r.name.split(' ').slice(1).join(' ') : r.name) : k));
-      b.appendChild(el('small', null, r ? `${k} · ${gName(g)}` : nm));
+      b.appendChild(el('small', null, r ? `${k} · ${nm}` : nm));
       b.setAttribute('aria-label', `${k} ${nm}, 기준 ${gName(g)}` + (r ? `, ${r.name} 능력치 ${isNaN(fr) ? '없음' : fr}` : ', 빈 자리'));
       b.addEventListener('click', () => { sqSel = sqSel === k ? null : k; renderSquad(); if (sqSel && window.innerWidth < 900) { const pk = $('#sqpick'); if (pk) pk.scrollIntoView({ behavior: 'smooth', block: 'start' }); } });
     });
@@ -3231,7 +3235,7 @@ html, body { margin: 0; background: #14161b; }
       const [k, nm, g] = selP; const curR = byId[lu[k]];
       const h = pk.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, `${k} · ${nm}`));
       if (curR) { const x = h.appendChild(el('button', 'chip sm', '자리 비우기')); x.addEventListener('click', () => { delete lu[k]; saveSQ(); renderSquad(); }); }
-      pk.appendChild(el('p', 'note', `이 자리는 '${g === 'OVR' ? '종합 OVR' : g}' 능력치가 높은 차가 잘 맞아요. 찜한 차를 잘 맞는 순서로 보여 드려요.`));
+      pk.appendChild(el('p', 'note', `이 자리는 ${gName(g)}을 봐요. 찜한 차를 잘 맞는 순서로 보여 드려요.`));
       const list = pk.appendChild(el('div', 'sqlist'));
       SQ.fav.map((id) => byId[id]).filter(Boolean).sort((a, b) => (fitOf(b, g) || 0) - (fitOf(a, g) || 0)).forEach((r) => {
         const fr = fit20(fitOf(r, g)); const where = Object.keys(lu).find((p) => lu[p] === r.id);
@@ -3759,6 +3763,7 @@ html, body { margin: 0; background: #14161b; }
 
   // ------------------------------------------------------------------ 홈
   const UPDATES = [
+    ['11.14', '스쿼드 포지션별 능력치 개편 (FM 포지션 기준)'],
     ['11.14', '능력치 분류 개편: 피지컬 · 멘탈 · 테크닉 · 히든 · 선수정보 (가성비 신설)'],
     ['11.14', '점수 신뢰도 개편 · 빈칸 추정 · 거주성 개편 · 테크닉·나이(에이징 커브) 신설'],
     ['11.13', '갈아타기 비용 계산 · 능력치 퀴즈 · 오너 한줄평 · 카톡 미리보기 카드'],
