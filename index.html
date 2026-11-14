@@ -1023,11 +1023,11 @@ html, body { margin: 0; background: #14161b; }
   <nav class="tabs" role="tablist">
       <button class="tab" role="tab" id="t-home" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7M5.5 9.5V20h5v-6h3v6h5V9.5"/></svg><span><b>홈</b><small>오늘의 선수 · 뉴스</small></span></button>
       <button class="tab" role="tab" id="t-rank" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span><b>랭킹</b><small>종합 순위</small></span></button>
-      <button class="tab" role="tab" id="t-wiz" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></svg><span><b>추천</b><small>5문항 영입 상담</small></span></button>
-      <button class="tab" role="tab" id="t-prof" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span><b>선수</b><small>차 한 대 자세히</small></span></button>
-      <button class="tab" role="tab" id="t-cmp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11M11 3l4 4-4 4M20 17H9M13 13l-4 4 4 4"/></svg><span><b>비교 <em class="badge" id="cmpN">0</em></b><small>최대 4대 맞대결</small></span></button>
-      <button class="tab" role="tab" id="t-sq" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3.5 6l2 4.5L8 9.5V21h8V9.5l2.5 1 2-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3Z"/></svg><span><b>스쿼드 <em class="badge" id="sqN">0</em></b><small>찜한 차로 팀 짜기</small></span></button>
       <button class="tab" role="tab" id="t-play" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.4 1.8L14.5 14h-5l-1.1 1.8A3 3 0 0 1 3 14v-1a4 4 0 0 1 4-4ZM8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg><span><b>놀이터</b><small>월드컵 · MBTI · 퀴즈</small></span></button>
+      <button class="tab" role="tab" id="t-prof" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span><b>선수</b><small>차 한 대 자세히</small></span></button>
+      <button class="tab" role="tab" id="t-sq" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3.5 6l2 4.5L8 9.5V21h8V9.5l2.5 1 2-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3Z"/></svg><span><b>스쿼드 <em class="badge" id="sqN">0</em></b><small>찜한 차로 팀 짜기</small></span></button>
+      <button class="tab" role="tab" id="t-wiz" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></svg><span><b>추천</b><small>5문항 영입 상담</small></span></button>
+      <button class="tab" role="tab" id="t-cmp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11M11 3l4 4-4 4M20 17H9M13 13l-4 4 4 4"/></svg><span><b>비교 <em class="badge" id="cmpN">0</em></b><small>최대 4대 맞대결</small></span></button>
       <button class="tab" role="tab" id="t-fun" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9Z"/></svg><span><b>펀카</b><small>슈퍼카~핫해치</small></span></button>
       <button class="tab" role="tab" id="t-used" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span><b>이적시장</b><small>엔카 중고 시세</small></span></button>
       <button class="tab" role="tab" id="t-all" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg><span><b>스카우트</b><small>전체 명단</small></span></button>
@@ -3875,7 +3875,7 @@ html, body { margin: 0; background: #14161b; }
   }
 
   // ------------------------------------------------------------------ tabs & hash
-  const TABS = [['t-home', 'p-home'], ['t-rank', 'p-rank'], ['t-wiz', 'p-wiz'], ['t-prof', 'p-prof'], ['t-cmp', 'p-cmp'], ['t-sq', 'p-sq'], ['t-play', 'p-play'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
+  const TABS = [['t-home', 'p-home'], ['t-rank', 'p-rank'], ['t-play', 'p-play'], ['t-prof', 'p-prof'], ['t-sq', 'p-sq'], ['t-wiz', 'p-wiz'], ['t-cmp', 'p-cmp'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
   let cur = 't-home';
   function show(id) { cur = id; TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); const vdr = document.querySelector('.vd'); if (vdr) vdr.classList.toggle('nofilt', ['t-home', 't-play'].includes(id)); render(); writeHash(true); scrollToSection(id); }
   function scrollToSection(id) {
