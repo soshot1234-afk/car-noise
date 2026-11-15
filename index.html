@@ -1020,8 +1020,8 @@ html, body { margin: 0; background: #14161b; }
 .vd .dgff{display:flex;flex-wrap:wrap;gap:6px 12px;padding:10px 14px;font-size:13px;margin-bottom:8px}.vd .dgff b{width:100%;color:#e3b448}
 .vd .dgtl{display:grid;gap:2px}.vd .dgtl div{display:grid;grid-template-columns:48px 30px 1fr;align-items:center;padding:5px 0;border-bottom:1px dashed var(--sep);font-size:14px}.vd .dgtl .a{font-family:var(--cond);color:var(--mu)}.vd .dgtl .i{font-size:18px}
 .vd .dgstat .dgc b{font-size:20px}
-.vd .dginv{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--pn2)}
-.vd .dginvh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}.vd .dginvh b{font-size:15px;color:var(--hi)}.vd .dginvh small{font-size:12px;color:var(--mu)}
+.vd .dginv[open]{display:flex;flex-direction:column}.vd .dginv{gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--pn2)}
+.vd .dginvh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;cursor:pointer;list-style:none}.vd .dginvh::-webkit-details-marker{display:none}.vd .dginvh::before{content:'▸';color:var(--mu)}.vd .dginv[open]>.dginvh::before{content:'▾'}.vd .dgplh{margin:6px 0 0;font-size:13px;color:var(--hi)}.vd .dginvg.c4{grid-template-columns:repeat(4,1fr)}.vd .dginvo:disabled{opacity:.4;cursor:not-allowed}.vd .dgplmsg{margin:0;font-size:13px;font-weight:700;color:#e3b448}.vd .dginvh b{font-size:15px;color:var(--hi)}.vd .dginvh small{font-size:12px;color:var(--mu)}
 .vd .dginvg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .vd .dginvo{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:10px;border:2px solid var(--line);border-radius:10px;background:var(--pn);color:var(--tx);font:inherit;cursor:pointer;opacity:.75;transition:opacity .15s,border-color .15s}
 .vd .dginvo:hover{opacity:1;border-color:var(--mu2)}.vd .dginvo b{font-size:15px;color:var(--hi)}.vd .dginvo small{font-size:11.5px;color:var(--mu);line-height:1.35}
@@ -1032,7 +1032,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .dgtog .sw{position:relative;width:44px;height:24px;border-radius:99px;background:var(--line);transition:background .15s}.vd .dgtog .sw i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s}
 .vd .dgtog em{font-style:normal;font-size:12px;font-weight:800;color:var(--mu);min-width:28px}
 .vd .dgtog.on{border-color:#e3b448}.vd .dgtog.on .sw{background:#e3b448}.vd .dgtog.on .sw i{left:23px}.vd .dgtog.on em{color:#e3b448}
-@media (max-width:640px){.vd .dginvg{grid-template-columns:1fr}.vd .dginvo{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center}.vd .dginvo .ck{grid-row:1/3;min-width:58px;text-align:center}}
+@media (max-width:640px){.vd .dginvg{grid-template-columns:repeat(3,1fr);gap:5px}.vd .dginvg.c4{grid-template-columns:repeat(2,1fr)}.vd .dginvo{padding:8px 7px}.vd .dginvo b{font-size:13.5px}.vd .dginvo small{font-size:10.5px}.vd .dginvo .ck{font-size:9.5px;padding:1px 5px}}
 .vd .dgdisc{margin:14px 0 0;font-size:11.5px;line-height:1.6;color:var(--mu2)}
 @media (max-width:640px){.vd .dggrid{grid-template-columns:1fr 1fr}.vd .dgopt{padding:9px}.vd .dgsel{grid-template-columns:100px 1fr}.vd .dgcar{grid-template-columns:96px 1fr}.vd .dgscene{height:120px}.vd .dgart{font-size:60px}}
 /* 갈아타기 · 한줄평 · 퀴즈 */
@@ -2555,78 +2555,81 @@ html, body { margin: 0; background: #14161b; }
   // ------------------------------------------------------------------ 미니게임: 첫차에서 드림카까지 (v2: 평생 커리어)
   // 차 쪽은 실제 데이터: 신차가·중고 시세·감가율(depy)·연비/자동차세(유지비)·취득세(swapTax)·능력치(OVR)
   // 연봉: K=고용노동부 임금구조기본통계 2023(KOSIS) · W=한국고용정보원 한국의 직업정보 · E=경총 2025 업종·규모별 평균 · G=2026 공무원 봉급표 · ≈=기사·채용공고 기반 대략치
-  const DG_SRC = { K: '고용노동부 임금구조기본통계(2023, KOSIS)', W: '한국고용정보원 「한국의 직업정보」', E: '경총 2025 업종·규모별 평균연봉', G: '2026 공무원 봉급표·평균 보수 기준', '≈': '기사·채용공고 기반 대략치' };
+  const DG_SRC = { E: '경총 대졸 정규직 초임(2023, 기업 규모별)', J: '잡플래닛 직무별 신입 연봉 중앙값(2025, 고용보험 데이터)', G: '2026 공무원 봉급표 초임', '≈': '기사·채용공고 기반 대략치' };
   const DG_RAW = [
-    ['의사 (전문의)', '🩺', '의료', 17400, 'K', { a: 33, lic: 1, tag: 'med night', al: '의사 doctor 병원' }],
-    ['치과의사', '🦷', '의료', 10800, 'K', { a: 28, lic: 1, tag: 'med' }],
-    ['한의사', '🌿', '의료', 10255, 'W', { a: 28, lic: 1, tag: 'med' }],
-    ['약사', '💊', '의료', 7800, 'K', { lic: 1 }],
-    ['수의사', '🐶', '의료', 6000, 'K', { a: 27, lic: 1, tag: 'med' }],
-    ['간호사', '💉', '의료', 4700, '≈', { a: 23, tag: 'med night', al: '병원' }],
-    ['물리치료사', '🦴', '의료', 3700, '≈', { a: 24 }],
-    ['간호조무사', '🏥', '의료', 2900, '≈', { a: 22, sr: 0.8 }],
-    ['변호사', '⚖️', '법·금융', 11400, 'K', { a: 29, lic: 1, tag: 'law' }],
-    ['판사·검사', '👨‍⚖️', '법·금융', 10200, 'K', { a: 30, lic: 1, tag: 'public' }],
-    ['변리사', '📜', '법·금융', 9600, 'K', { a: 29, lic: 1 }],
-    ['회계사', '🧾', '법·금융', 7200, 'K', { a: 27, lic: 1, tag: 'fin' }],
-    ['세무사', '📊', '법·금융', 7000, '≈', { a: 28, lic: 1 }],
-    ['은행원', '🏦', '법·금융', 9400, 'E', { sr: 0.55, tag: 'fin', al: '금융 보험 은행' }],
-    ['증권사 트레이더', '📈', '법·금융', 11000, '≈', { a: 27, tag: 'fin', vol: 0.4, al: '증권 펀드매니저' }],
-    ['보험설계사', '🤝', '법·금융', 4500, '≈', { vol: 0.4, km: 25000, tag: 'drive free', sr: 0.8 }],
-    ['IT 개발자', '💻', 'IT·연구', 6400, 'E', { km: 9000, tag: 'it', al: '개발자 프로그래머 코딩 developer 백엔드 프론트' }],
-    ['반도체 엔지니어', '🔬', 'IT·연구', 8400, '≈', { tag: 'it', al: '엔지니어 삼성 하이닉스' }],
-    ['데이터 사이언티스트', '🧠', 'IT·연구', 7000, '≈', { km: 9000, tag: 'it', al: 'AI 인공지능' }],
-    ['게임 개발자', '🎮', 'IT·연구', 5500, '≈', { km: 9000, tag: 'it' }],
-    ['이공계 연구원', '🧪', 'IT·연구', 6600, 'K', { a: 28, al: '연구소 박사' }],
-    ['대학교수', '🎓', 'IT·연구', 9600, 'K', { a: 35, lic: 1, sr: 0.75, al: '교수 강사' }],
-    ['대기업 사무직', '🏢', '회사원', 7400, 'E', { sr: 0.6, al: '회사원 직장인 사무직 대기업' }],
-    ['중소기업 사무직', '🗂️', '회사원', 4500, 'E', { sr: 0.72, al: '회사원 직장인 사무직 중소기업 경리' }],
-    ['마케터', '📣', '회사원', 5000, '≈', { al: '마케팅 광고 기획' }],
-    ['영업직', '💼', '회사원', 5500, '≈', { km: 28000, tag: 'drive', vol: 0.2, img: 1, al: '영업 세일즈' }],
-    ['인사·총무', '🗃️', '회사원', 5200, '≈', { al: '인사 HR 총무' }],
-    ['디자이너', '🎨', '회사원', 4200, '≈', { km: 10000, al: '디자인 UX' }],
-    ['전략 컨설턴트', '📐', '회사원', 9000, '≈', { tag: 'fin night', al: '컨설팅' }],
-    ['완성차 생산직', '🏭', '회사원', 9000, '≈', { tag: 'field', perk: 'auto', al: '자동차회사 공장 생산직 현대 기아' }],
-    ['중소 제조 생산직', '⚙️', '회사원', 3800, '≈', { tag: 'field', sr: 0.75, al: '공장 생산직' }],
-    ['일반직 공무원', '🏛️', '공공', 6000, 'G', { sr: 0.57, tag: 'public', al: '공무원 9급 7급 주무관 행정' }],
-    ['경찰관', '👮', '공공', 6000, 'G', { sr: 0.58, tag: 'public danger night', al: '경찰 순경' }],
-    ['소방관', '🚒', '공공', 6000, 'G', { sr: 0.58, tag: 'public danger night', al: '소방' }],
-    ['교사', '🍎', '공공', 6000, 'G', { a: 24, sr: 0.58, tag: 'public', al: '선생님 초등 중등 교원 임용' }],
-    ['직업군인', '🪖', '공공', 5500, 'G', { a: 22, sr: 0.6, end: 45, tag: 'public danger', al: '군인 장교 부사관' }],
-    ['외교관', '🌏', '공공', 6500, '≈', { a: 27, lic: 1, tag: 'public' }],
-    ['항공기 조종사', '✈️', '운송', 14400, 'K', { a: 28, lic: 1, sr: 0.55, al: '파일럿 기장 부기장' }],
-    ['승무원', '🧳', '운송', 5000, '≈', { a: 23, al: '스튜어디스 객실' }],
-    ['버스 기사', '🚌', '운송', 4500, '≈', { tag: 'drive', sr: 0.8 }],
-    ['화물차 기사', '🚛', '운송', 5000, '≈', { tag: 'drive free', vol: 0.25, sr: 0.85, al: '트럭 운송' }],
-    ['택시 기사', '🚕', '운송', 3000, '≈', { tag: 'drive', vol: 0.2, sr: 0.9, end: 70 }],
-    ['배달 라이더', '🛵', '운송', 3600, '≈', { a: 22, tag: 'drive danger', vol: 0.3, sr: 1, al: '배달 쿠팡 배민' }],
-    ['자동차 정비사', '🔧', '기술·현장', 4000, '≈', { a: 23, perk: 'mech', al: '정비 카센터' }],
-    ['전기기사', '⚡', '기술·현장', 5000, '≈', { tag: 'field', al: '전기 기술자' }],
-    ['건설 현장소장', '🏗️', '기술·현장', 6500, '≈', { tag: 'field', km: 25000, al: '건설 현장 토목' }],
-    ['용접공', '🔥', '기술·현장', 5000, '≈', { tag: 'field danger', al: '용접 조선' }],
-    ['건축사', '📏', '기술·현장', 6600, 'K', { a: 29, lic: 1, al: '건축' }],
-    ['요리사·셰프', '👨‍🍳', '기술·현장', 3500, '≈', { a: 22, al: '요리 주방 셰프' }],
-    ['미용사', '💇', '기술·현장', 3000, '≈', { a: 22, vol: 0.25, al: '헤어 미용실' }],
-    ['농부', '🌾', '기술·현장', 3000, '≈', { tag: 'free', vol: 0.35, km: 18000, end: 75, al: '농업 귀농' }],
-    ['카페·식당 사장', '☕', '자영업', 3500, '≈', { tag: 'biz', vol: 0.5, sr: 0.9, al: '자영업 사장님 가게 카페 식당' }],
-    ['스타트업 창업자', '🚀', '자영업', 4000, '≈', { tag: 'biz startup', vol: 0.7, sr: 0.7, al: '창업 대표 CEO' }],
-    ['공인중개사', '🏘️', '자영업', 4500, '≈', { tag: 'biz', vol: 0.45, km: 20000, lic: 1, al: '부동산' }],
-    ['자동차 딜러', '🚘', '자영업', 5500, '≈', { tag: 'free', vol: 0.4, km: 22000, img: 1, perk: 'dealer', al: '카딜러 차 영업' }],
-    ['학원 강사', '✏️', '자영업', 4000, '≈', { tag: 'free', vol: 0.35, al: '강사 과외 학원' }],
-    ['프리랜서 번역가', '🌐', '자영업', 3500, '≈', { tag: 'free', vol: 0.35, km: 6000, al: '번역 통역 프리랜서' }],
-    ['유튜버·크리에이터', '🎬', '문화·스포츠', 3000, '≈', { a: 22, tag: 'art viral free', vol: 0.8, sr: 0.5, al: '유튜버 스트리머 인플루언서 BJ' }],
-    ['웹툰 작가', '🖍️', '문화·스포츠', 4000, '≈', { tag: 'art viral free', vol: 0.6, km: 5000, sr: 0.5, al: '만화 작가' }],
-    ['기자', '📰', '문화·스포츠', 4800, '≈', { tag: 'night', al: '언론' }],
-    ['방송 PD', '🎥', '문화·스포츠', 6000, '≈', { tag: 'night', al: 'PD 방송국 피디' }],
-    ['프로 운동선수', '⚽', '문화·스포츠', 8000, '≈', { a: 20, lic: 1, end: 34, tag: 'sport danger free', vol: 0.5, sr: 0.4, img: 1, al: '축구 야구 농구 선수' }],
-    ['프로게이머', '🕹️', '문화·스포츠', 6000, '≈', { a: 19, lic: 1, end: 27, tag: 'art free', vol: 0.6, sr: 0.5, al: '게이머 e스포츠' }],
-    ['배우·아이돌', '🎤', '문화·스포츠', 4000, '≈', { a: 20, lic: 1, end: 40, tag: 'art viral free', vol: 0.9, sr: 0.4, img: 1, al: '연예인 가수 배우 아이돌' }],
-    ['사회복지사', '🤲', '돌봄·서비스', 3300, '≈', { al: '복지' }],
-    ['어린이집 교사', '🧸', '돌봄·서비스', 2900, '≈', { a: 23, al: '보육교사 유치원' }],
-    ['호텔리어', '🛎️', '돌봄·서비스', 3500, '≈', { al: '호텔 서비스' }],
-    ['경비·시설관리', '🔑', '돌봄·서비스', 2600, '≈', { end: 75, sr: 0.9, al: '경비 관리' }]
+    ['의사 (전문의)', '🩺', '의료', 13000, '≈', { pk: 1.5, a: 33, lic: 1, tag: 'med night', al: '의사 doctor 병원' }],
+    ['치과의사', '🦷', '의료', 7500, '≈', { pk: 1.6, a: 28, lic: 1, tag: 'med' }],
+    ['한의사', '🌿', '의료', 6000, '≈', { pk: 1.8, a: 28, lic: 1, tag: 'med' }],
+    ['약사', '💊', '의료', 5500, '≈', { pk: 1.5, lic: 1 }],
+    ['수의사', '🐶', '의료', 4200, '≈', { pk: 1.6, a: 27, lic: 1, tag: 'med' }],
+    ['간호사', '💉', '의료', 3600, '≈', { pk: 1.6, a: 23, tag: 'med night', al: '병원' }],
+    ['물리치료사', '🦴', '의료', 3000, '≈', { pk: 1.4, a: 24 }],
+    ['간호조무사', '🏥', '의료', 2500, '≈', { pk: 1.3, a: 22, }],
+    ['변호사', '⚖️', '법·금융', 6500, '≈', { pk: 1.9, a: 29, lic: 1, tag: 'law' }],
+    ['판사·검사', '👨‍⚖️', '법·금융', 6500, '≈', { pk: 1.8, a: 30, lic: 1, tag: 'public' }],
+    ['변리사', '📜', '법·금융', 6000, '≈', { pk: 1.8, a: 29, lic: 1 }],
+    ['회계사', '🧾', '법·금융', 5000, '≈', { pk: 1.9, a: 27, lic: 1, tag: 'fin' }],
+    ['세무사', '📊', '법·금융', 4000, '≈', { pk: 2, a: 28, lic: 1 }],
+    ['은행원', '🏦', '법·금융', 5200, '≈', { pk: 2, tag: 'fin', al: '금융 보험 은행' }],
+    ['증권사 트레이더', '📈', '법·금융', 5500, '≈', { pk: 2.4, a: 27, tag: 'fin', vol: 0.4, al: '증권 펀드매니저' }],
+    ['보험설계사', '🤝', '법·금융', 3000, '≈', { pk: 1.8, vol: 0.4, km: 25000, tag: 'drive free', }],
+    ['IT 개발자', '💻', 'IT·연구', 3230, 'J', { pk: 2.2, km: 9000, tag: 'it', al: '개발자 프로그래머 코딩 developer 백엔드 프론트' }],
+    ['반도체 엔지니어', '🔬', 'IT·연구', 5300, '≈', { pk: 1.9, tag: 'it', al: '엔지니어 삼성 하이닉스' }],
+    ['데이터 사이언티스트', '🧠', 'IT·연구', 4000, '≈', { pk: 2, km: 9000, tag: 'it', al: 'AI 인공지능' }],
+    ['게임 개발자', '🎮', 'IT·연구', 3400, '≈', { pk: 1.9, km: 9000, tag: 'it' }],
+    ['이공계 연구원', '🧪', 'IT·연구', 3430, 'J', { pk: 2, a: 28, al: '연구소 박사' }],
+    ['대학교수', '🎓', 'IT·연구', 6000, '≈', { pk: 1.8, a: 35, lic: 1, al: '교수 강사' }],
+    ['대기업 사무직', '🏢', '회사원', 5001, 'E', { pk: 1.9, al: '회사원 직장인 사무직 대기업' }],
+    ['중견기업 사무직', '🏬', '회사원', 3595, 'E', { pk: 1.8, al: '회사원 직장인 사무직 중견기업' }],
+    ['중소기업 사무직', '🗂️', '회사원', 3070, 'E', { pk: 1.6, al: '회사원 직장인 사무직 중소기업 경리' }],
+    ['소규모 사업장 직원', '🏪', '회사원', 2731, 'E', { pk: 1.4, al: '회사원 직장인 5인 미만 소기업 경리' }],
+    ['마케터', '📣', '회사원', 2880, 'J', { pk: 1.9, al: '마케팅 광고 기획' }],
+    ['영업직', '💼', '회사원', 3317, 'J', { pk: 2, km: 28000, tag: 'drive', vol: 0.2, img: 1, al: '영업 세일즈' }],
+    ['인사·총무', '🗃️', '회사원', 3000, '≈', { pk: 1.9, al: '인사 HR 총무' }],
+    ['디자이너', '🎨', '회사원', 2855, 'J', { pk: 1.8, km: 10000, al: '디자인 UX' }],
+    ['전략 컨설턴트', '📐', '회사원', 6000, '≈', { pk: 2.5, tag: 'fin night', al: '컨설팅' }],
+    ['완성차 생산직', '🏭', '회사원', 5000, '≈', { pk: 2, tag: 'field', perk: 'auto', al: '자동차회사 공장 생산직 현대 기아' }],
+    ['중소 제조 생산직', '⚙️', '회사원', 3000, '≈', { pk: 1.4, tag: 'field', al: '공장 생산직' }],
+    ['9급 공무원', '🏛️', '공공', 3430, 'G', { pk: 2, tag: 'public', al: '공무원 9급 일반직 주무관 행정' }],
+    ['7급 공무원', '🏛️', '공공', 3900, 'G', { pk: 1.95, tag: 'public', al: '공무원 7급 주무관 행정' }],
+    ['경찰관', '👮', '공공', 3600, 'G', { pk: 1.9, tag: 'public danger night', al: '경찰 순경' }],
+    ['소방관', '🚒', '공공', 3600, 'G', { pk: 1.9, tag: 'public danger night', al: '소방' }],
+    ['교사', '🍎', '공공', 3500, 'G', { pk: 2.1, a: 24, tag: 'public', al: '선생님 초등 중등 교원 임용' }],
+    ['직업군인', '🪖', '공공', 3400, 'G', { pk: 1.8, a: 22, end: 45, tag: 'public danger', al: '군인 장교 부사관' }],
+    ['외교관', '🌏', '공공', 4000, '≈', { pk: 2, a: 27, lic: 1, tag: 'public' }],
+    ['항공기 조종사', '✈️', '운송', 7000, '≈', { pk: 2.4, a: 28, lic: 1, al: '파일럿 기장 부기장' }],
+    ['승무원', '🧳', '운송', 3300, '≈', { pk: 1.7, a: 23, al: '스튜어디스 객실' }],
+    ['버스 기사', '🚌', '운송', 3600, '≈', { pk: 1.4, tag: 'drive', }],
+    ['화물차 기사', '🚛', '운송', 4000, '≈', { pk: 1.4, tag: 'drive free', vol: 0.25, al: '트럭 운송' }],
+    ['택시 기사', '🚕', '운송', 2800, '≈', { pk: 1.1, tag: 'drive', vol: 0.2, end: 70 }],
+    ['배달 라이더', '🛵', '운송', 3000, '≈', { pk: 1.1, a: 22, tag: 'drive danger', vol: 0.3, al: '배달 쿠팡 배민' }],
+    ['자동차 정비사', '🔧', '기술·현장', 2800, '≈', { pk: 1.7, a: 23, perk: 'mech', al: '정비 카센터' }],
+    ['전기기사', '⚡', '기술·현장', 3200, '≈', { pk: 1.8, tag: 'field', al: '전기 기술자' }],
+    ['건설 현장소장', '🏗️', '기술·현장', 3800, '≈', { pk: 2, tag: 'field', km: 25000, al: '건설 현장 토목' }],
+    ['용접공', '🔥', '기술·현장', 3500, '≈', { pk: 1.6, tag: 'field danger', al: '용접 조선' }],
+    ['건축사', '📏', '기술·현장', 3500, '≈', { pk: 2.2, a: 29, lic: 1, al: '건축' }],
+    ['요리사·셰프', '👨‍🍳', '기술·현장', 2600, '≈', { pk: 1.7, a: 22, al: '요리 주방 셰프' }],
+    ['미용사', '💇', '기술·현장', 2400, '≈', { pk: 1.7, a: 22, vol: 0.25, al: '헤어 미용실' }],
+    ['농부', '🌾', '기술·현장', 2500, '≈', { pk: 1.4, tag: 'free', vol: 0.35, km: 18000, end: 75, al: '농업 귀농' }],
+    ['카페·식당 사장', '☕', '자영업', 3000, '≈', { pk: 1.3, tag: 'biz', vol: 0.5, al: '자영업 사장님 가게 카페 식당' }],
+    ['스타트업 창업자', '🚀', '자영업', 2800, '≈', { pk: 2.5, tag: 'biz startup', vol: 0.7, al: '창업 대표 CEO' }],
+    ['공인중개사', '🏘️', '자영업', 3000, '≈', { pk: 1.7, tag: 'biz', vol: 0.45, km: 20000, lic: 1, al: '부동산' }],
+    ['자동차 딜러', '🚘', '자영업', 3500, '≈', { pk: 1.8, tag: 'free', vol: 0.4, km: 22000, img: 1, perk: 'dealer', al: '카딜러 차 영업' }],
+    ['학원 강사', '✏️', '자영업', 3000, '≈', { pk: 1.6, tag: 'free', vol: 0.35, al: '강사 과외 학원' }],
+    ['프리랜서 번역가', '🌐', '자영업', 2800, '≈', { pk: 1.5, tag: 'free', vol: 0.35, km: 6000, al: '번역 통역 프리랜서' }],
+    ['유튜버·크리에이터', '🎬', '문화·스포츠', 1500, '≈', { pk: 3, a: 22, tag: 'art viral free', vol: 0.8, al: '유튜버 스트리머 인플루언서 BJ' }],
+    ['웹툰 작가', '🖍️', '문화·스포츠', 2000, '≈', { pk: 2.5, tag: 'art viral free', vol: 0.6, km: 5000, al: '만화 작가' }],
+    ['기자', '📰', '문화·스포츠', 3500, '≈', { pk: 1.8, tag: 'night', al: '언론' }],
+    ['방송 PD', '🎥', '문화·스포츠', 4000, '≈', { pk: 1.9, tag: 'night', al: 'PD 방송국 피디' }],
+    ['프로 운동선수', '⚽', '문화·스포츠', 4000, '≈', { pk: 2.5, a: 20, lic: 1, end: 34, tag: 'sport danger free', vol: 0.5, img: 1, al: '축구 야구 농구 선수' }],
+    ['프로게이머', '🕹️', '문화·스포츠', 3000, '≈', { pk: 2.5, a: 19, lic: 1, end: 27, tag: 'art free', vol: 0.6, al: '게이머 e스포츠' }],
+    ['배우·아이돌', '🎤', '문화·스포츠', 1500, '≈', { pk: 4, a: 20, lic: 1, end: 40, tag: 'art viral free', vol: 0.9, img: 1, al: '연예인 가수 배우 아이돌' }],
+    ['사회복지사', '🤲', '돌봄·서비스', 2700, '≈', { pk: 1.4, al: '복지' }],
+    ['어린이집 교사', '🧸', '돌봄·서비스', 2600, '≈', { pk: 1.3, a: 23, al: '보육교사 유치원' }],
+    ['호텔리어', '🛎️', '돌봄·서비스', 2900, '≈', { pk: 1.5, al: '호텔 서비스' }],
+    ['경비·시설관리', '🔑', '돌봄·서비스', 2500, '≈', { pk: 1.1, end: 75, al: '경비 관리' }]
   ];
-  const mkJob = ([t, ic, cat, sal, src, o]) => ({ t, ic, cat, sal, src, a: o.a || 26, end: o.end || 0, lic: !!o.lic, tag: ' ' + (o.tag || '') + ' ', km: o.km || 13000, vol: o.vol || 0.04, sr: o.sr || 0.62, perk: o.perk || '', img: !!o.img, _n: norm(t + ' ' + (o.al || '')), _c: cho((t + (o.al || '')).replace(/\s+/g, '')) });
+  const mkJob = ([t, ic, cat, sal, src, o]) => ({ t, ic, cat, sal, src, pk: o.pk || 1.8, a: o.a || 26, end: o.end || 0, lic: !!o.lic, tag: ' ' + (o.tag || '') + ' ', km: o.km || 13000, vol: o.vol || 0.04, perk: o.perk || '', img: !!o.img, _n: norm(t + ' ' + (o.al || '')), _c: cho((t + (o.al || '')).replace(/\s+/g, '')) });
   const DG_JOBS = DG_RAW.map(mkJob);
   const DG_CATS = [...new Set(DG_JOBS.map((j) => j.cat))];
   const DG_DREAMS = [['dom69', '현실 드림'], ['dom30', '현실 드림'], ['dom78', '로망'], ['dom71', '로망'], ['de45', '로망'], ['de170', '끝판왕'], ['oth65', '끝판왕'], ['oth95', '끝판왕']];
@@ -2639,9 +2642,40 @@ html, body { margin: 0; background: #14161b; }
     { k: 'bronze', ic: '🥉', t: '동수저', d: '시작 1,000만 · 내 힘으로', cash: 1000, pm: 0.3, mul: 1, wed: 1, inh: 0.4, ph: 1, sup: 0 },
     { k: 'dirt', ic: '🟫', t: '흙수저', d: '학자금 대출 -1,500만 · 45살부터 부모님 생활비', cash: -1500, pm: 0, mul: 0, wed: 1.2, inh: 0, ph: 1.4, sup: 400 }
   ];
+  // 씀씀이: [키, 이름, 설명, 1인 생활비(연), 행복 보정, 수입 늘 때 더 쓰는 비율]
+  const DG_STYLE = [['tight', '🥢 아껴 쓰기', '생활비 월 90만 · 행복 조금↓', 1080, -4, 0.15], ['mid', '🙂 보통', '생활비 월 140만', 1680, 0, 0.3], ['big', '💳 펑펑 쓰기', '생활비 월 230만 · 행복↑', 2760, 5, 0.45]];
+  // 주거: 기혼이면 1.4배 넓은 집
+  const DG_HOME = {
+    parent: { ic: '🏡', t: '부모님 집', d: '월세 0 · 용돈 연 300만 · 나이 들수록 눈치↑' },
+    rent: { ic: '🛏️', t: '자취 (월세)', d: '보증금 1,000만 · 월세 60만' },
+    jeonse: { ic: '🔑', t: '전세', d: '보증금 2억 (20% 내 돈 + 80% 대출, 이자 4%)' },
+    own: { ic: '🏢', t: '매매', d: '4억 5천 집 (23% 내 돈 + 대출 30년, 4%)' }
+  };
+  const dgHM = () => (DG.married ? 1.4 : 1);
+  function dgHomeNeed(k) { const m = dgHM(); return k === 'rent' ? 1000 * m : k === 'jeonse' ? 20000 * m * 0.2 : k === 'own' ? 45000 * m * 0.23 : 0; }
+  function dgHomeCost() { const m = dgHM(); return Math.round(DG.home === 'parent' ? 300 : DG.home === 'rent' ? 720 * m + 120 : DG.home === 'jeonse' ? DG.jeonse.loan * 0.04 + 150 * m : 250 * m); }
+  function dgLeaveHome() { // 지금 집을 정리하고 돈을 돌려받음
+    let back = 0;
+    if (DG.home === 'rent') back = DG.rentDep || 0;
+    if (DG.home === 'jeonse' && DG.jeonse) back = DG.jeonse.dep - DG.jeonse.loan;
+    if (DG.home === 'own' && DG.house) back = Math.round(DG.house.v * 0.97) - DG.house.m;
+    DG.rentDep = 0; DG.jeonse = null; DG.house = null; DG.cash += back; return back;
+  }
+  function dgMoveTo(k, force) {
+    if (k === DG.home) return '';
+    if (k === 'parent' && DG.married) return '결혼하면 부모님 집으로는 못 들어가요.';
+    const back = dgLeaveHome(); const need = Math.round(dgHomeNeed(k)); const m = dgHM();
+    if (!force && DG.cash - 150 < need) { DG.cash -= back; return `${DG_HOME[k].t}에 필요한 내 돈 ${won(need)}이 모자라요.`; }
+    DG.cash -= need + 150;
+    if (k === 'rent') DG.rentDep = need;
+    if (k === 'jeonse') DG.jeonse = { dep: 20000 * m, loan: 16000 * m };
+    if (k === 'own') { const P = 45000 * m; DG.house = { v: P, m: Math.round(P * 0.8), a: Math.round(P * 0.8 * 0.0578) }; }
+    const was = DG_HOME[DG.home].t; DG.home = k; tl(DG_HOME[k].ic, `${DG_HOME[k].t}로 이사`);
+    return `${was} → ${DG_HOME[k].t} 이사 완료 (이사비 150만${back ? `, 돌려받은 돈 ${won(back)}` : ''}${need ? `, 들어간 돈 ${won(need)}` : ''})`;
+  }
   const DG_INV = [['save', '🐷 저축', '예금 연 2.5%, 안전'], ['stock', '📈 주식', '평균 연 6%, 해마다 ±18% 출렁'], ['coin', '🪙 코인', '대박 아니면 반토막']];
   function dgReturn(m) { if (m === 'stock') { const g = Math.sqrt(-2 * Math.log(Math.random() || 1e-9)) * Math.cos(2 * Math.PI * Math.random()); return Math.max(-0.45, Math.min(0.6, 0.06 + 0.18 * g)); } if (m === 'coin') { const x = Math.random(); return x < 0.15 ? 1.5 : x < 0.4 ? 0.4 : x < 0.7 ? -0.1 : -0.6; } return 0.025; }
-  const DG_DISC = '※ 재미용 시뮬레이션이에요. 직업별 연봉은 고용노동부 임금구조기본통계(KOSIS)·한국고용정보원·경총·공무원 봉급표 등 공개 통계와 기사·채용공고를 바탕으로 한 평균치(세전)이고, ≈ 표시는 대략치예요. 실제 연봉은 회사·지역·경력에 따라 크게 달라요. 세금·생활비·이자·투자 수익은 단순화한 가정이라 실제와 다를 수 있으며, 투자·재무·진로 조언이 아니에요. 차값·시세·감가·유지비는 카스쿼드 데이터 기준이에요.';
+  const DG_DISC = '※ 재미용 시뮬레이션이에요. 직업별 연봉은 경총 대졸 초임 통계·잡플래닛 직무별 신입 연봉·공무원 봉급표 등 공개 자료와 기사·채용공고를 바탕으로 잡은 신입 초봉(세전)이고, ≈ 표시는 대략치예요. 실제 연봉은 회사·지역·경력에 따라 크게 달라요. 세금·생활비·이자·투자 수익은 단순화한 가정이라 실제와 다를 수 있으며, 투자·재무·진로 조언이 아니에요. 차값·시세·감가·유지비는 카스쿼드 데이터 기준이에요.';
   let DG = null;
   const won = (v) => (isNaN(v) ? '–' : Math.abs(v) >= 10000 ? (Math.round(v / 1000) / 10) + '억' : fmt(Math.round(v)) + '만');
   const rnd = (a, b) => a + Math.random() * (b - a);
@@ -2668,11 +2702,11 @@ html, body { margin: 0; background: #14161b; }
   const dgTax = (S) => Math.max(0.06, Math.min(0.38, 0.13 + 0.056 * Math.log2(Math.max(1, S) / 3000)));
   function dgSalary(noRand) {
     if (DG.jobless || DG.retired) return 0;
-    const j = DG.job, f = j.sr + (1.25 - j.sr) * Math.min(1, DG.jy / 20);
+    const j = DG.job, f = 1 + (j.pk - 1) * Math.min(1, DG.jy / 20); // 초봉에서 시작해 20년 차에 pk배
     const v = noRand ? 1 : 1 + j.vol * (Math.random() * 2 - 1);
     return Math.max(0, Math.round(j.sal * f * DG.pay * v));
   }
-  function dgNet() { const c = DG.car; return Math.round(DG.cash + (c ? c.value : 0) - DG.debt + (DG.house ? DG.house.v - DG.house.m : 0)); }
+  function dgNet() { const c = DG.car; return Math.round(DG.cash + (c ? c.value : 0) - DG.debt + (DG.house ? DG.house.v - DG.house.m : 0) + (DG.jeonse ? DG.jeonse.dep - DG.jeonse.loan : 0) + (DG.rentDep || 0)); }
   function dgCanBuy(r, used) {
     const P = dgPrice(r, used); if (isNaN(P)) return null;
     const trade = DG.car ? Math.round(DG.car.value * 0.92) : 0;
@@ -2716,7 +2750,7 @@ html, body { margin: 0; background: #14161b; }
     { k: 'startup', w: () => (!hasT('biz') && DG.jy >= 3 && !DG.retired && DG.age >= 30 && DG.age <= 50 ? 0.9 : 0), art: '💡', tone: 'life', t: '창업 아이템이 떠올랐어요', d: '친구가 같이 해 보재요. 초기 자금 3,000만 원이 필요해요.',
       ch: () => [['창업한다 (-3,000만)', () => { DG.cash -= 3000; dgSetJob(DG_JOBS.find((j) => j.t === (Math.random() < 0.5 ? '스타트업 창업자' : '카페·식당 사장')), false); return `이제 ${DG.job.t}! 수입이 해마다 들쭉날쭉해져요.`; }], ['안 한다', () => '안정이 최고죠.']] },
     { k: 'path', w: () => (!DG.retired && DG.age < 48 && DG.jy >= 3 ? 1.1 : 0), art: '🧭', tone: 'life', t: '다른 길이 보여요', d: '요즘 이 일들이 자꾸 눈에 들어와요. 바꿔 볼까요?',
-      ch: () => dgPathJobs(3).map((j) => [`${j.ic} ${j.t} (평균 ${won(j.sal)})`, () => { dgSetJob(j, false); DG.happy += 2; return `새 출발! 경력은 일부만 인정돼서 처음엔 연봉이 낮아요.`; }]).concat([['지금 일 계속', () => '한 우물만 판다!']]) },
+      ch: () => dgPathJobs(3).map((j) => [`${j.ic} ${j.t} (초봉 ${won(j.sal)})`, () => { dgSetJob(j, false); DG.happy += 2; return `새 출발! 경력은 일부만 인정돼서 처음엔 연봉이 낮아요.`; }]).concat([['지금 일 계속', () => '한 우물만 판다!']]) },
     { k: 'option', once: 1, w: () => (hasT('startup') ? 2 : hasT('it') ? 1 : 0), art: '🎰', tone: 'money', t: '스톡옵션 행사일', f: () => { if (Math.random() < 0.22) { const a = Math.round(dgSalary(true) * rnd(2, 6)); DG.cash += a; DG.happy += 8; tl('🎰', '스톡옵션 대박'); return `회사가 상장했어요! +${won(a)} 원 🎉`; } DG.happy -= 2; return '…휴지 조각이 됐어요. 그래도 경험은 남았죠.'; } },
     { k: 'viral', w: () => (hasT('viral') ? 2.5 : 0), art: '🔥', tone: 'money', t: '콘텐츠가 터졌어요', f: () => { if (Math.random() < 0.4) { const a = Math.round(DG.job.sal * rnd(1, 3)); DG.cash += a; DG.pay *= 1.15; tl('🔥', '떡상'); return `알고리즘이 밀어 줬어요! +${won(a)} 원, 몸값도 15% 상승.`; } return '조회수 3… 엄마가 봐 줬어요.'; } },
     { k: 'close', w: () => (hasT('biz') && !DG.jobless ? 2 : 0), art: '🏚️', tone: 'bad', t: '폐업 위기', d: '임대료는 오르고 손님은 줄었어요.',
@@ -2726,23 +2760,25 @@ html, body { margin: 0; background: #14161b; }
       ch: () => [['1년 쉰다 (수입 -70%)', () => { DG.cut *= 0.3; DG.happy += 10; return '푹 쉬고 왔어요. 몸도 마음도 리셋!'; }], ['버틴다', () => { if (Math.random() < 0.35) { const c = DG.ins ? 150 : 800; DG.cash -= c; DG.happy -= 8; return `결국 몸이 탈 났어요. 병원비 -${c}만 원.`; } DG.happy -= 3; return '꾸역꾸역 버텼어요.'; }]] },
     // 인생
     { k: 'marry', w: () => (!DG.married && DG.age >= 27 && DG.age <= 42 && DG.age >= (DG.noMarry || 0) ? 4 : 0), art: '💍', tone: 'life', t: '결혼, 할까요?', d: '만나는 사람과 미래 이야기가 나왔어요. 결혼 비용은 평균 3,000만 원쯤.',
-      ch: () => [['💒 결혼한다', () => { const wc = Math.round(3000 * DG.spoon.wed); DG.married = true; DG.cash -= wc; DG.happy += 8; DG.spouse = Math.random() < 0.65; tl('💍', '결혼'); return `축하해요! 결혼 비용 -${won(wc)} 원${DG.spoon.wed < 0.5 ? ' (부모님이 대부분 내 주셨어요)' : ''}. ` + (DG.spouse ? '맞벌이라 생활비 부담이 줄어요.' : '외벌이라 생활비가 늘어요.') + ' 이제 옆자리·뒷자리도 중요해요.'; }], ['🙅 안 한다', () => { DG.noMarry = DG.age + 4; DG.happy += 1; return '혼자가 편해요. 내 차는 내 마음대로!'; }]] },
+      ch: () => [['💒 결혼한다', () => { const wc = Math.round(3000 * DG.spoon.wed); DG.married = true; DG.cash -= wc; if (DG.home === 'parent') { DG.married = false; dgMoveTo('rent', true); DG.married = true; } DG.happy += 8; DG.spouse = Math.random() < 0.65; tl('💍', '결혼'); return `축하해요! 결혼 비용 -${won(wc)} 원${DG.spoon.wed < 0.5 ? ' (부모님이 대부분 내 주셨어요)' : ''}. ` + (DG.spouse ? '맞벌이라 생활비 부담이 줄어요.' : '외벌이라 생활비가 늘어요.') + ' 이제 옆자리·뒷자리도 중요해요.'; }], ['🙅 안 한다', () => { DG.noMarry = DG.age + 4; DG.happy += 1; return '혼자가 편해요. 내 차는 내 마음대로!'; }]] },
     { k: 'baby', w: () => (DG.married && DG.kids.length < 3 && DG.age < 44 && DG.age >= (DG.noBaby || 0) ? (DG.kids.length ? 1.5 : 3) : 0), art: '👶', tone: 'life', t: DG => '아이 소식', d: '가족 계획을 세울 때가 됐어요. 아이 한 명당 생활비가 연 1,300만 원 정도 늘어요.',
       ch: () => [['👶 낳는다', () => { DG.kids.push(DG.age); DG.happy += 7; tl('👶', `${DG.kids.length}째 출산`); return `${DG.kids.length}째가 태어났어요! 뒷좌석·트렁크가 중요해졌어요.`; }], ['⏳ 아직은', () => { DG.noBaby = DG.age + 2; return '조금 더 생각해 보기로 했어요.'; }]] },
     { k: 'pmoney', w: () => (DG.age < 50 && DG.spoon.pm ? DG.spoon.pm * (DG.age < 36 ? 1 : 0.5) : 0), art: '🎁', tone: 'money', t: '부모님 찬스', f: () => { const a = Math.round(rnd(5, 20) * DG.spoon.mul) * 100; DG.cash += a; if (a >= 3000) tl('🎁', `부모님 찬스 ${won(a)}`); return pickOne(['차 바꾸는 데 보태라고', '생일 선물이라며', '그냥 쓰라고', '집 사는 데 보태라고']) + ` ${won(a)} 원을 주셨어요.`; } },
     { k: 'psupport', w: () => (DG.spoon.sup && DG.age >= 35 ? 1.2 : 0), art: '🤲', tone: 'bad', t: '부모님께 손 벌릴 데가 없어요', f: () => { const a = Math.round(rnd(3, 10)) * 100; DG.cash -= a; return `오히려 부모님 빚 일부를 대신 갚았어요. -${won(a)} 원.`; } },
     { k: 'phosp', w: () => (DG.age >= 42 ? 1 : 0), art: '🏥', tone: 'bad', t: '부모님 병원비', f: () => { const a = Math.round(rnd(10, 25) * DG.spoon.ph) * 100; DG.cash -= a; return `형제들과 나눠서 -${won(a)} 원.`; } },
     { k: 'inherit', once: 1, w: () => (DG.age >= 48 && DG.spoon.inh ? 0.6 * DG.spoon.inh : 0), art: '📜', tone: 'money', t: '유산을 물려받았어요', f: () => { const a = Math.round(rnd(20, 80) * DG.spoon.mul) * 100; tl('📜', `유산 ${won(a)}`); DG.cash += a; return `+${won(a)} 원. 감사한 마음으로…`; } },
-    { k: 'move', once: 1, w: () => 1, art: '🚚', tone: 'life', t: '이사 갔더니 출퇴근 2배', d: '1년 주행거리가 크게 늘었어요. 연비 좋은 차가 유리해요.', f: () => { DG.moved = true; DG.km = Math.round(DG.km * 1.8); } },
-    { k: 'remote', once: 1, w: () => (DG.km > 10000 ? (hasT('it') ? 2 : 0.6) : 0), art: '🏡', tone: 'good', t: '재택근무 시작', d: '주행거리가 절반으로 줄었어요.', f: () => { DG.remote = true; DG.km = Math.round(DG.km * 0.5); } },
+    { k: 'move', once: 1, w: () => (DG.car ? 1 : 0), art: '🚚', tone: 'life', t: '이사 갔더니 출퇴근 2배', d: '1년 주행거리가 크게 늘었어요. 연비 좋은 차가 유리해요.', f: () => { DG.moved = true; DG.km = Math.round(DG.km * 1.8); } },
+    { k: 'remote', once: 1, w: () => (DG.car && DG.km > 10000 ? (hasT('it') ? 2 : 0.6) : 0), art: '🏡', tone: 'good', t: '재택근무 시작', d: '주행거리가 절반으로 줄었어요.', f: () => { DG.remote = true; DG.km = Math.round(DG.km * 0.5); } },
     { k: 'ins', once: 1, w: () => (DG.age < 36 ? 3 : 0), art: '🛡️', tone: 'life', t: '실비보험 들까요?', d: '설계사 친구가 연락이 왔어요. 연 60만 원이면 큰 병·사고 병원비를 대부분 막아 줘요.',
       ch: () => [['🛡️ 든다 (연 60만)', () => { DG.ins = true; return '이제 아파도 덜 무서워요.'; }], ['❌ 안 든다', () => '아직 젊으니까… 괜찮겠죠?']] },
     { k: 'sick', w: () => 0.3 + Math.max(0, DG.age - 35) * 0.05, art: '🩻', tone: 'bad', t: '건강검진에서 이상 소견', f: () => { const c = Math.round(rnd(8, 30) * (DG.ins ? 0.2 : 1)) * 100; DG.cash -= c; DG.cut *= 0.75; DG.happy -= 6; tl('🩻', '치료'); return `치료비 -${won(c)} 원${DG.ins ? ' (실비 덕분에 80% 아꼈어요)' : ''}, 몇 달 쉬어서 수입 -25%.`; } },
     { k: 'bigsick', w: () => Math.max(0, DG.age - 44) * 0.04, art: '🚑', tone: 'bad', t: '큰 병으로 입원했어요', f: () => { const c = Math.round(rnd(20, 50) * (DG.ins ? 0.15 : 1)) * 100; DG.cash -= c; DG.cut *= 0.4; DG.happy -= 10; tl('🚑', '큰 병 치료'); return `치료비 -${won(c)} 원${DG.ins ? ' (실비보험이 대부분 막아 줬어요)' : ''}, 올해 수입 -60%. 건강이 최고예요.`; } },
     { k: 'gym', w: () => 0.8, art: '🏃', tone: 'good', t: '운동 시작!', d: '마라톤 하프 완주했어요. 몸이 가벼워요.', f: () => { DG.happy += 4; } },
-    { k: 'jeonse', once: 1, w: () => (!DG.house ? 0.35 : 0), art: '😱', tone: 'bad', t: '전세 보증금 사고', f: () => { DG.cash -= 2000; DG.happy -= 8; return '집주인이 보증금 일부를 못 돌려준대요… -2,000만 원.'; } },
-    { k: 'house', w: () => (!DG.house && DG.age >= 30 && DG.age <= 46 ? 1.5 : 0), art: '🏠', tone: 'life', t: '청약 당첨!', d: '4억 5천 아파트. 계약금 5,000만 원 + 주택담보대출 4억(연 4%, 30년)이에요. 월세 대신 대출을 갚게 돼요.',
-      ch: () => [[DG.cash >= 5000 ? '🏠 계약한다 (-5,000만)' : '🏠 계약한다 (계약금 부족)', () => { if (DG.cash < 5000) return '계약금이 모자라서 포기했어요… 다음 기회에!'; DG.cash -= 5000; DG.house = { v: 45000, m: 40000 }; DG.happy += 8; tl('🏠', '내 집 마련'); return '내 집 마련 성공! 대출은 매년 조금씩 갚아요.'; }], ['패스', () => '아직은 전·월세가 편해요.']] },
+    { k: 'jeonse', once: 1, w: () => (DG.home === 'jeonse' ? 0.6 : DG.home === 'rent' ? 0.2 : 0), art: '😱', tone: 'bad', t: '보증금 사고', f: () => { const a = DG.home === 'jeonse' ? 3000 : Math.round((DG.rentDep || 0) * 0.5); if (DG.home === 'jeonse') DG.jeonse.dep -= a; else DG.rentDep -= a; DG.happy -= 8; tl('😱', '보증금 사고'); return `집주인이 보증금 일부를 못 돌려준대요… -${won(a)} 원.`; } },
+    { k: 'nag', w: () => (DG.home === 'parent' && DG.age >= 30 ? 1.2 : 0), art: '🗣️', tone: 'bad', t: '"언제 독립하니?"', f: () => { DG.happy -= 5; return '명절마다 듣는 그 말… 독립을 고민해 봐요. (행복 -5)'; } },
+    { k: 'rentup', w: () => (DG.home === 'rent' ? 1 : 0), art: '📄', tone: 'bad', t: '월세가 올랐어요', f: () => { DG.cash -= 120; return '재계약하면서 월세가 10만 원 올랐어요. 올해 -120만 원.'; } },
+    { k: 'house', w: () => (DG.home !== 'own' && DG.age >= 30 && DG.age <= 46 ? 1.5 : 0), art: '🏠', tone: 'life', t: '청약 당첨!', d: '시세보다 싼 4억 5천 아파트! 계약금 5,000만 원 + 대출 4억(연 4%, 30년). 지금 사는 집은 정리하고 이사해요.',
+      ch: () => [[DG.cash + (DG.rentDep || 0) + (DG.jeonse ? DG.jeonse.dep - DG.jeonse.loan : 0) >= 5000 ? '🏠 계약한다 (-5,000만)' : '🏠 계약한다 (계약금 부족)', () => { if (DG.cash + (DG.rentDep || 0) + (DG.jeonse ? DG.jeonse.dep - DG.jeonse.loan : 0) < 5000) return '계약금이 모자라서 포기했어요… 다음 기회에!'; dgLeaveHome(); DG.cash -= 5000; DG.house = { v: 52000, m: 40000, a: 2313 }; DG.home = 'own'; DG.happy += 8; tl('🏠', '내 집 마련'); return '내 집 마련 성공! 대출은 매년 조금씩 갚아요.'; }], ['패스', () => '아직은 전·월세가 편해요.']] },
     { k: 'hup', w: () => (DG.house ? 0.8 : 0), art: '🏙️', tone: 'money', t: '집값이 올랐어요', f: () => { const a = Math.round(DG.house.v * 0.15); DG.house.v += a; return `우리 집 +${won(a)} 원 (팔기 전까진 숫자일 뿐…)`; } },
     { k: 'hdown', w: () => (DG.house ? 0.6 : 0), art: '🏚️', tone: 'bad', t: '집값이 떨어졌어요', f: () => { const a = Math.round(DG.house.v * 0.12); DG.house.v -= a; return `우리 집 -${won(a)} 원… 그래도 살 집은 있죠.`; } },
     // 차
@@ -2794,24 +2830,26 @@ html, body { margin: 0; background: #14161b; }
     const side = DG.two && !DG.retired && DG.age < 58 ? Math.round(rnd(1000, 1800)) : 0; // 투잡: 주말 배달·과외·스마트스토어 등
     const supp = DG.spoon.sup && DG.age >= 45 ? DG.spoon.sup : 0;
     const kidsN = DG.kids.filter((a) => DG.age - a < 22).length;
-    const live = Math.round(2200 + (DG.married ? 1400 : 0) + kidsN * 1300 - (DG.house ? 900 : 0) + (DG.ins ? 60 : 0) + Math.max(0, inc + sp + side - 4000) * 0.3) + supp; // 월세 포함, 벌수록 씀씀이도 커짐
+    const sty = DG_STYLE.find((x) => x[0] === DG.style) || DG_STYLE[1];
+    const live = Math.round(sty[3] * (DG.married ? 1.7 : 1) + kidsN * 1300 + (DG.ins ? 60 : 0) + Math.max(0, inc + sp + side - 4000) * sty[5]) + supp;
+    const homeC = dgHomeCost(); // 월세 포함, 벌수록 씀씀이도 커짐
     const up = DG.car ? dgUpkeep(DG.car.r, DG.km, DG.fuelMul) : 120;
     const rate = DG.rateUp ? 0.08 : DG_RATE;
     const prin = DG.debt > 0 ? Math.min(DG.debt, DG.loanBase / 5) : 0;
     const pay = DG.debt > 0 ? Math.round(prin + DG.debt * rate) : 0;
     let mort = 0;
-    if (DG.house && DG.house.m > 0) { mort = Math.min(Math.round(DG.house.m * 1.04), 2313); DG.house.m = Math.max(0, Math.round(DG.house.m * 1.04 - mort)); }
+    if (DG.house && DG.house.m > 0) { mort = Math.min(Math.round(DG.house.m * 1.04), DG.house.a || 2313); DG.house.m = Math.max(0, Math.round(DG.house.m * 1.04 - mort)); }
     const im = DG.inv || 'save', ret = DG.cash > 0 ? dgReturn(im) : 0.08;
     const intr = Math.round(DG.cash * ret);
     if (DG.cash > 0 && im !== 'save' && Math.abs(intr) >= 3000) tl(intr > 0 ? (im === 'coin' ? '🌕' : '🚀') : '💀', `${im === 'coin' ? '코인' : '주식'} ${intr > 0 ? '+' : ''}${won(intr)}`);
-    DG.cash += inc + sp + side - live - up - pay - mort + intr; DG.debt = Math.max(0, Math.round(DG.debt - prin));
+    DG.cash += inc + sp + side - live - homeC - up - pay - mort + intr; DG.debt = Math.max(0, Math.round(DG.debt - prin));
     if (DG.car) DG.car.value = Math.round(DG.car.value * (1 - dgDep(DG.car.r)));
     if (DG.house) DG.house.v = Math.round(DG.house.v * 1.02);
     const s = DG.car ? dgSat(DG.car.r) : -4;
-    const target = 50 + s * 2 + (DG.married ? 5 : 0) + Math.min(2, DG.kids.length) * 4 + (DG.house ? 5 : 0) - (DG.jobless ? 8 : 0) - (DG.cash < 0 ? 8 : 0) - (DG.two ? 6 : 0);
+    const target = 50 + s * 2 + (DG.married ? 5 : 0) + Math.min(2, DG.kids.length) * 4 + sty[4] + ({ parent: DG.age < 30 ? -2 : -7, rent: 0, jeonse: 2, own: 6 }[DG.home] || 0) - (DG.jobless ? 8 : 0) - (DG.cash < 0 ? 8 : 0) - (DG.two ? 6 : 0);
     DG.happy = Math.max(0, Math.min(100, Math.round(DG.happy * 0.75 + target * 0.25)));
     if (!DG.jobless) DG.jy++;
-    DG.log = { e, text, fin: { sal: Math.round(sal), inc, sp, side, supp, live, up, pay, mort, intr, im, ret } };
+    DG.log = { e, text, fin: { sal: Math.round(sal), inc, sp, side, supp, live, homeC, homeK: DG.home, up, pay, mort, intr, im, ret } };
     DG.stage = 'season';
     const dc = dgCanBuy(DG.dream, false);
     if (!DG.dreamOwned && dc && dc.ok && !DG.dreamReady) { DG.dreamReady = true; DG.dreamNew = true; tl('✨', '드림카 살 수 있게 됨'); }
@@ -2857,7 +2895,7 @@ html, body { margin: 0; background: #14161b; }
     if (!DG.jobless && !DG.retired) add(`💵 연봉 약 ${won(dgSalary(true))}`);
     add(DG.married ? (DG.spouse ? '💍 맞벌이' : '💍 기혼') : '🙋 미혼');
     if (DG.kids.length) add('👶'.repeat(DG.kids.length) + ` 자녀 ${DG.kids.length}`);
-    if (DG.house) add('🏠 내 집');
+    add(`${DG_HOME[DG.home].ic} ${DG_HOME[DG.home].t}`); add((DG_STYLE.find((x) => x[0] === DG.style) || DG_STYLE[1])[1]);
     if (DG.ins) add('🛡️ 실비');
     add(`🛣️ 연 ${fmt(Math.round(DG.km / 1000) * 1000)}km`);
     add(`${DG.spoon.ic} ${DG.spoon.t}`);
@@ -2866,7 +2904,7 @@ html, body { margin: 0; background: #14161b; }
     const b = list.appendChild(el('button', 'dgjob')); b.type = 'button';
     b.appendChild(el('span', 'ic', j.ic));
     const t = b.appendChild(el('span', 'tx')); t.appendChild(el('b', null, j.t));
-    t.appendChild(el('small', null, `평균 ${won(j.sal)} 원 · ${j.a}살 시작` + (j.end ? ` · ${j.end}살 은퇴` : '') + (j.vol >= 0.3 ? ' · 수입 들쭉날쭉' : '') + (j.perk === 'dealer' ? ' · 신차 5% 할인' : j.perk === 'auto' ? ' · 국산 신차 12% 직원할인' : j.perk === 'mech' ? ' · 유지비 20%↓' : '')));
+    t.appendChild(el('small', null, `초봉 ${won(j.sal)} → 20년 차 약 ${won(j.sal * j.pk)} · ${j.a}살 시작` + (j.end ? ` · ${j.end}살 은퇴` : '') + (j.vol >= 0.3 ? ' · 수입 들쭉날쭉' : '') + (j.perk === 'dealer' ? ' · 신차 5% 할인' : j.perk === 'auto' ? ' · 국산 신차 12% 직원할인' : j.perk === 'mech' ? ' · 유지비 20%↓' : '')));
     b.appendChild(el('em', 'src', j.src)).title = DG_SRC[j.src] || '';
     b.setAttribute('aria-pressed', !!on); if (disabled) { b.disabled = true; b.title = '자격증·면허가 필요해서 중간에 바꿀 수 없어요'; }
     b.addEventListener('click', () => onPick(j));
@@ -2890,9 +2928,9 @@ html, body { margin: 0; background: #14161b; }
     cu.appendChild(el('summary', null, '✍️ 목록에 없으면 직접 입력'));
     const row = cu.appendChild(el('div', 'dgcrow'));
     const nm = row.appendChild(el('input')); nm.placeholder = '직업 이름'; nm.maxLength = 16;
-    const sl = row.appendChild(el('input')); sl.type = 'number'; sl.placeholder = '평균 연봉(만 원)'; sl.min = 1000; sl.max = 50000;
+    const sl = row.appendChild(el('input')); sl.type = 'number'; sl.placeholder = '초봉(만 원)'; sl.min = 1000; sl.max = 50000;
     row.appendChild(btnEl('chip sm', '이 직업으로', () => { const v = Math.round(num(sl.value)); if (!nm.value.trim() || !(v >= 1000 && v <= 50000)) { sl.focus(); return; } onPick(mkJob([nm.value.trim(), '🧑‍💼', '직접 입력', v, '직접', { a: mid ? DG.age : 26 }])); }));
-    c.appendChild(el('p', 'note mbpad', '연봉 = 그 직업 평균(세전). 첫해엔 평균의 55~90%에서 시작해 20년 차쯤 평균의 1.25배까지 올라요. 출처 표시: K 고용노동부 임금구조기본통계(2023) · W 한국고용정보원 직업정보 · E 경총 2025 업종 평균 · G 2026 공무원 봉급표 · ≈ 기사·채용공고 기반 대략치.'));
+    c.appendChild(el('p', 'note mbpad', '연봉은 신입 초봉(세전, 성과급 포함)에서 시작해 직업별 속도로 올라 20년 차에 최고치가 돼요. 출처 표시: E 경총 대졸 정규직 초임(2023, 기업 규모별) · J 잡플래닛 직무별 신입 연봉 중앙값(2025, 고용보험 142만 건) · G 2026 공무원 봉급표 초임 · ≈ 기사·채용공고 기반 대략치.'));
   }
   function renderDream(box) {
     if (!DG) {
@@ -2915,12 +2953,12 @@ html, body { margin: 0; background: #14161b; }
       const rb = spg.appendChild(el('button', 'dgopt')); rb.type = 'button'; rb.appendChild(el('b', null, '🎲 랜덤')); rb.appendChild(el('small', null, '운명에 맡기기 (흙·동수저가 제일 흔해요)')); rb.addEventListener('click', () => { const x = Math.random(); S.spoon = x < 0.03 ? 'dia' : x < 0.13 ? 'gold' : x < 0.38 ? 'silver' : x < 0.72 ? 'bronze' : 'dirt'; renderPlay(); });
       c.appendChild(el('h4', 'dgh', '3. 첫 직업을 고르세요'));
       dgJobPicker(c, S, (j) => { S.job = j; renderPlay(); }, false);
-      if (S.job) c.appendChild(el('p', 'dgpicked', `${S.job.ic} ${S.job.t} · ${S.job.a}살 시작 · 평균 ${won(S.job.sal)} 원` + (S.spoon ? ` · ${DG_SPOONS.find((x) => x.k === S.spoon).ic} ${DG_SPOONS.find((x) => x.k === S.spoon).t}` : '')));
+      if (S.job) c.appendChild(el('p', 'dgpicked', `${S.job.ic} ${S.job.t} · ${S.job.a}살 시작 · 초봉 ${won(S.job.sal)} 원` + (S.spoon ? ` · ${DG_SPOONS.find((x) => x.k === S.spoon).ic} ${DG_SPOONS.find((x) => x.k === S.spoon).t}` : '')));
       const bt = c.appendChild(el('div', 'mbstart'));
       const spoon = DG_SPOONS.find((x) => x.k === S.spoon);
       const go = bt.appendChild(btnEl('chip gold big', '▶ 인생 시작' + (spoon ? ` (시작 자금 ${won(spoon.cash)} 원)` : ''), () => {
         const job = S.job;
-        DG = { job, spoon, inv: 'save', two: false, dream: byId[S.dream], cash: spoon.cash, debt: 0, loanBase: 0, pay: 1, jy: 0, km: job.km, age: job.a, startAge: job.a, happy: 60, car: null, hist: [], seen: [], tl: [], kids: [], stage: 'market', married: false, cut: 1, evBonus: 0, fuelMul: 1 };
+        DG = { job, spoon, inv: 'save', two: false, style: 'mid', home: 'parent', rentDep: 0, jeonse: null, house: null, dream: byId[S.dream], cash: spoon.cash, debt: 0, loanBase: 0, pay: 1, jy: 0, km: job.km, age: job.a, startAge: job.a, happy: 60, car: null, hist: [], seen: [], tl: [], kids: [], stage: 'market', married: false, cut: 1, evBonus: 0, fuelMul: 1 };
         tl(spoon.ic, `${spoon.t}로 태어남`); tl(job.ic, `${job.t}(으)로 사회생활 시작`);
         renderPlay(); scrollToSection('t-play');
       }));
@@ -2962,7 +3000,7 @@ html, body { margin: 0; background: #14161b; }
       const c = box.appendChild(el('div', 'card'));
       const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, DG.car ? '🔁 차 바꾸기' : DG.hist.length ? '🚗 새 차 고르기' : '🚗 첫차 고르기'));
       if (DG.car) h.appendChild(btnEl('chip sm', '← 그냥 계속 타기', () => { DG.stage = 'season'; renderPlay(); }));
-      else h.appendChild(btnEl('chip sm', '🚶 차 없이 지내기', () => { DG.needCar = false; if (!DG.log) dgYear(); else DG.stage = 'season'; renderPlay(); }));
+      else h.appendChild(btnEl('chip sm', '🚌 BMW로 다니기 (버스·메트로·워킹)', () => { DG.needCar = false; if (!DG.log) dgYear(); else DG.stage = 'season'; renderPlay(); }));
       const trade = DG.car ? Math.round(DG.car.value * 0.92) : 0;
       c.appendChild(el('p', 'note mbpad', `쓸 수 있는 돈: 통장 ${won(DG.cash)}` + (DG.car ? ` + 지금 차 팔면 ${won(trade)}` : '') + (DG.debt ? ` − 남은 할부 ${won(DG.debt)}` : '') + ` · 모자라면 할부 (차값 60%·연봉 1.5배 중 작은 쪽, 최대 ${won(dgCanBuy(DG.dream, false) ? dgCanBuy(DG.dream, false).maxLoan : 0)}, 연 6%·5년)` + (DG.evBonus ? ' · ⚡ 올해 전기차 -500만' : '') + (DG.job.perk === 'dealer' ? ' · 🚘 딜러 할인 5%' : DG.job.perk === 'auto' ? ' · 🏭 국산 신차 직원할인 12%' : '')));
       const seg = c.appendChild(el('div', 'mbbud'));
@@ -2985,7 +3023,7 @@ html, body { margin: 0; background: #14161b; }
         t.appendChild(el('small', null, `${used ? '중고 ' : ''}${won(x.P)} + 세금·부대 ${fmt(x.fee)}만` + (x.loan > 0 ? ` · 할부 ${won(x.loan)}` : '') + ` · 유지비 연 ${fmt(dgUpkeep(r, DG.km))}만`));
         it.addEventListener('click', () => { dgBuy(r, used); after(); });
       });
-      if (!n) c.appendChild(el('p', 'note mbpad', DG.mDream ? '아직 드림카를 살 수 없어요. 조금만 더 모아 봐요!' : '살 수 있는 차가 없어요. 차 없이 지내며 돈을 모아 봐요.'));
+      if (!n) c.appendChild(el('p', 'note mbpad', DG.mDream ? '아직 드림카를 살 수 없어요. 조금만 더 모아 봐요!' : '살 수 있는 차가 없어요. 당분간 BMW(버스·메트로·워킹)로 다니며 돈을 모아 봐요.'));
       const sw = c.appendChild(el('div', 'sqsearch'));
       const inp = sw.appendChild(el('input')); inp.type = 'search'; inp.placeholder = '차 이름으로 찾기';
       const msg = c.appendChild(el('p', 'note mbpad')); msg.setAttribute('role', 'status');
@@ -3016,20 +3054,28 @@ html, body { margin: 0; background: #14161b; }
       if (DG.dreamNew) c.appendChild(el('p', 'dgalert', '✨ 드림카를 살 수 있게 됐어요! 지를지 말지는 당신의 선택.'));
       const F = L.fin;
       const ul = c.appendChild(el('details', 'dgflow')); ul.open = !DG.flowClosed; ul.addEventListener('toggle', () => { DG.flowClosed = !ul.open; });
-      const net = F.inc + F.sp + F.side - F.live - F.up - F.pay - F.mort + F.intr;
+      const net = F.inc + F.sp + F.side - F.live - (F.homeC || 0) - F.up - F.pay - F.mort + F.intr;
       ul.appendChild(el('summary', null, `올해 통장 ${net >= 0 ? '+' : ''}${won(net)} 원`));
-      [['💵 실수령 (세후)', F.inc, true], F.sp ? ['💑 배우자 수입', F.sp, true] : null, F.side ? ['🛵 투잡 수입', F.side, true] : null, ['🍚 생활비 (월세·용돈 포함)' + (DG.kids.length ? ' + 아이' : '') + (F.supp ? ' + 부모님 생활비' : ''), F.live], [DG.car ? '⛽ 차 유지비 (연료·세금·보험)' : '🚌 대중교통비', F.up], F.pay ? ['🏦 할부 상환', F.pay] : null, F.mort ? ['🏠 주담대 상환', F.mort] : null, F.intr ? [F.ret === 0.08 ? '💳 마이너스 통장 이자' : F.im === 'stock' ? `📈 주식 ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}%` : F.im === 'coin' ? `🪙 코인 ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}%` : '🐷 예금 이자', Math.abs(F.intr), F.intr >= 0] : null].filter(Boolean).forEach(([a, v, plus]) => { const r = ul.appendChild(el('div')); r.appendChild(el('span', null, a)); r.appendChild(el('b', plus ? 'p' : 'm', (plus ? '+' : '-') + won(v))); });
+      [['💵 실수령 (세후)', F.inc, true], F.sp ? ['💑 배우자 수입', F.sp, true] : null, F.side ? ['🛵 투잡 수입', F.side, true] : null, ['🍚 생활비' + (DG.kids.length ? ' + 아이' : '') + (F.supp ? ' + 부모님 생활비' : ''), F.live], [`${DG_HOME[F.homeK].ic} 주거비 (${F.homeK === 'parent' ? '부모님께 용돈' : F.homeK === 'rent' ? '월세·관리비' : F.homeK === 'jeonse' ? '전세대출 이자·관리비' : '보유세·관리비'})`, F.homeC], [DG.car ? '⛽ 차 유지비 (연료·세금·보험)' : '🚌 BMW 교통비 (버스·메트로)', F.up], F.pay ? ['🏦 할부 상환', F.pay] : null, F.mort ? ['🏠 주담대 상환', F.mort] : null, F.intr ? [F.ret === 0.08 ? '💳 마이너스 통장 이자' : F.im === 'stock' ? `📈 주식 ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}%` : F.im === 'coin' ? `🪙 코인 ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}%` : '🐷 예금 이자', Math.abs(F.intr), F.intr >= 0] : null].filter(Boolean).forEach(([a, v, plus]) => { const r = ul.appendChild(el('div')); r.appendChild(el('span', null, a)); r.appendChild(el('b', plus ? 'p' : 'm', (plus ? '+' : '-') + won(v))); });
       if (DG.car) {
         const cc = c.appendChild(el('div', 'dgcar'));
         const ph = cc.appendChild(el('div', 'ph')); photo(ph, DG.car.r);
         const t = cc.appendChild(el('div'));
         t.appendChild(el('b', null, (DG.car.used ? '중고 ' : '') + DG.car.r.name));
         t.appendChild(el('small', null, `OVR ${DG.car.r._ovr} · ${DG.age - DG.car.age}년째 · 감가 연 ${Math.round(dgDep(DG.car.r) * 1000) / 10}%`));
-      } else c.appendChild(el('p', 'note', '🚶 지금은 차가 없어요.'));
-      const iv = c.appendChild(el('div', 'dginv'));
-      const ih = iv.appendChild(el('div', 'dginvh')); ih.appendChild(el('b', null, '💼 내년 돈 굴리기')); ih.appendChild(el('small', null, '눌러서 바꿀 수 있어요 · 통장 잔고 전체에 적용'));
-      const ivb = iv.appendChild(el('div', 'dginvg')); ivb.setAttribute('role', 'radiogroup'); ivb.setAttribute('aria-label', '내년 돈 굴리기');
-      DG_INV.forEach(([k, t, d]) => { const on = (DG.inv || 'save') === k; const b = ivb.appendChild(el('button', 'dginvo' + (on ? ' on' : ''))); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on); b.appendChild(el('span', 'ck', on ? '✓ 선택됨' : '선택')); b.appendChild(el('b', null, t)); b.appendChild(el('small', null, d)); b.addEventListener('click', () => { DG.inv = k; renderPlay(); }); });
+      } else c.appendChild(el('p', 'note', '🚌 지금은 BMW(버스·메트로·워킹)로 다녀요.'));
+      const iv = c.appendChild(el('details', 'dginv')); iv.open = !DG.planClosed; iv.addEventListener('toggle', () => { DG.planClosed = !iv.open; });
+      const sty0 = DG_STYLE.find((x) => x[0] === DG.style) || DG_STYLE[1];
+      const ih = iv.appendChild(el('summary', 'dginvh')); ih.appendChild(el('b', null, '📋 내년 생활 계획')); ih.appendChild(el('small', null, `${sty0[1]} · ${DG_HOME[DG.home].ic} ${DG_HOME[DG.home].t} · ${(DG_INV.find((x) => x[0] === (DG.inv || 'save')) || [])[1]}${DG.two ? ' · 🛵 투잡' : ''} — 눌러서 바꾸기`));
+      const grp = (title, items, cur, onPick, cols) => {
+        iv.appendChild(el('h5', 'dgplh', title));
+        const g = iv.appendChild(el('div', 'dginvg' + (cols === 4 ? ' c4' : ''))); g.setAttribute('role', 'radiogroup'); g.setAttribute('aria-label', title);
+        items.forEach(([k, t, d, dis]) => { const on = cur === k; const b = g.appendChild(el('button', 'dginvo' + (on ? ' on' : ''))); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on); b.appendChild(el('span', 'ck', on ? '✓ 선택됨' : dis ? '불가' : '선택')); b.appendChild(el('b', null, t)); b.appendChild(el('small', null, dis || d)); if (dis && !on) b.disabled = true; b.addEventListener('click', () => onPick(k)); });
+      };
+      grp('🍚 씀씀이', DG_STYLE.map(([k, t, d]) => [k, t, d]), DG.style, (k) => { DG.style = k; renderPlay(); });
+      grp('🏠 사는 곳 (바꾸면 이사비 150만)', Object.entries(DG_HOME).map(([k, h]) => { const need = Math.round(dgHomeNeed(k)); const back = DG.home === 'rent' ? DG.rentDep || 0 : DG.home === 'jeonse' && DG.jeonse ? DG.jeonse.dep - DG.jeonse.loan : DG.home === 'own' && DG.house ? Math.round(DG.house.v * 0.97) - DG.house.m : 0; const dis = k === DG.home ? '' : k === 'parent' && DG.married ? '결혼 후엔 불가' : DG.cash + back - 150 < need ? `내 돈 ${won(need)} 필요` : ''; return [k, h.ic + ' ' + h.t, h.d, dis]; }), DG.home, (k) => { DG.planMsg = dgMoveTo(k); renderPlay(); }, 4);
+      if (DG.planMsg) { iv.appendChild(el('p', 'dgplmsg', DG.planMsg)); DG.planMsg = ''; }
+      grp('💼 돈 굴리기 (통장 잔고 전체에 적용)', DG_INV, DG.inv || 'save', (k) => { DG.inv = k; renderPlay(); });
       const tw = iv.appendChild(el('button', 'dgtog' + (DG.two ? ' on' : ''))); tw.type = 'button'; tw.setAttribute('role', 'switch'); tw.setAttribute('aria-checked', !!DG.two);
       const twt = tw.appendChild(el('span', 'tx')); twt.appendChild(el('b', null, '🛵 투잡')); twt.appendChild(el('small', null, '연 1,000~1,800만 원 더 벌지만 행복↓ · 번아웃 확률↑'));
       const sw2 = tw.appendChild(el('span', 'sw')); sw2.appendChild(el('i')); tw.appendChild(el('em', null, DG.two ? '켜짐' : '꺼짐'));
@@ -3037,7 +3083,7 @@ html, body { margin: 0; background: #14161b; }
       const bt = c.appendChild(el('div', 'mbstart'));
       const go = (f) => () => { f(); renderPlay(); scrollToSection('t-play'); };
       if (DG.needJob) bt.appendChild(btnEl('chip gold big', '🧭 새 직업 찾기', go(() => { DG.stage = 'job'; DG.jobThen = 'season'; })));
-      else if (DG.needCar) { bt.appendChild(btnEl('chip gold big', '🚗 새 차 고르기', go(() => { DG.stage = 'market'; }))); bt.appendChild(btnEl('chip big', '🚶 당분간 뚜벅이', go(() => { DG.needCar = false; }))); }
+      else if (DG.needCar) { bt.appendChild(btnEl('chip gold big', '🚗 새 차 고르기', go(() => { DG.stage = 'market'; }))); bt.appendChild(btnEl('chip big', '🚌 당분간 BMW', go(() => { DG.needCar = false; }))); }
       else {
         const last = DG.age + 1 >= DG_END;
         bt.appendChild(btnEl('chip gold big', last ? '🏁 은퇴, 결과 보기' : '▶ 다음 해', go(dgNext)));
@@ -3067,7 +3113,7 @@ html, body { margin: 0; background: #14161b; }
     const tlx = tb.appendChild(el('div', 'dgtl'));
     DG.tl.forEach((x) => { const d = tlx.appendChild(el('div')); d.appendChild(el('span', 'a', x.age + '살')); d.appendChild(el('span', 'i', x.art)); d.appendChild(el('span', null, x.t)); });
     const bt = box.appendChild(el('div', 'wcbtns'));
-    const path_ = DG.hist.map((h) => shortName(byId[h.id].name).split(' ').slice(0, 2).join(' ')).join(' → ') || '뚜벅이 인생';
+    const path_ = DG.hist.map((h) => shortName(byId[h.id].name).split(' ').slice(0, 2).join(' ')).join(' → ') || 'BMW(버스·메트로·워킹) 인생';
     const sh = bt.appendChild(btnEl('chip gold', '🔗 결과 공유', () => shareLink('tab=play&g=dg', `[카스쿼드] 첫차에서 드림카까지 — ${grade[0]}! ${DG.spoon.t} ${DG.job.t} · ${path_}`, sh)));
     bt.appendChild(btnEl('chip', '↻ 다시 하기', () => { dgReset(); renderPlay(); scrollToSection('t-play'); }));
     box.appendChild(el('p', 'dgdisc', DG_DISC));
