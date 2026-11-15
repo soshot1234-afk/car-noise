@@ -1,0 +1,3 @@
+tools/insta/data*.json
+tools/insta/out*/
+tools/insta/_tmp.html
