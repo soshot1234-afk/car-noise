@@ -1138,6 +1138,25 @@ html, body { margin: 0; background: #14161b; }
 .vd .vchan small { font-size: 11.5px; color: var(--mu); }
 
 .backtoast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(20,22,28,.92);color:#fff;font-size:14px;padding:10px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:.25s;z-index:1000}.backtoast.on{opacity:1;transform:translate(-50%,0)}
+/* 미니게임 모바일 가독성: 작은 글씨 최소 13px, 선택 버튼은 손가락 크기 */
+@media (max-width:640px){
+  .vd #p-play .dgpr .hd small,.vd #p-play .dgstath small,.vd #p-play .dginvo small,.vd #p-play .dgjob small,.vd #p-play .dgagerow b,.vd #p-play .dgquote div,.vd #p-play .dgflow>div,.vd #p-play .dgsum .r small,.vd #p-play .dgdelg small,.vd #p-play .note,.vd #p-play .dgpr .note,.vd #p-play .dgopt small,.vd #p-play .dggauge small,.vd #p-play .dgsub{font-size:13px;line-height:1.45}
+  .vd #p-play .dgdisc{font-size:12.5px}
+  .vd #p-play .dgseg{gap:6px}.vd #p-play .dgseg .chip{font-size:14px;padding:8px 12px;min-height:38px}
+  .vd #p-play .dgchips span{font-size:13px;padding:5px 10px}
+  .vd #p-play .dgpr .hd b,.vd #p-play .dgstath b{font-size:16px}
+  .vd #p-play .mbdesc{font-size:16px;line-height:1.6}
+  .vd #p-play .dgev h2,.vd #p-play .dgdel h2{font-size:23px;line-height:1.3}
+  .vd #p-play .dginvg{grid-template-columns:repeat(2,1fr)}.vd #p-play .dginvo{padding:10px}.vd #p-play .dginvo b{font-size:15px}.vd #p-play .dginvo .ck{font-size:11px;padding:2px 7px}
+  .vd #p-play .dgstat .dgc small{font-size:12.5px}.vd #p-play .dgstat .dgc b{font-size:19px}
+  .vd #p-play .dgflow>div{padding:6px 0}.vd #p-play .dgfh{font-size:13px}
+  .vd #p-play .dgjob{padding:10px 12px}.vd #p-play .dgjob b{font-size:15px}
+  .vd #p-play .dgagerow{grid-template-columns:1fr}.vd #p-play .dgagerow label{font-size:14px}.vd #p-play .dgagerow b{grid-column:1}.vd #p-play .dgagerow input[type=range]{height:28px}
+  .vd #p-play .dgride .tx small,.vd #p-play .dgdream small,.vd #p-play .dgprog small,.vd #p-play .dgsum .l small,.vd #p-play .dgsum em,.vd #p-play .dginvh small,.vd #p-play .dgtog small,.vd #p-play .dgtog em,.vd #p-play .dgyr{font-size:13px}.vd #p-play .dginvo .ck{font-size:12px}.vd #p-play .dgdream span{font-size:14px}
+  .vd #p-play .dgtl div{font-size:14.5px}.vd #p-play .dgchoice .chip{font-size:15px;padding:12px 14px}
+}
+.vd .dgsub{font-size:12px;font-weight:700;color:var(--mu);margin-top:4px}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 </style>
 </head><body>
 <script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';</script>
@@ -2627,7 +2646,7 @@ html, body { margin: 0; background: #14161b; }
     ['데이터 사이언티스트', '🧠', 'IT·연구', 4000, '≈', { sk: 10, pk: 2, km: 9000, tag: 'it', al: 'AI 인공지능' }],
     ['게임 개발자', '🎮', 'IT·연구', 3400, '≈', { pk: 1.9, km: 9000, tag: 'it' }],
     ['이공계 연구원', '🧪', 'IT·연구', 3430, 'J', { pk: 2, a: 28, al: '연구소 박사' }],
-    ['대학교수', '🎓', 'IT·연구', 6000, '≈', { pk: 1.8, a: 35, lic: 1, al: '교수 강사' }],
+    ['대학교수', '🎓', 'IT·연구', 6000, '≈', { ex: 'grad', sk: 20, pk: 1.8, a: 35, al: '교수 강사' }],
     ['대기업 사무직', '🏢', '회사원', 5001, 'E', { sk: 6, pk: 1.9, al: '회사원 직장인 사무직 대기업' }],
     ['중견기업 사무직', '🏬', '회사원', 3595, 'E', { sk: 3, pk: 1.8, al: '회사원 직장인 사무직 중견기업' }],
     ['중소기업 사무직', '🗂️', '회사원', 3070, 'E', { pk: 1.6, al: '회사원 직장인 사무직 중소기업 경리' }],
@@ -2713,18 +2732,27 @@ html, body { margin: 0; background: #14161b; }
     ['hobby', '🎮', '취미', [['없음', 0, -2, '번아웃↑'], ['가볍게', 240, 2, '월 20만'], ['진심', 720, 4, '월 60만 · 번아웃↓'], ['덕후', 1800, 7, '월 150만 · 번아웃↓↓']], 1],
     ['travel', '✈️', '여행', [['안 감', 0, -2, '번아웃↑'], ['국내 여행', 200, 2, '연 2~3번'], ['해외 1번', 450, 4, '번아웃↓'], ['해외 자주', 1200, 6, '번아웃↓↓']], 1.7],
     ['love', '💘', '연애', [['혼자가 좋아', 0, 0, '연애 게이지↓'], ['소개팅·모임', 300, 1, '연애 게이지↑'], ['연애에 진심', 720, 4, '연애 게이지↑↑ · 결혼 확률↑']], 1],
-    ['self', '📚', '자기계발', [['안 함', 0, 0, '능력치 그대로'], ['독서·온라인 강의', 200, 0, '능력치 +1/년'], ['자격증·학원', 600, -1, '능력치 +2/년'], ['대학원·MBA', 1500, -3, '능력치 +4/년']], 1],
     ['health', '🏋️', '운동', [['안 함', 0, -1, '건강 -6/년'], ['홈트·러닝', 60, 1, '건강 +2/년'], ['헬스장', 360, 2, '건강 +5/년'], ['PT·필라테스', 1000, 3, '건강 +8/년']], 1],
     ['checkup', '🩺', '건강검진', [['안 함', 0, 0, '큰 병을 늦게 발견'], ['기본 검진', 30, 0, '병 일찍 발견 · 치료비↓'], ['정밀 검진', 150, 1, '병 일찍 발견 · 치료비↓↓']], 1.7]
   ];
-  const DG_PLAN0 = { live: 1, food: 1, hobby: 1, travel: 1, love: 1, self: 0, health: 1, checkup: 1 };
+  const DG_PLAN0 = { live: 1, food: 1, hobby: 1, travel: 1, love: 1, health: 1, checkup: 1 };
   // 능력치별 지출 묶음
-  const DG_STATS = [['love', '💘', '연애', ['love']], ['hp', '💪', '신체 건강', ['health', 'food', 'checkup']], ['happy', '😊', '행복', ['live', 'hobby', 'travel']], ['skill', '💼', '일 능력', ['self']]];
+  const DG_STATS = [['love', '💘', '연애', ['love']], ['hp', '💪', '신체 건강', ['health', 'food', 'checkup']], ['happy', '😊', '행복', ['live', 'hobby', 'travel']], ['skill', '💼', '일 능력', []]];
   // 수험: 게이지가 차면 시험 이벤트 → 합격해야 그 직업으로 이직 가능
-  const DG_EXAM = { gov: { ic: '🏛️', t: '공무원 시험', jobs: ['9급 공무원', '7급 공무원'], need: 100 }, police: { ic: '👮', t: '경찰·소방 시험', jobs: ['경찰관', '소방관'], need: 100, hp: 60 }, realtor: { ic: '🏘️', t: '공인중개사 시험', jobs: ['공인중개사'], need: 80 }, tax: { ic: '🧾', t: '세무사·회계사 시험', jobs: ['세무사', '회계사'], need: 160 } };
-  const DG_STUDY = [['안 함', 0, 0, 0, ''], ['퇴근 후 공부', 15, 150, -2, '게이지 +15/년'], ['학원 병행', 25, 500, -3, '게이지 +25/년 · 건강 -2'], ['퇴사하고 올인', 45, 300, -5, '게이지 +45/년 · 그해 수입 0']];
+  // 자기계발: 분야(무엇을) × 방식(어떻게). need가 있으면 게이지가 차면 시험/심사 이벤트, jobs가 있으면 합격 후 그 직업으로 이직 가능
+  const DG_EXAM = {
+    book: { ic: '📖', t: '독서·온라인 강의', cost: 200, sk: 1, d: '일 능력 꾸준히 +' },
+    lang: { ic: '🌐', t: '외국어', cost: 300, sk: 1, need: 100, gain: 25, d: '어학 성적 → 연봉↑ · 해외 발령 기회', ev: '어학 시험' },
+    cert: { ic: '📜', t: '실무 자격증', cost: 250, sk: 1, need: 80, gain: 25, d: '정보처리·전기·회계 등 → 연봉↑', ev: '자격증 시험' },
+    gov: { ic: '🏛️', t: '공무원 시험', cost: 150, sk: 0, need: 100, gain: 20, jobs: ['9급 공무원', '7급 공무원'], d: '합격하면 공무원으로 이직 가능', ev: '공무원 시험' },
+    police: { ic: '👮', t: '경찰·소방 시험', cost: 200, sk: 0, need: 100, gain: 20, hp: 60, jobs: ['경찰관', '소방관'], d: '체력 시험 있음 (건강 60↑)', ev: '경찰·소방 시험' },
+    realtor: { ic: '🏘️', t: '공인중개사', cost: 150, sk: 0, need: 80, gain: 22, jobs: ['공인중개사'], d: '합격하면 부동산 개업 가능', ev: '공인중개사 시험' },
+    tax: { ic: '🧾', t: '세무사·회계사', cost: 400, sk: 1, need: 160, gain: 20, jobs: ['세무사', '회계사'], d: '어렵지만 고연봉 전문직', ev: '세무사·회계사 시험' },
+    grad: { ic: '🎓', t: '대학원·MBA', cost: 1500, sk: 2, need: 150, gain: 40, jobs: ['대학교수'], d: '학위 → 연봉↑ · 교수 도전 (일 능력 20↑)', ev: '학위 논문 심사' }
+  };
+  const DG_STUDY = [['안 함', 0, 0, 0, 0, ''], ['주말에만', 0.6, 0.6, -1, 0, '진도 느림 · 부담 적음'], ['퇴근 후 공부', 1, 1, -2, -1, '보통 속도 · 건강 -1/년'], ['퇴사하고 올인', 2.5, 0.8, -4, 0, '진도 2.5배 · 그해 수입 0']]; // [이름, 진도 배수, 비용 배수, 행복, 건강, 설명]
   function dgJobWhy(j) { // 중간에 이 직업으로 갈 수 없는 이유 ('' = 가능)
-    if (j.ex && !DG.passed[j.ex]) return `📝 ${DG_EXAM[j.ex].t} 합격 필요 (생활 계획 → 수험 준비)`;
+    if (j.ex && !DG.passed[j.ex]) return `📝 ${DG_EXAM[j.ex].t} ${j.ex === 'grad' ? '학위' : '합격'} 필요 (생활 계획 → 자기계발)`;
     if (j.lic) return '자격·면허가 필요해서 중간에 못 바꿔요';
     if (j.end && j.end <= DG.age + 1) return '나이 제한';
     if (j.a > DG.age) return `${j.a}살부터 가능`;
@@ -2737,7 +2765,7 @@ html, body { margin: 0; background: #14161b; }
   const reg = () => DG.region || DG_REGIONS[1];
   const dif = () => DG.diff || DG_DIFF[1];
   function dgPlanCost() { // 항목별 연 지출
-    const out = {}; DG_PLAN.forEach(([k, , , lv, mm]) => { out[k] = Math.round(lv[pl(k)][1] * (DG.married ? mm : 1) * reg().live * dif().live); }); out.exam = DG.track ? DG_STUDY[DG.study || 0][2] : 0; return out;
+    const out = {}; DG_PLAN.forEach(([k, , , lv, mm]) => { out[k] = Math.round(lv[pl(k)][1] * (DG.married ? mm : 1) * reg().live * dif().live); }); out.self = DG.track ? Math.round(DG_EXAM[DG.track].cost * DG_STUDY[DG.study || 1][2]) : 0; return out;
   }
   // 주거: 기혼이면 1.4배 넓은 집
   const DG_HOME = {
@@ -2899,7 +2927,7 @@ html, body { margin: 0; background: #14161b; }
     { k: 'sick', wm: () => 0.35 + (100 - (DG.hp || 70)) / 55, w: () => 0.3 + Math.max(0, DG.age - 35) * 0.05, art: '🩻', tone: 'bad', t: '건강검진에서 이상 소견', f: () => { const c = Math.round(rnd(8, 30) * (DG.ins ? 0.2 : 1) * [1.4, 1, 0.7][pl('checkup')]) * 100; DG.cash -= c; DG.cut *= 0.75; DG.happy -= 6; DG.hp = Math.max(5, DG.hp - 6); tl('🩻', '치료'); return `치료비 -${won(c)} 원${DG.ins ? ' (실비 덕분에 80% 아꼈어요)' : ''}, 몇 달 쉬어서 수입 -25%.`; } },
     { k: 'bigsick', wm: () => 0.3 + (100 - (DG.hp || 70)) / 45, w: () => Math.max(0, DG.age - 44) * 0.04, art: '🚑', tone: 'bad', t: '큰 병으로 입원했어요', f: () => { const c = Math.round(rnd(20, 50) * (DG.ins ? 0.15 : 1) * [1.5, 1, 0.6][pl('checkup')]) * 100; DG.cash -= c; DG.cut *= 0.4; DG.happy -= 10; DG.hp = Math.max(5, DG.hp - 15); tl('🚑', '큰 병 치료'); return `치료비 -${won(c)} 원${DG.ins ? ' (실비보험이 대부분 막아 줬어요)' : ''}, 올해 수입 -60%. 건강이 최고예요.`; } },
     { k: 'gym', w: () => (pl('health') >= 1 ? 1 : 0.2), art: '🏃', tone: 'good', t: '운동 효과 체감!', d: '마라톤 하프 완주했어요. 몸이 가벼워요.', f: () => { DG.happy += 4; } },
-    { k: 'cert', wm: () => 1 + pl('self'), w: () => (pl('self') >= 2 && !DG.jobless && !DG.retired ? 1.2 : 0), art: '🎓', tone: 'good', t: () => (pl('self') >= 3 ? '학위 취득!' : '자격증 합격!'), f: () => { const p = pl('self') >= 3 ? 10 : 5; DG.pay *= 1 + p / 100; DG.skill = (DG.skill || 0) + 2; DG.happy += 5; tl('🎓', pl('self') >= 3 ? '학위 취득' : '자격증 합격'); return `그동안 공부한 보람! 연봉(수입) +${p}%, 능력치 +2.`; } },
+
     { k: 'trip', w: () => (pl('travel') >= 2 ? 1 : 0), art: '🏝️', tone: 'good', t: '인생 여행', f: () => { DG.happy += 5; return pickOne(['스위스 기차 타고 알프스!', '발리에서 한 달 살기', '오로라 보러 핀란드까지!', '도쿄 맛집 투어 성공']) + ' (행복 +5)'; } },
     { k: 'hobbyhit', w: () => (pl('hobby') >= 3 ? 0.6 : 0), art: '🎸', tone: 'money', t: '덕업일치?!', f: () => { if (Math.random() < 0.3) { const a = Math.round(rnd(3, 15)) * 100; DG.cash += a; tl('🎸', '취미로 돈 벎'); return `취미로 시작한 게 부업이 됐어요! +${won(a)} 원.`; } DG.happy += 3; return '돈은 못 벌었지만 실력은 늘었어요. (행복 +3)'; } },
     { k: 'jeonse', once: 1, w: () => (DG.home === 'jeonse' ? 0.6 : DG.home === 'rent' ? 0.2 : 0), art: '😱', tone: 'bad', t: '보증금 사고', f: () => { const a = DG.home === 'jeonse' ? 3000 : Math.round((DG.rentDep || 0) * 0.5); if (DG.home === 'jeonse') DG.jeonse.dep -= a; else DG.rentDep -= a; DG.happy -= 8; tl('😱', '보증금 사고'); return `집주인이 보증금 일부를 못 돌려준대요… -${won(a)} 원.`; } },
@@ -2923,14 +2951,23 @@ html, body { margin: 0; background: #14161b; }
     { k: 'midlife', once: 1, w: () => (DG.car && DG.age >= 40 && DG.age <= 52 ? 1.5 : 0), art: '🏎️', tone: 'life', t: '중년의 로망', f: () => { if ((DG.car.r.s_accel || 0) >= 15) { DG.happy += 10; return '빠른 차 타는 맛에 회춘했어요! (행복 +10)'; } DG.happy -= 5; return '스포츠카가 자꾸 눈에 밟혀요… (행복 -5)'; } },
     { k: 'fix', w: () => { if (!DG.car) return 0; const va = (DG.car.vy || 0) + DG.age - DG.car.age; const kmT = (DG.car.km0 || 0) + (DG.age - DG.car.age) * DG.km; return Math.max(0, va - 5) * 0.25 + Math.max(0, kmT - 120000) / 100000; }, art: '🛠️', tone: 'bad', t: '차가 고장 났어요', f: () => { const d = DG.car.r.s_durab || 10; const va = (DG.car.vy || 0) + DG.age - DG.car.age; const c = Math.round((80 + va * 25) * (d >= 15 ? 0.6 : d <= 8 ? 1.5 : 1)); DG.cash -= c; DG.happy -= 3; return `${pickOne(['미션', '에어컨', '타이밍벨트', '하체', '배터리'])} 수리비 -${c}만 원. 차가 오래될수록, 내구성이 낮을수록 자주 고장 나요.`; } },
     { k: 'door', w: () => (DG.car ? 0.8 : 0), art: '🚪', tone: 'bad', t: '문콕 테러', f: () => { DG.cash -= 40; DG.happy -= 1; return '덴트 수리비 -40만 원. 범인은 못 찾았어요.'; } },
-    { k: 'rehab', w: () => (DG.cash < -Math.max(8000, (dgSalary(true) || 2000) * 2.5) ? 80 : 0), art: '⚖️', tone: 'bad', t: '빚이 감당이 안 돼요… 개인회생', f: () => { const before = DG.cash; DG.cash = Math.round(DG.cash * 0.4); Object.keys(DG.plan).forEach((k) => { DG.plan[k] = 0; }); DG.plan.live = 0; DG.inv = 'save'; DG.happy = Math.max(0, DG.happy - 15); tl('⚖️', '개인회생'); return `법원에서 빚 ${won(-before + DG.cash)} 원을 탕감받았어요. 남은 빚 ${won(-DG.cash)} 원은 갚아야 해요. 생활 계획은 전부 최소로 바뀌었어요. (행복 -15)`; } },
+    { k: 'rehab', w: () => (DG.cash < -Math.max(8000, (dgSalary(true) || 2000) * 2.5) && DG.age - (DG.rehabAge || -99) >= 8 ? 80 : 0), art: '⚖️', tone: 'bad', t: '빚이 감당이 안 돼요… 개인회생', f: () => { const before = DG.cash; DG.cash = Math.round(DG.cash * 0.3); DG.rehabAge = DG.age; Object.keys(DG.plan).forEach((k) => { DG.plan[k] = 0; }); DG.plan.live = 0; DG.inv = 'save'; DG.happy = Math.max(0, DG.happy - 15); tl('⚖️', '개인회생'); return `법원에서 빚 ${won(-before + DG.cash)} 원을 탕감받았어요. 남은 빚 ${won(-DG.cash)} 원은 갚아야 해요. 생활 계획은 전부 최소로 바뀌었어요. (행복 -15)`; } },
     // 수험·커리어
-    { k: 'exam', w: () => { const t = DG.track; return t && (DG.exams[t] || 0) >= DG_EXAM[t].need ? 60 : 0; }, art: '📝', tone: 'life', t: () => `${DG_EXAM[DG.track].t} 보는 날`, d: '그동안 공부한 걸 쏟아부을 시간… 결과는?',
-      ch: () => { const t = DG.track, X = DG_EXAM[t]; const hpOk = !X.hp || DG.hp >= X.hp; const ok = hpOk && Math.random() < Math.min(0.9, 0.5 + (DG.skill || 0) * 0.012 + ((DG.hp || 70) - 50) / 250);
-        if (!ok) return [['😣 결과 확인', () => { DG.exams[t] = Math.round(X.need * 0.55); DG.happy -= 6; tl('📝', `${X.t} 불합격`); return `불합격… 게이지가 ${DG.exams[t]}%로 내려갔어요.` + (!hpOk ? ` 체력 시험에서 떨어졌어요 (신체 건강 ${X.hp} 필요).` : ' 다시 도전하려면 수험 준비를 계속하세요.'); }]];
-        DG.passed[t] = true; DG.exams[t] = 0; tl('🎉', `${X.t} 합격`);
+    { k: 'exam', w: () => { const t = DG.track; return t && DG_EXAM[t].need && (DG.exams[t] || 0) >= DG_EXAM[t].need ? 60 : 0; }, art: () => (DG.track === 'grad' ? '🎓' : DG.track === 'lang' ? '🌐' : '📝'), tone: 'life', t: () => `${DG_EXAM[DG.track].ev} 보는 날`, d: '그동안 공부한 걸 쏟아부을 시간… 결과는?',
+      ch: () => { const t = DG.track, X = DG_EXAM[t]; const hpOk = !X.hp || DG.hp >= X.hp; const base = X.jobs && t !== 'grad' ? 0.5 : 0.75; const ok = hpOk && Math.random() < Math.min(0.92, base + (DG.skill || 0) * 0.012 + ((DG.hp || 70) - 50) / 250);
+        if (!ok) return [['😣 결과 확인', () => { DG.exams[t] = Math.round(X.need * 0.55); DG.happy -= 6; tl('📝', `${X.t} 불합격`); return `불합격… 게이지가 ${DG.exams[t]}%로 내려갔어요.` + (!hpOk ? ` 체력 시험에서 떨어졌어요 (신체 건강 ${X.hp} 필요).` : ' 다시 도전하려면 자기계발을 계속하세요.'); }]];
+        DG.passed[t] = true; DG.exams[t] = 0;
+        const done = () => { DG.study = 0; DG.track = null; };
+        if (t === 'lang' || t === 'cert') { const p = t === 'lang' ? 5 : 7; return [['🎉 결과 확인', () => { DG.pay *= 1 + p / 100; DG.skill = Math.min(40, (DG.skill || 0) + 3); DG.happy += 5; tl(X.ic, `${X.t} ${t === 'lang' ? '성적 취득' : '합격'}`); done(); return `합격! 연봉 +${p}%, 일 능력 +3.` + (t === 'lang' ? ' 해외 근무 기회가 생길 수도 있어요.' : ''); }]]; }
+        if (t === 'grad') { DG.pay *= 1.12; DG.skill = Math.min(40, (DG.skill || 0) + 5); tl('🎓', '학위 취득'); }
+        else tl('🎉', `${X.t} 합격`);
         const js = X.jobs.map((n) => DG_JOBS.find((j) => j.t === n)).filter((j) => j && !(j.sk && (DG.skill || 0) < j.sk));
-        return js.map((j) => [`🎉 합격! ${j.ic} ${j.t}(으)로 옮긴다`, () => { dgSetJob(j, false); DG.study = 0; DG.track = null; DG.happy += 10; return `축하해요! 이제 ${j.t}. 초봉부터 다시 시작이지만 정년까지 안정적이에요.`; }]).concat([['📄 합격증만 챙기고 지금 일 계속', () => { DG.study = 0; DG.track = null; DG.happy += 4; return '합격 자격은 남아요. 나중에 새 직업 찾기에서 고를 수 있어요.'; }]]); } },
+        return js.map((j) => [`🎉 ${j.ic} ${j.t}(으)로 옮긴다`, () => { dgSetJob(j, false); done(); DG.happy += 10; return `축하해요! 이제 ${j.t}. 초봉부터 다시 시작이지만 새 출발이에요.`; }]).concat([[t === 'grad' ? '🎓 학위만 챙기고 지금 일 계속 (연봉 +12%)' : '📄 합격증만 챙기고 지금 일 계속', () => { done(); DG.happy += 4; return t === 'grad' ? '학위 덕분에 연봉 +12%, 일 능력 +5!' : '합격 자격은 남아요. 나중에 새 직업 찾기에서 고를 수 있어요.'; }]]); } },
+    { k: 'slump', w: () => (DG.track && DG.study ? 1.2 : 0), art: '😮‍💨', tone: 'bad', t: '공부 슬럼프', d: '책만 펴면 졸려요…', ch: () => [['💪 이를 악물고 계속', () => { DG.hp = Math.max(5, DG.hp - 4); DG.exams[DG.track] = (DG.exams[DG.track] || 0) + 5; return '버텨 냈어요! 진도 +5 (건강 -4)'; }], ['🛌 한 달 쉬기', () => { DG.exams[DG.track] = Math.max(0, (DG.exams[DG.track] || 0) - 10); DG.happy += 3; return '쉬고 나니 머리가 맑아졌어요. 진도 -10, 행복 +3'; }]] },
+    { k: 'studygrp', w: () => (DG.track && DG.study && DG_EXAM[DG.track].need ? 0.9 : 0), art: '👥', tone: 'good', t: '스터디 모임에 들어갔어요', f: () => { DG.exams[DG.track] = (DG.exams[DG.track] || 0) + 12; if (!DG.married) DG.love = Math.min(100, (DG.love || 0) + 6); return '같이 공부하니 진도가 쭉쭉! 진도 +12' + (!DG.married ? ', 새로운 인연도…? (연애 +6)' : ''); } },
+    { k: 'support', w: () => (DG.track && ['lang', 'grad', 'cert'].includes(DG.track) && !DG.jobless && !hasT('biz') && !hasT('free') ? 1 : 0), art: '🏢', tone: 'money', t: '회사가 교육비를 지원해 준대요', f: () => { const a = Math.round(DG_EXAM[DG.track].cost * 0.6); DG.cash += a; return `자기계발비 +${won(a)} 원 환급!`; } },
+    { k: 'abroad', once: 1, w: () => (DG.passed.lang && !DG.jobless && !DG.retired && !hasT('biz') && !hasT('free') ? 2 : 0), art: '✈️', tone: 'life', t: '해외 지사 발령 제안', d: '어학 실력 덕분에 3년 해외 근무 제안이 왔어요. 연봉 +25%, 주재원 수당까지!',
+      ch: () => [['🌏 간다', () => { DG.pay *= 1.25; DG.happy += DG.married ? -2 : 4; DG.skill = Math.min(40, (DG.skill || 0) + 4); tl('✈️', '해외 지사 발령'); return '해외 생활 시작! 연봉 +25%, 일 능력 +4. 차는 한국에 두고 왔어요.'; }], ['🏠 안 간다', () => '한국이 좋아요.']] },
     { k: 'training', w: () => (!DG.jobless && !DG.retired && !hasT('biz') && !hasT('free') ? 1.1 : 0), art: '🧑‍🏫', tone: 'life', t: '회사에서 교육 기회가 왔어요', d: '주말마다 6개월 과정. 수료하면 일 능력이 쑥 올라요.',
       ch: () => [['📚 주말 반납하고 듣는다', () => { DG.skill = Math.min(40, (DG.skill || 0) + 3); DG.happy -= 2; return '수료! 일 능력 +3 (주말이 그리웠지만…)'; }], ['🛋️ 주말은 소중해', () => { DG.happy += 1; return '푹 쉬었어요.'; }]] },
     { k: 'project', w: () => (!DG.jobless && !DG.retired ? 1.2 : 0), art: '🔥', tone: 'life', t: '큰 프로젝트 맡을래요?', d: '잘되면 성과급과 평판, 대신 1년 내내 야근이에요.',
@@ -3040,12 +3077,13 @@ html, body { margin: 0; background: #14161b; }
     if (DG.house) DG.house.v = Math.round(DG.house.v * 1.02);
     // 게이지
     if (!DG.married) DG.love = Math.max(0, Math.min(100, (DG.love || 0) + [-8, 10, 22][pl('love')] + Math.round(rnd(-4, 4))));
-    DG.skill = Math.min(40, (DG.skill || 0) + [0, 1, 2, 4][pl('self')] + (DG.track && DG.study === 2 ? 1 : 0));
-    DG.hp = Math.max(5, Math.min(100, Math.round((DG.hp || 70) + [-6, 2, 5, 8][pl('health')] + [2, 0, -2, -6][pl('food')] - (DG.age >= 45 ? 1 : 0) - (DG.age >= 55 ? 1 : 0) - (DG.two ? 3 : 0) - (DG.track && DG.study >= 2 ? 2 : 0) + rnd(-2, 2))));
-    if (DG.track && DG.study) { const X = DG_EXAM[DG.track]; DG.exams[DG.track] = Math.min(X.need, Math.round((DG.exams[DG.track] || 0) + DG_STUDY[DG.study][1] * (1 + (DG.skill || 0) / 80))); }
+    const SX = DG.track ? DG_EXAM[DG.track] : null, SI = DG_STUDY[DG.study || 0];
+    DG.skill = Math.min(40, (DG.skill || 0) + (SX && DG.study ? Math.max(SX.sk ? 1 : 0, Math.round(SX.sk * SI[1])) : 0));
+    DG.hp = Math.max(5, Math.min(100, Math.round((DG.hp || 70) + [-6, 2, 5, 8][pl('health')] + [2, 0, -2, -6][pl('food')] - (DG.age >= 45 ? 1 : 0) - (DG.age >= 55 ? 1 : 0) - (DG.two ? 3 : 0) + (DG.track ? SI[4] : 0) + rnd(-2, 2))));
+    if (SX && SX.need && DG.study) DG.exams[DG.track] = Math.min(SX.need, Math.round((DG.exams[DG.track] || 0) + SX.gain * SI[1] * (1 + (DG.skill || 0) / 80)));
     if (DG.pens) DG.pensBal = Math.round(((DG.pensBal || 0) + 400) * 1.04);
     const s = DG.car ? dgSat(DG.car.r) : -reg().bmw / 2;
-    const planH = DG_PLAN.reduce((x, [k, , , lv]) => x + lv[pl(k)][2], 0) + (DG.track ? DG_STUDY[DG.study || 0][3] : 0) + ((DG.hp || 70) < 40 ? -6 : (DG.hp || 70) >= 80 ? 3 : 0);
+    const planH = DG_PLAN.reduce((x, [k, , , lv]) => x + lv[pl(k)][2], 0) + (DG.track ? DG_STUDY[DG.study || 1][3] : 0) + ((DG.hp || 70) < 40 ? -6 : (DG.hp || 70) >= 80 ? 3 : 0);
     const target = 50 + s * 2 + (DG.married ? 5 : 0) + Math.min(2, DG.kids.length) * 4 + planH + ({ parent: DG.age < 30 ? -2 : -7, rent: 0, jeonse: 2, own: 6 }[DG.home] || 0) - (DG.jobless ? 8 : 0) - (DG.cash < 0 ? 8 : 0) - (DG.two ? 6 : 0) - (DG.car ? 0 : reg().bmw);
     DG.happy = Math.max(0, Math.min(100, Math.round(DG.happy * 0.75 + target * 0.25)));
     if (!DG.jobless && !(DG.track && DG.study === 3)) DG.jy++;
@@ -3381,7 +3419,7 @@ html, body { margin: 0; background: #14161b; }
       const s2 = sm.appendChild(el('span', 'r')); s2.appendChild(el('small', null, `순자산 ${won(F.nw1 != null ? F.nw1 : dgNet())} · 현금 ${net >= 0 ? '+' : ''}${won(net)}`)); s2.appendChild(el('em', null, '자세히 보기 ▾'));
       const sec = (t) => { const h = ul.appendChild(el('h6', 'dgfh', t)); return h; };
       const incomeKeys = new Set(['💵 실수령 (세후)', '💑 배우자 수입', '🛵 투잡 수입']);
-      [['💵 실수령 (세후)', F.inc, true], F.sp ? ['💑 배우자 수입', F.sp, true] : null, F.side ? ['🛵 투잡 수입', F.side, true] : null, ...(F.pc ? [['📝 수험 준비', F.pc.exam || 0], ['🩺 건강검진', F.pc.checkup || 0], ['🍚 기본 생활비', F.pc.live], ['🍜 외식·배달', F.pc.food], ['🎮 취미', F.pc.hobby], ['✈️ 여행', F.pc.travel], [DG.married ? '💑 데이트' : '💘 연애', F.pc.love], ['📚 자기계발', F.pc.self], ['🏋️ 운동', F.pc.health], ['📈 수입 늘어 커진 씀씀이', F.creep], ['👶 아이 양육비', F.kidC], ['🤲 부모님 생활비', F.supp], ['💌 부모님 용돈·부양', DG.pSup || 0], ['🐢 연금저축 납입', DG.pens ? 400 : 0]].filter((x) => x[1] > 0) : [['🍚 생활비', F.live]]), [`${DG_HOME[F.homeK].ic} 주거비 (${F.homeK === 'parent' ? '부모님께 용돈' : F.homeK === 'rent' ? '월세·관리비' : F.homeK === 'jeonse' ? '전세대출 이자·관리비' : '보유세·관리비'})`, F.homeC], [DG.car ? '⛽ 차 유지비 (연료·세금·보험)' : '🚌 BMW 교통비 (버스·메트로)', F.up], F.pay ? [`🏦 캐피탈 할부 (월 ${won(DG.loanPay || 0)})`, F.pay] : null, F.mort ? ['🏠 주담대 상환', F.mort] : null, F.intr ? [F.intr < 0 && !F.invAmt ? '💳 마이너스 통장·대출 이자' : F.invAmt ? `${(DG_INV.find((x) => x[0] === F.im) || [])[1]} ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}% (${won(F.invAmt)} 투자) + 예금 이자` : '🐷 예금 이자', Math.abs(F.intr), F.intr >= 0] : null].filter(Boolean).forEach(([a, v, plus], ix, arr) => { const prev = arr[ix - 1]; const grp = incomeKeys.has(a) ? 'in' : /예금|주식|채권|금 |코인|마이너스/.test(a) ? 'inv' : 'out'; const pg = !prev ? null : incomeKeys.has(prev[0]) ? 'in' : /예금|주식|채권|금 |코인|마이너스/.test(prev[0]) ? 'inv' : 'out'; if (grp !== pg) sec(grp === 'in' ? '들어온 돈' : grp === 'inv' ? '돈 굴리기·이자' : '나간 돈'); const r = ul.appendChild(el('div')); r.appendChild(el('span', null, a)); r.appendChild(el('b', plus ? 'p' : 'm', (plus ? '+' : '-') + won(v))); });
+      [['💵 실수령 (세후)', F.inc, true], F.sp ? ['💑 배우자 수입', F.sp, true] : null, F.side ? ['🛵 투잡 수입', F.side, true] : null, ...(F.pc ? [['🩺 건강검진', F.pc.checkup || 0], ['🍚 기본 생활비', F.pc.live], ['🍜 외식·배달', F.pc.food], ['🎮 취미', F.pc.hobby], ['✈️ 여행', F.pc.travel], [DG.married ? '💑 데이트' : '💘 연애', F.pc.love], ['📚 자기계발', F.pc.self], ['🏋️ 운동', F.pc.health], ['📈 수입 늘어 커진 씀씀이', F.creep], ['👶 아이 양육비', F.kidC], ['🤲 부모님 생활비', F.supp], ['💌 부모님 용돈·부양', DG.pSup || 0], ['🐢 연금저축 납입', DG.pens ? 400 : 0]].filter((x) => x[1] > 0) : [['🍚 생활비', F.live]]), [`${DG_HOME[F.homeK].ic} 주거비 (${F.homeK === 'parent' ? '부모님께 용돈' : F.homeK === 'rent' ? '월세·관리비' : F.homeK === 'jeonse' ? '전세대출 이자·관리비' : '보유세·관리비'})`, F.homeC], [DG.car ? '⛽ 차 유지비 (연료·세금·보험)' : '🚌 BMW 교통비 (버스·메트로)', F.up], F.pay ? [`🏦 캐피탈 할부 (월 ${won(DG.loanPay || 0)})`, F.pay] : null, F.mort ? ['🏠 주담대 상환', F.mort] : null, F.intr ? [F.intr < 0 && !F.invAmt ? '💳 마이너스 통장·대출 이자' : F.invAmt ? `${(DG_INV.find((x) => x[0] === F.im) || [])[1]} ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}% (${won(F.invAmt)} 투자) + 예금 이자` : '🐷 예금 이자', Math.abs(F.intr), F.intr >= 0] : null].filter(Boolean).forEach(([a, v, plus], ix, arr) => { const prev = arr[ix - 1]; const grp = incomeKeys.has(a) ? 'in' : /예금|주식|채권|금 |코인|마이너스/.test(a) ? 'inv' : 'out'; const pg = !prev ? null : incomeKeys.has(prev[0]) ? 'in' : /예금|주식|채권|금 |코인|마이너스/.test(prev[0]) ? 'inv' : 'out'; if (grp !== pg) sec(grp === 'in' ? '들어온 돈' : grp === 'inv' ? '돈 굴리기·이자' : '나간 돈'); const r = ul.appendChild(el('div')); r.appendChild(el('span', null, a)); r.appendChild(el('b', plus ? 'p' : 'm', (plus ? '+' : '-') + won(v))); });
       if (F.nw1 != null && F.nw0 != null) { const dv = dNw - net; if (Math.abs(dv) >= 1) { sec('그 밖의 자산 변화'); const r = ul.appendChild(el('div')); r.appendChild(el('span', null, '🚗 차값 감가 · 🏠 집값 · 이벤트 돈 · 빚 상환 등')); r.appendChild(el('b', dv >= 0 ? 'p' : 'm', (dv >= 0 ? '+' : '-') + won(Math.abs(dv)))); } }
       if (DG.car) {
         const cc = c.appendChild(el('div', 'dgcar'));
@@ -3413,16 +3451,18 @@ html, body { margin: 0; background: #14161b; }
         keys.forEach(planRow);
         if (sk === 'skill') {
           const row = iv.appendChild(el('div', 'dgpr'));
-          const hd = row.appendChild(el('div', 'hd')); hd.appendChild(el('b', null, '📝 수험 준비 (이직용)'));
           const X = DG.track ? DG_EXAM[DG.track] : null;
-          hd.appendChild(el('small', null, X ? `${X.ic} ${X.t} 게이지 ${DG.exams[DG.track] || 0}/${X.need} · 차면 시험 · 연 ${won(pc.exam)}` : '합격해야 공무원·경찰·소방·공인중개사·세무사로 옮길 수 있어요' + (Object.keys(DG.passed).length ? ` · 합격: ${Object.keys(DG.passed).map((t) => DG_EXAM[t].t).join(', ')}` : '')));
+          const hd = row.appendChild(el('div', 'hd')); hd.appendChild(el('b', null, '📚 자기계발'));
+          hd.appendChild(el('small', null, X ? `${X.ic} ${X.t} · 연 ${won(pc.self)} · ${X.d}` : '무엇을 공부할지 고르세요 · 외국어·자격증·시험·대학원' + (Object.keys(DG.passed).length ? ` · 완료: ${Object.keys(DG.passed).map((t) => DG_EXAM[t].t).join(', ')}` : '')));
           const g = row.appendChild(el('div', 'dgseg'));
-          [[null, '안 함'], ...Object.entries(DG_EXAM).map(([t, x]) => [t, x.ic + ' ' + x.t + (DG.passed[t] ? ' ✅' : '')])].forEach(([t, lab]) => { const b = g.appendChild(btnEl('chip sm', lab, () => { DG.track = t; if (t && !DG.study) DG.study = 1; renderPlay(); })); b.setAttribute('aria-pressed', (DG.track || null) === t); });
+          [[null, '안 함'], ...Object.entries(DG_EXAM).map(([t, x]) => [t, x.ic + ' ' + x.t + (DG.passed[t] ? ' ✅' : '')])].forEach(([t, lab]) => { const b = g.appendChild(btnEl('chip sm', lab, () => { DG.track = t; if (t && !DG.study) DG.study = 2; renderPlay(); })); b.setAttribute('aria-pressed', (DG.track || null) === t); });
           if (X) {
-            const bar = row.appendChild(el('span', 'wbar')); bar.appendChild(el('i')).style.width = Math.round((DG.exams[DG.track] || 0) / X.need * 100) + '%';
+            row.appendChild(el('small', 'dgsub', '어떻게 공부할까요?'));
             const g2 = row.appendChild(el('div', 'dgseg'));
-            DG_STUDY.slice(1).forEach((x, i) => { const b = g2.appendChild(btnEl('chip sm', x[0], () => { DG.study = i + 1; renderPlay(); })); b.setAttribute('aria-pressed', DG.study === i + 1); b.title = x[4]; });
-            row.appendChild(el('small', 'note', `${DG_STUDY[DG.study || 1][4]} · 행복 ${DG_STUDY[DG.study || 1][3]}` + (X.hp ? ` · 체력 시험: 신체 건강 ${X.hp} 필요` : '')));
+            DG_STUDY.slice(1).forEach((x, i) => { const b = g2.appendChild(btnEl('chip sm', x[0], () => { DG.study = i + 1; renderPlay(); })); b.setAttribute('aria-pressed', DG.study === i + 1); });
+            if (X.need) { const bar = row.appendChild(el('span', 'wbar')); bar.appendChild(el('i')).style.width = Math.round((DG.exams[DG.track] || 0) / X.need * 100) + '%'; }
+            const SI = DG_STUDY[DG.study || 2];
+            row.appendChild(el('small', 'note', (X.need ? `진도 ${DG.exams[DG.track] || 0}/${X.need} · 다 차면 ${X.ev} · ` : '') + `${SI[0]}: ${SI[5]} · 행복 ${SI[3]}` + (X.hp ? ` · 체력 시험: 건강 ${X.hp} 필요` : '')));
           }
         }
       });
