@@ -1035,6 +1035,30 @@ html, body { margin: 0; background: #14161b; }
 @media (max-width:640px){.vd .dginvg{grid-template-columns:repeat(3,1fr);gap:5px}.vd .dginvg.c4{grid-template-columns:repeat(2,1fr)}.vd .dginvo{padding:8px 7px}.vd .dginvo b{font-size:13.5px}.vd .dginvo small{font-size:10.5px}.vd .dginvo .ck{font-size:9.5px;padding:1px 5px}}
 .vd .dgdisc{margin:14px 0 0;font-size:11.5px;line-height:1.6;color:var(--mu2)}
 @media (max-width:640px){.vd .dggrid{grid-template-columns:1fr 1fr}.vd .dgopt{padding:9px}.vd .dgsel{grid-template-columns:100px 1fr}.vd .dgcar{grid-template-columns:96px 1fr}.vd .dgscene{height:120px}.vd .dgart{font-size:60px}}
+.vd .dgride{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;margin:10px 0;padding:8px;border:2px solid var(--line);border-radius:12px;background:var(--pn2)}
+.vd .dgride .ph{border-radius:8px}.vd .dgride .tx{display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right}.vd .dgride .tx small{font-size:11px;color:var(--mu);font-weight:700}.vd .dgride .tx b{font-size:15px;color:var(--hi)}.vd .dgride .tx .av{min-width:34px}
+.vd .dgride .road{position:relative;height:44px;border-radius:8px;overflow:hidden;background:#2b2f37}
+.vd .dgride .road::before{content:'';position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1px;background:repeating-linear-gradient(90deg,#f5d36b 0 18px,transparent 18px 36px);animation:dgroad .6s linear infinite}
+.vd .dgride .road .car{position:absolute;top:50%;left:50%;font-style:normal;font-size:28px;transform:translate(-50%,-50%) scaleX(-1);animation:dgbob .5s ease-in-out infinite alternate}
+.vd .dgride .road .car.walk{transform:translate(-50%,-50%);animation-duration:.8s}.vd .dgride.bmw .road::before{animation-duration:2.4s}
+.vd .dgride .bmwic{font-size:40px;text-align:center}
+.vd .dgride.dream{border-color:#e3b448;background:linear-gradient(90deg,rgba(227,180,72,.18),var(--pn2))}
+.vd .dgride.fresh{animation:dgglow 1.6s ease-out 2}
+@keyframes dgroad{from{background-position:0 0}to{background-position:-36px 0}}
+@keyframes dgbob{from{margin-top:-2px}to{margin-top:2px}}
+@keyframes dgglow{0%{box-shadow:0 0 0 0 rgba(227,180,72,.9)}100%{box-shadow:0 0 0 14px rgba(227,180,72,0)}}
+.vd .dgdel{display:flex;flex-direction:column;gap:10px;padding:16px;border-top:3px solid #e3b448;animation:dgpop .45s ease-out both}
+.vd .dgdel .hero{position:relative;overflow:hidden;border-radius:12px}.vd .dgdel .hero .ph{aspect-ratio:16/9;animation:dgdrive 1s cubic-bezier(.2,.9,.3,1) both}
+.vd .dgdel .rib{position:absolute;top:12px;left:-6px;padding:5px 14px;background:#e3b448;color:#15171c;font-weight:900;font-size:13px;letter-spacing:.06em;border-radius:0 6px 6px 0;box-shadow:0 3px 10px rgba(0,0,0,.4)}
+.vd .dgdel .dgfx{top:-30px;animation-duration:2.4s}
+.vd .dgdel h2{margin:0;font-size:28px;color:var(--hi)}
+.vd .dgdelg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.vd .dgdelg div{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--pn2)}.vd .dgdelg small{font-size:11px;color:var(--mu);font-weight:700}.vd .dgdelg b{font-family:var(--cond);font-size:18px;color:var(--hi)}
+.vd .dgdelg .ovr b{font-size:26px}
+.vd .dgcmp{margin:0;font-size:13px;font-weight:700;color:var(--mu)}
+.vd .dgdel.dream{border:2px solid #e3b448;box-shadow:0 0 30px rgba(227,180,72,.35)}.vd .dgdel.dream h2{color:#e3b448}
+@keyframes dgdrive{from{transform:translateX(60%) scale(.9);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.vd .dgride .road::before,.vd .dgride .road .car,.vd .dgride.fresh,.vd .dgdel,.vd .dgdel .hero .ph{animation:none}}
+@media (max-width:640px){.vd .dgride{grid-template-columns:90px 1fr;gap:8px}.vd .dgride .road{grid-column:1/-1;order:3;height:38px}.vd .dgride .tx{align-items:flex-start;text-align:left}.vd .dgride .tx b{font-size:14px}.vd .dgdelg{grid-template-columns:repeat(2,1fr)}.vd .dgdel h2{font-size:23px}}
 /* 갈아타기 · 한줄평 · 퀴즈 */
 .vd .pswap{border-left-color:#e3b448}
 .vd .prev{border-left-color:#c86bfa}
@@ -2869,8 +2893,11 @@ html, body { margin: 0; background: #14161b; }
     }
     DG.ffLog = out;
   }
+  const gsGlow = (box) => { const g = box.querySelector('.dgride'); if (g) g.classList.add('fresh'); };
+  const dgCarEmoji = (r) => ((r.s_accel || 0) >= 17 ? '🏎️' : /SUV|RV|MPV|밴|미니밴/.test(r.body || '') ? '🚙' : /트럭|픽업/.test(r.body || '') ? '🛻' : '🚗');
   function dgBuy(r, used) {
     const c = dgCanBuy(r, used); if (!c || !c.ok) return;
+    const prev = DG.car ? DG.car.r : null;
     DG.cash += c.trade; if (DG.debt) { DG.cash -= DG.debt; DG.debt = 0; }
     if (DG.cash >= c.need) DG.cash -= c.need; else { const ln = Math.round(c.need - DG.cash); DG.cash = 0; DG.debt = ln; DG.loanBase = ln; }
     DG.car = { r, value: Math.round(c.P * (used ? 1 : 0.88)), used, age: DG.age };
@@ -2878,6 +2905,7 @@ html, body { margin: 0; background: #14161b; }
     tl(r.id === DG.dream.id ? '🏁' : '🚗', `${used ? '중고 ' : ''}${shortName(r.name)} 구매`);
     if (r.id === DG.dream.id && !DG.dreamOwned) { DG.dreamOwned = true; DG.dreamAge = DG.age; DG.happy = Math.min(100, DG.happy + 15); DG.party = true; }
     DG.needCar = false; DG.happy = Math.min(100, DG.happy + 5);
+    DG.delivered = { r, used, P: c.P, fee: c.fee, loan: DG.debt, prev, dream: r.id === DG.dream.id, n: DG.hist.length };
   }
   function dgReset() { DG = null; PLAY.dg = null; }
   // ---- 그림: 큰 이모지 장면 + 효과
@@ -2973,6 +3001,35 @@ html, body { margin: 0; background: #14161b; }
     cell('나이', `${DG.age}살`); cell('통장', won(DG.cash), DG.cash < 0 ? 'neg' : ''); cell('내 차 값', DG.car ? won(DG.car.value) : '–');
     cell('할부 남음', DG.debt ? won(DG.debt) : '없음', DG.debt ? 'neg' : ''); cell('순자산', won(dgNet()), dgNet() < 0 ? 'neg' : ''); cell('행복', DG.happy + '점');
     dgLife(box);
+    // 내 차 스트립: 사진 + 도로 위를 달리는 차
+    const gs = box.appendChild(el('div', 'dgride' + (DG.car ? (DG.car.r.id === DG.dream.id ? ' dream' : '') : ' bmw')));
+    if (DG.car) {
+      const ph = gs.appendChild(el('div', 'ph')); photo(ph, DG.car.r);
+      const rd = gs.appendChild(el('div', 'road')); rd.appendChild(el('i', 'car', dgCarEmoji(DG.car.r)));
+      const t = gs.appendChild(el('div', 'tx')); t.appendChild(el('small', null, DG.car.r.id === DG.dream.id ? '🏁 내 드림카' : `내 차 · ${DG.age - DG.car.age + 1}년째`)); t.appendChild(el('b', null, shortName(DG.car.r.name))); t.appendChild(el('span', 'av ' + cellCls(DG.car.r._ovr / 5), String(DG.car.r._ovr)));
+    } else {
+      gs.appendChild(el('div', 'bmwic', '🚌'));
+      const rd = gs.appendChild(el('div', 'road')); rd.appendChild(el('i', 'car walk', '🚶'));
+      const t = gs.appendChild(el('div', 'tx')); t.appendChild(el('small', null, '지금은')); t.appendChild(el('b', null, 'BMW 오너')); t.appendChild(el('small', null, '버스·메트로·워킹'));
+    }
+    if (DG.delivered) {
+      const D = DG.delivered, r = D.r;
+      const c = box.appendChild(el('div', 'card dgdel' + (D.dream ? ' dream' : '')));
+      const hero = c.appendChild(el('div', 'hero'));
+      const ph = hero.appendChild(el('div', 'ph big')); photo(ph, r);
+      hero.appendChild(el('span', 'rib', D.dream ? '🏁 DREAM CAR' : D.used ? '중고 입양' : 'NEW'));
+      for (let i = 0; i < 14; i++) { const f = hero.appendChild(el('i', 'dgfx', pickOne(D.dream ? ['🎉', '✨', '🏁', '🎊', '💛'] : ['🎉', '✨', '🎊']))); f.style.left = (3 + i * 7) + '%'; f.style.animationDelay = (i * 0.11 % 1) + 's'; }
+      c.appendChild(el('span', 'kick', `${DG.age}살 · ${D.n === 1 ? '생애 첫 차' : D.n + '번째 차'}`));
+      c.appendChild(el('h2', 'jal', D.dream ? `드디어, ${shortName(r.name)}!` : `${shortName(r.name)} 출고 완료!`));
+      c.appendChild(el('p', 'mbdesc', D.dream ? '꿈에 그리던 그 차가 내 주차장에 서 있어요. 시동 버튼을 누르는 손이 떨려요.' : D.used ? '깨끗하게 관리된 중고차를 데려왔어요. 오늘부터 내 차!' : '비닐도 안 뜯은 새 차 냄새… 오늘은 괜히 한 바퀴 더 돌고 들어가요.'));
+      const g = c.appendChild(el('div', 'dgdelg'));
+      const st2 = (k, v, cls) => { const d = g.appendChild(el('div', cls || '')); d.appendChild(el('small', null, k)); d.appendChild(el('b', null, v)); };
+      st2('OVR', String(r._ovr), 'ovr ' + cellCls(r._ovr / 5)); st2(D.used ? '중고가' : '차값', won(D.P)); st2('세금·부대', won(D.fee)); st2('할부', D.loan ? won(D.loan) : '없음 (일시불)'); st2('연 유지비', won(dgUpkeep(r, DG.km))); st2('감가', `연 ${Math.round(dgDep(r) * 1000) / 10}%`);
+      if (D.prev) { const dO = r._ovr - D.prev._ovr, dU = dgUpkeep(r, DG.km) - dgUpkeep(D.prev, DG.km); c.appendChild(el('p', 'dgcmp', `이전 차 ${shortName(D.prev.name)} 대비 · OVR ${dO >= 0 ? '+' : ''}${dO} · 유지비 ${dU >= 0 ? '+' : ''}${fmt(dU)}만/년`)); }
+      const bt = c.appendChild(el('div', 'mbstart'));
+      bt.appendChild(btnEl('chip gold big', '🔑 키 받고 출발!', () => { DG.delivered = null; DG.justGot = true; renderPlay(); scrollToSection('t-play'); }));
+      return;
+    }
     const dr = box.appendChild(el('div', 'dgdream'));
     const dP = num(DG.dream.price); const dc = dgCanBuy(DG.dream, false);
     const need0 = dc ? dc.need - dc.maxLoan : dP * 0.45;
@@ -3044,8 +3101,8 @@ html, body { margin: 0; background: #14161b; }
       const L = DG.log, e = L.e;
       if (DG.ffLog && DG.ffLog.length) { const f = box.appendChild(el('div', 'card dgff')); f.appendChild(el('b', null, '⏩ 빨리감기')); DG.ffLog.forEach((x) => f.appendChild(el('span', null, `${x.age}살 ${x.art} ${x.t}`))); DG.ffLog = null; }
       const c = box.appendChild(el('div', 'card dgev'));
-      if (DG.party) { dgScene(c, '🏁', 'party', false, `${DG.age}살 · 드림카 출고!`); c.appendChild(el('h2', 'jal', `${shortName(DG.dream.name)} 출고 완료!`)); c.appendChild(el('p', 'mbdesc', `${DG.age}살에 드디어 꿈을 이뤘어요. 이제 남은 건 할부와 유지비…?`)); DG.party = false; }
-      else {
+      {
+        if (DG.justGot) { gsGlow(box); DG.justGot = false; }
         dgScene(c, typeof e.art === 'function' ? e.art() : e.art, e.tone, e.shake, `${DG.age}살 · ${DG.age - DG.startAge + 1}년 차`);
         c.appendChild(el('h2', 'jal', typeof e.t === 'function' ? e.t() : e.t));
         const desc = [e.ch ? '' : e.d, L.text].filter(Boolean).join(' ');
