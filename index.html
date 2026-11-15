@@ -1020,7 +1020,19 @@ html, body { margin: 0; background: #14161b; }
 .vd .dgff{display:flex;flex-wrap:wrap;gap:6px 12px;padding:10px 14px;font-size:13px;margin-bottom:8px}.vd .dgff b{width:100%;color:#e3b448}
 .vd .dgtl{display:grid;gap:2px}.vd .dgtl div{display:grid;grid-template-columns:48px 30px 1fr;align-items:center;padding:5px 0;border-bottom:1px dashed var(--sep);font-size:14px}.vd .dgtl .a{font-family:var(--cond);color:var(--mu)}.vd .dgtl .i{font-size:18px}
 .vd .dgstat .dgc b{font-size:20px}
-.vd .dginv{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px}.vd .dginv>small:first-child{font-weight:800;color:var(--mu)}.vd .dginv .mbbud{margin:0}
+.vd .dginv{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--pn2)}
+.vd .dginvh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}.vd .dginvh b{font-size:15px;color:var(--hi)}.vd .dginvh small{font-size:12px;color:var(--mu)}
+.vd .dginvg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.vd .dginvo{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:10px;border:2px solid var(--line);border-radius:10px;background:var(--pn);color:var(--tx);font:inherit;cursor:pointer;opacity:.75;transition:opacity .15s,border-color .15s}
+.vd .dginvo:hover{opacity:1;border-color:var(--mu2)}.vd .dginvo b{font-size:15px;color:var(--hi)}.vd .dginvo small{font-size:11.5px;color:var(--mu);line-height:1.35}
+.vd .dginvo .ck{font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:99px;border:1px solid var(--line);color:var(--mu)}
+.vd .dginvo.on{opacity:1;border-color:#e3b448;background:rgba(227,180,72,.14);box-shadow:0 0 0 1px #e3b448 inset}.vd .dginvo.on .ck{background:#e3b448;border-color:#e3b448;color:#15171c}
+.vd .dgtog{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;text-align:left;padding:10px;border:2px solid var(--line);border-radius:10px;background:var(--pn);color:var(--tx);font:inherit;cursor:pointer}
+.vd .dgtog .tx{display:flex;flex-direction:column;gap:2px}.vd .dgtog b{font-size:15px;color:var(--hi)}.vd .dgtog small{font-size:11.5px;color:var(--mu)}
+.vd .dgtog .sw{position:relative;width:44px;height:24px;border-radius:99px;background:var(--line);transition:background .15s}.vd .dgtog .sw i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s}
+.vd .dgtog em{font-style:normal;font-size:12px;font-weight:800;color:var(--mu);min-width:28px}
+.vd .dgtog.on{border-color:#e3b448}.vd .dgtog.on .sw{background:#e3b448}.vd .dgtog.on .sw i{left:23px}.vd .dgtog.on em{color:#e3b448}
+@media (max-width:640px){.vd .dginvg{grid-template-columns:1fr}.vd .dginvo{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center}.vd .dginvo .ck{grid-row:1/3;min-width:58px;text-align:center}}
 .vd .dgdisc{margin:14px 0 0;font-size:11.5px;line-height:1.6;color:var(--mu2)}
 @media (max-width:640px){.vd .dggrid{grid-template-columns:1fr 1fr}.vd .dgopt{padding:9px}.vd .dgsel{grid-template-columns:100px 1fr}.vd .dgcar{grid-template-columns:96px 1fr}.vd .dgscene{height:120px}.vd .dgart{font-size:60px}}
 /* 갈아타기 · 한줄평 · 퀴즈 */
@@ -2691,9 +2703,10 @@ html, body { margin: 0; background: #14161b; }
   // ---- 이벤트: w = 확률 가중치(직업·나이·상황별), ch = 선택지, f = 자동 결과. 결과 문장을 돌려줌
   const DG_EVENTS = [
     { k: 'quiet', w: () => 1.2, art: '☕', tone: 'calm', t: '평범한 한 해', d: '큰일 없이 지나갔어요. 이런 해가 제일 고마운 법.' },
-    { k: 'promo', w: () => (DG.jobless || DG.retired ? 0 : hasT('public') ? 2.2 : 2.8), art: '📈', tone: 'good', t: '승진했어요!', f: () => { const p = Math.round(rnd(7, 15)); DG.pay *= 1 + p / 100; DG.happy += 4; tl('📈', '승진'); return `연봉이 ${p}% 올랐어요.`; } },
-    { k: 'bonus', w: () => (DG.jobless || DG.retired ? 0 : 1.5 + (hasT('fin') ? 3 : 0) + (hasT('it') ? 1 : 0)), art: '💰', tone: 'money', t: '성과급 터졌어요', f: () => { const a = Math.round(dgSalary(true) * rnd(0.1, hasT('fin') ? 0.5 : 0.3)); DG.cash += a; return `보너스 +${won(a)} 원!`; } },
-    { k: 'freeze', w: () => (DG.jobless || DG.retired ? 0 : 1.2), art: '🧊', tone: 'bad', t: '연봉 동결', d: '회사 사정이 어렵대요. 올해 수입이 10% 줄어요.', f: () => { DG.cut *= 0.9; } },
+    { k: 'promo', w: () => (DG.jobless || DG.retired ? 0 : hasT('public') ? 2.2 : 2.8), art: () => (hasT('biz') ? '🛎️' : hasT('sport') ? '✍️' : hasT('free') ? '🚀' : '📈'), tone: 'good', t: () => (hasT('biz') ? '단골이 늘었어요!' : hasT('sport') ? '연봉 협상 대박!' : hasT('viral') ? '팬이 확 늘었어요!' : hasT('free') ? '몸값이 올랐어요!' : '승진했어요!'),
+      f: () => { const p = Math.round(rnd(7, 15)); DG.pay *= 1 + p / 100; DG.happy += 4; const lb = hasT('biz') ? '매출 상승' : hasT('free') ? '몸값 상승' : '승진'; tl('📈', lb); return hasT('biz') ? `입소문이 나서 매출이 ${p}% 늘었어요.` : hasT('free') ? `찾는 곳이 많아져서 단가·수입이 ${p}% 올랐어요.` : `연봉이 ${p}% 올랐어요.`; } },
+    { k: 'bonus', w: () => (DG.jobless || DG.retired ? 0 : 1.5 + (hasT('fin') ? 3 : 0) + (hasT('it') ? 1 : 0)), art: '💰', tone: 'money', t: () => (hasT('biz') ? '대목 특수!' : hasT('free') ? '큰 건 하나 땄어요' : '성과급 터졌어요'), f: () => { const a = Math.round(dgSalary(true) * rnd(0.1, hasT('fin') ? 0.5 : 0.3)); DG.cash += a; return hasT('biz') || hasT('free') ? `올해 수입에 +${won(a)} 원 더!` : `보너스 +${won(a)} 원!`; } },
+    { k: 'freeze', w: () => (DG.jobless || DG.retired ? 0 : 1.2), art: '🧊', tone: 'bad', t: () => (hasT('biz') ? '옆에 경쟁 가게가 생겼어요' : hasT('free') ? '단가가 깎였어요' : '연봉 동결'), f: () => { DG.cut *= 0.9; return hasT('biz') ? '손님이 조금 빠졌어요. 올해 수입 -10%.' : hasT('free') ? '거래처가 단가를 낮췄어요. 올해 수입 -10%.' : '회사 사정이 어렵대요. 올해 수입 -10%.'; } },
     { k: 'recess', w: () => (DG.jobless || DG.retired ? 0 : hasT('public') ? 0.2 : 1 + DG.job.vol * 4), art: '🌧️', tone: 'bad', t: '경기 불황', f: () => { const c = hasT('biz') || DG.job.vol > 0.3 ? 0.6 : 0.8; DG.cut *= c; return `손님도 일감도 줄었어요. 올해 수입 -${Math.round((1 - c) * 100)}%.`; } },
     { k: 'offer', w: () => (!DG.jobless && !DG.retired && !hasT('public') && !hasT('biz') && !hasT('free') && DG.age < 50 ? 1.8 : 0), art: '📨', tone: 'life', t: '이직 제안이 왔어요', d: '경쟁사에서 연봉 20% 더 준대요. 근데 거기 분위기는 잘 몰라요.',
       ch: () => [['옮긴다 (연봉 +20%)', () => { DG.pay *= 1.2; tl('📨', '이직'); if (Math.random() < 0.25) { DG.cut *= 0.6; DG.happy -= 6; return '연봉은 올랐는데… 회사가 흔들려서 몇 달 쉬었어요. 올해 수입 -40%.'; } DG.happy += 3; return '잘 옮겼어요! 새 회사 적응 완료.'; }], ['남는다', () => { DG.happy += 1; return '의리를 지켰어요. 팀장님이 밥 사 줬어요.'; }]] },
@@ -2813,7 +2826,7 @@ html, body { margin: 0; background: #14161b; }
     for (let i = 0; i < 5; i++) {
       if (DG.stage !== 'season' || DG.needJob || DG.needCar) break;
       dgNext(); if (DG.stage === 'end') break;
-      if (DG.stage === 'season') out.push({ age: DG.age, art: DG.log.e.art, t: typeof DG.log.e.t === 'function' ? DG.log.e.t() : DG.log.e.t });
+      if (DG.stage === 'season') out.push({ age: DG.age, art: typeof DG.log.e.art === 'function' ? DG.log.e.art() : DG.log.e.art, t: typeof DG.log.e.t === 'function' ? DG.log.e.t() : DG.log.e.t });
       if (DG.stage !== 'season' || DG.needJob || DG.needCar || DG.dreamNew) break;
     }
     DG.ffLog = out;
@@ -2982,7 +2995,7 @@ html, body { margin: 0; background: #14161b; }
     if (DG.stage === 'choice') {
       const e = DG.cur;
       const c = box.appendChild(el('div', 'card dgev'));
-      dgScene(c, e.art, e.tone, e.shake, `${DG.age}살 · 선택의 순간`);
+      dgScene(c, typeof e.art === 'function' ? e.art() : e.art, e.tone, e.shake, `${DG.age}살 · 선택의 순간`);
       c.appendChild(el('h2', 'jal', typeof e.t === 'function' ? e.t() : e.t));
       if (e.d) c.appendChild(el('p', 'mbdesc', e.d));
       const bt = c.appendChild(el('div', 'dgchoice'));
@@ -2995,7 +3008,7 @@ html, body { margin: 0; background: #14161b; }
       const c = box.appendChild(el('div', 'card dgev'));
       if (DG.party) { dgScene(c, '🏁', 'party', false, `${DG.age}살 · 드림카 출고!`); c.appendChild(el('h2', 'jal', `${shortName(DG.dream.name)} 출고 완료!`)); c.appendChild(el('p', 'mbdesc', `${DG.age}살에 드디어 꿈을 이뤘어요. 이제 남은 건 할부와 유지비…?`)); DG.party = false; }
       else {
-        dgScene(c, e.art, e.tone, e.shake, `${DG.age}살 · ${DG.age - DG.startAge + 1}년 차`);
+        dgScene(c, typeof e.art === 'function' ? e.art() : e.art, e.tone, e.shake, `${DG.age}살 · ${DG.age - DG.startAge + 1}년 차`);
         c.appendChild(el('h2', 'jal', typeof e.t === 'function' ? e.t() : e.t));
         const desc = [e.ch ? '' : e.d, L.text].filter(Boolean).join(' ');
         if (desc) c.appendChild(el('p', 'mbdesc', desc));
@@ -3014,11 +3027,13 @@ html, body { margin: 0; background: #14161b; }
         t.appendChild(el('small', null, `OVR ${DG.car.r._ovr} · ${DG.age - DG.car.age}년째 · 감가 연 ${Math.round(dgDep(DG.car.r) * 1000) / 10}%`));
       } else c.appendChild(el('p', 'note', '🚶 지금은 차가 없어요.'));
       const iv = c.appendChild(el('div', 'dginv'));
-      iv.appendChild(el('small', null, '💼 내년 돈 굴리기 (통장 잔고 전체에 적용)'));
-      const ivb = iv.appendChild(el('div', 'mbbud'));
-      DG_INV.forEach(([k, t, d]) => { const b = ivb.appendChild(btnEl('chip sm', t, () => { DG.inv = k; renderPlay(); })); b.title = d; b.setAttribute('aria-pressed', (DG.inv || 'save') === k); });
-      const tw = ivb.appendChild(btnEl('chip sm', '🛵 투잡 ' + (DG.two ? 'ON' : 'OFF'), () => { DG.two = !DG.two; if (DG.two) tl('🛵', '투잡 시작'); renderPlay(); })); tw.title = '연 1,000~1,800만 원 더 벌지만 행복↓, 번아웃 확률↑'; tw.setAttribute('aria-pressed', !!DG.two);
-      iv.appendChild(el('small', 'note', (DG_INV.find((x) => x[0] === (DG.inv || 'save')) || [])[2] + (DG.two ? ' · 투잡: 수입↑ 행복↓ 번아웃↑' : '')));
+      const ih = iv.appendChild(el('div', 'dginvh')); ih.appendChild(el('b', null, '💼 내년 돈 굴리기')); ih.appendChild(el('small', null, '눌러서 바꿀 수 있어요 · 통장 잔고 전체에 적용'));
+      const ivb = iv.appendChild(el('div', 'dginvg')); ivb.setAttribute('role', 'radiogroup'); ivb.setAttribute('aria-label', '내년 돈 굴리기');
+      DG_INV.forEach(([k, t, d]) => { const on = (DG.inv || 'save') === k; const b = ivb.appendChild(el('button', 'dginvo' + (on ? ' on' : ''))); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on); b.appendChild(el('span', 'ck', on ? '✓ 선택됨' : '선택')); b.appendChild(el('b', null, t)); b.appendChild(el('small', null, d)); b.addEventListener('click', () => { DG.inv = k; renderPlay(); }); });
+      const tw = iv.appendChild(el('button', 'dgtog' + (DG.two ? ' on' : ''))); tw.type = 'button'; tw.setAttribute('role', 'switch'); tw.setAttribute('aria-checked', !!DG.two);
+      const twt = tw.appendChild(el('span', 'tx')); twt.appendChild(el('b', null, '🛵 투잡')); twt.appendChild(el('small', null, '연 1,000~1,800만 원 더 벌지만 행복↓ · 번아웃 확률↑'));
+      const sw2 = tw.appendChild(el('span', 'sw')); sw2.appendChild(el('i')); tw.appendChild(el('em', null, DG.two ? '켜짐' : '꺼짐'));
+      tw.addEventListener('click', () => { DG.two = !DG.two; if (DG.two) tl('🛵', '투잡 시작'); renderPlay(); });
       const bt = c.appendChild(el('div', 'mbstart'));
       const go = (f) => () => { f(); renderPlay(); scrollToSection('t-play'); };
       if (DG.needJob) bt.appendChild(btnEl('chip gold big', '🧭 새 직업 찾기', go(() => { DG.stage = 'job'; DG.jobThen = 'season'; })));
