@@ -1016,7 +1016,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .dgchoice{display:grid;gap:8px}.vd .dgchoice .chip{justify-content:center;white-space:normal;text-align:center}
 .vd .dgflow summary{cursor:pointer;font-weight:800;padding:4px 0;font-size:14px}.vd .dgflow b.p{color:#7bd88f}.vd .dgflow b.m{color:#ff8a65}
 .vd .dgcar{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center}.vd .dgcar div:last-child{display:flex;flex-direction:column;gap:2px}.vd .dgcar small{color:var(--mu);font-size:12px}
-.vd .dgalert{margin:0;padding:8px 12px;border-radius:8px;background:rgba(227,180,72,.15);color:#e3b448;font-weight:800}
+.vd .dgalert.bad{background:rgba(255,110,90,.15);color:#ff8a65}.vd .dgalert{margin:0;padding:8px 12px;border-radius:8px;background:rgba(227,180,72,.15);color:#e3b448;font-weight:800}
 .vd .dgff{display:flex;flex-wrap:wrap;gap:6px 12px;padding:10px 14px;font-size:13px;margin-bottom:8px}.vd .dgff b{width:100%;color:#e3b448}
 .vd .dgtl{display:grid;gap:2px}.vd .dgtl div{display:grid;grid-template-columns:48px 30px 1fr;align-items:center;padding:5px 0;border-bottom:1px dashed var(--sep);font-size:14px}.vd .dgtl .a{font-family:var(--cond);color:var(--mu)}.vd .dgtl .i{font-size:18px}
 .vd .dgstat .dgc b{font-size:20px}
@@ -1059,6 +1059,14 @@ html, body { margin: 0; background: #14161b; }
 @keyframes dgdrive{from{transform:translateX(60%) scale(.9);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.vd .dgride .road::before,.vd .dgride .road .car,.vd .dgride.fresh,.vd .dgdel,.vd .dgdel .hero .ph{animation:none}}
 @media (max-width:640px){.vd .dgride{grid-template-columns:90px 1fr;gap:8px}.vd .dgride .road{grid-column:1/-1;order:3;height:38px}.vd .dgride .tx{align-items:flex-start;text-align:left}.vd .dgride .tx b{font-size:14px}.vd .dgdelg{grid-template-columns:repeat(2,1fr)}.vd .dgdel h2{font-size:23px}}
+.vd .dgagerow{display:grid;grid-template-columns:90px 1fr;gap:4px 10px;align-items:center;margin:8px 0}.vd .dgagerow label{font-size:13px;font-weight:800;color:var(--mu)}.vd .dgagerow input[type=range]{width:100%;accent-color:#e3b448}.vd .dgagerow b{grid-column:2;font-size:13px;color:var(--hi)}.vd .dgagerow .note{grid-column:1/-1}
+.vd .dgseg{display:flex;flex-wrap:wrap;gap:5px}.vd .dgseg .chip[aria-pressed="true"]{background:#e3b448;border-color:#e3b448;color:#15171c;font-weight:800}
+.vd .dgpr{display:flex;flex-direction:column;gap:5px;padding:8px 0;border-bottom:1px dashed var(--sep)}.vd .dgpr .hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}.vd .dgpr .hd b{font-size:14px;color:var(--hi)}.vd .dgpr .hd small{font-size:11.5px;color:var(--mu)}
+.vd .dggauge{display:grid;gap:6px;margin:6px 0}.vd .dggauge div{display:grid;grid-template-columns:78px 1fr;gap:2px 8px;align-items:center;font-size:13px;font-weight:700}.vd .dggauge small{grid-column:2;font-size:11px;color:var(--mu);font-weight:600}
+.vd .dgquote{display:grid;gap:4px;margin:12px 0 4px;padding:12px;border-radius:10px;background:var(--pn2);border:1px solid var(--line)}.vd .dgquote div{display:flex;justify-content:space-between;gap:10px;font-size:13.5px}.vd .dgquote span{color:var(--mu)}.vd .dgquote b{color:var(--hi);text-align:right}
+.vd .dgquote .big b{font-size:20px;color:#e3b448}.vd .dgquote .hi b{font-size:16px;color:#e3b448}.vd .dgquote .bad b{color:#ff8a65}
+.vd .dgwhy{margin:4px 0;font-size:13px;font-weight:700;color:#7bd88f}.vd .dgwhy.bad{color:#ff8a65}
+@media (max-width:640px){.vd .dgagerow{grid-template-columns:72px 1fr}}
 /* 갈아타기 · 한줄평 · 퀴즈 */
 .vd .pswap{border-left-color:#e3b448}
 .vd .prev{border-left-color:#c86bfa}
@@ -2666,8 +2674,39 @@ html, body { margin: 0; background: #14161b; }
     { k: 'bronze', ic: '🥉', t: '동수저', d: '시작 1,000만 · 내 힘으로', cash: 1000, pm: 0.3, mul: 1, wed: 1, inh: 0.4, ph: 1, sup: 0 },
     { k: 'dirt', ic: '🟫', t: '흙수저', d: '학자금 대출 -1,500만 · 45살부터 부모님 생활비', cash: -1500, pm: 0, mul: 0, wed: 1.2, inh: 0, ph: 1.4, sup: 400 }
   ];
-  // 씀씀이: [키, 이름, 설명, 1인 생활비(연), 행복 보정, 수입 늘 때 더 쓰는 비율]
-  const DG_STYLE = [['tight', '🥢 아껴 쓰기', '생활비 월 90만 · 행복 조금↓', 1080, -4, 0.15], ['mid', '🙂 보통', '생활비 월 140만', 1680, 0, 0.3], ['big', '💳 펑펑 쓰기', '생활비 월 230만 · 행복↑', 2760, 5, 0.45]];
+  // 지역: 연봉·집값·주행거리·생활비·BMW(대중교통) 편의
+  const DG_REGIONS = [
+    { k: 'seoul', ic: '🏙️', t: '서울', d: '연봉↑ 집값 매우↑ · 대중교통 최고', sal: 1.06, home: 1.6, km: 0.7, live: 1.1, bmw: 2, tr: 140 },
+    { k: 'metro', ic: '🌆', t: '수도권', d: '연봉 보통 · 집값↑ · 출퇴근 김', sal: 1, home: 1.2, km: 1.1, live: 1, bmw: 4, tr: 150 },
+    { k: 'city', ic: '🏢', t: '광역시', d: '집값 보통 · 차 있으면 편함', sal: 0.95, home: 0.85, km: 1.1, live: 0.95, bmw: 6, tr: 110 },
+    { k: 'town', ic: '🏘️', t: '지방 중소도시', d: '연봉↓ 집값↓ · 차 거의 필수', sal: 0.9, home: 0.6, km: 1.35, live: 0.9, bmw: 10, tr: 90 },
+    { k: 'rural', ic: '🌾', t: '시골', d: '집값 매우↓ · 차 없으면 고립', sal: 0.85, home: 0.4, km: 1.7, live: 0.85, bmw: 14, tr: 60 }
+  ];
+  // 난이도: 나쁜 일·좋은 일 확률, 생활비, 투자 수익 보정
+  const DG_DIFF = [
+    { k: 'easy', ic: '🌱', t: '쉬움', d: '나쁜 일 적게 · 생활비 -10%', bad: 0.6, good: 1.3, live: 0.9, ret: 0.01 },
+    { k: 'normal', ic: '🙂', t: '보통', d: '현실 그대로', bad: 1, good: 1, live: 1, ret: 0 },
+    { k: 'hard', ic: '🔥', t: '어려움', d: '나쁜 일 1.5배 · 생활비 +10%', bad: 1.5, good: 0.8, live: 1.1, ret: -0.01 },
+    { k: 'hell', ic: '💀', t: '헬조선', d: '나쁜 일 2배 · 생활비 +20% · 투자 역풍', bad: 2, good: 0.6, live: 1.2, ret: -0.02 }
+  ];
+  // 내년 생활 계획: [키, 아이콘, 이름, 레벨들[이름, 연 비용(1인), 행복, 효과 메모], 결혼하면 비용 배수]
+  const DG_PLAN = [
+    ['live', '🍚', '기본 생활비', [['아껴 살기', 720, -3, '월 60만 · 식비·통신·생필품'], ['보통', 1080, 0, '월 90만'], ['넉넉하게', 1680, 3, '월 140만']], 1.7],
+    ['food', '🍜', '외식·배달', [['집밥', 0, -1, '건강 조금↑'], ['가끔', 360, 1, '월 30만'], ['자주', 840, 3, '월 70만'], ['매일', 1560, 4, '월 130만 · 건강↓']], 1.7],
+    ['hobby', '🎮', '취미', [['없음', 0, -2, '번아웃↑'], ['가볍게', 240, 2, '월 20만'], ['진심', 720, 4, '월 60만 · 번아웃↓'], ['덕후', 1800, 7, '월 150만 · 번아웃↓↓']], 1],
+    ['travel', '✈️', '여행', [['안 감', 0, -2, '번아웃↑'], ['국내 여행', 200, 2, '연 2~3번'], ['해외 1번', 450, 4, '번아웃↓'], ['해외 자주', 1200, 6, '번아웃↓↓']], 1.7],
+    ['love', '💘', '연애', [['혼자가 좋아', 0, 0, '연애 게이지↓'], ['소개팅·모임', 300, 1, '연애 게이지↑'], ['연애에 진심', 720, 4, '연애 게이지↑↑ · 결혼 확률↑']], 1],
+    ['self', '📚', '자기계발', [['안 함', 0, 0, '능력치 그대로'], ['독서·온라인 강의', 200, 0, '능력치 +1/년'], ['자격증·학원', 600, -1, '능력치 +2/년'], ['대학원·MBA', 1500, -3, '능력치 +4/년']], 1],
+    ['health', '🏋️', '건강관리', [['안 함', 0, -1, '병 확률↑'], ['홈트·러닝', 60, 1, '병 확률↓'], ['헬스장', 360, 2, '병 확률↓↓'], ['PT·필라테스', 1000, 3, '병 확률↓↓↓']], 1]
+  ];
+  const DG_PLAN0 = { live: 1, food: 1, hobby: 1, travel: 1, love: 1, self: 0, health: 1 };
+  const pl = (k) => (DG.plan && DG.plan[k] != null ? DG.plan[k] : DG_PLAN0[k]);
+  const plLv = (k) => DG_PLAN.find((x) => x[0] === k)[3][pl(k)];
+  const reg = () => DG.region || DG_REGIONS[1];
+  const dif = () => DG.diff || DG_DIFF[1];
+  function dgPlanCost() { // 항목별 연 지출
+    const out = {}; DG_PLAN.forEach(([k, , , lv, mm]) => { out[k] = Math.round(lv[pl(k)][1] * (DG.married ? mm : 1) * reg().live * dif().live); }); return out;
+  }
   // 주거: 기혼이면 1.4배 넓은 집
   const DG_HOME = {
     parent: { ic: '🏡', t: '부모님 집', d: '월세 0 · 용돈 연 300만 · 나이 들수록 눈치↑' },
@@ -2675,9 +2714,10 @@ html, body { margin: 0; background: #14161b; }
     jeonse: { ic: '🔑', t: '전세', d: '보증금 2억 (20% 내 돈 + 80% 대출, 이자 4%)' },
     own: { ic: '🏢', t: '매매', d: '4억 5천 집 (23% 내 돈 + 대출 30년, 4%)' }
   };
-  const dgHM = () => (DG.married ? 1.4 : 1);
+  const dgHM = () => (DG.married ? 1.4 : 1) * reg().home;
   function dgHomeNeed(k) { const m = dgHM(); return k === 'rent' ? 1000 * m : k === 'jeonse' ? 20000 * m * 0.2 : k === 'own' ? 45000 * m * 0.23 : 0; }
   function dgHomeCost() { const m = dgHM(); return Math.round(DG.home === 'parent' ? 300 : DG.home === 'rent' ? 720 * m + 120 : DG.home === 'jeonse' ? DG.jeonse.loan * 0.04 + 150 * m : 250 * m); }
+  const dgHomeDesc = (k) => { const m = dgHM(); return k === 'parent' ? '월세 0 · 용돈 연 300만 · 나이 들수록 눈치↑' : k === 'rent' ? `보증금 ${won(1000 * m)} · 월세 ${Math.round(60 * m)}만` : k === 'jeonse' ? `보증금 ${won(20000 * m)} (20% 내 돈 + 대출, 이자 4%)` : `${won(45000 * m)} 집 (23% 내 돈 + 대출 30년)`; };
   function dgLeaveHome() { // 지금 집을 정리하고 돈을 돌려받음
     let back = 0;
     if (DG.home === 'rent') back = DG.rentDep || 0;
@@ -2697,9 +2737,11 @@ html, body { margin: 0; background: #14161b; }
     const was = DG_HOME[DG.home].t; DG.home = k; tl(DG_HOME[k].ic, `${DG_HOME[k].t}로 이사`);
     return `${was} → ${DG_HOME[k].t} 이사 완료 (이사비 150만${back ? `, 돌려받은 돈 ${won(back)}` : ''}${need ? `, 들어간 돈 ${won(need)}` : ''})`;
   }
-  const DG_INV = [['save', '🐷 저축', '예금 연 2.5%, 안전'], ['stock', '📈 주식', '평균 연 6%, 해마다 ±18% 출렁'], ['coin', '🪙 코인', '대박 아니면 반토막']];
-  function dgReturn(m) { if (m === 'stock') { const g = Math.sqrt(-2 * Math.log(Math.random() || 1e-9)) * Math.cos(2 * Math.PI * Math.random()); return Math.max(-0.45, Math.min(0.6, 0.06 + 0.18 * g)); } if (m === 'coin') { const x = Math.random(); return x < 0.15 ? 1.5 : x < 0.4 ? 0.4 : x < 0.7 ? -0.1 : -0.6; } return 0.025; }
-  const DG_DISC = '※ 재미용 시뮬레이션이에요. 직업별 연봉은 경총 대졸 초임 통계·잡플래닛 직무별 신입 연봉·공무원 봉급표 등 공개 자료와 기사·채용공고를 바탕으로 잡은 신입 초봉(세전)이고, ≈ 표시는 대략치예요. 실제 연봉은 회사·지역·경력에 따라 크게 달라요. 세금·생활비·이자·투자 수익은 단순화한 가정이라 실제와 다를 수 있으며, 투자·재무·진로 조언이 아니에요. 차값·시세·감가·유지비는 카스쿼드 데이터 기준이에요.';
+  const DG_INV = [['save', '🐷 예금', '연 2.5% · 원금 보장'], ['bond', '📜 채권·ETF', '평균 4.5% · ±6%'], ['gold', '🥇 금', '평균 4% · ±12%'], ['kr', '🇰🇷 국내 주식', '평균 5% · ±22%'], ['us', '🇺🇸 미국 주식', '평균 7% · ±18%'], ['coin', '🪙 코인', '대박 아니면 반토막']];
+  const DG_RATIO = [[0, '0%'], [0.3, '30%'], [0.5, '50%'], [0.8, '80%'], [1, '전부']];
+  const DG_INVM = { save: [0.025, 0], bond: [0.045, 0.06], gold: [0.04, 0.12], kr: [0.05, 0.22], us: [0.07, 0.18] };
+  function dgReturn(m) { const b = DG ? dif().ret : 0; if (m === 'coin') { const x = Math.random(); return (x < 0.15 ? 1.5 : x < 0.4 ? 0.4 : x < 0.7 ? -0.1 : -0.6) + b * 3; } const [mu, sd] = DG_INVM[m] || DG_INVM.save; if (!sd) return mu; const g = Math.sqrt(-2 * Math.log(Math.random() || 1e-9)) * Math.cos(2 * Math.PI * Math.random()); return Math.max(-0.5, Math.min(0.7, mu + b + sd * g)); }
+  const DG_DISC = '※ 재미용 시뮬레이션이에요. 중고차 값은 실제 매물이 아니라 신차가·감가율·연식·주행거리·옵션·사고 이력으로 계산한 추정치예요. 직업별 연봉은 경총 대졸 초임 통계·잡플래닛 직무별 신입 연봉·공무원 봉급표 등 공개 자료와 기사·채용공고를 바탕으로 잡은 신입 초봉(세전)이고, ≈ 표시는 대략치예요. 실제 연봉은 회사·지역·경력에 따라 크게 달라요. 세금·생활비·이자·투자 수익은 단순화한 가정이라 실제와 다를 수 있으며, 투자·재무·진로 조언이 아니에요. 차값·시세·감가·유지비는 카스쿼드 데이터 기준이에요.';
   let DG = null;
   const won = (v) => (isNaN(v) ? '–' : Math.abs(v) >= 10000 ? (Math.round(v / 1000) / 10) + '억' : fmt(Math.round(v)) + '만');
   const rnd = (a, b) => a + Math.random() * (b - a);
@@ -2712,7 +2754,40 @@ html, body { margin: 0; background: #14161b; }
     return DG_JOBS.filter((j) => parts.every((p) => j._n.includes(p)));
   }
   // ---- 돈 계산
-  const dgPrice = (r, used) => { let P = used ? num(r.used) : num(r.price); if (isNaN(P)) return P; if (!used && DG && DG.job.perk === 'dealer') P *= 0.95; if (!used && DG && DG.job.perk === 'auto' && r.origin === '국산') P *= 0.88; return Math.round(P); };
+  const dgPrice = (r, used) => { let P = num(r.price); if (isNaN(P)) P = num(r.used) * 1.4; if (isNaN(P)) return P; if (!used && DG && DG.job.perk === 'dealer') P *= 0.95; if (!used && DG && DG.job.perk === 'auto' && r.origin === '국산') P *= 0.88; return Math.round(P); };
+  const DG_OPT = [['깡통 (하위 트림)', 0.93], ['기본', 1], ['풀옵션', 1.09]];
+  const DG_ACC = [['무사고', 1], ['단순 교환', 0.92], ['사고 이력', 0.8]];
+  const dgCfg0 = (r, used) => ({ r, used, yr: used ? 4 : 0, km: used ? 60000 : 0, opt: 1, acc: 0, down: used ? 30 : 30, mo: 60 });
+  function dgCfgPrice(c) { // 신차가 × 옵션 × (1-감가)^연식 × 주행거리 × 사고 이력 = 추정 시세
+    const P = dgPrice(c.r, c.used); if (isNaN(P)) return P;
+    const o = DG_OPT[c.opt][1]; if (!c.used) return Math.round(P * o);
+    const dep = dgDep(c.r), exp = c.yr * 15000;
+    const kmF = Math.max(0.7, Math.min(1.08, 1 - (c.km - exp) / 10000 * 0.015));
+    return Math.max(Math.round(P * 0.08), Math.round(P * o * 0.95 * Math.pow(1 - dep, c.yr) * kmF * DG_ACC[c.acc][1]));
+  }
+  const dgRate = (c) => Math.round(((c.used ? 8.9 : 5.9) + (c.down < 20 ? 2 : c.down >= 50 ? -1 : 0) + (DG.rateAdd || 0)) * 10) / 10;
+  const dgMonthly = (L, rate, mo) => { const i = rate / 100 / 12; return mo <= 0 || L <= 0 ? 0 : i ? L * i / (1 - Math.pow(1 + i, -mo)) : L / mo; };
+  function dgQuote(c) { // 견적: 차값·세금·선수금·대출·월 납입
+    const P = dgCfgPrice(c); if (isNaN(P)) return null;
+    const trade = DG.car ? Math.round(DG.car.value * 0.92) : 0;
+    const fee = dgFee(c.r, P, c.used);
+    const ev = /전기/.test(c.r.powertrain) && !c.used ? DG.evBonus : 0;
+    const cashIn = DG.cash + trade - DG.debt;
+    const down = c.down >= 100 ? P - ev : Math.round(P * c.down / 100);
+    const loan = Math.max(0, P - ev - down);
+    const maxLoan = Math.round(Math.min(P * (c.used ? 0.8 : 0.9), Math.max(1500, (dgSalary(true) || 1000) * 1.5)));
+    const rate = dgRate(c), mo = loan ? c.mo : 0, m = dgMonthly(loan, rate, mo);
+    const need = fee + down;
+    const why = cashIn < need ? `내 돈이 ${won(need - cashIn)} 모자라요 (선수금 ${won(down)} + 세금·부대 ${won(fee)})` : loan > maxLoan ? `할부 한도 초과 (최대 ${won(maxLoan)} · 차값 ${c.used ? 80 : 90}%·연봉 1.5배 중 작은 쪽)` : '';
+    return { P, fee, trade, ev, cashIn, down, loan, maxLoan, rate, mo, m: Math.round(m), tot: Math.round(m * mo - loan), need, ok: !why, why };
+  }
+  function dgCanBuy(r, used) { // 가장 유리한 조건(최대 할부)으로 살 수 있는지
+    const c = dgCfg0(r, used); const P = dgCfgPrice(c); if (isNaN(P)) return null;
+    const trade = DG.car ? Math.round(DG.car.value * 0.92) : 0, cashIn = DG.cash + trade - DG.debt;
+    const maxLoan = Math.round(Math.min(P * (used ? 0.8 : 0.9), Math.max(1500, (dgSalary(true) || 1000) * 1.5)));
+    const fee = dgFee(r, P, used), need = P + fee;
+    return { P, fee, trade, need, cashIn, maxLoan, loan: Math.max(0, need - cashIn), ok: cashIn >= fee && need - cashIn <= maxLoan };
+  }
   const dgDep = (r) => { const d = num(r.depy); return isNaN(d) ? 0.10 : Math.max(0.03, Math.min(0.2, d / 100)); };
   function dgUpkeep(r, km, fuelMul) {
     const fy = num(r.fuel_year), tax = num(V(r, 'tax'));
@@ -2728,19 +2803,9 @@ html, body { margin: 0; background: #14161b; }
     if (DG.jobless || DG.retired) return 0;
     const j = DG.job, f = 1 + (j.pk - 1) * Math.min(1, DG.jy / 20); // 초봉에서 시작해 20년 차에 pk배
     const v = noRand ? 1 : 1 + j.vol * (Math.random() * 2 - 1);
-    return Math.max(0, Math.round(j.sal * f * DG.pay * v));
+    return Math.max(0, Math.round(j.sal * f * DG.pay * v * reg().sal * (1 + Math.min(40, DG.skill || 0) * 0.006)));
   }
   function dgNet() { const c = DG.car; return Math.round(DG.cash + (c ? c.value : 0) - DG.debt + (DG.house ? DG.house.v - DG.house.m : 0) + (DG.jeonse ? DG.jeonse.dep - DG.jeonse.loan : 0) + (DG.rentDep || 0)); }
-  function dgCanBuy(r, used) {
-    const P = dgPrice(r, used); if (isNaN(P)) return null;
-    const trade = DG.car ? Math.round(DG.car.value * 0.92) : 0;
-    const fee = dgFee(r, P, used);
-    const need = P + fee - (/전기/.test(r.powertrain) && !used ? DG.evBonus : 0);
-    const cashIn = DG.cash + trade - DG.debt; // 기존 할부는 판 돈으로 먼저 갚음
-    const loan = Math.max(0, need - cashIn);
-    const maxLoan = Math.round(Math.min(P * 0.6, Math.max(1500, dgSalary(true) * 1.5))); // 차값 60% · 연봉 1.5배 중 작은 쪽
-    return { P, fee, trade, need, cashIn, loan: Math.round(loan), ok: cashIn > 0 && loan <= maxLoan, maxLoan };
-  }
   function dgSat(r) {
     let s = (r._ovr - 55) / 2.5;
     const cab = num(r.cabin) || 40, seats = num(V(r, 'seats')) || 5, kids = DG.kids.length;
@@ -2749,26 +2814,26 @@ html, body { margin: 0; background: #14161b; }
     if (DG.km > 20000 && (r.s_eff || 10) < 12) s -= 4;
     if (DG.job.img && num(r.price) < 3000) s -= 4;
     if (r.id === DG.dream.id) s += 12;
-    if (DG.car && DG.age - DG.car.age > 12) s -= 3;
+    if (DG.car) { const va = (DG.car.vy || 0) + DG.age - DG.car.age; if (va > 12) s -= 4; else if (va > 8) s -= 2; s += DG.car.opt === 2 ? 2 : DG.car.opt === 0 ? -2 : 0; if (DG.car.acc === 2) s -= 2; }
     return s;
   }
   const tl = (art, t) => DG.tl.push({ age: DG.age, art, t });
   function dgSetJob(j, forced) {
     const old = DG.job; DG.job = j; DG.jobless = false; DG.retired = false;
-    DG.jy = Math.floor(DG.jy * (old && old.cat === j.cat ? 0.7 : 0.3)); DG.pay = forced ? 0.92 : 1; DG.km = j.km * (DG.remote ? 0.5 : 1) * (DG.moved ? 1.8 : 1);
+    DG.jy = Math.floor(DG.jy * (old && old.cat === j.cat ? 0.7 : 0.3)); DG.pay = forced ? 0.92 : 1; DG.km = Math.round(j.km * reg().km * (DG.remote ? 0.5 : 1) * (DG.moved ? 1.8 : 1));
     tl(j.ic, `${j.t}(으)로 전직`);
   }
   // ---- 이벤트: w = 확률 가중치(직업·나이·상황별), ch = 선택지, f = 자동 결과. 결과 문장을 돌려줌
   const DG_EVENTS = [
     { k: 'quiet', w: () => 1.2, art: '☕', tone: 'calm', t: '평범한 한 해', d: '큰일 없이 지나갔어요. 이런 해가 제일 고마운 법.' },
-    { k: 'promo', w: () => (DG.jobless || DG.retired ? 0 : hasT('public') ? 2.2 : 2.8), art: () => (hasT('biz') ? '🛎️' : hasT('sport') ? '✍️' : hasT('free') ? '🚀' : '📈'), tone: 'good', t: () => (hasT('biz') ? '단골이 늘었어요!' : hasT('sport') ? '연봉 협상 대박!' : hasT('viral') ? '팬이 확 늘었어요!' : hasT('free') ? '몸값이 올랐어요!' : '승진했어요!'),
+    { k: 'promo', wm: () => 1 + (DG.skill || 0) / 15, w: () => (DG.jobless || DG.retired ? 0 : hasT('public') ? 2.2 : 2.8), art: () => (hasT('biz') ? '🛎️' : hasT('sport') ? '✍️' : hasT('free') ? '🚀' : '📈'), tone: 'good', t: () => (hasT('biz') ? '단골이 늘었어요!' : hasT('sport') ? '연봉 협상 대박!' : hasT('viral') ? '팬이 확 늘었어요!' : hasT('free') ? '몸값이 올랐어요!' : '승진했어요!'),
       f: () => { const p = Math.round(rnd(7, 15)); DG.pay *= 1 + p / 100; DG.happy += 4; const lb = hasT('biz') ? '매출 상승' : hasT('free') ? '몸값 상승' : '승진'; tl('📈', lb); return hasT('biz') ? `입소문이 나서 매출이 ${p}% 늘었어요.` : hasT('free') ? `찾는 곳이 많아져서 단가·수입이 ${p}% 올랐어요.` : `연봉이 ${p}% 올랐어요.`; } },
     { k: 'bonus', w: () => (DG.jobless || DG.retired ? 0 : 1.5 + (hasT('fin') ? 3 : 0) + (hasT('it') ? 1 : 0)), art: '💰', tone: 'money', t: () => (hasT('biz') ? '대목 특수!' : hasT('free') ? '큰 건 하나 땄어요' : '성과급 터졌어요'), f: () => { const a = Math.round(dgSalary(true) * rnd(0.1, hasT('fin') ? 0.5 : 0.3)); DG.cash += a; return hasT('biz') || hasT('free') ? `올해 수입에 +${won(a)} 원 더!` : `보너스 +${won(a)} 원!`; } },
     { k: 'freeze', w: () => (DG.jobless || DG.retired ? 0 : 1.2), art: '🧊', tone: 'bad', t: () => (hasT('biz') ? '옆에 경쟁 가게가 생겼어요' : hasT('free') ? '단가가 깎였어요' : '연봉 동결'), f: () => { DG.cut *= 0.9; return hasT('biz') ? '손님이 조금 빠졌어요. 올해 수입 -10%.' : hasT('free') ? '거래처가 단가를 낮췄어요. 올해 수입 -10%.' : '회사 사정이 어렵대요. 올해 수입 -10%.'; } },
     { k: 'recess', w: () => (DG.jobless || DG.retired ? 0 : hasT('public') ? 0.2 : 1 + DG.job.vol * 4), art: '🌧️', tone: 'bad', t: '경기 불황', f: () => { const c = hasT('biz') || DG.job.vol > 0.3 ? 0.6 : 0.8; DG.cut *= c; return `손님도 일감도 줄었어요. 올해 수입 -${Math.round((1 - c) * 100)}%.`; } },
-    { k: 'offer', w: () => (!DG.jobless && !DG.retired && !hasT('public') && !hasT('biz') && !hasT('free') && DG.age < 50 ? 1.8 : 0), art: '📨', tone: 'life', t: '이직 제안이 왔어요', d: '경쟁사에서 연봉 20% 더 준대요. 근데 거기 분위기는 잘 몰라요.',
+    { k: 'offer', wm: () => 1 + (DG.skill || 0) / 20, w: () => (!DG.jobless && !DG.retired && !hasT('public') && !hasT('biz') && !hasT('free') && DG.age < 50 ? 1.8 : 0), art: '📨', tone: 'life', t: '이직 제안이 왔어요', d: '경쟁사에서 연봉 20% 더 준대요. 근데 거기 분위기는 잘 몰라요.',
       ch: () => [['옮긴다 (연봉 +20%)', () => { DG.pay *= 1.2; tl('📨', '이직'); if (Math.random() < 0.25) { DG.cut *= 0.6; DG.happy -= 6; return '연봉은 올랐는데… 회사가 흔들려서 몇 달 쉬었어요. 올해 수입 -40%.'; } DG.happy += 3; return '잘 옮겼어요! 새 회사 적응 완료.'; }], ['남는다', () => { DG.happy += 1; return '의리를 지켰어요. 팀장님이 밥 사 줬어요.'; }]] },
-    { k: 'layoff', w: () => (DG.jobless || DG.retired || hasT('public') || hasT('biz') || hasT('free') ? 0 : (DG.age >= 45 ? 1.2 : 0.5) * (hasT('field') ? 1.3 : 1)), art: '📦', tone: 'bad', t: '구조조정 대상이 됐어요', f: () => { const s = Math.round(dgSalary(true) * 0.6); DG.cash += s; DG.cut *= 0.5; DG.jobless = true; DG.needJob = '구조조정으로 회사를 나왔어요. 다음 직업을 골라 주세요.'; DG.happy -= 10; tl('📦', '구조조정'); return `퇴직금·위로금 +${won(s)} 원. 반년은 쉬었어요.`; } },
+    { k: 'layoff', wm: () => Math.max(0.35, 1 - (DG.skill || 0) / 30), w: () => (DG.jobless || DG.retired || hasT('public') || hasT('biz') || hasT('free') ? 0 : (DG.age >= 45 ? 1.2 : 0.5) * (hasT('field') ? 1.3 : 1)), art: '📦', tone: 'bad', t: '구조조정 대상이 됐어요', f: () => { const s = Math.round(dgSalary(true) * 0.6); DG.cash += s; DG.cut *= 0.5; DG.jobless = true; DG.needJob = '구조조정으로 회사를 나왔어요. 다음 직업을 골라 주세요.'; DG.happy -= 10; tl('📦', '구조조정'); return `퇴직금·위로금 +${won(s)} 원. 반년은 쉬었어요.`; } },
     { k: 'early', w: () => (!DG.retired && !DG.jobless && DG.age >= 52 && !hasT('public') && !hasT('free') && !hasT('biz') ? 1.4 : 0), art: '🎁', tone: 'life', t: '명예퇴직 신청 받는대요', d: '위로금으로 연봉 2년치를 준대요. 대신 그 뒤로는 월급이 없어요.',
       ch: () => [['받는다 (연봉 2년치)', () => { const a = Math.round(dgSalary(true) * 2); DG.cash += a; DG.retired = true; tl('🎁', '명예퇴직'); return `위로금 +${won(a)} 원. 이제부터 자유인! (연 1,000만 원 정도 소일거리 수입)`; }], ['버틴다', () => '끝까지 간다! 정년까지 버텨 봐요.']] },
     { k: 'startup', w: () => (!hasT('biz') && DG.jy >= 3 && !DG.retired && DG.age >= 30 && DG.age <= 50 ? 0.9 : 0), art: '💡', tone: 'life', t: '창업 아이템이 떠올랐어요', d: '친구가 같이 해 보재요. 초기 자금 3,000만 원이 필요해요.',
@@ -2780,11 +2845,13 @@ html, body { margin: 0; background: #14161b; }
     { k: 'close', w: () => (hasT('biz') && !DG.jobless ? 2 : 0), art: '🏚️', tone: 'bad', t: '폐업 위기', d: '임대료는 오르고 손님은 줄었어요.',
       ch: () => [['버틴다 (-2,000만 투입)', () => { DG.cash -= 2000; if (Math.random() < 0.5) { DG.pay *= 1.2; return '버틴 보람이 있어요! 다시 살아났어요 (수입 +20%).'; } DG.jobless = true; DG.needJob = '결국 가게를 접었어요. 다음 일을 골라 주세요.'; tl('🏚️', '폐업'); return '결국 폐업… 2,000만 원만 더 날렸어요.'; }], ['접는다', () => { DG.jobless = true; DG.cut *= 0.5; DG.needJob = '가게를 정리했어요. 다음 일을 골라 주세요.'; tl('🏚️', '폐업'); return '깔끔하게 정리했어요.'; }]] },
     { k: 'injury', w: () => (hasT('danger') ? 1.8 : hasT('field') ? 1 : 0.25), art: '🤕', tone: 'bad', t: '일하다 다쳤어요', f: () => { const c = DG.ins ? 100 : 600; DG.cash -= c; DG.cut *= 0.7; DG.happy -= 5; if (hasT('sport') && DG.age >= 29) { DG.jobless = true; DG.needJob = '부상으로 선수 생활을 마무리했어요. 제2의 인생을 골라 주세요.'; tl('🤕', '부상 은퇴'); return `병원비 -${c}만 원. 이번 부상으로 은퇴를 결심했어요…`; } return `병원비 -${c}만 원${DG.ins ? ' (실비보험 덕분에 아꼈어요)' : ''}, 몇 달 쉬어서 수입 -30%.`; } },
-    { k: 'burn', w: () => (DG.jobless || DG.retired ? 0 : hasT('med') || hasT('night') ? 1.5 : 0.5), art: '🫠', tone: 'bad', t: '번아웃이 왔어요', wm: () => (DG.two ? 2.5 : 1), d: '요즘 출근길이 너무 힘들어요.',
+    { k: 'burn', w: () => (DG.jobless || DG.retired ? 0 : hasT('med') || hasT('night') ? 1.5 : 0.5), art: '🫠', tone: 'bad', t: '번아웃이 왔어요', wm: () => (DG.two ? 2.5 : 1) * [1.3, 1, 0.75, 0.6][pl('hobby')] * [1.3, 1, 0.75, 0.55][pl('travel')], d: '요즘 출근길이 너무 힘들어요.',
       ch: () => [['1년 쉰다 (수입 -70%)', () => { DG.cut *= 0.3; DG.happy += 10; return '푹 쉬고 왔어요. 몸도 마음도 리셋!'; }], ['버틴다', () => { if (Math.random() < 0.35) { const c = DG.ins ? 150 : 800; DG.cash -= c; DG.happy -= 8; return `결국 몸이 탈 났어요. 병원비 -${c}만 원.`; } DG.happy -= 3; return '꾸역꾸역 버텼어요.'; }]] },
     // 인생
-    { k: 'marry', w: () => (!DG.married && DG.age >= 27 && DG.age <= 42 && DG.age >= (DG.noMarry || 0) ? 4 : 0), art: '💍', tone: 'life', t: '결혼, 할까요?', d: '만나는 사람과 미래 이야기가 나왔어요. 결혼 비용은 평균 3,000만 원쯤.',
-      ch: () => [['💒 결혼한다', () => { const wc = Math.round(3000 * DG.spoon.wed); DG.married = true; DG.cash -= wc; if (DG.home === 'parent') { DG.married = false; dgMoveTo('rent', true); DG.married = true; } DG.happy += 8; DG.spouse = Math.random() < 0.65; tl('💍', '결혼'); return `축하해요! 결혼 비용 -${won(wc)} 원${DG.spoon.wed < 0.5 ? ' (부모님이 대부분 내 주셨어요)' : ''}. ` + (DG.spouse ? '맞벌이라 생활비 부담이 줄어요.' : '외벌이라 생활비가 늘어요.') + ' 이제 옆자리·뒷자리도 중요해요.'; }], ['🙅 안 한다', () => { DG.noMarry = DG.age + 4; DG.happy += 1; return '혼자가 편해요. 내 차는 내 마음대로!'; }]] },
+    { k: 'date', w: () => (!DG.married && pl('love') >= 1 && DG.age <= 48 ? 1.6 : 0), art: '💌', tone: 'life', t: () => (pl('love') >= 2 ? '썸 타는 중' : '소개팅 나갔어요'), f: () => { if (Math.random() < 0.6) { DG.love = Math.min(100, (DG.love || 0) + 15); DG.happy += 3; return pickOne(['대화가 잘 통했어요!', '두 번째 만남 약속을 잡았어요.', '연락이 계속 와요 🥰']) + ' (연애 게이지 +15)'; } DG.love = Math.max(0, (DG.love || 0) - 10); DG.happy -= 2; return pickOne(['밥만 먹고 헤어졌어요…', '읽씹당했어요.', '서로 취향이 너무 달라요.']) + ' (연애 게이지 -10)'; } },
+    { k: 'breakup', w: () => (!DG.married && (DG.love || 0) >= 40 ? 0.8 : 0), art: '💔', tone: 'bad', t: '이별', f: () => { DG.love = Math.max(0, DG.love - 45); DG.happy -= 8; tl('💔', '이별'); return '오래 만난 사람과 헤어졌어요… (연애 게이지 -45, 행복 -8)'; } },
+    { k: 'marry', w: () => (!DG.married && DG.age >= 26 && DG.age <= 45 && DG.age >= (DG.noMarry || 0) && (DG.love || 0) >= 55 ? 2 + DG.love / 25 : 0), art: '💍', tone: 'life', t: '결혼, 할까요?', d: '연애 게이지가 꽉 찼어요. 만나는 사람과 미래 이야기가 나왔어요. 결혼 비용은 평균 3,000만 원쯤.',
+      ch: () => [['💒 결혼한다', () => { const wc = Math.round(3000 * DG.spoon.wed); DG.married = true; DG.cash -= wc; if (DG.home === 'parent') { DG.married = false; dgMoveTo('rent', true); DG.married = true; } DG.happy += 8; DG.spouse = Math.random() < 0.65; tl('💍', '결혼'); return `축하해요! 결혼 비용 -${won(wc)} 원${DG.spoon.wed < 0.5 ? ' (부모님이 대부분 내 주셨어요)' : ''}. ` + (DG.spouse ? '맞벌이라 생활비 부담이 줄어요.' : '외벌이라 생활비가 늘어요.') + ' 이제 옆자리·뒷자리도 중요해요.'; }], ['🙅 안 한다', () => { DG.noMarry = DG.age + 3; DG.love = Math.max(0, (DG.love || 0) - 30); DG.happy += 1; return '아직은 혼자가 편해요. 내 차는 내 마음대로! (연애 게이지 -30)'; }]] },
     { k: 'baby', w: () => (DG.married && DG.kids.length < 3 && DG.age < 44 && DG.age >= (DG.noBaby || 0) ? (DG.kids.length ? 1.5 : 3) : 0), art: '👶', tone: 'life', t: DG => '아이 소식', d: '가족 계획을 세울 때가 됐어요. 아이 한 명당 생활비가 연 1,300만 원 정도 늘어요.',
       ch: () => [['👶 낳는다', () => { DG.kids.push(DG.age); DG.happy += 7; tl('👶', `${DG.kids.length}째 출산`); return `${DG.kids.length}째가 태어났어요! 뒷좌석·트렁크가 중요해졌어요.`; }], ['⏳ 아직은', () => { DG.noBaby = DG.age + 2; return '조금 더 생각해 보기로 했어요.'; }]] },
     { k: 'pmoney', w: () => (DG.age < 50 && DG.spoon.pm ? DG.spoon.pm * (DG.age < 36 ? 1 : 0.5) : 0), art: '🎁', tone: 'money', t: '부모님 찬스', f: () => { const a = Math.round(rnd(5, 20) * DG.spoon.mul) * 100; DG.cash += a; if (a >= 3000) tl('🎁', `부모님 찬스 ${won(a)}`); return pickOne(['차 바꾸는 데 보태라고', '생일 선물이라며', '그냥 쓰라고', '집 사는 데 보태라고']) + ` ${won(a)} 원을 주셨어요.`; } },
@@ -2795,9 +2862,12 @@ html, body { margin: 0; background: #14161b; }
     { k: 'remote', once: 1, w: () => (DG.car && DG.km > 10000 ? (hasT('it') ? 2 : 0.6) : 0), art: '🏡', tone: 'good', t: '재택근무 시작', d: '주행거리가 절반으로 줄었어요.', f: () => { DG.remote = true; DG.km = Math.round(DG.km * 0.5); } },
     { k: 'ins', once: 1, w: () => (DG.age < 36 ? 3 : 0), art: '🛡️', tone: 'life', t: '실비보험 들까요?', d: '설계사 친구가 연락이 왔어요. 연 60만 원이면 큰 병·사고 병원비를 대부분 막아 줘요.',
       ch: () => [['🛡️ 든다 (연 60만)', () => { DG.ins = true; return '이제 아파도 덜 무서워요.'; }], ['❌ 안 든다', () => '아직 젊으니까… 괜찮겠죠?']] },
-    { k: 'sick', w: () => 0.3 + Math.max(0, DG.age - 35) * 0.05, art: '🩻', tone: 'bad', t: '건강검진에서 이상 소견', f: () => { const c = Math.round(rnd(8, 30) * (DG.ins ? 0.2 : 1)) * 100; DG.cash -= c; DG.cut *= 0.75; DG.happy -= 6; tl('🩻', '치료'); return `치료비 -${won(c)} 원${DG.ins ? ' (실비 덕분에 80% 아꼈어요)' : ''}, 몇 달 쉬어서 수입 -25%.`; } },
-    { k: 'bigsick', w: () => Math.max(0, DG.age - 44) * 0.04, art: '🚑', tone: 'bad', t: '큰 병으로 입원했어요', f: () => { const c = Math.round(rnd(20, 50) * (DG.ins ? 0.15 : 1)) * 100; DG.cash -= c; DG.cut *= 0.4; DG.happy -= 10; tl('🚑', '큰 병 치료'); return `치료비 -${won(c)} 원${DG.ins ? ' (실비보험이 대부분 막아 줬어요)' : ''}, 올해 수입 -60%. 건강이 최고예요.`; } },
-    { k: 'gym', w: () => 0.8, art: '🏃', tone: 'good', t: '운동 시작!', d: '마라톤 하프 완주했어요. 몸이 가벼워요.', f: () => { DG.happy += 4; } },
+    { k: 'sick', wm: () => [1.25, 0.9, 0.75, 0.65][pl('health')] * [0.9, 1, 1.1, 1.35][pl('food')], w: () => 0.3 + Math.max(0, DG.age - 35) * 0.05, art: '🩻', tone: 'bad', t: '건강검진에서 이상 소견', f: () => { const c = Math.round(rnd(8, 30) * (DG.ins ? 0.2 : 1)) * 100; DG.cash -= c; DG.cut *= 0.75; DG.happy -= 6; tl('🩻', '치료'); return `치료비 -${won(c)} 원${DG.ins ? ' (실비 덕분에 80% 아꼈어요)' : ''}, 몇 달 쉬어서 수입 -25%.`; } },
+    { k: 'bigsick', wm: () => [1.25, 0.9, 0.75, 0.65][pl('health')] * [0.9, 1, 1.1, 1.35][pl('food')], w: () => Math.max(0, DG.age - 44) * 0.04, art: '🚑', tone: 'bad', t: '큰 병으로 입원했어요', f: () => { const c = Math.round(rnd(20, 50) * (DG.ins ? 0.15 : 1)) * 100; DG.cash -= c; DG.cut *= 0.4; DG.happy -= 10; tl('🚑', '큰 병 치료'); return `치료비 -${won(c)} 원${DG.ins ? ' (실비보험이 대부분 막아 줬어요)' : ''}, 올해 수입 -60%. 건강이 최고예요.`; } },
+    { k: 'gym', w: () => (pl('health') >= 1 ? 1 : 0.2), art: '🏃', tone: 'good', t: '운동 효과 체감!', d: '마라톤 하프 완주했어요. 몸이 가벼워요.', f: () => { DG.happy += 4; } },
+    { k: 'cert', wm: () => 1 + pl('self'), w: () => (pl('self') >= 2 && !DG.jobless && !DG.retired ? 1.2 : 0), art: '🎓', tone: 'good', t: () => (pl('self') >= 3 ? '학위 취득!' : '자격증 합격!'), f: () => { const p = pl('self') >= 3 ? 10 : 5; DG.pay *= 1 + p / 100; DG.skill = (DG.skill || 0) + 2; DG.happy += 5; tl('🎓', pl('self') >= 3 ? '학위 취득' : '자격증 합격'); return `그동안 공부한 보람! 연봉(수입) +${p}%, 능력치 +2.`; } },
+    { k: 'trip', w: () => (pl('travel') >= 2 ? 1 : 0), art: '🏝️', tone: 'good', t: '인생 여행', f: () => { DG.happy += 5; return pickOne(['스위스 기차 타고 알프스!', '발리에서 한 달 살기', '오로라 보러 핀란드까지!', '도쿄 맛집 투어 성공']) + ' (행복 +5)'; } },
+    { k: 'hobbyhit', w: () => (pl('hobby') >= 3 ? 0.6 : 0), art: '🎸', tone: 'money', t: '덕업일치?!', f: () => { if (Math.random() < 0.3) { const a = Math.round(rnd(3, 15)) * 100; DG.cash += a; tl('🎸', '취미로 돈 벎'); return `취미로 시작한 게 부업이 됐어요! +${won(a)} 원.`; } DG.happy += 3; return '돈은 못 벌었지만 실력은 늘었어요. (행복 +3)'; } },
     { k: 'jeonse', once: 1, w: () => (DG.home === 'jeonse' ? 0.6 : DG.home === 'rent' ? 0.2 : 0), art: '😱', tone: 'bad', t: '보증금 사고', f: () => { const a = DG.home === 'jeonse' ? 3000 : Math.round((DG.rentDep || 0) * 0.5); if (DG.home === 'jeonse') DG.jeonse.dep -= a; else DG.rentDep -= a; DG.happy -= 8; tl('😱', '보증금 사고'); return `집주인이 보증금 일부를 못 돌려준대요… -${won(a)} 원.`; } },
     { k: 'nag', w: () => (DG.home === 'parent' && DG.age >= 30 ? 1.2 : 0), art: '🗣️', tone: 'bad', t: '"언제 독립하니?"', f: () => { DG.happy -= 5; return '명절마다 듣는 그 말… 독립을 고민해 봐요. (행복 -5)'; } },
     { k: 'rentup', w: () => (DG.home === 'rent' ? 1 : 0), art: '📄', tone: 'bad', t: '월세가 올랐어요', f: () => { DG.cash -= 120; return '재계약하면서 월세가 10만 원 올랐어요. 올해 -120만 원.'; } },
@@ -2807,15 +2877,17 @@ html, body { margin: 0; background: #14161b; }
     { k: 'hdown', w: () => (DG.house ? 0.6 : 0), art: '🏚️', tone: 'bad', t: '집값이 떨어졌어요', f: () => { const a = Math.round(DG.house.v * 0.12); DG.house.v -= a; return `우리 집 -${won(a)} 원… 그래도 살 집은 있죠.`; } },
     // 차
     { k: 'bump', w: () => (DG.car ? (hasT('drive') ? 3 : 1.4) * Math.min(2, DG.km / 15000) : 0), art: '💥', tone: 'bad', shake: 1, t: '접촉사고', f: () => { const sv = DG.car.r.s_safety || 10; const c = Math.round(80 + (20 - sv) * 15); DG.cash -= c; DG.happy -= 3; return `수리비 -${c}만 원. 안전 능력치가 높을수록 피해가 줄어요.`; } },
-    { k: 'crash', w: () => (DG.car ? 0.3 * (hasT('drive') || hasT('danger') ? 2 : 1) * Math.min(2, DG.km / 15000) : 0), art: '🚨', tone: 'bad', shake: 1, t: '큰 사고가 났어요', f: () => { const sv = DG.car.r.s_safety || 10; const pay = Math.round(DG.car.value * 0.8); const med = Math.round((sv >= 15 ? 300 : 1200) * (DG.ins ? 0.2 : 1)); DG.cash += pay - DG.debt - med; DG.debt = 0; tl('🚨', `${shortName(DG.car.r.name)} 폐차`); const nm = DG.car.r.name; DG.car = null; DG.needCar = true; DG.happy -= sv >= 15 ? 4 : 10; DG.cut *= sv >= 15 ? 0.95 : 0.7; return `${nm}는 폐차… 보험금 +${won(pay)} 원, 치료비 -${won(med)} 원. ${sv >= 15 ? '안전 능력치가 높아서 크게 안 다쳤어요.' : '몇 달 입원했어요 (수입 -30%).'}`; } },
+    { k: 'crash', w: () => (DG.car ? 0.3 * (hasT('drive') || hasT('danger') ? 2 : 1) * Math.min(2, DG.km / 15000) : 0), art: '🚨', tone: 'bad', shake: 1, t: '큰 사고가 났어요', f: () => { const sv = DG.car.r.s_safety || 10; const pay = Math.round(DG.car.value * 0.8); const med = Math.round((sv >= 15 ? 300 : 1200) * (DG.ins ? 0.2 : 1)); DG.cash += pay - DG.debt - med; DG.debt = 0; DG.loanM = 0; tl('🚨', `${shortName(DG.car.r.name)} 폐차`); const nm = DG.car.r.name; DG.car = null; DG.needCar = true; DG.happy -= sv >= 15 ? 4 : 10; DG.cut *= sv >= 15 ? 0.95 : 0.7; return `${nm}는 폐차… 보험금 +${won(pay)} 원, 치료비 -${won(med)} 원. ${sv >= 15 ? '안전 능력치가 높아서 크게 안 다쳤어요.' : '몇 달 입원했어요 (수입 -30%).'}`; } },
     { k: 'flood', once: 1, w: () => (DG.car ? 0.4 : 0), art: '🌊', tone: 'bad', t: '장마철 침수', f: () => { DG.car.value = Math.round(DG.car.value * 0.5); DG.happy -= 5; return '지하주차장이 잠겼어요. 내 차 값이 반토막…'; } },
     { k: 'recall', w: () => (DG.car ? 1.2 : 0), art: '🔧', tone: 'calm', t: '리콜 소식', f: () => { const d = DG.car.r.s_durab || 10; if (d >= 13) { DG.happy -= 5; return '내 차 차종 리콜이 또 떴어요… 정비소 왕복에 행복도 하락.'; } DG.happy += 2; return '다른 차들은 리콜이 났는데 내 차는 무사해요!'; } },
     { k: 'reunion', w: () => (DG.car ? 1.6 : 0), art: '🍻', tone: 'calm', t: '동창회', f: () => { const o = DG.car.r._ovr; const d = Math.round((o - 60) / 2 * (DG.job.img ? 2 : 1)); DG.happy += d; return d >= 0 ? `친구들이 내 차를 부러워했어요 (행복 +${d}).` : `친구 차가 더 좋아 보여요… (행복 ${d})`; } },
     { k: 'park', w: () => (DG.car ? 1 : 0), art: '🅿️', tone: 'calm', t: '주차 전쟁', f: () => { const sz = DG.car.r.s_size || 10; if (sz >= 15) { DG.happy -= 5; return '큰 차라 매일 주차 전쟁… (행복 -5)'; } DG.happy += 2; return '작은 차라 어디든 쏙! (행복 +2)'; } },
     { k: 'oil', w: () => 1.3, art: '⛽', tone: 'bad', t: '기름값 폭등', d: '올해 연료비 1.5배! (전기차는 영향 없음)', f: () => { DG.fuelMul = 1.5; } },
-    { k: 'rate', w: () => (DG.debt > 0 && !DG.rateUp ? 1.5 : 0), art: '🏦', tone: 'bad', t: '금리 인상', d: '할부 이자가 연 8%로 올랐어요.', f: () => { DG.rateUp = true; } },
+    { k: 'rate', w: () => ((DG.rateAdd || 0) < 3 ? 1.2 : 0), art: '🏦', tone: 'bad', t: '금리 인상', f: () => { DG.rateAdd = (DG.rateAdd || 0) + 1; if (DG.debt > 0) { DG.loanR += 1; DG.loanPay = Math.round(dgMonthly(DG.debt, DG.loanR, DG.loanM)); return `할부 금리 +1%p → 연 ${DG.loanR}%. 월 납입금이 ${won(DG.loanPay)} 원으로 늘었어요.`; } return '앞으로 차 할부 금리가 1%p 올라가요.'; } },
+    { k: 'ratedown', w: () => ((DG.rateAdd || 0) > -1 ? 0.7 : 0), art: '📉', tone: 'good', t: '금리 인하', f: () => { DG.rateAdd = (DG.rateAdd || 0) - 1; return '앞으로 차 할부 금리가 1%p 내려가요. 차 바꿀 타이밍?'; } },
     { k: 'evsub', w: () => 1, art: '⚡', tone: 'good', t: '전기차 보조금 확대', d: '올해 전기차 신차를 사면 500만 원 깎아 줘요.', f: () => { DG.evBonus = 500; } },
     { k: 'midlife', once: 1, w: () => (DG.car && DG.age >= 40 && DG.age <= 52 ? 1.5 : 0), art: '🏎️', tone: 'life', t: '중년의 로망', f: () => { if ((DG.car.r.s_accel || 0) >= 15) { DG.happy += 10; return '빠른 차 타는 맛에 회춘했어요! (행복 +10)'; } DG.happy -= 5; return '스포츠카가 자꾸 눈에 밟혀요… (행복 -5)'; } },
+    { k: 'fix', w: () => { if (!DG.car) return 0; const va = (DG.car.vy || 0) + DG.age - DG.car.age; const kmT = (DG.car.km0 || 0) + (DG.age - DG.car.age) * DG.km; return Math.max(0, va - 5) * 0.25 + Math.max(0, kmT - 120000) / 100000; }, art: '🛠️', tone: 'bad', t: '차가 고장 났어요', f: () => { const d = DG.car.r.s_durab || 10; const va = (DG.car.vy || 0) + DG.age - DG.car.age; const c = Math.round((80 + va * 25) * (d >= 15 ? 0.6 : d <= 8 ? 1.5 : 1)); DG.cash -= c; DG.happy -= 3; return `${pickOne(['미션', '에어컨', '타이밍벨트', '하체', '배터리'])} 수리비 -${c}만 원. 차가 오래될수록, 내구성이 낮을수록 자주 고장 나요.`; } },
     { k: 'door', w: () => (DG.car ? 0.8 : 0), art: '🚪', tone: 'bad', t: '문콕 테러', f: () => { DG.cash -= 40; DG.happy -= 1; return '덴트 수리비 -40만 원. 범인은 못 찾았어요.'; } },
     // 돈
     { k: 'stock', w: () => (DG.cash > 1000 ? 2 : 0), art: '📊', tone: 'money', t: '친구가 주식을 추천했어요', d: '"이건 무조건 간다" 진짜일까요?',
@@ -2831,7 +2903,8 @@ html, body { margin: 0; background: #14161b; }
     return out;
   }
   function dgPickEvent() {
-    const pool = DG_EVENTS.map((e) => [e, e.k === DG.lastK || (e.once && DG.seen.includes(e.k)) ? 0 : e.w() * (e.wm ? e.wm() : 1)]).filter((x) => x[1] > 0);
+    const dm = (e) => (e.tone === 'bad' ? dif().bad : e.tone === 'good' || e.tone === 'money' ? dif().good : 1);
+    const pool = DG_EVENTS.map((e) => [e, e.k === DG.lastK || (e.once && DG.seen.includes(e.k)) ? 0 : e.w() * (e.wm ? e.wm() : 1) * dm(e)]).filter((x) => x[1] > 0);
     let x = Math.random() * pool.reduce((s, p) => s + p[1], 0);
     for (const [e, w] of pool) { x -= w; if (x <= 0) return e; }
     return pool[0][0];
@@ -2854,26 +2927,35 @@ html, body { margin: 0; background: #14161b; }
     const side = DG.two && !DG.retired && DG.age < 58 ? Math.round(rnd(1000, 1800)) : 0; // 투잡: 주말 배달·과외·스마트스토어 등
     const supp = DG.spoon.sup && DG.age >= 45 ? DG.spoon.sup : 0;
     const kidsN = DG.kids.filter((a) => DG.age - a < 22).length;
-    const sty = DG_STYLE.find((x) => x[0] === DG.style) || DG_STYLE[1];
-    const live = Math.round(sty[3] * (DG.married ? 1.7 : 1) + kidsN * 1300 + (DG.ins ? 60 : 0) + Math.max(0, inc + sp + side - 4000) * sty[5]) + supp;
-    const homeC = dgHomeCost(); // 월세 포함, 벌수록 씀씀이도 커짐
-    const up = DG.car ? dgUpkeep(DG.car.r, DG.km, DG.fuelMul) : 120;
-    const rate = DG.rateUp ? 0.08 : DG_RATE;
-    const prin = DG.debt > 0 ? Math.min(DG.debt, DG.loanBase / 5) : 0;
-    const pay = DG.debt > 0 ? Math.round(prin + DG.debt * rate) : 0;
+    const pc = dgPlanCost(); const planSum = Object.values(pc).reduce((x, y) => x + y, 0);
+    const creep = Math.round(Math.max(0, inc + sp + side - 4000) * [0.1, 0.22, 0.38][pl('live')]); // 벌수록 씀씀이도 커짐
+    const kidC = Math.round(kidsN * 1300 * reg().live);
+    const live = planSum + creep + kidC + (DG.ins ? 60 : 0) + supp;
+    const homeC = dgHomeCost();
+    const up = DG.car ? dgUpkeep(DG.car.r, DG.km, DG.fuelMul) : reg().tr * (DG.married ? 1.6 : 1);
+    // 할부: 매달 원리금 균등 상환
+    let pay = 0;
+    if (DG.debt > 0 && DG.loanM > 0) { const n = Math.min(12, DG.loanM); for (let i = 0; i < n; i++) { const it = DG.debt * DG.loanR / 100 / 12; DG.debt = Math.max(0, DG.debt - (DG.loanPay - it)); pay += DG.loanPay; } DG.loanM -= n; if (DG.loanM <= 0 || DG.debt < 1) { pay += Math.round(DG.debt); DG.debt = 0; DG.loanM = 0; } DG.debt = Math.round(DG.debt); pay = Math.round(pay); }
     let mort = 0;
     if (DG.house && DG.house.m > 0) { mort = Math.min(Math.round(DG.house.m * 1.04), DG.house.a || 2313); DG.house.m = Math.max(0, Math.round(DG.house.m * 1.04 - mort)); }
-    const im = DG.inv || 'save', ret = DG.cash > 0 ? dgReturn(im) : 0.08;
-    const intr = Math.round(DG.cash * ret);
-    if (DG.cash > 0 && im !== 'save' && Math.abs(intr) >= 3000) tl(intr > 0 ? (im === 'coin' ? '🌕' : '🚀') : '💀', `${im === 'coin' ? '코인' : '주식'} ${intr > 0 ? '+' : ''}${won(intr)}`);
-    DG.cash += inc + sp + side - live - homeC - up - pay - mort + intr; DG.debt = Math.max(0, Math.round(DG.debt - prin));
+    // 재테크: 통장 잔고 중 투자 비율만큼 상품에, 나머지는 예금
+    const im = DG.inv || 'save', ratio = im === 'save' ? 0 : DG_RATIO[DG.invR == null ? 2 : DG.invR][0];
+    let ret = 0.07, intr;
+    if (DG.cash > 0) { const r1 = dgReturn(im); const r0 = 0.025; ret = r1; intr = Math.round(DG.cash * ratio * r1 + DG.cash * (1 - ratio) * r0); } else intr = Math.round(DG.cash * (DG.cash < -10000 ? 0.05 : 0.07)); // 마이너스 통장 → 큰 빚은 대환대출로 5%
+    const invAmt = DG.cash > 0 ? Math.round(DG.cash * ratio) : 0;
+    if (invAmt && Math.abs(intr) >= 3000) tl(intr > 0 ? (im === 'coin' ? '🌕' : '🚀') : '💀', `${(DG_INV.find((x) => x[0] === im) || [])[1]} ${intr > 0 ? '+' : ''}${won(intr)}`);
+    DG.cash += inc + sp + side - live - homeC - up - pay - mort + intr;
     if (DG.car) DG.car.value = Math.round(DG.car.value * (1 - dgDep(DG.car.r)));
     if (DG.house) DG.house.v = Math.round(DG.house.v * 1.02);
-    const s = DG.car ? dgSat(DG.car.r) : -4;
-    const target = 50 + s * 2 + (DG.married ? 5 : 0) + Math.min(2, DG.kids.length) * 4 + sty[4] + ({ parent: DG.age < 30 ? -2 : -7, rent: 0, jeonse: 2, own: 6 }[DG.home] || 0) - (DG.jobless ? 8 : 0) - (DG.cash < 0 ? 8 : 0) - (DG.two ? 6 : 0);
+    // 게이지
+    if (!DG.married) DG.love = Math.max(0, Math.min(100, (DG.love || 0) + [-8, 10, 22][pl('love')] + Math.round(rnd(-4, 4))));
+    DG.skill = Math.min(40, (DG.skill || 0) + [0, 1, 2, 4][pl('self')]);
+    const s = DG.car ? dgSat(DG.car.r) : -reg().bmw / 2;
+    const planH = DG_PLAN.reduce((x, [k, , , lv]) => x + lv[pl(k)][2], 0);
+    const target = 50 + s * 2 + (DG.married ? 5 : 0) + Math.min(2, DG.kids.length) * 4 + planH + ({ parent: DG.age < 30 ? -2 : -7, rent: 0, jeonse: 2, own: 6 }[DG.home] || 0) - (DG.jobless ? 8 : 0) - (DG.cash < 0 ? 8 : 0) - (DG.two ? 6 : 0) - (DG.car ? 0 : reg().bmw);
     DG.happy = Math.max(0, Math.min(100, Math.round(DG.happy * 0.75 + target * 0.25)));
     if (!DG.jobless) DG.jy++;
-    DG.log = { e, text, fin: { sal: Math.round(sal), inc, sp, side, supp, live, homeC, homeK: DG.home, up, pay, mort, intr, im, ret } };
+    DG.log = { e, text, fin: { sal: Math.round(sal), inc, sp, side, supp, pc, creep, kidC, live, homeC, homeK: DG.home, up, pay, mort, intr, im, ret, invAmt } };
     DG.stage = 'season';
     const dc = dgCanBuy(DG.dream, false);
     if (!DG.dreamOwned && dc && dc.ok && !DG.dreamReady) { DG.dreamReady = true; DG.dreamNew = true; tl('✨', '드림카 살 수 있게 됨'); }
@@ -2895,17 +2977,18 @@ html, body { margin: 0; background: #14161b; }
   }
   const gsGlow = (box) => { const g = box.querySelector('.dgride'); if (g) g.classList.add('fresh'); };
   const dgCarEmoji = (r) => ((r.s_accel || 0) >= 17 ? '🏎️' : /SUV|RV|MPV|밴|미니밴/.test(r.body || '') ? '🚙' : /트럭|픽업/.test(r.body || '') ? '🛻' : '🚗');
-  function dgBuy(r, used) {
-    const c = dgCanBuy(r, used); if (!c || !c.ok) return;
-    const prev = DG.car ? DG.car.r : null;
-    DG.cash += c.trade; if (DG.debt) { DG.cash -= DG.debt; DG.debt = 0; }
-    if (DG.cash >= c.need) DG.cash -= c.need; else { const ln = Math.round(c.need - DG.cash); DG.cash = 0; DG.debt = ln; DG.loanBase = ln; }
-    DG.car = { r, value: Math.round(c.P * (used ? 1 : 0.88)), used, age: DG.age };
-    DG.hist.push({ id: r.id, age: DG.age, used, P: c.P });
-    tl(r.id === DG.dream.id ? '🏁' : '🚗', `${used ? '중고 ' : ''}${shortName(r.name)} 구매`);
-    if (r.id === DG.dream.id && !DG.dreamOwned) { DG.dreamOwned = true; DG.dreamAge = DG.age; DG.happy = Math.min(100, DG.happy + 15); DG.party = true; }
+  function dgBuy(c) {
+    const q = dgQuote(c); if (!q || !q.ok) return;
+    const r = c.r, used = c.used, prev = DG.car ? DG.car.r : null;
+    DG.cash += q.trade - DG.debt; DG.debt = 0; DG.loanM = 0;
+    DG.cash -= q.need;
+    if (q.loan) { DG.debt = q.loan; DG.loanR = q.rate; DG.loanM = q.mo; DG.loanPay = q.m; }
+    DG.car = { r, value: Math.round(q.P * (used ? 0.97 : 0.88)), used, age: DG.age, vy: c.yr, km0: c.km, opt: c.opt, acc: c.acc };
+    DG.hist.push({ id: r.id, age: DG.age, used, P: q.P, yr: c.yr });
+    tl(r.id === DG.dream.id ? '🏁' : '🚗', `${used ? `중고(${c.yr}년·${Math.round(c.km / 10000)}만km) ` : ''}${shortName(r.name)} 구매`);
+    if (r.id === DG.dream.id && !DG.dreamOwned) { DG.dreamOwned = true; DG.dreamAge = DG.age; DG.happy = Math.min(100, DG.happy + 15); }
     DG.needCar = false; DG.happy = Math.min(100, DG.happy + 5);
-    DG.delivered = { r, used, P: c.P, fee: c.fee, loan: DG.debt, prev, dream: r.id === DG.dream.id, n: DG.hist.length };
+    DG.delivered = { r, used, c, q, prev, dream: r.id === DG.dream.id, n: DG.hist.length };
   }
   function dgReset() { DG = null; PLAY.dg = null; }
   // ---- 그림: 큰 이모지 장면 + 효과
@@ -2923,7 +3006,9 @@ html, body { margin: 0; background: #14161b; }
     if (!DG.jobless && !DG.retired) add(`💵 연봉 약 ${won(dgSalary(true))}`);
     add(DG.married ? (DG.spouse ? '💍 맞벌이' : '💍 기혼') : '🙋 미혼');
     if (DG.kids.length) add('👶'.repeat(DG.kids.length) + ` 자녀 ${DG.kids.length}`);
-    add(`${DG_HOME[DG.home].ic} ${DG_HOME[DG.home].t}`); add((DG_STYLE.find((x) => x[0] === DG.style) || DG_STYLE[1])[1]);
+    add(`${DG_HOME[DG.home].ic} ${DG_HOME[DG.home].t}`); add(`${reg().ic} ${reg().t}`); add(`${dif().ic} ${dif().t}`);
+    if (!DG.married) add(`💘 연애 ${Math.round(DG.love || 0)}%`);
+    add(`📚 능력치 ${DG.skill || 0} (연봉 +${Math.round(Math.min(40, DG.skill || 0) * 0.6)}%)`);
     if (DG.ins) add('🛡️ 실비');
     add(`🛣️ 연 ${fmt(Math.round(DG.km / 1000) * 1000)}km`);
     add(`${DG.spoon.ic} ${DG.spoon.t}`);
@@ -2961,6 +3046,7 @@ html, body { margin: 0; background: #14161b; }
     c.appendChild(el('p', 'note mbpad', '연봉은 신입 초봉(세전, 성과급 포함)에서 시작해 직업별 속도로 올라 20년 차에 최고치가 돼요. 출처 표시: E 경총 대졸 정규직 초임(2023, 기업 규모별) · J 잡플래닛 직무별 신입 연봉 중앙값(2025, 고용보험 142만 건) · G 2026 공무원 봉급표 초임 · ≈ 기사·채용공고 기반 대략치.'));
   }
   function renderDream(box) {
+    if (!DG && PLAY.dgShared) { const R0 = dgDec(PLAY.dgShared); if (R0 && R0.t) { dgResultView(box, R0, true); return; } PLAY.dgShared = null; }
     if (!DG) {
       // ---- 시작 화면: 드림카(검색) + 직업(검색)
       const S = PLAY.dg || (PLAY.dg = { job: null, dream: null });
@@ -2980,14 +3066,29 @@ html, body { margin: 0; background: #14161b; }
       DG_SPOONS.forEach((sp) => { const b = spg.appendChild(el('button', 'dgopt')); b.type = 'button'; b.appendChild(el('b', null, sp.ic + ' ' + sp.t)); b.appendChild(el('small', null, sp.d)); b.setAttribute('aria-pressed', S.spoon === sp.k); b.addEventListener('click', () => { S.spoon = sp.k; renderPlay(); }); });
       const rb = spg.appendChild(el('button', 'dgopt')); rb.type = 'button'; rb.appendChild(el('b', null, '🎲 랜덤')); rb.appendChild(el('small', null, '운명에 맡기기 (흙·동수저가 제일 흔해요)')); rb.addEventListener('click', () => { const x = Math.random(); S.spoon = x < 0.03 ? 'dia' : x < 0.13 ? 'gold' : x < 0.38 ? 'silver' : x < 0.72 ? 'bronze' : 'dirt'; renderPlay(); });
       c.appendChild(el('h4', 'dgh', '3. 첫 직업을 고르세요'));
-      dgJobPicker(c, S, (j) => { S.job = j; renderPlay(); }, false);
+      dgJobPicker(c, S, (j) => { S.job = j; S.age = Math.max(S.age || j.a, j.a); renderPlay(); }, false);
       if (S.job) c.appendChild(el('p', 'dgpicked', `${S.job.ic} ${S.job.t} · ${S.job.a}살 시작 · 초봉 ${won(S.job.sal)} 원` + (S.spoon ? ` · ${DG_SPOONS.find((x) => x.k === S.spoon).ic} ${DG_SPOONS.find((x) => x.k === S.spoon).t}` : '')));
+      c.appendChild(el('h4', 'dgh', '4. 시작 조건'));
+      const minA = S.job ? S.job.a : 20; S.age = Math.max(minA, Math.min(40, S.age || minA)); S.region = S.region || 'metro'; S.diff = S.diff || 'normal';
+      const ar = c.appendChild(el('div', 'dgagerow'));
+      const al = ar.appendChild(el('label', null)); al.textContent = '시작 나이';
+      const ai = ar.appendChild(el('input')); ai.type = 'range'; ai.min = minA; ai.max = 40; ai.step = 1; ai.value = S.age; ai.setAttribute('aria-label', '시작 나이');
+      const ao = ar.appendChild(el('b'));
+      const aT = () => { ao.textContent = `${S.age}살` + (S.age > minA ? ` · 모아둔 돈 +${won((S.age - minA) * 400)}` : '') + ` · 은퇴까지 ${DG_END - S.age}년`; };
+      aT(); ai.addEventListener('input', () => { S.age = +ai.value; aT(); });
+      if (!S.job) ar.appendChild(el('small', 'note', '직업마다 시작할 수 있는 최소 나이가 달라요 (의사 33살 등)'));
+      c.appendChild(el('h5', 'dgplh', '📍 사는 지역 — 연봉·집값·출퇴근 거리·대중교통 편의가 달라져요'));
+      const rg = c.appendChild(el('div', 'dggrid dgspoon'));
+      DG_REGIONS.forEach((x) => { const b = rg.appendChild(el('button', 'dgopt')); b.type = 'button'; b.appendChild(el('b', null, x.ic + ' ' + x.t)); b.appendChild(el('small', null, x.d)); b.setAttribute('aria-pressed', S.region === x.k); b.addEventListener('click', () => { S.region = x.k; renderPlay(); }); });
+      c.appendChild(el('h5', 'dgplh', '🎚️ 난이도'));
+      const dfg = c.appendChild(el('div', 'dggrid dgspoon'));
+      DG_DIFF.forEach((x) => { const b = dfg.appendChild(el('button', 'dgopt')); b.type = 'button'; b.appendChild(el('b', null, x.ic + ' ' + x.t)); b.appendChild(el('small', null, x.d)); b.setAttribute('aria-pressed', S.diff === x.k); b.addEventListener('click', () => { S.diff = x.k; renderPlay(); }); });
       const bt = c.appendChild(el('div', 'mbstart'));
       const spoon = DG_SPOONS.find((x) => x.k === S.spoon);
-      const go = bt.appendChild(btnEl('chip gold big', '▶ 인생 시작' + (spoon ? ` (시작 자금 ${won(spoon.cash)} 원)` : ''), () => {
-        const job = S.job;
-        DG = { job, spoon, inv: 'save', two: false, style: 'mid', home: 'parent', rentDep: 0, jeonse: null, house: null, dream: byId[S.dream], cash: spoon.cash, debt: 0, loanBase: 0, pay: 1, jy: 0, km: job.km, age: job.a, startAge: job.a, happy: 60, car: null, hist: [], seen: [], tl: [], kids: [], stage: 'market', married: false, cut: 1, evBonus: 0, fuelMul: 1 };
-        tl(spoon.ic, `${spoon.t}로 태어남`); tl(job.ic, `${job.t}(으)로 사회생활 시작`);
+      const go = bt.appendChild(btnEl('chip gold big', '▶ 인생 시작' + (spoon ? ` (시작 자금 ${won(spoon.cash + (S.age - minA) * 400)} 원)` : ''), () => {
+        const job = S.job, region = DG_REGIONS.find((x) => x.k === S.region), diff = DG_DIFF.find((x) => x.k === S.diff);
+        DG = { job, spoon, region, diff, plan: { ...DG_PLAN0 }, love: 20, skill: 0, inv: 'save', invR: 2, two: false, home: 'parent', rentDep: 0, jeonse: null, house: null, dream: byId[S.dream], cash: spoon.cash + (S.age - job.a) * 400, debt: 0, loanM: 0, loanR: 0, loanPay: 0, rateAdd: 0, pay: 1, jy: 0, km: Math.round(job.km * region.km), age: S.age, startAge: S.age, happy: 60, car: null, hist: [], seen: [], tl: [], kids: [], stage: 'market', married: false, cut: 1, evBonus: 0, fuelMul: 1 };
+        tl(spoon.ic, `${spoon.t}로 태어남`); tl(region.ic, `${region.t}에서 ${job.t}(으)로 사회생활 시작`);
         renderPlay(); scrollToSection('t-play');
       }));
       go.disabled = !(S.job && S.dream && spoon);
@@ -2999,7 +3100,7 @@ html, body { margin: 0; background: #14161b; }
     const st = box.appendChild(el('div', 'card dgstat'));
     const cell = (k, v, cls) => { const d = st.appendChild(el('div', 'dgc ' + (cls || ''))); d.appendChild(el('small', null, k)); d.appendChild(el('b', null, v)); };
     cell('나이', `${DG.age}살`); cell('통장', won(DG.cash), DG.cash < 0 ? 'neg' : ''); cell('내 차 값', DG.car ? won(DG.car.value) : '–');
-    cell('할부 남음', DG.debt ? won(DG.debt) : '없음', DG.debt ? 'neg' : ''); cell('순자산', won(dgNet()), dgNet() < 0 ? 'neg' : ''); cell('행복', DG.happy + '점');
+    cell('할부 남음', DG.debt ? `${won(DG.debt)} (${DG.loanM}개월)` : '없음', DG.debt ? 'neg' : ''); cell('순자산', won(dgNet()), dgNet() < 0 ? 'neg' : ''); cell('행복', DG.happy + '점');
     dgLife(box);
     // 내 차 스트립: 사진 + 도로 위를 달리는 차
     const gs = box.appendChild(el('div', 'dgride' + (DG.car ? (DG.car.r.id === DG.dream.id ? ' dream' : '') : ' bmw')));
@@ -3024,7 +3125,7 @@ html, body { margin: 0; background: #14161b; }
       c.appendChild(el('p', 'mbdesc', D.dream ? '꿈에 그리던 그 차가 내 주차장에 서 있어요. 시동 버튼을 누르는 손이 떨려요.' : D.used ? '깨끗하게 관리된 중고차를 데려왔어요. 오늘부터 내 차!' : '비닐도 안 뜯은 새 차 냄새… 오늘은 괜히 한 바퀴 더 돌고 들어가요.'));
       const g = c.appendChild(el('div', 'dgdelg'));
       const st2 = (k, v, cls) => { const d = g.appendChild(el('div', cls || '')); d.appendChild(el('small', null, k)); d.appendChild(el('b', null, v)); };
-      st2('OVR', String(r._ovr), 'ovr ' + cellCls(r._ovr / 5)); st2(D.used ? '중고가' : '차값', won(D.P)); st2('세금·부대', won(D.fee)); st2('할부', D.loan ? won(D.loan) : '없음 (일시불)'); st2('연 유지비', won(dgUpkeep(r, DG.km))); st2('감가', `연 ${Math.round(dgDep(r) * 1000) / 10}%`);
+      const Q = D.q; st2('OVR', String(r._ovr), 'ovr ' + cellCls(r._ovr / 5)); st2(D.used ? '중고가 (추정)' : '차값', won(Q.P)); st2(D.used ? '연식·주행' : '트림', D.used ? `${D.c.yr}년 · ${Math.round(D.c.km / 10000)}만km` : DG_OPT[D.c.opt][0]); st2('세금·부대', won(Q.fee)); st2('할부', Q.loan ? `${won(Q.m)}/월 × ${Q.mo}개월` : '없음 (일시불)'); st2('금리', Q.loan ? `연 ${Q.rate}%` : '–'); st2('연 유지비', won(dgUpkeep(r, DG.km))); st2('감가', `연 ${Math.round(dgDep(r) * 1000) / 10}%`); st2('옵션·사고', `${DG_OPT[D.c.opt][0].split(' ')[0]} · ${D.used ? DG_ACC[D.c.acc][0] : '신차'}`);
       if (D.prev) { const dO = r._ovr - D.prev._ovr, dU = dgUpkeep(r, DG.km) - dgUpkeep(D.prev, DG.km); c.appendChild(el('p', 'dgcmp', `이전 차 ${shortName(D.prev.name)} 대비 · OVR ${dO >= 0 ? '+' : ''}${dO} · 유지비 ${dU >= 0 ? '+' : ''}${fmt(dU)}만/년`)); }
       const bt = c.appendChild(el('div', 'mbstart'));
       bt.appendChild(btnEl('chip gold big', '🔑 키 받고 출발!', () => { DG.delivered = null; DG.justGot = true; renderPlay(); scrollToSection('t-play'); }));
@@ -3053,38 +3154,83 @@ html, body { margin: 0; background: #14161b; }
       if (DG.age >= 50) c.appendChild(btnEl('chip big', '🏖️ 일찍 은퇴하기 (소일거리 연 1,000만)', () => { const then = DG.jobThen; DG.needJob = null; DG.jobThen = null; DG.jobless = false; DG.retired = true; tl('🏖️', '조기 은퇴'); if (then === 'year') dgYear(); else DG.stage = 'season'; renderPlay(); }));
       return;
     }
+    const afterBuy = () => { DG.stage = 'season'; DG.mDream = false; DG.cfg = null; if (!DG.log) dgYear(); renderPlay(); scrollToSection('t-play'); };
+    if (DG.stage === 'config' && DG.cfg) {
+      // ---- 견적 화면: 연식·주행거리·옵션·사고 이력 + 할부(선수금·기간·금리)
+      const C = DG.cfg, r = C.r;
+      const c = box.appendChild(el('div', 'card dgcfg'));
+      const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, C.used ? '🚙 중고차 견적' : '🆕 신차 견적'));
+      h.appendChild(btnEl('chip sm', '← 목록으로', () => { DG.stage = 'market'; DG.cfg = null; renderPlay(); }));
+      const top = c.appendChild(el('div', 'dgcar')); const ph = top.appendChild(el('div', 'ph')); photo(ph, r);
+      const tt = top.appendChild(el('div')); tt.appendChild(el('b', null, r.name)); tt.appendChild(el('small', null, `신차가 ${won(dgPrice(r, false))} · OVR ${r._ovr} · 감가 연 ${Math.round(dgDep(r) * 1000) / 10}%` + (num(r.used) > 0 ? ` · 엔카 실매물 중앙값 ${won(num(r.used))}` : '')));
+      const slider = (lab, min, max, step, key, fmtF) => { const row = c.appendChild(el('div', 'dgagerow')); row.appendChild(el('label', null, lab)); const i = row.appendChild(el('input')); i.type = 'range'; i.min = min; i.max = max; i.step = step; i.value = C[key]; i.setAttribute('aria-label', lab); const o = row.appendChild(el('b')); const t = () => { o.textContent = fmtF(C[key]); }; t(); i.addEventListener('input', () => { C[key] = +i.value; if (key === 'yr' && !C.kmTouched) { C.km = C.yr * 15000; const k2 = c.querySelector('input[aria-label="주행거리"]'); if (k2) { k2.value = C.km; k2.dispatchEvent(new Event('sync')); } } if (key === 'km') C.kmTouched = true; t(); upd(); }); i.addEventListener('sync', t); return i; };
+      const seg = (lab, opts, key) => { const row = c.appendChild(el('div', 'dgagerow')); row.appendChild(el('label', null, lab)); const g = row.appendChild(el('div', 'dgseg')); opts.forEach((o, ix) => { const b = g.appendChild(btnEl('chip sm', o, () => { C[key] = ix; [...g.children].forEach((x, j) => x.setAttribute('aria-pressed', j === ix)); upd(); })); b.setAttribute('aria-pressed', C[key] === ix); }); };
+      c.appendChild(el('h5', 'dgplh', '🚗 차 조건'));
+      if (C.used) {
+        slider('연식', 1, 15, 1, 'yr', (v) => `${2026 - v}년식 (${v}년 된 차)`);
+        slider('주행거리', 0, 300000, 5000, 'km', (v) => `${fmt(v)}km` + (v > C.yr * 20000 ? ' · 많이 탐' : v < C.yr * 10000 ? ' · 적게 탐' : ''));
+        seg('사고 이력', DG_ACC.map((x) => x[0]), 'acc');
+      }
+      seg(C.used ? '옵션' : '트림', DG_OPT.map((x) => x[0]), 'opt');
+      c.appendChild(el('h5', 'dgplh', '🏦 결제 (캐피탈 할부)'));
+      slider('선수금', 0, 100, 10, 'down', (v) => (v >= 100 ? '일시불 (전액 현금)' : `차값의 ${v}%`));
+      const moRow = c.appendChild(el('div', 'dgagerow')); moRow.appendChild(el('label', null, '할부 기간'));
+      const mg = moRow.appendChild(el('div', 'dgseg'));
+      [12, 24, 36, 48, 60].forEach((m) => { const b = mg.appendChild(btnEl('chip sm', m + '개월', () => { C.mo = m; [...mg.children].forEach((x) => x.setAttribute('aria-pressed', x.textContent === m + '개월')); upd(); })); b.setAttribute('aria-pressed', C.mo === m); });
+      const sum = c.appendChild(el('div', 'dgquote'));
+      const why = c.appendChild(el('p', 'dgwhy')); why.setAttribute('role', 'status');
+      const bt = c.appendChild(el('div', 'mbstart'));
+      const buy = bt.appendChild(btnEl('chip gold big', '✍️ 이 조건으로 계약', () => { dgBuy(C); afterBuy(); }));
+      c.appendChild(el('p', 'dgdisc', C.used ? '※ 중고차 값은 실제 매물이 아니라 신차가·감가율·연식·주행거리·옵션·사고 이력으로 계산한 추정 시세예요. 할부 금리는 신차 5.9%·중고 8.9% 기준에 선수금(20% 미만 +2%p, 50% 이상 -1%p)과 금리 이벤트를 반영해요.' : '※ 할부 금리는 신차 5.9% 기준에 선수금(20% 미만 +2%p, 50% 이상 -1%p)과 금리 이벤트를 반영해요. 한도는 차값의 90%와 연봉 1.5배 중 작은 쪽이에요.'));
+      const upd = () => {
+        const q = dgQuote(C); sum.textContent = ''; moRow.style.display = C.down >= 100 ? 'none' : '';
+        if (!q) { why.textContent = '가격 자료가 없어요.'; buy.disabled = true; return; }
+        const line = (k, v, cls) => { const d = sum.appendChild(el('div', cls || '')); d.appendChild(el('span', null, k)); d.appendChild(el('b', null, v)); };
+        line(C.used ? '추정 시세' : '차값', won(q.P) + ' 원' + (C.used ? ` (신차가의 ${Math.round(q.P / dgPrice(r, false) * 100)}%)` : ''), 'big');
+        if (q.ev) line('⚡ 전기차 보조금', '-' + won(q.ev));
+        line('취득세·등록 등 부대비용', won(q.fee));
+        line('선수금 (내 돈)', won(q.down));
+        if (q.loan) { line(`할부 원금 · 연 ${q.rate}%`, won(q.loan)); line(`월 납입금 × ${q.mo}개월`, won(q.m) + ' 원', 'hi'); line('총 이자', won(q.tot)); }
+        line('지금 필요한 내 돈', `${won(q.need)} / 쓸 수 있는 돈 ${won(q.cashIn)}`, q.ok ? '' : 'bad');
+        why.textContent = q.why || (q.loan ? `할부 한도 ${won(q.maxLoan)} 중 ${won(q.loan)} 사용 · 1년에 ${won(q.m * Math.min(12, q.mo))} 원씩 갚아요` : '일시불이라 이자 걱정 없어요!');
+        why.className = 'dgwhy' + (q.ok ? '' : ' bad'); buy.disabled = !q.ok;
+      };
+      upd();
+      return;
+    }
     if (DG.stage === 'market') {
       const c = box.appendChild(el('div', 'card'));
       const h = c.appendChild(el('div', 'ch')); h.appendChild(el('h2', null, DG.car ? '🔁 차 바꾸기' : DG.hist.length ? '🚗 새 차 고르기' : '🚗 첫차 고르기'));
       if (DG.car) h.appendChild(btnEl('chip sm', '← 그냥 계속 타기', () => { DG.stage = 'season'; renderPlay(); }));
       else h.appendChild(btnEl('chip sm', '🚌 BMW로 다니기 (버스·메트로·워킹)', () => { DG.needCar = false; if (!DG.log) dgYear(); else DG.stage = 'season'; renderPlay(); }));
       const trade = DG.car ? Math.round(DG.car.value * 0.92) : 0;
-      c.appendChild(el('p', 'note mbpad', `쓸 수 있는 돈: 통장 ${won(DG.cash)}` + (DG.car ? ` + 지금 차 팔면 ${won(trade)}` : '') + (DG.debt ? ` − 남은 할부 ${won(DG.debt)}` : '') + ` · 모자라면 할부 (차값 60%·연봉 1.5배 중 작은 쪽, 최대 ${won(dgCanBuy(DG.dream, false) ? dgCanBuy(DG.dream, false).maxLoan : 0)}, 연 6%·5년)` + (DG.evBonus ? ' · ⚡ 올해 전기차 -500만' : '') + (DG.job.perk === 'dealer' ? ' · 🚘 딜러 할인 5%' : DG.job.perk === 'auto' ? ' · 🏭 국산 신차 직원할인 12%' : '')));
+      c.appendChild(el('p', 'note mbpad', `쓸 수 있는 돈: 통장 ${won(DG.cash)}` + (DG.car ? ` + 지금 차 팔면 ${won(trade)}` : '') + (DG.debt ? ` − 남은 할부 ${won(DG.debt)}` : '') + ` · 캐피탈 할부: 신차 연 ${Math.round((5.9 + (DG.rateAdd || 0)) * 10) / 10}%~, 중고 ${Math.round((8.9 + (DG.rateAdd || 0)) * 10) / 10}%~ (12~60개월)` + (DG.evBonus ? ' · ⚡ 올해 전기차 -500만' : '') + (DG.job.perk === 'dealer' ? ' · 🚘 딜러 할인 5%' : DG.job.perk === 'auto' ? ' · 🏭 국산 신차 직원할인 12%' : '')));
       const seg = c.appendChild(el('div', 'mbbud'));
       DG.mUsed = DG.mUsed || false;
-      [[false, '🆕 신차'], [true, '🚙 중고 (엔카 시세)']].forEach(([v, t]) => { const b = seg.appendChild(btnEl('chip sm', t, () => { DG.mUsed = v; renderPlay(); })); b.setAttribute('aria-pressed', DG.mUsed === v); });
+      [[false, '🆕 신차'], [true, '🚙 중고 (추정 시세)']].forEach(([v, t]) => { const b = seg.appendChild(btnEl('chip sm', t, () => { DG.mUsed = v; renderPlay(); })); b.setAttribute('aria-pressed', DG.mUsed === v); });
       const a = seg.appendChild(btnEl('chip sm', '🏁 드림카만 보기', () => { DG.mDream = !DG.mDream; renderPlay(); })); a.setAttribute('aria-pressed', !!DG.mDream);
+      c.appendChild(el('p', 'note mbpad', DG.mUsed ? '목록 가격은 4년·6만km·무사고 기준 추정치예요. 차를 누르면 연식·주행거리·옵션·사고 이력·할부를 조절할 수 있어요.' : '차를 누르면 트림과 할부(선수금·기간)를 조절해서 계약할 수 있어요.'));
       const list = c.appendChild(el('div', 'sqlist'));
       const used = DG.mUsed;
-      let pool = (used ? CARS.filter((r) => num(r.used) > 0) : CARS.filter((r) => !r.og && num(r.price) > 0)).filter((r) => !r.legend && !isNaN(r._ovr));
+      let pool = CARS.filter((r) => !r.legend && !isNaN(r._ovr) && !isNaN(dgPrice(r, used)) && (used || (!r.og && num(r.price) > 0)));
       if (DG.mDream) pool = pool.filter((r) => r.id === DG.dream.id);
       const rows = pool.map((r) => [r, dgCanBuy(r, used)]).filter(([, x]) => x && x.ok);
       rows.sort((a, b) => (b[0].id === DG.dream.id) - (a[0].id === DG.dream.id) || b[0]._ovr - a[0]._ovr);
-      const after = () => { DG.stage = 'season'; DG.mDream = false; if (!DG.log) dgYear(); renderPlay(); scrollToSection('t-play'); };
+      const open = (r) => { DG.cfg = dgCfg0(r, used); DG.stage = 'config'; renderPlay(); scrollToSection('t-play'); };
       const seen = new Set(); let n = 0;
       rows.forEach(([r, x]) => {
-        const k = modelKey(r) + (used ? 'u' : ''); if (seen.has(k) || n >= 24) return; seen.add(k); n++;
+        const k = modelKey(r) + (used ? 'u' : ''); if (seen.has(k) || n >= 30) return; seen.add(k); n++;
         const it = list.appendChild(el('button', 'sqit' + (r.id === DG.dream.id ? ' on' : ''))); it.type = 'button';
         it.appendChild(el('span', 'av ' + cellCls(r._ovr / 5), String(r._ovr)));
         const t = it.appendChild(el('span', 'nm2')); t.appendChild(el('b', null, (r.id === DG.dream.id ? '🏁 ' : '') + r.name));
-        t.appendChild(el('small', null, `${used ? '중고 ' : ''}${won(x.P)} + 세금·부대 ${fmt(x.fee)}만` + (x.loan > 0 ? ` · 할부 ${won(x.loan)}` : '') + ` · 유지비 연 ${fmt(dgUpkeep(r, DG.km))}만`));
-        it.addEventListener('click', () => { dgBuy(r, used); after(); });
+        t.appendChild(el('small', null, `${used ? '추정 ' : ''}${won(x.P)} + 세금·부대 ${fmt(x.fee)}만` + ` · 유지비 연 ${fmt(dgUpkeep(r, DG.km))}만 · 견적 보기 ›`));
+        it.addEventListener('click', () => open(r));
       });
-      if (!n) c.appendChild(el('p', 'note mbpad', DG.mDream ? '아직 드림카를 살 수 없어요. 조금만 더 모아 봐요!' : '살 수 있는 차가 없어요. 당분간 BMW(버스·메트로·워킹)로 다니며 돈을 모아 봐요.'));
+      if (!n) c.appendChild(el('p', 'note mbpad', DG.mDream ? '아직 드림카를 살 수 없어요. 조금만 더 모아 봐요!' : '살 수 있는 차가 없어요. 중고 탭을 보거나, 당분간 BMW(버스·메트로·워킹)로 다니며 돈을 모아 봐요.'));
       const sw = c.appendChild(el('div', 'sqsearch'));
-      const inp = sw.appendChild(el('input')); inp.type = 'search'; inp.placeholder = '차 이름으로 찾기';
+      const inp = sw.appendChild(el('input')); inp.type = 'search'; inp.placeholder = '차 이름으로 찾기 (목록에 없어도 견적 가능)';
       const msg = c.appendChild(el('p', 'note mbpad')); msg.setAttribute('role', 'status');
-      suggestBox(inp, (r) => { const x = dgCanBuy(r, used); if (!x || !x.ok) { msg.textContent = isNaN(dgPrice(r, used)) ? `${r.name}: ${used ? '중고 시세' : '가격'} 자료가 없어요.` : `${r.name}: 아직 돈이 모자라요 (할부는 차값 60%·연봉 1.5배까지).`; return; } dgBuy(r, used); after(); });
+      suggestBox(inp, (r) => { if (isNaN(dgPrice(r, used))) { msg.textContent = `${r.name}: 가격 자료가 없어요.`; return; } open(r); });
       return;
     }
     if (DG.stage === 'choice') {
@@ -3109,30 +3255,50 @@ html, body { margin: 0; background: #14161b; }
         if (desc) c.appendChild(el('p', 'mbdesc', desc));
       }
       if (DG.dreamNew) c.appendChild(el('p', 'dgalert', '✨ 드림카를 살 수 있게 됐어요! 지를지 말지는 당신의 선택.'));
+      if (DG.cash < 0) c.appendChild(el('p', 'dgalert bad', `🚨 통장이 마이너스예요 (${won(DG.cash)}). 빚에 이자가 붙어요 — 아래 '내년 생활 계획'에서 지출을 줄이거나, 차를 싼 걸로 바꾸거나, 투잡을 고려해 보세요.`));
       const F = L.fin;
       const ul = c.appendChild(el('details', 'dgflow')); ul.open = !DG.flowClosed; ul.addEventListener('toggle', () => { DG.flowClosed = !ul.open; });
       const net = F.inc + F.sp + F.side - F.live - (F.homeC || 0) - F.up - F.pay - F.mort + F.intr;
       ul.appendChild(el('summary', null, `올해 통장 ${net >= 0 ? '+' : ''}${won(net)} 원`));
-      [['💵 실수령 (세후)', F.inc, true], F.sp ? ['💑 배우자 수입', F.sp, true] : null, F.side ? ['🛵 투잡 수입', F.side, true] : null, ['🍚 생활비' + (DG.kids.length ? ' + 아이' : '') + (F.supp ? ' + 부모님 생활비' : ''), F.live], [`${DG_HOME[F.homeK].ic} 주거비 (${F.homeK === 'parent' ? '부모님께 용돈' : F.homeK === 'rent' ? '월세·관리비' : F.homeK === 'jeonse' ? '전세대출 이자·관리비' : '보유세·관리비'})`, F.homeC], [DG.car ? '⛽ 차 유지비 (연료·세금·보험)' : '🚌 BMW 교통비 (버스·메트로)', F.up], F.pay ? ['🏦 할부 상환', F.pay] : null, F.mort ? ['🏠 주담대 상환', F.mort] : null, F.intr ? [F.ret === 0.08 ? '💳 마이너스 통장 이자' : F.im === 'stock' ? `📈 주식 ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}%` : F.im === 'coin' ? `🪙 코인 ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}%` : '🐷 예금 이자', Math.abs(F.intr), F.intr >= 0] : null].filter(Boolean).forEach(([a, v, plus]) => { const r = ul.appendChild(el('div')); r.appendChild(el('span', null, a)); r.appendChild(el('b', plus ? 'p' : 'm', (plus ? '+' : '-') + won(v))); });
+      [['💵 실수령 (세후)', F.inc, true], F.sp ? ['💑 배우자 수입', F.sp, true] : null, F.side ? ['🛵 투잡 수입', F.side, true] : null, ...(F.pc ? [['🍚 기본 생활비', F.pc.live], ['🍜 외식·배달', F.pc.food], ['🎮 취미', F.pc.hobby], ['✈️ 여행', F.pc.travel], [DG.married ? '💑 데이트' : '💘 연애', F.pc.love], ['📚 자기계발', F.pc.self], ['🏋️ 건강관리', F.pc.health], ['📈 수입 늘어 커진 씀씀이', F.creep], ['👶 아이 양육비', F.kidC], ['🤲 부모님 생활비', F.supp]].filter((x) => x[1] > 0) : [['🍚 생활비', F.live]]), [`${DG_HOME[F.homeK].ic} 주거비 (${F.homeK === 'parent' ? '부모님께 용돈' : F.homeK === 'rent' ? '월세·관리비' : F.homeK === 'jeonse' ? '전세대출 이자·관리비' : '보유세·관리비'})`, F.homeC], [DG.car ? '⛽ 차 유지비 (연료·세금·보험)' : '🚌 BMW 교통비 (버스·메트로)', F.up], F.pay ? [`🏦 캐피탈 할부 (월 ${won(DG.loanPay || 0)})`, F.pay] : null, F.mort ? ['🏠 주담대 상환', F.mort] : null, F.intr ? [F.intr < 0 && !F.invAmt ? '💳 마이너스 통장·대출 이자' : F.invAmt ? `${(DG_INV.find((x) => x[0] === F.im) || [])[1]} ${F.ret >= 0 ? '+' : ''}${Math.round(F.ret * 100)}% (${won(F.invAmt)} 투자) + 예금 이자` : '🐷 예금 이자', Math.abs(F.intr), F.intr >= 0] : null].filter(Boolean).forEach(([a, v, plus]) => { const r = ul.appendChild(el('div')); r.appendChild(el('span', null, a)); r.appendChild(el('b', plus ? 'p' : 'm', (plus ? '+' : '-') + won(v))); });
       if (DG.car) {
         const cc = c.appendChild(el('div', 'dgcar'));
         const ph = cc.appendChild(el('div', 'ph')); photo(ph, DG.car.r);
         const t = cc.appendChild(el('div'));
         t.appendChild(el('b', null, (DG.car.used ? '중고 ' : '') + DG.car.r.name));
-        t.appendChild(el('small', null, `OVR ${DG.car.r._ovr} · ${DG.age - DG.car.age}년째 · 감가 연 ${Math.round(dgDep(DG.car.r) * 1000) / 10}%`));
+        t.appendChild(el('small', null, `OVR ${DG.car.r._ovr} · 내 차 ${DG.age - DG.car.age + 1}년째 · 차 나이 ${(DG.car.vy || 0) + DG.age - DG.car.age}년 · 약 ${fmt(Math.round(((DG.car.km0 || 0) + (DG.age - DG.car.age) * DG.km) / 1000) * 1000)}km · 감가 연 ${Math.round(dgDep(DG.car.r) * 1000) / 10}%`));
       } else c.appendChild(el('p', 'note', '🚌 지금은 BMW(버스·메트로·워킹)로 다녀요.'));
       const iv = c.appendChild(el('details', 'dginv')); iv.open = !DG.planClosed; iv.addEventListener('toggle', () => { DG.planClosed = !iv.open; });
-      const sty0 = DG_STYLE.find((x) => x[0] === DG.style) || DG_STYLE[1];
-      const ih = iv.appendChild(el('summary', 'dginvh')); ih.appendChild(el('b', null, '📋 내년 생활 계획')); ih.appendChild(el('small', null, `${sty0[1]} · ${DG_HOME[DG.home].ic} ${DG_HOME[DG.home].t} · ${(DG_INV.find((x) => x[0] === (DG.inv || 'save')) || [])[1]}${DG.two ? ' · 🛵 투잡' : ''} — 눌러서 바꾸기`));
+      const pc = dgPlanCost(); const pSum = Object.values(pc).reduce((x, y) => x + y, 0);
+      const ih = iv.appendChild(el('summary', 'dginvh')); ih.appendChild(el('b', null, '📋 내년 생활 계획'));
+      ih.appendChild(el('small', null, `생활비 연 ${won(pSum)} (월 ${fmt(Math.round(pSum / 12))}만) · ${DG_HOME[DG.home].ic} ${DG_HOME[DG.home].t} · ${(DG_INV.find((x) => x[0] === (DG.inv || 'save')) || [])[1]}${DG.two ? ' · 🛵 투잡' : ''} — 눌러서 바꾸기`));
+      const gz = iv.appendChild(el('div', 'dggauge'));
+      const gauge = (lab, v, note) => { const d = gz.appendChild(el('div')); d.appendChild(el('span', null, lab)); const b = d.appendChild(el('span', 'wbar')); b.appendChild(el('i')).style.width = Math.max(0, Math.min(100, v)) + '%'; d.appendChild(el('small', null, note)); };
+      if (!DG.married) gauge('💘 연애', DG.love || 0, (DG.love || 0) >= 55 ? '결혼 이야기 나올 수 있음' : `${Math.round(DG.love || 0)}% · 55% 넘으면 결혼 이벤트`);
+      gauge('📚 능력치', (DG.skill || 0) / 40 * 100, `${DG.skill || 0}/40 · 연봉 +${Math.round(Math.min(40, DG.skill || 0) * 0.6)}% · 승진↑ 구조조정↓`);
+      gauge('😊 행복', DG.happy, `${DG.happy}점`);
+      iv.appendChild(el('h5', 'dgplh', '💸 지출 계획 (매년 바꿀 수 있어요)'));
+      DG_PLAN.forEach(([k, ic, name, lv]) => {
+        const L2 = k === 'love' && DG.married ? [['무심', lv[0][1], -3, '부부 사이 서먹'], ['가끔 데이트', lv[1][1], 2, '월 25만'], ['자주 데이트', lv[2][1], 4, '월 60만']] : lv;
+        const row = iv.appendChild(el('div', 'dgpr'));
+        const hd = row.appendChild(el('div', 'hd')); hd.appendChild(el('b', null, `${k === 'love' && DG.married ? '💑' : ic} ${k === 'love' && DG.married ? '부부 데이트' : name}`));
+        const cur = L2[pl(k)]; hd.appendChild(el('small', null, `연 ${won(pc[k])} · 행복 ${cur[2] >= 0 ? '+' : ''}${cur[2]} · ${cur[3]}`));
+        const g = row.appendChild(el('div', 'dgseg')); g.setAttribute('role', 'radiogroup'); g.setAttribute('aria-label', name);
+        L2.forEach((x, i) => { const b = g.appendChild(btnEl('chip sm', x[0], () => { DG.plan[k] = i; renderPlay(); })); b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', pl(k) === i); b.setAttribute('aria-pressed', pl(k) === i); });
+      });
       const grp = (title, items, cur, onPick, cols) => {
         iv.appendChild(el('h5', 'dgplh', title));
         const g = iv.appendChild(el('div', 'dginvg' + (cols === 4 ? ' c4' : ''))); g.setAttribute('role', 'radiogroup'); g.setAttribute('aria-label', title);
         items.forEach(([k, t, d, dis]) => { const on = cur === k; const b = g.appendChild(el('button', 'dginvo' + (on ? ' on' : ''))); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on); b.appendChild(el('span', 'ck', on ? '✓ 선택됨' : dis ? '불가' : '선택')); b.appendChild(el('b', null, t)); b.appendChild(el('small', null, dis || d)); if (dis && !on) b.disabled = true; b.addEventListener('click', () => onPick(k)); });
       };
-      grp('🍚 씀씀이', DG_STYLE.map(([k, t, d]) => [k, t, d]), DG.style, (k) => { DG.style = k; renderPlay(); });
-      grp('🏠 사는 곳 (바꾸면 이사비 150만)', Object.entries(DG_HOME).map(([k, h]) => { const need = Math.round(dgHomeNeed(k)); const back = DG.home === 'rent' ? DG.rentDep || 0 : DG.home === 'jeonse' && DG.jeonse ? DG.jeonse.dep - DG.jeonse.loan : DG.home === 'own' && DG.house ? Math.round(DG.house.v * 0.97) - DG.house.m : 0; const dis = k === DG.home ? '' : k === 'parent' && DG.married ? '결혼 후엔 불가' : DG.cash + back - 150 < need ? `내 돈 ${won(need)} 필요` : ''; return [k, h.ic + ' ' + h.t, h.d, dis]; }), DG.home, (k) => { DG.planMsg = dgMoveTo(k); renderPlay(); }, 4);
+      grp('🏠 사는 곳 (바꾸면 이사비 150만)', Object.entries(DG_HOME).map(([k, h]) => { const need = Math.round(dgHomeNeed(k)); const back = DG.home === 'rent' ? DG.rentDep || 0 : DG.home === 'jeonse' && DG.jeonse ? DG.jeonse.dep - DG.jeonse.loan : DG.home === 'own' && DG.house ? Math.round(DG.house.v * 0.97) - DG.house.m : 0; const dis = k === DG.home ? '' : k === 'parent' && DG.married ? '결혼 후엔 불가' : DG.cash + back - 150 < need ? `내 돈 ${won(need)} 필요` : ''; return [k, h.ic + ' ' + h.t, dgHomeDesc(k), dis]; }), DG.home, (k) => { DG.planMsg = dgMoveTo(k); renderPlay(); }, 4);
       if (DG.planMsg) { iv.appendChild(el('p', 'dgplmsg', DG.planMsg)); DG.planMsg = ''; }
-      grp('💼 돈 굴리기 (통장 잔고 전체에 적용)', DG_INV, DG.inv || 'save', (k) => { DG.inv = k; renderPlay(); });
+      grp('💼 돈 굴리기 — 어디에', DG_INV, DG.inv || 'save', (k) => { DG.inv = k; renderPlay(); });
+      if ((DG.inv || 'save') !== 'save') {
+        const row = iv.appendChild(el('div', 'dgpr')); const hd = row.appendChild(el('div', 'hd')); hd.appendChild(el('b', null, '📊 얼마나 넣을까 (통장 잔고 중)'));
+        const rr = DG_RATIO[DG.invR == null ? 2 : DG.invR]; hd.appendChild(el('small', null, DG.cash > 0 ? `약 ${won(DG.cash * rr[0])} 투자 · 나머지는 예금 2.5%` : '통장이 마이너스라 투자할 돈이 없어요'));
+        const g = row.appendChild(el('div', 'dgseg')); DG_RATIO.forEach((x, i) => { const b = g.appendChild(btnEl('chip sm', x[1], () => { DG.invR = i; renderPlay(); })); b.setAttribute('aria-pressed', (DG.invR == null ? 2 : DG.invR) === i); });
+      }
       const tw = iv.appendChild(el('button', 'dgtog' + (DG.two ? ' on' : ''))); tw.type = 'button'; tw.setAttribute('role', 'switch'); tw.setAttribute('aria-checked', !!DG.two);
       const twt = tw.appendChild(el('span', 'tx')); twt.appendChild(el('b', null, '🛵 투잡')); twt.appendChild(el('small', null, '연 1,000~1,800만 원 더 벌지만 행복↓ · 번아웃 확률↑'));
       const sw2 = tw.appendChild(el('span', 'sw')); sw2.appendChild(el('i')); tw.appendChild(el('em', null, DG.two ? '켜짐' : '꺼짐'));
@@ -3147,35 +3313,51 @@ html, body { margin: 0; background: #14161b; }
         if (!last) bt.appendChild(btnEl('chip big', '⏩ 5년 빨리', go(dgFF)));
         if (!last) bt.appendChild(btnEl('chip big', DG.car ? '🔁 차 바꾸기' : '🚗 차 사기', go(() => { DG.stage = 'market'; })));
         const dc2 = dgCanBuy(DG.dream, false);
-        if (!DG.dreamOwned && dc2 && dc2.ok) bt.appendChild(btnEl('chip big dgdreambtn', '🏁 드림카 지르기!', go(() => { dgBuy(DG.dream, false); })));
+        if (!DG.dreamOwned && dc2 && dc2.ok) bt.appendChild(btnEl('chip big dgdreambtn', '🏁 드림카 견적 보기!', go(() => { DG.cfg = dgCfg0(DG.dream, false); DG.stage = 'config'; })));
       }
       return;
     }
     // ---- 엔딩
-    const net = dgNet();
-    const grade = DG.dreamOwned && net >= 0 && DG.happy >= 60 ? ['🏆 카롱도르', '드림카도, 통장도, 행복도 다 챙긴 전설의 차생!']
-      : DG.dreamOwned && net < 0 ? ['💸 드림카 오너 (카푸어)', '꿈은 이뤘지만 통장이 울고 있어요…']
-      : DG.dreamOwned ? ['🏁 드림카 달성', '결국 해냈어요! 행복도가 조금 아쉬워요.']
-      : net >= 100000 ? ['🧮 현실 만렙', '드림카는 안 샀지만 자산 10억 돌파. 언제든 살 수 있는 사람!']
-      : net >= 0 && DG.happy >= 65 ? ['😊 행복한 차생', '드림카는 없어도 행복은 꽉 찼어요.']
-      : net >= 0 ? ['🚗 평범한 차생', '무난하게 잘 탔어요. 드림카는 다음 생에…']
-      : ['😵 카푸어', '차에 너무 많이 썼어요. 빚이 남았네요.'];
-    const c = box.appendChild(el('div', 'card mbres'));
-    dgScene(c, grade[0].split(' ')[0], DG.dreamOwned ? 'party' : 'calm', false, `${DG.startAge}살 → ${DG_END}살 차생 결산`);
-    c.appendChild(el('b', 'mbtype jal dgg', grade[0].replace(/^\S+\s/, '')));
-    c.appendChild(el('p', 'mbdesc', grade[1]));
-    c.appendChild(el('p', 'note', `${DG.spoon.ic} ${DG.spoon.t} · 순자산 ${won(net)} 원 · 행복 ${DG.happy}점 · 드림카 ${shortName(DG.dream.name)} ${DG.dreamOwned ? DG.dreamAge + '살에 달성' : '미달성'} · 탄 차 ${DG.hist.length}대`));
-    const tb = box.appendChild(el('div', 'card'));
-    tb.appendChild(el('div', 'ch')).appendChild(el('h2', null, '📜 내 인생 타임라인'));
-    const tlx = tb.appendChild(el('div', 'dgtl'));
-    DG.tl.forEach((x) => { const d = tlx.appendChild(el('div')); d.appendChild(el('span', 'a', x.age + '살')); d.appendChild(el('span', 'i', x.art)); d.appendChild(el('span', null, x.t)); });
-    const bt = box.appendChild(el('div', 'wcbtns'));
-    const path_ = DG.hist.map((h) => shortName(byId[h.id].name).split(' ').slice(0, 2).join(' ')).join(' → ') || 'BMW(버스·메트로·워킹) 인생';
-    const sh = bt.appendChild(btnEl('chip gold', '🔗 결과 공유', () => shareLink('tab=play&g=dg', `[카스쿼드] 첫차에서 드림카까지 — ${grade[0]}! ${DG.spoon.t} ${DG.job.t} · ${path_}`, sh)));
-    bt.appendChild(btnEl('chip', '↻ 다시 하기', () => { dgReset(); renderPlay(); scrollToSection('t-play'); }));
-    box.appendChild(el('p', 'dgdisc', DG_DISC));
+    if (!DG.result) DG.result = dgMakeResult();
+    dgResultView(box, DG.result, false);
   }
 
+  const DG_GRADES = [['🏆 카롱도르', '드림카도, 통장도, 행복도 다 챙긴 전설의 차생!'], ['💸 드림카 오너 (카푸어)', '꿈은 이뤘지만 통장이 울고 있어요…'], ['🏁 드림카 달성', '결국 해냈어요! 행복도가 조금 아쉬워요.'], ['🧮 현실 만렙', '드림카는 안 샀지만 자산 10억 돌파. 언제든 살 수 있는 사람!'], ['😊 행복한 차생', '드림카는 없어도 행복은 꽉 찼어요.'], ['🚗 평범한 차생', '무난하게 잘 탔어요. 드림카는 다음 생에…'], ['😵 카푸어', '차에 너무 많이 썼어요. 빚이 남았네요.']];
+  function dgMakeResult() {
+    const net = dgNet();
+    const g = DG.dreamOwned && net >= 0 && DG.happy >= 60 ? 0 : DG.dreamOwned && net < 0 ? 1 : DG.dreamOwned ? 2 : net >= 100000 ? 3 : net >= 0 && DG.happy >= 65 ? 4 : net >= 0 ? 5 : 6;
+    const key = DG.tl.filter((x) => !/로 이사$|투잡 시작/.test(x.t));
+    return { v: 1, g, j: DG.job.t, ji: DG.job.ic, s: DG.spoon.k, rg: reg().k, df: dif().k, d: DG.dream.id, da: DG.dreamOwned ? DG.dreamAge : 0, n: net, h: DG.happy, sa: DG.startAge, m: DG.married ? 1 : 0, k: DG.kids.length, c: DG.hist.map((x) => x.id).slice(-10), t: key.slice(0, 28).map((x) => [x.age, x.art, x.t]) };
+  }
+  const dgEnc = (o) => { try { return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); } catch (e) { return ''; } };
+  const dgDec = (s0) => { try { const b = s0.replace(/-/g, '+').replace(/_/g, '/'); return JSON.parse(decodeURIComponent(escape(atob(b + '==='.slice((b.length + 3) % 4))))); } catch (e) { return null; } };
+  function dgResultView(box, R0, shared) {
+    const G = DG_GRADES[R0.g] || DG_GRADES[5];
+    const sp = DG_SPOONS.find((x) => x.k === R0.s) || DG_SPOONS[3], rg0 = DG_REGIONS.find((x) => x.k === R0.rg) || DG_REGIONS[1], df0 = DG_DIFF.find((x) => x.k === R0.df) || DG_DIFF[1];
+    const dream = byId[R0.d];
+    if (shared) { const bn = box.appendChild(el('div', 'card wcshared')); bn.appendChild(el('p', null, '친구의 차생 결산 🏁')); bn.appendChild(el('span', 'note', '나도 해 보고 누가 더 잘 살았는지 비교해 보세요!')); }
+    const c = box.appendChild(el('div', 'card mbres'));
+    dgScene(c, G[0].split(' ')[0], R0.da ? 'party' : 'calm', false, `${R0.sa}살 → ${DG_END}살 차생 결산`);
+    c.appendChild(el('b', 'mbtype jal dgg', G[0].replace(/^\S+\s/, '')));
+    c.appendChild(el('p', 'mbdesc', G[1]));
+    const g = c.appendChild(el('div', 'dgdelg'));
+    const st2 = (k, v) => { const d = g.appendChild(el('div')); d.appendChild(el('small', null, k)); d.appendChild(el('b', null, v)); };
+    st2('직업', `${R0.ji} ${R0.j}`); st2('출발', `${sp.ic} ${sp.t}`); st2('지역·난이도', `${rg0.t} · ${df0.t}`);
+    st2('순자산', won(R0.n) + ' 원'); st2('행복', R0.h + '점'); st2('가족', (R0.m ? '💍 기혼' : '🙋 미혼') + (R0.k ? ` · 👶×${R0.k}` : ''));
+    if (dream) { const dd = c.appendChild(el('div', 'dgsel')); const ph = dd.appendChild(el('div', 'ph')); photo(ph, dream); const t = dd.appendChild(el('div')); t.appendChild(el('small', null, R0.da ? `🏁 ${R0.da}살에 드림카 달성!` : '🏁 드림카 (미달성)')); t.appendChild(el('b', null, dream.name)); t.appendChild(el('span', null, `탄 차 ${R0.c.length}대: ` + (R0.c.map((id) => byId[id] ? shortName(byId[id].name).split(' ').slice(0, 2).join(' ') : '').filter(Boolean).join(' → ') || 'BMW 인생'))); }
+    const tb = box.appendChild(el('div', 'card'));
+    tb.appendChild(el('div', 'ch')).appendChild(el('h2', null, shared ? '📜 친구의 인생 타임라인' : '📜 내 인생 타임라인'));
+    const tlx = tb.appendChild(el('div', 'dgtl'));
+    R0.t.forEach(([age, art, t]) => { const d = tlx.appendChild(el('div')); d.appendChild(el('span', 'a', age + '살')); d.appendChild(el('span', 'i', art)); d.appendChild(el('span', null, t)); });
+    const bt = box.appendChild(el('div', 'wcbtns'));
+    if (shared) bt.appendChild(btnEl('chip gold', '▶ 나도 해 보기', () => { PLAY.dgShared = null; renderPlay(); scrollToSection('t-play'); }));
+    else {
+      const path_ = R0.c.map((id) => byId[id] ? shortName(byId[id].name).split(' ').slice(0, 2).join(' ') : '').filter(Boolean).join(' → ') || 'BMW 인생';
+      const sh = bt.appendChild(btnEl('chip gold', '🔗 결과 공유', () => shareLink('tab=play&g=dg&dr=' + dgEnc(R0), `[카스쿼드] 첫차에서 드림카까지 — ${G[0]}! ${sp.t} ${R0.j} · ${path_}`, sh)));
+      bt.appendChild(btnEl('chip', '↻ 다시 하기', () => { dgReset(); renderPlay(); scrollToSection('t-play'); }));
+    }
+    box.appendChild(el('p', 'dgdisc', DG_DISC));
+  }
   // ------------------------------------------------------------------ 능력치 퀴즈
   const QZK = ['accel', 'power', 'brake', 'eff', 'quiet', 'safety', 'resale', 'upkeep', 'room', 'cargo', 'agile'];
   function qzMake(dom) {
@@ -4141,8 +4323,9 @@ html, body { margin: 0; background: #14161b; }
   }
   function shareLink(params, title, btn) {
     const url = location.origin + location.pathname + '#' + params;
-    if (navigator.share) { navigator.share({ title, url }).catch(() => {}); return; }
-    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { if (btn) { const t = btn.textContent; btn.textContent = '✓ 링크 복사됨'; setTimeout(() => { btn.textContent = t; }, 1800); } }).catch(() => window.prompt('이 링크를 복사해서 보내세요', url));
+    const copy = () => (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { if (btn) { const t = btn.textContent; btn.textContent = '✓ 링크 복사됨'; setTimeout(() => { btn.textContent = t; }, 1800); } }).catch(() => window.prompt('이 링크를 복사해서 보내세요', url));
+    if (navigator.share) { navigator.share({ title, text: title, url }).catch((e) => { if (!e || e.name !== 'AbortError') copy(); }); return; }
+    copy();
   }
   function renderWC(box) {
     const W = PLAY.wc;
@@ -4732,6 +4915,7 @@ html, body { margin: 0; background: #14161b; }
     if (p.get('wc') && byId[p.get('wc')]) { PLAY.sharedWc = p.get('wc'); PLAY.mode = 'wc'; }
     if (p.get('mb') && MBTI[p.get('mb')]) { PLAY.mode = 'mb'; const mt = p.get('mb'); PLAY.mb = { stage: 'result', i: 0, ans: [], result: { type: mt, pct: null }, me: '', bud: 0, shared: true }; }
     if (['mb', 'wc', 'vid', 'qz', 'dg'].includes(p.get('g'))) PLAY.mode = p.get('g');
+    if (p.get('dr')) { PLAY.mode = 'dg'; PLAY.dgShared = p.get('dr'); cur = 't-play'; }
   }
   // 휴대폰 뒤로가기: 열린 창 닫기 → 이전 탭/차로 → 첫 화면에서는 한 번 더 눌러야 나가기
   let exitArm = 0;
