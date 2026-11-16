@@ -5469,7 +5469,8 @@ body.kkopen{overflow:hidden}
     const isModelStart = (t) => { const n = norm(t); return n.length >= 2 && CARS.some((r) => nm0(r).startsWith(n)); };
     function pick(list, ph, used, yr) {
       if (!list.length) return null;
-      const n = norm(ph.split(' ')[0]); const ex = list.filter((r) => r._sn.includes(norm(ph))); if (ex.length) list = ex; const st = list.filter((r) => nm0(r).startsWith(n)); if (st.length) list = st;
+      const bare = list.length ? ph.split(' ').filter((w) => !list.some((r) => norm(r.brand) === norm(w.replace(/차$/, '')))).join(' ') || ph : ph;
+      const n = norm(bare.split(' ')[0]); const ex = list.filter((r) => nm0(r).includes(norm(bare)) || r._sn.includes(norm(bare))); if (ex.length) list = ex; const st = list.filter((r) => nm0(r).startsWith(n)); if (st.length) list = st;
       if (used || yr) {
         const cnt = (r) => (yr ? ((r.uy || []).find((u) => u[0] === yr) || [0, 0])[1] : (r.uy || []).reduce((s, u) => s + u[1], 0));
         const w = list.filter((r) => cnt(r) > 0 && (!yr || !/하이브리드|hev/i.test(r.name) || /하이브리드|hev/i.test(ph)));
@@ -5480,20 +5481,26 @@ body.kkopen{overflow:hidden}
     }
     // 앞에서부터 단어를 이어 붙이며 차를 좁힘. 차마다 앞의 신차/중고, 뒤의 연식을 따로 붙임
     function findCars(q, usedAll, yrAll) {
-      const raw = toksOf(q);
-      const items = []; let flag = null, ph = '', phFlag = null, phYr = null;
+      const raw = toksOf(q); const explicit = /(^|\s)(신차|새차|중고|중고차)(\s|$)/.test(q) && raw.filter((t) => searchCars(t, 1).length || SYN[t.toLowerCase()]).length >= 2;
+      if (explicit) { usedAll = false; yrAll = null; }
+      const items = []; let flag = null, ph = '', phFlag = null, phYr = null, brand = '';
+      const BR = new Set(CARS.map((r) => norm(r.brand)).concat(['현대차', '기아차', '벤츠', '비엠', '르노', '쌍용', 'kgm', '쉐보레', '쉐보레이']));
       const close = () => { if (ph) { const u = phFlag === '중고' || (phFlag == null && usedAll), y = phYr || (phFlag == null ? yrAll : null); const r = pick(searchCars(ph, 40), ph, u, y); if (r && !items.some((x) => x.r === r)) items.push({ r, used: !!(u && (r.og || (r.uy || []).length)), yr: y }); } ph = ''; phFlag = null; phYr = null; };
       raw.forEach((t0) => {
         const sy = SYN[t0.toLowerCase()] || SYN[t0.toLowerCase().replace(/(이랑|랑|하고|와|과|은|는|이|가|을|를|의|도|로|으로|보다)$/, '')];
         if (sy) { close(); ph = sy; phFlag = flag; flag = null; close(); return; }
         let t = t0; if (!searchCars(t, 1).length) { const s2 = t.replace(/(이랑|랑|하고|와|과|은|는|이|가|을|를|의|도|로|으로|에서|보다)$/, ''); if (s2.length >= 2 && searchCars(s2, 1).length) t = s2; }
+        if (/^(대|vs|랑|이랑|와|과|하고|및|또는|아니면|비교|중에|중)$/i.test(t)) { close(); return; }
         if (/^(신차|새차|새거)$/.test(t)) { close(); flag = '신차'; return; }
         if (/^(중고|중고차)$/.test(t)) { close(); flag = '중고'; return; }
         const ym = t.match(/^(19|20)(\d\d)(년식?|년형)?$/); if (ym) { if (ph) phYr = +(ym[1] + ym[2]); return; }
         if (INTENT_WORDS.test(t) || /^\d+(\.\d+)?(만|천|억)/.test(t) || (VERB.test(t) && !searchCars(t, 1).length)) { return; }
         if (ph && !isModelStart(t) && searchCars(ph + ' ' + t, 3).length) { ph += ' ' + t; return; }
         if (GENERIC.test(t)) return;
-        if (searchCars(t, 3).length) { close(); ph = t; phFlag = flag; flag = null; }
+        if (BR.has(norm(t))) { close(); brand = t.replace(/차$/, ''); return; }
+        if (t.length < 2 && !/^[a-z0-9]$/i.test(t)) return;
+        const bt = brand && searchCars(brand + ' ' + t, 3).length ? brand + ' ' + t : t;
+        if (searchCars(bt, 3).length) { close(); ph = bt; phFlag = flag; flag = null; brand = ''; }
       });
       close();
       return items;
@@ -5562,6 +5569,9 @@ body.kkopen{overflow:hidden}
       if (/suv/i.test(q)) { f.push((r) => r.body === 'SUV'); why.push('SUV'); }
       if (/세단/.test(q)) { f.push((r) => r.body === '세단'); why.push('세단'); }
       if (/경차/.test(q)) { f.push((r) => r.body === '경차'); why.push('경차'); }
+      if (/대형/.test(q)) { f.push((r) => num(r.len) >= 4900); why.push('대형(길이 4.9m 이상)'); }
+      else if (/중형/.test(q)) { f.push((r) => num(r.len) >= 4600 && num(r.len) < 4900); why.push('중형(길이 4.6~4.9m)'); }
+      else if (/소형|준중형/.test(q)) { f.push((r) => num(r.len) < 4600); why.push('소형·준중형(길이 4.6m 미만)'); }
       if (/패밀리|가족|아이|애기|미니밴/.test(q)) { f.push((r) => ['SUV', 'MPV'].includes(r.body) && num(r.len) >= 4650); why.push('패밀리카(길이 4.65m 이상 SUV·미니밴)'); }
       if (/하이브리드|hev/i.test(q)) { f.push((r) => r.powertrain === '하이브리드'); why.push('하이브리드'); }
       if (/전기|ev\b|전기차/i.test(q)) { f.push((r) => r.powertrain === '전기'); why.push('전기차'); }
