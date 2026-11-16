@@ -1084,6 +1084,34 @@ html, body { margin: 0; background: #14161b; }
 .dgload .road .car{position:absolute;top:50%;left:50%;font-style:normal;font-size:26px;transform:translate(-50%,-50%) scaleX(-1);animation:dgbob .3s ease-in-out infinite alternate}.dgload .road .car.walk{transform:translate(-50%,-50%)}
 .dgload .wbar{width:100%;height:6px;border-radius:99px;background:#333a46;overflow:hidden}.dgload .wbar i{display:block;height:100%;width:0;background:#e3b448;transition:width .05s linear}
 @keyframes dgfade{from{opacity:0}to{opacity:1}}
+.vd .pgroups{grid-column:1 / -1;display:flex;flex-direction:column;gap:14px;min-width:0}
+.vd .pscout{background:var(--pn);border:1px solid var(--line);border-top:3px solid #e3b448;border-radius:3px;padding:12px 14px}
+.vd .pscout .sh{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}.vd .pscout .sh b{font-size:16px;color:var(--hi)}.vd .pscout .sh span{font-size:12.5px;color:var(--mu)}
+.vd .pscout .srow{display:grid;grid-template-columns:112px 1fr;gap:6px 10px;align-items:start;padding:8px 0;border-top:1px dashed var(--sep)}
+.vd .pscout .sl{font-size:13.5px;font-weight:800;color:var(--mu)}.vd .pscout .sv{display:flex;flex-wrap:wrap;gap:6px}
+.vd .pscout .sv span{font-size:14px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--pn2);border:1px solid var(--line);color:var(--tx)}
+.vd .pscout .g .sv span{border-color:rgba(69,211,127,.5);background:rgba(69,211,127,.1)}.vd .pscout .b .sv span{border-color:rgba(255,110,90,.5);background:rgba(255,110,90,.08)}.vd .pscout .w .sv span{border-color:rgba(227,180,72,.6);background:rgba(227,180,72,.12)}
+.vd .pscout .snote{margin:8px 0 0;font-size:12px;color:var(--mu2)}
+.vd .pgnav{position:sticky;top:var(--stick,60px);z-index:5;display:flex;gap:6px;overflow-x:auto;padding:8px 2px;background:var(--bg);scrollbar-width:none}.vd .pgnav::-webkit-scrollbar{display:none}
+.vd .pgnav .chip{flex:0 0 auto;font-weight:800}
+.vd .pgrp{display:flex;flex-direction:column;gap:8px;scroll-margin-top:120px}
+.vd .pgh{margin:6px 0 0;font-size:17px;color:var(--hi);display:flex;align-items:center;gap:10px}.vd .pgh::after{content:'';flex:1;height:1px;background:var(--line)}
+.vd .psec{background:var(--pn);border:1px solid var(--line);border-radius:3px}
+.vd .psec>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 12px;padding:12px 14px}
+.vd .psec>summary::-webkit-details-marker{display:none}
+.vd .psec>summary b{font-size:15px;color:var(--hi)}.vd .psec>summary .tz{font-size:13.5px;font-weight:700;color:#c2870c;min-width:0}
+.vd .psec>summary .mo::after{content:'펼치기 ▾';font-style:normal;font-size:12px;font-weight:700;color:var(--mu)}.vd .psec[open]>summary .mo::after{content:'접기 ▴'}
+.vd .psec[open]>summary{border-bottom:1px solid var(--line)}
+.vd .psec>.inpsec{border:0!important;border-radius:0;margin:0!important;background:transparent}
+.vd .psec>.inpsec>h4:first-child,.vd .psec>.inpsec>.vhead>h4,.vd .psec>.inpsec>.rvh>h4{display:none}
+.vd .psec>.inpsec>.vhead{justify-content:flex-end}
+.vd .inpgrp{margin:0}
+.vd .vmorebox{margin-top:10px}
+@media (max-width:760px){
+  .vd .pscout .srow{grid-template-columns:1fr}
+  .vd .psec>summary{grid-template-columns:1fr auto}.vd .psec>summary .tz{grid-column:1;grid-row:2}.vd .psec>summary .mo{grid-row:1 / span 2;grid-column:2}
+  .vd .pgroups .vgrid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:6px}.vd .pgroups .vgrid .vcard{flex:0 0 82%;scroll-snap-align:start}
+}
 /* 갈아타기 · 한줄평 · 퀴즈 */
 .vd .pswap{border-left-color:#e3b448}
 .vd .prev{border-left-color:#c86bfa}
@@ -1998,6 +2026,83 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       ['엔카 중고 시세', blank(r.used_price) ? (r.used_status || '자료 없음') : `${fmt(r.used_price)}만 원 (매물 ${r.used_n}대, ${r.used_years})`, r.used_note || '엔카 2026.10.26, 주행 3~7만km 중간값']
     ];
     rows.forEach(([a, b, c]) => { const tr = t.appendChild(el('tr')); tr.appendChild(el('th', null, a)); tr.appendChild(el('td', 'v', b)); tr.appendChild(el('td', 'src', c)); });
+    profLayout(box, r);
+  }
+
+  // ------------------------------------------------------------------ 선수 화면 아래쪽 정리
+  // 스카우트 리포트(한 장 요약) + 4묶음(특징·후기 / 비용 / 확인사항 / 영상란). 각 섹션은 접고, 제목 옆에 핵심 숫자 한 줄을 보여 줌
+  const PROF_OPEN = {};
+  const manwon = (v) => (isNaN(v) ? '–' : v >= 10000 ? (Math.round(v / 1000) / 10) + '억' : fmt(Math.round(v)) + '만');
+  function scoutReport(r) {
+    const c = el('div', 'pscout');
+    const hd = c.appendChild(el('div', 'sh')); hd.appendChild(el('b', null, '📋 스카우트 리포트')); hd.appendChild(el('span', null, '이 선수를 한 장으로'));
+    const skip = new Set(['tage', 'pricev', 'upkeep', 'qvalue']);
+    const pool = ATTR.filter((a) => !skip.has(a.k) && !isNaN(r['s_' + a.k]) && !isEst(r, a.k)).map((a) => [a, r['s_' + a.k]]);
+    const good = pool.filter((x) => x[1] >= 13).sort((a, b) => b[1] - a[1]).slice(0, 3);
+    const bad = pool.filter((x) => x[1] <= 8).sort((a, b) => a[1] - b[1]).slice(0, 2);
+    const row = (ic, lab, items, cls) => { const d = c.appendChild(el('div', 'srow ' + cls)); d.appendChild(el('span', 'sl', ic + ' ' + lab)); const u = d.appendChild(el('div', 'sv')); items.forEach((t) => u.appendChild(el('span', null, t))); };
+    const lab = ([a, v]) => { let x = ''; try { x = String(a.fmtv(r)); } catch (e) {} return `${a.label} ${v}` + (x && x !== String(v) && x.length < 18 ? ` · ${x}` : ''); };
+    row('👍', '강점', good.length ? good.map(lab) : ['두드러진 강점 없이 고른 편'], 'g');
+    row('👎', '약점', bad.length ? bad.map(lab) : ['크게 모자란 곳 없음'], 'b');
+    const fy = num(r.fuel_year), tax = num(r.tax), d = num(r.depy), P = num(r.price);
+    const money = [];
+    if (!isNaN(fy) || !isNaN(tax)) money.push(`연료비+자동차세 연 약 ${manwon(((isNaN(fy) ? 0 : fy) + (isNaN(tax) ? 0 : tax)) / 10000)}원`);
+    if (!isNaN(d) && !isNaN(P) && !r.legend) money.push(`3년 뒤 몸값 약 ${manwon(P * Math.pow(1 - d / 100, 3))}원`);
+    if (money.length) row('💰', '비용', money, 'm');
+    const S = (k) => num(r['s_' + k]);
+    const who = [[Math.max(S('room') || 0, S('seats') || 0), '👨‍👩‍👧 가족을 자주 태우는 사람'], [S('eff'), '🛣️ 출퇴근·장거리가 많은 사람'], [Math.max(S('accel') || 0, S('agile') || 0), '🏁 운전 재미를 찾는 사람'], [S('quiet'), '🤫 조용한 차를 원하는 사람'], [Math.max(S('value') || 0, P <= 2600 ? 16 : 0), '💸 가성비 따지는 사회초년생'], [S('cargo'), '🏕️ 짐 많은 캠핑·레저파'], [S('safety'), '🛡️ 안전이 최우선인 사람']]
+      .filter((x) => x[0] >= 15).sort((a, b) => b[0] - a[0]).slice(0, 2).map((x) => x[1]);
+    const st = style(r);
+    row('🎯', '이런 사람에게', who.length ? who : [st && st[0] ? `플레이 스타일 "${st[0]}"을 좋아하는 사람` : '두루두루 무난하게 탈 사람'], 'w');
+    c.appendChild(el('p', 'snote', '실측·공식 능력치만으로 뽑았어요 (추정값 제외) · 자세한 건 아래에서'));
+    return c;
+  }
+  function profLayout(box, r) {
+    const q = (sel) => box.querySelector(':scope > ' + sel);
+    const W = box.appendChild(el('div', 'pgroups'));
+    W.appendChild(scoutReport(r));
+    const nav = W.appendChild(el('nav', 'pgnav')); nav.setAttribute('aria-label', '선수 정보 바로가기');
+    const fy = num(r.fuel_year), d = num(r.depy), P = num(r.price);
+    let swapT = ''; try { const x = swapTax(r, P, 'new'); if (x && !isNaN(x.t)) swapT = `신차 취득세·부대비용 약 ${manwon(x.t)}원`; } catch (e) {}
+    const GROUPS = [
+      ['feat', '💬 특징·후기', [['.prev', '💬 오너 한줄평', '실제 오너들의 한마디', true]]],
+      ['cost', '💰 비용', [
+        ['.pmoney:not(.pswap):not(.prev)', '💰 어떻게 영입할까?', '신차 · 장기렌트 · 리스 · 중고 월 비용 비교'],
+        ['.pswap', '🔁 이 차로 갈아타면', swapT || '세금 · 부대비용 · 내 차 판매까지'],
+        ['.pvalue', '📉 몸값 변화 예측', !isNaN(d) && !isNaN(P) && !r.legend ? `연 -${d}% · 3년 뒤 약 ${manwon(P * Math.pow(1 - d / 100, 3))}원` : '3년 뒤 이 차는 얼마?'],
+        ['.pcommute', '⛽ 출퇴근 연료비', !isNaN(fy) ? `1.5만km 기준 연 약 ${manwon(fy / 10000)}원` : '매일 출근하면 얼마?'],
+        ['.pmarket', '🔎 중고 매물·시세', !blank(r.used_price) ? `엔카 시세 약 ${manwon(num(r.used_price))}원 (${r.used_years || ''})` : '매물 찾기 · 시세 판정']]],
+      ['check', '🔍 확인사항', [
+        ['.pinjury', '🩹 부상빈도 (리콜)', blank(r.rec_n) ? '리콜 자료 없음' : r.rec_n ? `${r.rec_since}년 이후 리콜 ${r.rec_n}회` : '리콜 기록 없음'],
+        ['.ptrims', '🧾 트림 · 옵션', '트림별 기본 품목과 선택 옵션'],
+        ['.psound', '🔊 소음 듣기', !blank(r.dba) ? `80km/h 실내 ${r.dba}dBA` : '80km/h 실내 소음을 귀로 비교'],
+        ['.pcheck', '✅ 체크리스트', '이 차를 보러 갈 때 확인할 것'],
+        ['.precord', '📑 기록 (원자료와 출처)', '실측·공식 수치와 출처 모음']]],
+      ['vid', '🎬 영상란', [['.pvideo', null]]]
+    ];
+    GROUPS.forEach(([gk, gname, items]) => {
+      const nodes = items.map((it) => [it, q(it[0])]).filter((x) => x[1]); if (!nodes.length) return;
+      const g = W.appendChild(el('section', 'pgrp')); g.id = 'pg-' + gk;
+      g.appendChild(el('h3', 'pgh', gname));
+      const chip = nav.appendChild(btnEl('chip sm', gname, () => g.scrollIntoView({ behavior: 'smooth', block: 'start' })));
+      chip.type = 'button';
+      nodes.forEach(([[sel, title, teaser, open], node]) => {
+        if (!title) { g.appendChild(node); node.classList.add('inpgrp'); return; }
+        const dt = g.appendChild(el('details', 'psec')); const key = sel;
+        dt.open = PROF_OPEN[key] != null ? PROF_OPEN[key] : !!open;
+        const sm = dt.appendChild(el('summary')); sm.appendChild(el('b', null, title)); const tz = sm.appendChild(el('span', 'tz', teaser)); sm.appendChild(el('em', 'mo'));
+        dt.appendChild(node); node.classList.add('inpsec');
+        dt.addEventListener('toggle', () => { PROF_OPEN[key] = dt.open; });
+        if (sel === '.prev') rvLoad().then(() => { const L = (RVDATA || {})[r.id] || []; if (L.length) tz.textContent = `한줄평 ${L.length}개 · 평균 ★${(L.reduce((a, x) => a + (+x[0] || 0), 0) / L.length).toFixed(1)}`; else tz.textContent = '아직 한줄평이 없어요 · 첫 한줄평을 남겨 주세요'; }).catch(() => {});
+      });
+    });
+    // 영상란: 등록된 영상은 바로 보이고, 주제별·채널별 찾기는 접어 둠
+    const V = W.querySelector('.pvideo');
+    if (V && V.querySelector('.vgrid')) {
+      const more = el('details', 'psec vmorebox'); const sm = more.appendChild(el('summary')); sm.appendChild(el('b', null, '🔎 주제별 · 채널별로 더 찾아보기')); sm.appendChild(el('span', 'tz', '시승기 · 단점 · 연비 실측 · 오너 후기')); sm.appendChild(el('em', 'mo'));
+      const body = more.appendChild(el('div'));
+      const firstSec = V.querySelector(':scope > .vsec'); if (firstSec) { let n = firstSec; while (n) { const nx = n.nextSibling; body.appendChild(n); n = nx; } V.appendChild(more); }
+    }
   }
 
   function radar(box, cars) {
@@ -2163,7 +2268,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     const box = $('#how'); if (box.childElementCount) return;
     // ---- 데이터 신뢰도 (실측·공식 vs 추정)
     const M = (EST._meta) || {};
-    box.appendChild(el('h3', 'howh', '📊 데이터 신뢰도 — 빈칸 없이, 대신 추정은 추정이라고'));
+    box.appendChild(el('h3', 'howh', '📊 데이터 신뢰도 — 빈칸 없이, 대신 추정은 추정입니다.'));
     box.appendChild(el('p', 'note', '실측·공식 자료가 없는 칸은 비워 두지 않고 추정값으로 채웁니다. 추정값은 화면에서 빗금과 "추정" 표시로 구분되고, OVR에는 실측값의 50~70% 비중으로만 들어갑니다. 점수 기준표(몇 점부터 몇 점)는 실측·공식 값만으로 만들고, 추정값은 그 기준표 위에서 점수만 받습니다.'));
     const rt = box.appendChild(el('table', 'how'));
     const rh = rt.appendChild(el('tr')); ['능력치', '실측·공식', '추정', '추정 방법', '추정 오차(교차검증)'].forEach((x) => rh.appendChild(el('th', null, x)));
