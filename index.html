@@ -1231,6 +1231,47 @@ html, body { margin: 0; background: #14161b; }
 }
 .vd .dgsub{font-size:12px;font-weight:700;color:var(--mu);margin-top:4px}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+/* 깡통봇 */
+.kkfab{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:900;width:58px;height:58px;border-radius:50%;background:#fff;border:2px solid #e3b448;box-shadow:0 6px 18px rgba(0,0,0,.28);display:grid;place-items:center;padding:0;cursor:pointer;transition:transform .25s,opacity .25s}
+.kkfab svg{width:42px;height:36px}
+.kkfab.hide{transform:translateY(90px);opacity:0;pointer-events:none}
+.kkfab[hidden],.kkbub[hidden]{display:none}
+.kkbub{position:fixed;right:82px;bottom:calc(32px + env(safe-area-inset-bottom));z-index:900;background:#15181e;color:#fff;font-size:14px;font-weight:700;padding:8px 12px;border-radius:14px 14px 4px 14px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.kkwrap{position:fixed;inset:0;z-index:1500;display:none;font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.kkbub{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.kkwrap.on{display:block}
+.kkdim{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.kksheet{position:absolute;left:0;right:0;bottom:0;height:78vh;height:78dvh;background:#fff;color:#15181e;border-radius:20px 20px 0 0;display:flex;flex-direction:column;box-shadow:0 -6px 24px rgba(0,0,0,.25);animation:kkup .22s ease-out}
+@keyframes kkup{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+@media (min-width:900px){.kkdim{background:rgba(0,0,0,.12)}.kksheet{left:auto;right:20px;bottom:90px;width:400px;height:min(620px,80vh);border-radius:18px}.kkbar{display:none}}
+.kkbar{width:44px;height:5px;border-radius:3px;background:#cfd3da;margin:9px auto 4px;flex:none}
+.kkhead{display:flex;align-items:center;gap:10px;padding:8px 14px 10px;border-bottom:1px solid #eceef2;flex:none}
+.kkic svg{width:40px;height:34px;display:block}
+.kkhead b{font-size:18px;font-weight:900;display:block}.kkhead small{display:block;font-size:12.5px;color:#6b7180;font-weight:600}
+.kkx{margin-left:auto;border:0;background:#f1f3f6;width:36px;height:36px;border-radius:50%;font-size:17px;cursor:pointer;color:#4a5060}
+.kkmsgs{flex:1;overflow-y:auto;position:relative;padding:12px 12px 6px;display:flex;flex-direction:column;gap:9px;overscroll-behavior:contain}
+.kkmsg{max-width:90%;font-size:14.5px;line-height:1.55;font-weight:600;word-break:keep-all;overflow-wrap:anywhere}
+.kkmsg p{margin:0 0 4px}.kkmsg p:last-child{margin-bottom:0}
+.kkmsg.bot{align-self:flex-start;background:#f1f3f6;border-radius:4px 16px 16px 16px;padding:10px 12px}
+.kkmsg.bot.plain{background:none;padding:0;max-width:100%}
+.kkmsg.me{align-self:flex-end;background:#e3b448;color:#15181e;border-radius:16px 4px 16px 16px;padding:9px 12px;font-weight:800}
+.kkguide{border:1.5px dashed #c3c8d1;border-radius:12px;padding:9px 11px;font-size:13.5px;line-height:1.6;color:#3c4250;background:#fafbfc}
+.kkchips{display:flex;flex-wrap:wrap;gap:6px}
+.kkchip{font:inherit;font-size:13.5px;font-weight:800;border:1px solid #d6d9e0;border-radius:18px;padding:7px 11px;background:#fff;color:#15181e;cursor:pointer}
+.kkhd{display:block;font-size:14.5px;font-weight:900;margin-bottom:6px}
+.kkrows{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:13.5px;margin-bottom:6px}
+.kkrows .k{color:#6b7180;font-weight:700;white-space:nowrap}.kkrows .v{font-weight:700;min-width:0}
+@media (max-width:380px){.kkrows{grid-template-columns:1fr}.kkrows .k{margin-top:4px}}
+.kkft{font-size:13.5px}
+.kklinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.kklink{font:inherit;font-size:13.5px;font-weight:800;border:0;background:#15181e;color:#fff;border-radius:16px;padding:7px 12px;cursor:pointer}
+.kkdate{font-size:11.5px!important;color:#8a90a0;margin-top:6px!important}
+.kkask{margin-top:8px}.kkaskbtn{font:inherit;font-size:13.5px;font-weight:800;border:1.5px solid #e3b448;background:#fffaf0;color:#15181e;border-radius:16px;padding:8px 12px;cursor:pointer}.kkaskbtn:disabled{opacity:.8;cursor:default}
+.kkinp{display:flex;gap:8px;padding:10px 12px calc(12px + env(safe-area-inset-bottom));border-top:1px solid #eceef2;flex:none}
+.kkinp input{flex:1;min-width:0;border:1.5px solid #d6d9e0;border-radius:22px;padding:10px 14px;font:inherit;font-size:16px;color:#15181e;background:#fff}
+.kkinp button{border:0;background:#15181e;color:#fff;border-radius:22px;padding:0 16px;font:inherit;font-size:14.5px;font-weight:800;cursor:pointer}
+body.kkopen{overflow:hidden}
 </style>
 </head><body>
 <script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';</script>
@@ -5252,7 +5293,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   // ------------------------------------------------------------------ tabs & hash
   const TABS = [['t-home', 'p-home'], ['t-rank', 'p-rank'], ['t-play', 'p-play'], ['t-prof', 'p-prof'], ['t-sq', 'p-sq'], ['t-wiz', 'p-wiz'], ['t-cmp', 'p-cmp'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
   let cur = 't-home';
-  function show(id) { cur = id; TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); const vdr = document.querySelector('.vd'); if (vdr) vdr.classList.toggle('nofilt', ['t-home', 't-play'].includes(id)); render(); writeHash(true); scrollToSection(id); }
+  function show(id) { cur = id; if (window.__kk) window.__kk.vis(id); TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); const vdr = document.querySelector('.vd'); if (vdr) vdr.classList.toggle('nofilt', ['t-home', 't-play'].includes(id)); render(); writeHash(true); scrollToSection(id); }
   function scrollToSection(id) {
     const pair = TABS.find(([t]) => t === id); const sec = pair && $('#' + pair[1]); if (!sec) return;
     const tb = $('.tabs'); const cs = tb ? getComputedStyle(tb) : null; const stick = tb && cs.position === 'sticky' ? (parseFloat(cs.top) || 0) + tb.offsetHeight : 0;
@@ -5289,6 +5330,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   let exitArm = 0;
   function backToast(msg) { let t = $('#backToast'); if (!t) { t = document.body.appendChild(el('div', 'backtoast')); t.id = 'backToast'; } t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1800); }
   window.addEventListener('popstate', (e) => {
+    if (window.__kk && window.__kk.onPop()) return;
     const ov = document.querySelector('.cardov'); if (ov) { ov.remove(); try { history.pushState({ carro: 1 }, '', location.hash); } catch (er) {} return; }
     if (e.state && e.state.base) { // 맨 처음 화면까지 돌아옴
       if (Date.now() - exitArm < 2000) { history.back(); return; }
@@ -5404,6 +5446,250 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   f.appendChild(el('p', null, '능력치는 재미를 위한 상대 점수입니다. 실제 구매 전에는 시승과 최신 가격표를 꼭 확인하세요.'));
   computeUpkeep(15000); scoreAll(); funAll(); fillSel(); buildWeights(); readHash(); ovrAll();
   // 검색용 차종 페이지를 만들 때 쓰는 내보내기 (tools/build_seo.js)
+  // ------------------------------------------------------------------ 깡통봇 (AI 아님: 사이트 데이터 검색·계산만)
+  const KK = (() => {
+    const ICON = `<svg viewBox="0 0 140 120" aria-hidden="true"><defs><linearGradient id="kkm" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#eef0f4"/><stop offset=".45" stop-color="#c3c8d1"/><stop offset="1" stop-color="#8f96a3"/></linearGradient><linearGradient id="kkb" x1="0" x2="1"><stop offset="0" stop-color="#e5534b"/><stop offset=".35" stop-color="#e3a03b"/><stop offset=".65" stop-color="#c9d34a"/><stop offset="1" stop-color="#3fbf6f"/></linearGradient></defs><rect x="14" y="30" width="112" height="56" rx="10" fill="url(#kkm)" stroke="#7d8492" stroke-width="3"/><ellipse cx="126" cy="58" rx="9" ry="28" fill="#e8ebf0" stroke="#7d8492" stroke-width="3"/><rect x="40" y="31.5" width="22" height="53" fill="url(#kkb)"/><rect x="74" y="42" width="38" height="20" rx="10" fill="#1d222c"/><circle cx="86" cy="52" r="5" fill="#7cf0a8"/><circle cx="101" cy="52" r="5" fill="#7cf0a8"/><circle cx="38" cy="92" r="15" fill="#1d222c"/><circle cx="38" cy="92" r="6" fill="#c3c8d1"/><circle cx="104" cy="92" r="15" fill="#1d222c"/><circle cx="104" cy="92" r="6" fill="#c3c8d1"/><path d="M2 50h10M0 62h12M4 74h8" stroke="#9aa1ad" stroke-width="3" stroke-linecap="round"/></svg>`;
+    const INTRO = '안녕하세요, 깡통봇이에요 🥫\n이름은 봇이지만 클로형님이나 C.피티형님처럼 AI가 아니에요… 카스쿼드 데이터에서 검색해서만 드려요 ㅠㅠ\n돈 많이 벌면 풀옵션 될게요!';
+    const CHIPS = ['쏘나타 vs K5', '투싼 스포티지 비교', '3천만 원 이하 SUV', '사회초년생 첫차', '투싼 하이브리드 본전', '중고 아반떼 시세', '신차 아반떼 깡통 풀옵'];
+    const ASK_MAX = 10;
+    const won = (m) => (m >= 10000 ? (Math.round(m / 100) / 100) + '억 원' : fmt(Math.round(m)) + '만 원');
+    const jo = (w, a = '은', b = '는') => { const c = String(w).trim().slice(-1); if (c >= '가' && c <= '힣') return w + ((c.charCodeAt(0) - 0xac00) % 28 ? a : b); return w + (/[lmnr0136789]/i.test(c) ? a : b); };
+    const nick = (r) => { let m = modelKey(r); if (m.startsWith(r.brand)) m = m.slice(r.brand.length).trim(); return m.replace(/^(디 올 뉴|더 뉴|올 뉴|뉴) /, '') || shortName(r.name); };
+    const AT = (r, k) => { const a = ATTR.find((x) => x.k === k); if (!a || isNaN(r['s_' + k])) return null; return { s: r['s_' + k], t: String(a.fmtv(r)), e: isEst(r, k), label: a.label }; };
+    const V = (r, k) => { const a = AT(r, k); if (!a) return '데이터 없음'; let t = a.t.replace(' (연료+세금)', '').replace('만 원/년', '만 원'); if (a.e && k === 'safety') return '공식 평가 없음'; if (a.e) return /^추정/.test(t) ? t : '추정 ' + t; return t; };
+    const cur = (r) => !r.og && !r.ex && !/^(leg|f|m)\d/.test(r.id) && !isNaN(r._ovr);
+    const today = () => new Date().toISOString().slice(0, 10);
+    const VERB = /^(비교|알려|추천|어때|어떄|뭐가|뭐야|뭐임|나아|낫|좋아|좋은|얼마|해줘|해주세요|해봐|좀|요|중에|중|어느|쪽|게|거|차|대|와|과|랑|이랑|하고|및|그리고|아니면|또는)/;
+    const INTENT_WORDS = /^(신차|새차|새|중고|중고차|깡통|풀옵|풀옵션|트림|유지비|한달|한|달|기름값|연료비|주유비|감가|시세|연식|리콜|점검|무상|결함|고장|본전|이득|몇|km|키로|타야|타면|년|가격|차이|기준|이하|이상|정도|사이|남아|팔때)$/;
+    const toksOf = (q) => q.replace(/vs\.?/gi, ' ').split(/[\s,?!.~/]+/).filter(Boolean);
+    // ---------- 말 사전 (질문 등록을 보며 계속 늘림)
+    const SYN = { '소나타': '쏘나타', '소렌토': '쏘렌토', '그랜져': '그랜저', '싼페': '싼타페', '산타페': '싼타페', '팰리': '팰리세이드', '펠리세이드': '팰리세이드', '카니': '카니발', '아반테': '아반떼', '스포': '스포티지', '셀토': '셀토스', '그콜': '그랑 콜레오스', '이클': 'E 200', 'e클래스': 'E 200', 'c클래스': 'C 200', 's클래스': 'S 500', '이클래스': 'E 200', '씨클래스': 'C 200', '5시리즈': '520i', '3시리즈': '320i', '아이오닉5': '아이오닉 5', '아이오닉6': '아이오닉 6', '아이오닉9': '아이오닉 9' };
+    const GENERIC = /^(suv|세단|경차|해치백|쿠페|미니밴|하이브리드|hev|전기|전기차|ev|가솔린|디젤|lpg|국산|수입|패밀리카|첫차|터보)$/i;
+    const nm0 = (r) => norm(r.name).replace(norm(r.brand), '').replace(/^(디올뉴|더뉴|올뉴|뉴|더|디)/, '');
+    const isModelStart = (t) => { const n = norm(t); return n.length >= 2 && CARS.some((r) => nm0(r).startsWith(n)); };
+    function pick(list, ph, used, yr) {
+      if (!list.length) return null;
+      const n = norm(ph.split(' ')[0]); const ex = list.filter((r) => r._sn.includes(norm(ph))); if (ex.length) list = ex; const st = list.filter((r) => nm0(r).startsWith(n)); if (st.length) list = st;
+      if (used || yr) {
+        const cnt = (r) => (yr ? ((r.uy || []).find((u) => u[0] === yr) || [0, 0])[1] : (r.uy || []).reduce((s, u) => s + u[1], 0));
+        const w = list.filter((r) => cnt(r) > 0 && (!yr || !/하이브리드|hev/i.test(r.name) || /하이브리드|hev/i.test(ph)));
+        if (w.length) return w.sort((a, b) => cnt(b) - cnt(a))[0];
+      }
+      const c = list.filter(cur); const Lst = c.length ? c : list;
+      return Lst.slice().sort((a, b) => a.price - b.price || a.name.length - b.name.length)[0];
+    }
+    // 앞에서부터 단어를 이어 붙이며 차를 좁힘. 차마다 앞의 신차/중고, 뒤의 연식을 따로 붙임
+    function findCars(q, usedAll, yrAll) {
+      const raw = toksOf(q);
+      const items = []; let flag = null, ph = '', phFlag = null, phYr = null;
+      const close = () => { if (ph) { const u = phFlag === '중고' || (phFlag == null && usedAll), y = phYr || (phFlag == null ? yrAll : null); const r = pick(searchCars(ph, 40), ph, u, y); if (r && !items.some((x) => x.r === r)) items.push({ r, used: !!(u && (r.og || (r.uy || []).length)), yr: y }); } ph = ''; phFlag = null; phYr = null; };
+      raw.forEach((t0) => {
+        const sy = SYN[t0.toLowerCase()] || SYN[t0.toLowerCase().replace(/(이랑|랑|하고|와|과|은|는|이|가|을|를|의|도|로|으로|보다)$/, '')];
+        if (sy) { close(); ph = sy; phFlag = flag; flag = null; close(); return; }
+        let t = t0; if (!searchCars(t, 1).length) { const s2 = t.replace(/(이랑|랑|하고|와|과|은|는|이|가|을|를|의|도|로|으로|에서|보다)$/, ''); if (s2.length >= 2 && searchCars(s2, 1).length) t = s2; }
+        if (/^(신차|새차|새거)$/.test(t)) { close(); flag = '신차'; return; }
+        if (/^(중고|중고차)$/.test(t)) { close(); flag = '중고'; return; }
+        const ym = t.match(/^(19|20)(\d\d)(년식?|년형)?$/); if (ym) { if (ph) phYr = +(ym[1] + ym[2]); return; }
+        if (INTENT_WORDS.test(t) || /^\d+(\.\d+)?(만|천|억)/.test(t) || (VERB.test(t) && !searchCars(t, 1).length)) { return; }
+        if (ph && !isModelStart(t) && searchCars(ph + ' ' + t, 3).length) { ph += ' ' + t; return; }
+        if (GENERIC.test(t)) return;
+        if (searchCars(t, 3).length) { close(); ph = t; phFlag = flag; flag = null; }
+      });
+      close();
+      return items;
+    }
+    const L = (k, v) => ({ k, v });
+    const link = (label, hash) => ({ link: label, hash });
+
+    // ---------- 답 만들기 (전부 사이트 데이터 계산)
+    function compare(X, Y) {
+      const x = X.r, y = Y.r, U = (r) => (r === x ? X : Y);
+      const isU = (r) => r.og || U(r).used;
+      const tag = (r) => (isU(r) ? '[중고]' : '[신차]');
+      const out = [`${tag(x)} ${shortName(x.name)} vs ${tag(y)} ${shortName(y.name)}`];
+      const rows = [L('종합 능력치(OVR)', `${x._ovr} vs ${y._ovr}`)];
+      const price = (r) => { if (isU(r)) { const yr = U(r).yr; const u = (r.uy || []).find((z) => z[0] === yr) || (r.uy || []).slice().sort((a, b) => b[1] - a[1])[0]; return u ? `중고 ${u[0]}년식 평균 약 ${fmt(u[2])}만 원` : '중고 시세 없음'; } return won(r.price); };
+      rows.push(L('가격', `${price(x)} / ${price(y)}`));
+      [['eff', '연비'], ['upkeep', '1년 유지비(1.5만km)'], ['quiet', '실내 소음'], ['resale', '감가'], ['safety', '안전'], ['size', '크기']].forEach(([k, lb]) => rows.push(L(lb, `${V(x, k)} / ${V(y, k)}`)));
+      let wa = 0, wb = 0; GROUPS.forEach((g) => { const a = x['g_' + g.k], b = y['g_' + g.k]; if (isNaN(a) || isNaN(b)) return; if (a > b + 0.25) wa++; else if (b > a + 0.25) wb++; });
+      const best = (p, q) => { const d = ATTR.filter((a) => !['pricev', 'tage'].includes(a.k) && !isNaN(p['s_' + a.k]) && !isNaN(q['s_' + a.k]) && !isEst(p, a.k) && !isEst(q, a.k)).map((a) => [p['s_' + a.k] - q['s_' + a.k], a.label]).sort((a, b) => b[0] - a[0])[0]; return d && d[0] >= 3 ? d[1] : null; };
+      let one = `👉 능력치 5개 그룹에서 ${nick(x)} ${wa}승, ${nick(y)} ${wb}승` + (5 - wa - wb ? `, 비김 ${5 - wa - wb}` : '') + '.';
+      if (!isU(x) && !isU(y)) { const d = x.price - y.price; if (Math.abs(d) >= 50) one += ` 가격은 ${nick(d > 0 ? y : x)} 쪽이 ${fmt(Math.abs(d))}만 원 싸요.`; }
+      const g = [[x, best(x, y)], [y, best(y, x)]].filter((z) => z[1]).map(([r, b]) => `${jo(nick(r))} '${b}'`);
+      return { head: out[0], rows, foot: [one].concat(g.length ? ['크게 앞서는 능력치: ' + g.join(', ')] : []), links: [link('자세히 비교하기 →', `tab=cmp&c=${x.id},${y.id}`)] };
+    }
+    function summary(r) {
+      const top = ATTR.filter((a) => !isNaN(r['s_' + a.k]) && !isEst(r, a.k) && !['pricev', 'tage'].includes(a.k)).sort((a, b) => r['s_' + b.k] - r['s_' + a.k]).slice(0, 3);
+      return { head: `${r.og ? '[중고]' : '[신차]'} ${shortName(r.name)}`, rows: [L('종합 능력치(OVR)', String(r._ovr)), L(r.og ? '중고 시세' : '신차 가격', r.og ? (r.used_price ? `약 ${fmt(r.used_price)}만 원` : '시세 없음') : won(r.price)), L('연비', V(r, 'eff')), L('1년 유지비(1.5만km)', V(r, 'upkeep'))].concat(top.map((a) => L('강점 · ' + a.label, `${r['s_' + a.k]}점 · ${V(r, a.k)}`))),
+        foot: ['👉 다른 차랑 비교하려면 "' + nick(r) + ' vs 다른 차"처럼 물어봐 주세요.'], links: [link('선수 페이지 보기 →', `tab=prof&p=${r.id}`)] };
+    }
+    function upkeep(r) {
+      const a = AT(r, 'upkeep'); if (!a) return null; const y = num(r.upkeep);
+      return { head: `${r.og ? '[중고]' : '[신차]'} ${shortName(r.name)} 유지비`, rows: [L('1년 기름값+자동차세', `약 ${fmt(y)}만 원`), L('한 달', `약 ${fmt(Math.round(y / 12))}만 원`), L('기준', '1년 15,000km · 공인 복합연비 · 오피넷 전국 평균 기름값'), L('빠진 것', '보험료·정비비·주차비 (사람마다 너무 달라서 몰라요)')], foot: [], links: [link('내 주행거리로 다시 계산 →', `tab=prof&p=${r.id}`)] };
+    }
+    function resale(r) {
+      const a = AT(r, 'resale'); if (!a) return null; const m = a.t.match(/평균 ([\d.]+)%/);
+      const rows = [L('감가', V(r, 'resale'))];
+      if (m && !r.og) { const k = Math.pow(1 - m[1] / 100, 3); rows.push(L('그 속도로 3년이면', `신차 ${fmt(r.price)}만 원 → 약 ${fmt(Math.round(r.price * k / 10) * 10)}만 원 (약 ${Math.round(k * 100)}%)`)); }
+      return { head: `${r.og ? '[중고]' : '[신차]'} ${shortName(r.name)} 감가`, rows, foot: ['👉 같은 세대 중고 매물의 연식별 시세로 계산했어요. 출시 직후 모델은 이전 세대 흐름으로 추정해요.'], links: [link('자세히 →', `tab=prof&p=${r.id}`)] };
+    }
+    function usedYears(r) {
+      const uy = r.uy || []; if (!uy.length) return null;
+      return { head: `[중고] ${shortName(r.name)} 연식별 시세`, rows: uy.map((u) => L(u[0] + '년식', `평균 약 ${fmt(u[2])}만 원 (매물 ${u[1]}대)`)), foot: ['👉 엔카 매물 평균값이라 주행거리·옵션·사고 이력에 따라 차이가 커요.'], links: [link('자세히 →', `tab=prof&p=${r.id}`)] };
+    }
+    function trimsAns(r) {
+      const s = String(r.spec_src || ''); const t = s.startsWith('cd:') && TRIMS && TRIMS[s.slice(3)]; if (!t) return null;
+      const all = []; t.l.forEach((l) => l.t.forEach((x) => { if (x.p) all.push([x.p, l.n + ' ' + x.n]); })); if (!all.length) return null;
+      all.sort((a, b) => a[0] - b[0]); const lo = all[0], hi = all[all.length - 1];
+      return { head: `[신차] ${shortName(r.name)} 트림 가격`, rows: [L('가장 싼 트림(깡통)', `${lo[1]} ${fmt(Math.round(lo[0] / 10000))}만 원`), L('가장 비싼 트림', `${hi[1]} ${fmt(Math.round(hi[0] / 10000))}만 원`), L('차이', `${fmt(Math.round((hi[0] - lo[0]) / 10000))}만 원 (선택 옵션 빼고)`)], foot: ['👉 옵션까지 다 넣은 진짜 풀옵 가격은 아직 몰라요.'], links: [link('트림별 가격 보기 →', `tab=prof&p=${r.id}`)] };
+    }
+    function recall(r) {
+      return { head: `${shortName(r.name)} 무상 점검(리콜) 기록`, rows: [L('기록', V(r, 'durab'))], foot: ['👉 한국교통안전공단 공개자료 기준이에요. 리콜은 제조사가 무상으로 고쳐 주는 거라, 횟수만으로 나쁜 차라고 단정할 수는 없어요.', '내 차가 대상인지는 자동차리콜센터(car.go.kr)에 차량번호를 넣으면 나와요.'], links: [link('자세히 →', `tab=prof&p=${r.id}`)] };
+    }
+    function breakeven(r) {
+      const mk = modelKey(r).replace(/ 하이브리드.*$/, '');
+      const sib = CARS.filter((x) => cur(x) && modelKey(x).replace(/ 하이브리드.*$/, '') === mk);
+      const h = sib.find((x) => x.powertrain === '하이브리드'), g = sib.filter((x) => x.powertrain === '가솔린').sort((a, b) => a.price - b.price)[0];
+      if (!h || !g || !num(h.fe) || !num(g.fe)) return null;
+      const pg = FUEL.G / num(g.fe), ph = FUEL.G / num(h.fe), d = h.price - g.price; if (pg <= ph || d <= 0) return null;
+      const km = d * 10000 / (pg - ph);
+      return { head: `[신차] ${shortName(g.name)} vs ${shortName(h.name)}`, rows: [L('가격 차이', `${fmt(d)}만 원 (하이브리드가 비쌈)`), L('1km당 기름값', `가솔린 약 ${Math.round(pg)}원 / 하이브리드 약 ${Math.round(ph)}원`), L('본전 거리', `약 ${fmt(Math.round(km / 1000) * 1000)}km (1년 1.5만km면 약 ${(km / 15000).toFixed(1)}년)`)], foot: [`👉 휘발유 ${fmt(FUEL.G)}원(오피넷 ${FUEL.date})·공인 연비 기준. 중고로 팔 때 값 차이는 빠져 있어요.`], links: [link('자세히 비교하기 →', `tab=cmp&c=${g.id},${h.id}`)] };
+    }
+    function recommend(q) {
+      let budget = null, why = [], f = [cur], sort = (a, b) => b._ovr - a._ovr, sortName = '종합 능력치';
+      const m = q.replace(/,/g, '').match(/(\d+(?:\.\d+)?)\s*(억|천|만)/); if (m) budget = m[2] === '억' ? m[1] * 10000 : m[2] === '천' ? m[1] * 1000 : +m[1];
+      if (/첫\s*차|사회\s*초년|초보|입문/.test(q) && !/전기/.test(q)) { if (!budget) budget = 2500; why.push('첫차'); }
+      if (/suv/i.test(q)) { f.push((r) => r.body === 'SUV'); why.push('SUV'); }
+      if (/세단/.test(q)) { f.push((r) => r.body === '세단'); why.push('세단'); }
+      if (/경차/.test(q)) { f.push((r) => r.body === '경차'); why.push('경차'); }
+      if (/패밀리|가족|아이|애기|미니밴/.test(q)) { f.push((r) => ['SUV', 'MPV'].includes(r.body) && num(r.len) >= 4650); why.push('패밀리카(길이 4.65m 이상 SUV·미니밴)'); }
+      if (/하이브리드|hev/i.test(q)) { f.push((r) => r.powertrain === '하이브리드'); why.push('하이브리드'); }
+      if (/전기|ev\b|전기차/i.test(q)) { f.push((r) => r.powertrain === '전기'); why.push('전기차'); }
+      if (/국산/.test(q)) { f.push((r) => r.origin === '국산'); why.push('국산'); }
+      if (/수입/.test(q)) { f.push((r) => r.origin === '수입'); why.push('수입'); }
+      const by = (k, nm) => { f.push((r) => !isNaN(r['s_' + k]) && !isEst(r, k)); sort = (a, b) => b['s_' + k] - a['s_' + k]; sortName = nm; };
+      if (/조용|정숙|소음/.test(q)) by('quiet', '실내 소음 실측');
+      else if (/안전/.test(q)) by('safety', '충돌 안전 평가');
+      else if (/감가|중고값|잘 팔/.test(q)) by('resale', '감가 방어');
+      else if (/연비|기름\s*값|출퇴근/.test(q)) by('eff', '연비');
+      if (budget) { f.push((r) => r.price <= budget); why.unshift(won(budget) + ' 이하'); }
+      if (!why.length && sortName === '종합 능력치') return null;
+      const rs = CARS.filter((r) => f.every((fn) => fn(r))).sort(sort).slice(0, 3);
+      if (!rs.length) return { head: '조건에 맞는 차가 없어요 🥲', rows: [], foot: ['조건을 조금 넓혀서 다시 물어봐 주세요.'], links: [] };
+      return { head: `[신차 기준] ${why.join(' · ') || '전체'} — ${sortName} TOP ${rs.length}`, rows: rs.map((r, i) => L(`${i + 1}. ${shortName(r.name)}`, `${won(r.price)} · OVR ${r._ovr} · 연비 ${V(r, 'eff')}`)), foot: ['👉 우선순위가 다르면 추천 탭 5문항으로 다시 골라 보세요.'], links: rs.map((r) => link(nick(r) + ' 보기 →', `tab=prof&p=${r.id}`)).concat([link('추천 받기 →', 'tab=wiz')]) };
+    }
+    const CANNED = [
+      [/할인|프로모션|이번\s*달\s*(조건|혜택)/, '할인은 매달, 대리점마다 바뀌어서 깡통봇이 따라가기 어려워요 🥲\n대신 매주 화요일 인스타 @car_squad2026 "이번 주 차 소식"에 제조사 공식 할인을 정리해 올려요.'],
+      [/출시\s*(언제|예정|일)|언제\s*나와|신차\s*소식/, '출시 전 차는 다루지 않아요. 확인 안 된 소문은 안 옮기는 게 카스쿼드 원칙이에요.\n공식 출시되면 바로 사이트에 추가할게요!'],
+      [/견적|딜러|대리점|어디서\s*사/, '견적·대리점 연결은 못 해요. 카스쿼드는 비교만 하는 곳이라 특정 판매처를 추천하지 않아요.'],
+      [/보험/, '보험료는 나이·경력·사고 이력마다 너무 달라서 몰라요 🥲 유지비 계산에서도 빠져 있어요.'],
+      [/ovr|오버롤|종합\s*능력치/i, 'OVR은 축구 게임처럼 차의 종합 능력치예요.\n가속·연비·정숙성·안전·감가 등 20여 개 능력치를 1~20점으로 매기고, 5개 그룹(피지컬·멘탈·테크닉·히든·선수정보)으로 묶어 합친 점수예요. 실측·공식 값이 없는 칸은 추정치로 채우고 비중을 낮춰요.'],
+      [/부상\s*빈도/, '리콜(무상 점검) 기록이에요. 같은 세대 차가 1년에 몇 번꼴로 무상 점검을 했는지로 점수를 매겨요. 점수가 높을수록 기록이 적다는 뜻이에요.'],
+      [/추정/, '실측값이나 제조사 공식 값을 못 찾은 칸을 비슷한 차 데이터로 계산해 채운 값이에요. 그래서 숫자 옆에 꼭 (추정)을 붙이고, 종합 점수에는 낮은 비중으로만 넣어요.'],
+      [/사용법|어떻게\s*(써|물어|해)|도움말/, 'USAGE'],
+      [/^(안녕|하이(?!브)|ㅎㅇ|hi\b|hello)/i, 'INTRO'],
+      [/너\s*(누구|뭐)|ai\s*(야|니|예요)|똑똑/i, 'INTRO']
+    ];
+    function answer(q) {
+      const used = /중고/.test(q), yrM = q.match(/(19|20)(\d\d)\s*(년식|년형|년)?/), yr = yrM ? +(yrM[1] + yrM[2]) : null;
+      for (const [re, a] of CANNED) if (re.test(q) && !((a === 'INTRO' || a === 'USAGE') && findCars(q).length)) return a === 'INTRO' ? { text: INTRO } : a === 'USAGE' ? { usage: 1 } : { text: a };
+      const cs = findCars(q, used, yr);
+      if (cs.length >= 2) return compare(cs[0], cs[1]);
+      if (cs.length === 1) {
+        const r = cs[0].r;
+        if (/깡통|풀옵|트림/.test(q)) return trimsAns(r) || { text: `${shortName(r.name)}는 트림별 가격 자료가 아직 없어요 🥲`, ask: 1 };
+        if (/본전|이득|몇\s*(km|키로|년)/.test(q)) return breakeven(r) || { text: `${nick(r)}는 같은 모델의 가솔린·하이브리드가 둘 다 있어야 계산할 수 있어요 🥲`, ask: 1 };
+        if (/유지비|한\s*달|기름\s*값|연료비|주유비/.test(q)) return upkeep(r);
+        if (/감가|남아|팔\s*때|잔존|몇\s*년\s*타/.test(q)) return resale(r);
+        if (/리콜|점검|결함|고장/.test(q)) return recall(r);
+        if (used || yr || /시세/.test(q)) return usedYears(r) || summary(r);
+        return summary(r);
+      }
+      return recommend(q);
+    }
+
+    // ---------- 화면
+    let sheet = null, msgs = null, inp = null, open = false, skipPop = false;
+    const fab = document.body.appendChild(el('button', 'kkfab')); fab.type = 'button'; fab.setAttribute('aria-label', '깡통봇에게 물어보기'); fab.innerHTML = ICON;
+    let bub = null;
+    if (!LS.get('kk_seen')) { bub = document.body.appendChild(el('div', 'kkbub', '궁금한 거 물어보세요 (깡통이지만)')); setTimeout(() => { if (bub) { bub.remove(); bub = null; } }, 9000); }
+    fab.addEventListener('click', () => openSheet());
+    let lastY = scrollY;
+    let quietTill = 0; const wide = () => innerWidth >= 900;
+    window.addEventListener('scroll', () => { const y = scrollY; if (Date.now() < quietTill || wide()) { lastY = y; return; } if (y > lastY + 6 && y > 120) fab.classList.add('hide'); else if (y < lastY - 6 || y < 120) fab.classList.remove('hide'); lastY = y; if (bub && y > 200) { bub.remove(); bub = null; } }, { passive: true });
+    function vis(tab) { fab.classList.remove('hide'); quietTill = Date.now() + 900; const hideIt = tab === 't-play'; fab.hidden = hideIt; if (bub) bub.hidden = hideIt; }
+    function bubble(cls, content) { const b = msgs.appendChild(el('div', 'kkmsg ' + cls)); if (typeof content === 'string') b.textContent = content; else b.appendChild(content); const prev = b.previousElementSibling; msgs.scrollTop = cls === 'bot' && prev && prev.classList.contains('me') ? prev.offsetTop - 8 : msgs.scrollHeight; return b; }
+    function usageBox() { const g = el('div', 'kkguide'); g.innerHTML = '🥫 <b>깡통봇 사용법</b><br>· 차 이름 앞에 <b>신차 / 중고</b>를 붙여 주세요<br>· 뒤에 <b>연식(2021)</b>이나 <b>깡통·풀옵</b>을 붙이면 더 정확해요<br>· 예) 중고 아반떼 2021 vs 신차 캐스퍼'; return g; }
+    function go(hash) { closeSheet(); setTimeout(() => { location.hash = hash; }, 150); }
+    function render(a, q) {
+      const box = el('div');
+      if (a.usage) { box.appendChild(usageBox()); return bubble('bot', box); }
+      if (a.text) { a.text.split('\n').forEach((t) => box.appendChild(el('p', null, t))); }
+      else {
+        box.appendChild(el('b', 'kkhd', a.head));
+        if (a.rows.length) { const t = box.appendChild(el('div', 'kkrows')); a.rows.forEach((r) => { t.appendChild(el('span', 'k', r.k)); t.appendChild(el('span', 'v', r.v)); }); }
+        a.foot.forEach((f) => box.appendChild(el('p', 'kkft', f)));
+        const lk = box.appendChild(el('div', 'kklinks')); a.links.forEach((l) => lk.appendChild(btnEl('kklink', l.link, () => go(l.hash))));
+        box.appendChild(el('p', 'kkdate', '카스쿼드 데이터 검색 결과 · AI 답변 아님'));
+      }
+      if (a.ask) box.appendChild(askBtn(q));
+      return bubble('bot', box);
+    }
+    function askBtn(q) {
+      const w = el('div', 'kkask');
+      const b = w.appendChild(btnEl('kkaskbtn', '📮 이 질문 등록하기', () => {
+        const k = 'kk_ask_' + today(), n = +(LS.get(k) || 0);
+        if (n >= ASK_MAX) { b.disabled = true; b.textContent = `오늘은 ${ASK_MAX}개까지만 받아요 🥲 내일 또 물어봐 주세요`; return; }
+        LS.set(k, String(n + 1)); b.disabled = true; b.textContent = '등록 완료! 순서대로, 빠르면 내일 답변드릴게요';
+        if (STATS_URL && !/localhost|file:/.test(location.href)) try { fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ t: 'report', id: '', name: '깡통봇 질문', kinds: '깡통봇 질문', msg: q.slice(0, 300), src: '', contact: '', page: location.href, v: VID }) }); } catch (e) {}
+      }));
+      return w;
+    }
+    function ask(q) {
+      q = q.trim().slice(0, 120); if (!q) return;
+      bubble('me', q);
+      if (!TRIMS && /깡통|풀옵|트림/.test(q)) { loadTrims().then(() => ask2(q)); return; }
+      ask2(q);
+    }
+    function ask2(q) {
+      let a = null; try { a = answer(q); } catch (e) { a = null; }
+      if (!a) { const box = el('div'); box.appendChild(el('p', null, '아직 준비된 답이 없어요 🥲')); box.appendChild(el('p', null, '질문 등록해 주시면 순서대로, 빠르면 내일 답변드릴게요!')); box.appendChild(askBtn(q)); bubble('bot', box); return; }
+      render(a, q);
+    }
+    function build() {
+      const wrap = document.body.appendChild(el('div', 'kkwrap'));
+      wrap.appendChild(el('div', 'kkdim')).addEventListener('click', () => closeSheet());
+      sheet = wrap.appendChild(el('div', 'kksheet')); sheet.setAttribute('role', 'dialog'); sheet.setAttribute('aria-label', '깡통봇');
+      sheet.appendChild(el('div', 'kkbar'));
+      const hd = sheet.appendChild(el('div', 'kkhead')); const ic = hd.appendChild(el('span', 'kkic')); ic.innerHTML = ICON;
+      const tt = hd.appendChild(el('div')); tt.appendChild(el('b', null, '깡통봇')); tt.appendChild(el('small', null, '이름만 봇 · 데이터 검색해서만 드려요'));
+      hd.appendChild(btnEl('kkx', '✕', () => closeSheet())).setAttribute('aria-label', '닫기');
+      msgs = sheet.appendChild(el('div', 'kkmsgs'));
+      const b0 = el('div'); INTRO.split('\n').forEach((t) => b0.appendChild(el('p', null, t))); bubble('bot', b0);
+      bubble('bot', usageBox()).classList.add('plain');
+      const ch = el('div', 'kkchips'); CHIPS.forEach((c) => ch.appendChild(btnEl('kkchip', c, () => ask(c)))); bubble('bot', ch).classList.add('plain');
+      const f = sheet.appendChild(el('form', 'kkinp')); inp = f.appendChild(el('input')); inp.placeholder = '예) 쏘렌토 싼타페 비교'; inp.maxLength = 120; inp.setAttribute('enterkeyhint', 'send');
+      f.appendChild(el('button', null, '보내기'));
+      f.addEventListener('submit', (e) => { e.preventDefault(); const v = inp.value; inp.value = ''; ask(v); });
+      return wrap;
+    }
+    let wrapEl = null;
+    function openSheet() {
+      LS.set('kk_seen', '1'); if (bub) { bub.remove(); bub = null; }
+      loadTrims();
+      if (!wrapEl) wrapEl = build();
+      wrapEl.classList.add('on'); document.body.classList.add('kkopen'); open = true;
+      try { history.pushState({ carro: 1, kk: 1 }, '', location.hash); } catch (e) {}
+    }
+    function closeSheet(fromPop) {
+      if (!open) return; open = false; wrapEl.classList.remove('on'); document.body.classList.remove('kkopen');
+      if (!fromPop) { skipPop = true; try { history.back(); } catch (e) { skipPop = false; } }
+    }
+    function onPop() { if (skipPop) { skipPop = false; return true; } if (open) { closeSheet(true); return true; } return false; }
+    return { vis, onPop, answer, open: openSheet };
+  })();
+  window.__kk = KK;
+  KK.vis(cur);
   window.__carroExport = () => CARS.map((r) => ({ id: r.id, name: r.name, short: shortName(r.name), model: modelKey(r), brand: r.brand, body: r.body, pt: r.powertrain, origin: r.origin, price: r.price, used: r.used_price, gyears: r.gyears || '', og: !!r.og, ex: !!r.ex, fun: !!r.fun, ovr: r._ovr, rank: r._rank, mbti: carMBTI(r), mbtiNick: MBTI[carMBTI(r)][0], style: style(r), groups: Object.fromEntries(GROUPS.map((g) => [g.k, r['g_' + g.k]])), attrs: ATTR.filter((x) => !isNaN(r['s_' + x.k])).map((x) => [x.k, x.label, r['s_' + x.k], String(x.fmtv(r)), isEst(r, x.k) ? 1 : 0]), nreal: ATTR.filter((x) => !isNaN(r['s_' + x.k]) && !isEst(r, x.k)).length }));
 
   // ------------------------------------------------------------------ 앱으로 설치 (PWA)
