@@ -1092,14 +1092,28 @@ html, body { margin: 0; background: #14161b; }
 .vd .pscout .sv span{font-size:14px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--pn2);border:1px solid var(--line);color:var(--tx)}
 .vd .pscout .g .sv span{border-color:rgba(69,211,127,.5);background:rgba(69,211,127,.1)}.vd .pscout .b .sv span{border-color:rgba(255,110,90,.5);background:rgba(255,110,90,.08)}.vd .pscout .w .sv span{border-color:rgba(227,180,72,.6);background:rgba(227,180,72,.12)}
 .vd .pscout .snote{margin:8px 0 0;font-size:12px;color:var(--mu2)}
-.vd .pgnav{grid-column:1 / -1;position:sticky;top:var(--stick,60px);z-index:6;display:flex;gap:6px;overflow-x:auto;padding:8px 2px;margin:-4px 0 0;background:var(--bg);scrollbar-width:none;align-self:start}.vd .pgnav::-webkit-scrollbar{display:none}
-.vd .pgnav .chip{flex:0 0 auto;font-weight:800}
+.vd .pgnav{grid-column:1 / -1;position:sticky;top:var(--stick,60px);z-index:6;display:flex;overflow-x:auto;margin:-4px 0 0;padding:0 4px;background:var(--pn);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.07);scrollbar-width:none;align-self:start}.vd .pgnav::-webkit-scrollbar{display:none}
+.vd .pgtab{flex:1 0 auto;min-height:48px;padding:0 16px;border:0;background:none;font:inherit;font-size:15.5px;font-weight:700;color:var(--mu);cursor:pointer;position:relative;white-space:nowrap}
+.vd .pgtab::after{content:'';position:absolute;left:12px;right:12px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:transparent;transition:background .15s}
+.vd .pgtab.on{color:var(--hi);font-weight:900}.vd .pgtab.on::after{background:#4f46e5}
+.vd .pgtab:hover{color:var(--hi)}
 .vd .pattrs .pscout{margin:10px 10px 4px}
 .vd #pg-attr{scroll-margin-top:120px}
 .vd .pgrp{display:flex;flex-direction:column;gap:8px;scroll-margin-top:120px}
 .vd .pgh{margin:6px 0 0;font-size:17px;color:var(--hi);display:flex;align-items:center;gap:10px}.vd .pgh::after{content:'';flex:1;height:1px;background:var(--line)}
 .vd .psec{background:var(--pn);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color .15s,box-shadow .15s}
 .vd .psec:hover{border-color:#e3b448;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.vd .psec>.psh{display:grid;grid-template-columns:44px 1fr;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.vd .psec>.psh .ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--pn2);border:1px solid var(--line);font-size:22px}
+.vd .psec>.psh .tx{display:flex;flex-direction:column;gap:3px;min-width:0}
+.vd .psec>.psh b{font-size:16px;color:var(--hi)}.vd .psec>.psh .tz{font-size:14px;font-weight:700;color:var(--tx);line-height:1.4}
+.vd .psec>.pbody{position:relative;min-width:0}
+.vd .psec.peek:not(.short)>.pbody{max-height:190px;overflow:hidden;cursor:pointer}
+.vd .psec.peek:not(.short)>.pbody::after{content:'';position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,var(--pn));pointer-events:none}
+.vd .psec>.pmore{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:50px;border:0;border-top:1px solid var(--line);background:var(--pn);font:inherit;font-size:15px;font-weight:700;color:var(--tx);cursor:pointer}
+.vd .psec>.pmore b{color:#4f46e5;font-weight:900}.vd .psec>.pmore i{font-style:normal;font-size:17px;color:#4f46e5}
+.vd .psec>.pmore:hover{background:var(--pn2)}
+.vd .psec.short>.pmore{display:none}
 .vd .psec>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 36px;align-items:center;gap:12px;padding:12px 14px}
 .vd .psec>summary::-webkit-details-marker{display:none}
 .vd .psec>summary .ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--pn2);border:1px solid var(--line);font-size:22px}
@@ -1109,15 +1123,41 @@ html, body { margin: 0; background: #14161b; }
 .vd .psec[open]>summary .mo{transform:rotate(90deg)}
 .vd .psec[open]>summary{border-bottom:1px solid var(--line);background:var(--pn2)}
 .vd .psec>.inpsec{border:0!important;border-radius:0;margin:0!important;background:transparent}
+.vd .psec .inpsec{border:0!important;border-radius:0;margin:0!important;background:transparent}
+.vd .psec .inpsec>h4:first-child,.vd .psec .inpsec>.vhead>h4,.vd .psec .inpsec>.rvh>h4{display:none}.vd .psec .inpsec>.vhead{justify-content:flex-end}
 .vd .psec>.inpsec>h4:first-child,.vd .psec>.inpsec>.vhead>h4,.vd .psec>.inpsec>.rvh>h4{display:none}
 .vd .psec>.inpsec>.vhead{justify-content:flex-end}
 .vd .inpgrp{margin:0}
 .vd .vmorebox{margin-top:10px}
 @media (max-width:760px){
   .vd .pscout .srow{grid-template-columns:1fr}
+  .vd .psec>.psh{grid-template-columns:40px 1fr;gap:10px;padding:12px}.vd .psec>.psh .ic{width:40px;height:40px;font-size:20px}.vd .pgtab{padding:0 13px;font-size:15px}
   .vd .psec>summary{grid-template-columns:40px 1fr 32px;gap:10px;padding:12px}.vd .psec>summary .ic{width:40px;height:40px;font-size:20px}
   .vd .pgroups .vgrid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:6px}.vd .pgroups .vgrid .vcard{flex:0 0 82%;scroll-snap-align:start}
 }
+/* 폰·큰 글씨: 표를 세로 카드로 (글자가 한 줄에 한 글자씩 찌그러지는 문제 방지) */
+@media (max-width:700px){
+  .vd .precord table,.vd .precord tbody,.vd .precord tr,.vd .precord th,.vd .precord td{display:block;width:auto!important;white-space:normal!important}
+  .vd .precord tr{padding:10px 0;border-bottom:1px solid var(--line)}
+  .vd .precord table th{padding:0 0 2px!important;font-size:13px;font-weight:700;color:var(--mu)}
+  .vd .precord td{padding:0!important;border:0!important}
+  .vd .precord td.v{font-size:15.5px;margin:2px 0}
+  .vd .precord td.src{font-size:12.5px;line-height:1.45;word-break:keep-all;overflow-wrap:anywhere}
+}
+@media (max-width:560px){
+  .vd table.mtab,.vd table.mtab tbody{display:block}
+  .vd table.mtab tr:first-child{display:none}
+  .vd table.mtab tr{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:12px 2px;border-bottom:1px solid var(--line)}
+  .vd table.mtab td{display:block;padding:0;border:0;white-space:normal!important}
+  .vd table.mtab td:first-child{grid-column:1 / -1;margin-bottom:4px}
+  .vd table.mtab td:first-child b{font-size:15.5px}.vd table.mtab td:first-child small{font-size:12.5px}
+  .vd table.mtab td.num{text-align:left;font-size:15px}
+  .vd table.mtab td.num::before{content:attr(data-l);display:block;font-size:12px;font-weight:600;color:var(--mu)}
+  .vd table.mtab td.strong{grid-column:1 / -1;font-size:17px}
+}
+.vd .pinjury li{min-width:0}.vd .pinjury li span{flex:1 1 0;min-width:0;overflow-wrap:anywhere;word-break:keep-all}
+.vd .sndnow{white-space:normal!important;overflow-wrap:anywhere;min-width:0}
+.vd .psound{grid-template-columns:minmax(0,1fr)!important}.vd .psound>*{min-width:0;max-width:100%}.vd .pinjury ul{grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr))}
 /* 갈아타기 · 한줄평 · 퀴즈 */
 .vd .pswap{border-left-color:#e3b448}
 .vd .prev{border-left-color:#c86bfa}
@@ -2069,7 +2109,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     // 스카우트 리포트는 능력치 위(가운데 칸 맨 위), 바로가기는 선수 화면 맨 위에 붙어서 계속 따라옴
     const M = box.querySelector(':scope > .pattrs'); const sc = scoutReport(r); if (M) M.insertBefore(sc, M.firstChild); else W.appendChild(sc);
     const nav = box.insertBefore(el('nav', 'pgnav'), box.firstChild); nav.setAttribute('aria-label', '선수 정보 바로가기');
-    if (M) { M.id = 'pg-attr'; nav.appendChild(btnEl('chip sm', '📊 능력치', () => M.scrollIntoView({ behavior: 'smooth', block: 'start' }))).type = 'button'; }
+    const tabs = [];
+    const addTab = (label, target) => { const b = nav.appendChild(btnEl('pgtab', label, () => { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); setTab(b); })); b.type = 'button'; tabs.push([b, target]); return b; };
+    const setTab = (b) => { tabs.forEach(([x]) => x.classList.toggle('on', x === b)); if (b && nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: b.offsetLeft - (nav.clientWidth - b.offsetWidth) / 2, behavior: 'smooth' }); };
+    if (M) { M.id = 'pg-attr'; addTab('능력치', M); }
     const fy = num(r.fuel_year), d = num(r.depy), P = num(r.price);
     let swapT = ''; try { const x = swapTax(r, P, 'new'); if (x && !isNaN(x.t)) swapT = `신차 취득세·부대비용 약 ${manwon(x.t)}원`; } catch (e) {}
     const GROUPS = [
@@ -2092,19 +2135,37 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       const nodes = items.map((it) => [it, q(it[0])]).filter((x) => x[1]); if (!nodes.length) return;
       const g = W.appendChild(el('section', 'pgrp')); g.id = 'pg-' + gk;
       g.appendChild(el('h3', 'pgh', gname));
-      const chip = nav.appendChild(btnEl('chip sm', gname, () => g.scrollIntoView({ behavior: 'smooth', block: 'start' })));
-      chip.type = 'button';
+      addTab(gname.replace(/^\S+\s/, ''), g);
       nodes.forEach(([[sel, title, teaser, open], node]) => {
         if (!title) { g.appendChild(node); node.classList.add('inpgrp'); return; }
-        const dt = g.appendChild(el('details', 'psec')); const key = sel;
-        dt.open = PROF_OPEN[key] != null ? PROF_OPEN[key] : !!open;
-        const sm = dt.appendChild(el('summary')); const ic = (title.match(/^\S+/) || [''])[0];
-        sm.appendChild(el('span', 'ic', ic)); const tx = sm.appendChild(el('span', 'tx')); tx.appendChild(el('b', null, title.slice(ic.length).trim())); const tz = tx.appendChild(el('span', 'tz', teaser)); sm.appendChild(el('span', 'mo', '›'));
-        dt.appendChild(node); node.classList.add('inpsec');
-        dt.addEventListener('toggle', () => { PROF_OPEN[key] = dt.open; });
+        // 접어서 숨기지 않고 '앞부분 미리보기 + 자세히 보기 버튼' (스크롤만 내려도 내용이 보이게)
+        const dt = g.appendChild(el('div', 'psec')); const key = sel;
+        const ic = (title.match(/^\S+/) || [''])[0], name = title.slice(ic.length).trim();
+        const sm = dt.appendChild(el('div', 'psh'));
+        sm.appendChild(el('span', 'ic', ic)); const tx = sm.appendChild(el('span', 'tx')); tx.appendChild(el('b', null, name)); const tz = tx.appendChild(el('span', 'tz', teaser));
+        const body = dt.appendChild(el('div', 'pbody')); body.appendChild(node); node.classList.add('inpsec');
+        const more = dt.appendChild(btnEl('pmore', '', () => setOpen(!dt.classList.contains('full'), true))); more.type = 'button';
+        const setOpen = (o, user) => {
+          dt.classList.toggle('full', o); dt.classList.toggle('peek', !o);
+          more.innerHTML = o ? '접기 <i>⌃</i>' : `<b>${name}</b> 자세히 보기 <i>⌄</i>`; more.setAttribute('aria-expanded', o);
+          if (user) { PROF_OPEN[key] = o; if (!o) { const t = dt.getBoundingClientRect().top; if (t < 110) window.scrollBy({ top: t - 120 }); } }
+        };
+        setOpen(PROF_OPEN[key] != null ? PROF_OPEN[key] : !!open);
+        // 미리보기 영역을 누르면 펼침 (안의 버튼·링크는 펼친 뒤에 동작)
+        body.addEventListener('click', (e) => { if (dt.classList.contains('peek') && !dt.classList.contains('short')) { e.preventDefault(); e.stopPropagation(); setOpen(true, true); } }, true);
+        // 내용이 짧으면 버튼·흐림 없이 다 보여 줌
+        if (window.ResizeObserver) new ResizeObserver(() => { if (node.offsetHeight) dt.classList.toggle('short', node.offsetHeight < 250); }).observe(node);
         if (sel === '.prev') rvLoad().then(() => { const L = (RVDATA || {})[r.id] || []; if (L.length) tz.textContent = `한줄평 ${L.length}개 · 평균 ★${(L.reduce((a, x) => a + (+x[0] || 0), 0) / L.length).toFixed(1)}`; else tz.textContent = '아직 한줄평이 없어요 · 첫 한줄평을 남겨 주세요'; }).catch(() => {});
       });
     });
+    // 스크롤하면 지금 보고 있는 묶음 탭에 밑줄 (배민·쿠팡이츠 메뉴 탭 방식)
+    let raf = 0;
+    const spy = () => { raf = 0; if (!nav.isConnected) { window.removeEventListener('scroll', onSc); return; } if (!nav.offsetParent) return;
+      const y = nav.getBoundingClientRect().bottom + 70; let cur = tabs[0] && tabs[0][0];
+      tabs.forEach(([b, t]) => { if (t.getBoundingClientRect().top <= y) cur = b; });
+      if (cur && !cur.classList.contains('on')) setTab(cur); };
+    const onSc = () => { if (!raf) raf = requestAnimationFrame(spy); };
+    window.addEventListener('scroll', onSc, { passive: true }); setTimeout(spy, 50);
     // 영상란: 등록된 영상은 바로 보이고, 주제별·채널별 찾기는 접어 둠
     const V = W.querySelector('.pvideo');
     if (V && V.querySelector('.vgrid')) {
@@ -3777,8 +3838,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
       L.forEach((x) => {
         const tr = t.appendChild(el('tr', x === best ? 'best' : ''));
         const th = tr.appendChild(el('td')); th.appendChild(el('b', null, x.k + (x === best ? ' 👑' : ''))); th.appendChild(el('small', null, x.note));
-        [x.first, x.m, x.out, x.left].forEach((v, i) => tr.appendChild(el('td', 'num', i === 3 && !v ? '반납' : fmt(Math.round(v)) + '만')));
-        tr.appendChild(el('td', 'num strong', fmt(Math.round(x.net)) + '만'));
+        const HL = ['처음 낼 돈', '월 부담', `${N}년 총지출`, `${N}년 뒤 남는 차`];
+        [x.first, x.m, x.out, x.left].forEach((v, i) => tr.appendChild(el('td', 'num', i === 3 && !v ? '반납' : fmt(Math.round(v)) + '만')).setAttribute('data-l', HL[i]));
+        tr.appendChild(el('td', 'num strong', fmt(Math.round(x.net)) + '만')).setAttribute('data-l', '실제 비용');
       });
       out.appendChild(el('p', 'note', `실제 비용 = ${N}년 동안 낸 돈(차값·이자·취득세·보험·세금·연료 ${fmt(Math.round(fuelY))}만/년) − 끝났을 때 남는 차 값. 보험료는 연 ${insY}만 원 가정(나이·경력에 따라 크게 달라요), 렌트·리스 월 납입은 실제 견적과 차이가 날 수 있는 추정치입니다.`));
     };
