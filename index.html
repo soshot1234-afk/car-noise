@@ -1092,16 +1092,22 @@ html, body { margin: 0; background: #14161b; }
 .vd .pscout .sv span{font-size:14px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--pn2);border:1px solid var(--line);color:var(--tx)}
 .vd .pscout .g .sv span{border-color:rgba(69,211,127,.5);background:rgba(69,211,127,.1)}.vd .pscout .b .sv span{border-color:rgba(255,110,90,.5);background:rgba(255,110,90,.08)}.vd .pscout .w .sv span{border-color:rgba(227,180,72,.6);background:rgba(227,180,72,.12)}
 .vd .pscout .snote{margin:8px 0 0;font-size:12px;color:var(--mu2)}
-.vd .pgnav{position:sticky;top:var(--stick,60px);z-index:5;display:flex;gap:6px;overflow-x:auto;padding:8px 2px;background:var(--bg);scrollbar-width:none}.vd .pgnav::-webkit-scrollbar{display:none}
+.vd .pgnav{grid-column:1 / -1;position:sticky;top:var(--stick,60px);z-index:6;display:flex;gap:6px;overflow-x:auto;padding:8px 2px;margin:-4px 0 0;background:var(--bg);scrollbar-width:none;align-self:start}.vd .pgnav::-webkit-scrollbar{display:none}
 .vd .pgnav .chip{flex:0 0 auto;font-weight:800}
+.vd .pattrs .pscout{margin:10px 10px 4px}
+.vd #pg-attr{scroll-margin-top:120px}
 .vd .pgrp{display:flex;flex-direction:column;gap:8px;scroll-margin-top:120px}
 .vd .pgh{margin:6px 0 0;font-size:17px;color:var(--hi);display:flex;align-items:center;gap:10px}.vd .pgh::after{content:'';flex:1;height:1px;background:var(--line)}
-.vd .psec{background:var(--pn);border:1px solid var(--line);border-radius:3px}
-.vd .psec>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 12px;padding:12px 14px}
+.vd .psec{background:var(--pn);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color .15s,box-shadow .15s}
+.vd .psec:hover{border-color:#e3b448;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.vd .psec>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr 36px;align-items:center;gap:12px;padding:12px 14px}
 .vd .psec>summary::-webkit-details-marker{display:none}
-.vd .psec>summary b{font-size:15px;color:var(--hi)}.vd .psec>summary .tz{font-size:13.5px;font-weight:700;color:#c2870c;min-width:0}
-.vd .psec>summary .mo::after{content:'펼치기 ▾';font-style:normal;font-size:12px;font-weight:700;color:var(--mu)}.vd .psec[open]>summary .mo::after{content:'접기 ▴'}
-.vd .psec[open]>summary{border-bottom:1px solid var(--line)}
+.vd .psec>summary .ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--pn2);border:1px solid var(--line);font-size:22px}
+.vd .psec>summary .tx{display:flex;flex-direction:column;gap:3px;min-width:0}
+.vd .psec>summary b{font-size:15.5px;color:var(--hi)}.vd .psec>summary .tz{font-size:14px;font-weight:700;color:var(--tx);line-height:1.4}
+.vd .psec>summary .mo{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(99,102,241,.12);color:#5b5fd6;font-size:22px;font-weight:800;line-height:1;transition:transform .2s}
+.vd .psec[open]>summary .mo{transform:rotate(90deg)}
+.vd .psec[open]>summary{border-bottom:1px solid var(--line);background:var(--pn2)}
 .vd .psec>.inpsec{border:0!important;border-radius:0;margin:0!important;background:transparent}
 .vd .psec>.inpsec>h4:first-child,.vd .psec>.inpsec>.vhead>h4,.vd .psec>.inpsec>.rvh>h4{display:none}
 .vd .psec>.inpsec>.vhead{justify-content:flex-end}
@@ -1109,7 +1115,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .vmorebox{margin-top:10px}
 @media (max-width:760px){
   .vd .pscout .srow{grid-template-columns:1fr}
-  .vd .psec>summary{grid-template-columns:1fr auto}.vd .psec>summary .tz{grid-column:1;grid-row:2}.vd .psec>summary .mo{grid-row:1 / span 2;grid-column:2}
+  .vd .psec>summary{grid-template-columns:40px 1fr 32px;gap:10px;padding:12px}.vd .psec>summary .ic{width:40px;height:40px;font-size:20px}
   .vd .pgroups .vgrid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:6px}.vd .pgroups .vgrid .vcard{flex:0 0 82%;scroll-snap-align:start}
 }
 /* 갈아타기 · 한줄평 · 퀴즈 */
@@ -2060,8 +2066,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   function profLayout(box, r) {
     const q = (sel) => box.querySelector(':scope > ' + sel);
     const W = box.appendChild(el('div', 'pgroups'));
-    W.appendChild(scoutReport(r));
-    const nav = W.appendChild(el('nav', 'pgnav')); nav.setAttribute('aria-label', '선수 정보 바로가기');
+    // 스카우트 리포트는 능력치 위(가운데 칸 맨 위), 바로가기는 선수 화면 맨 위에 붙어서 계속 따라옴
+    const M = box.querySelector(':scope > .pattrs'); const sc = scoutReport(r); if (M) M.insertBefore(sc, M.firstChild); else W.appendChild(sc);
+    const nav = box.insertBefore(el('nav', 'pgnav'), box.firstChild); nav.setAttribute('aria-label', '선수 정보 바로가기');
+    if (M) { M.id = 'pg-attr'; nav.appendChild(btnEl('chip sm', '📊 능력치', () => M.scrollIntoView({ behavior: 'smooth', block: 'start' }))).type = 'button'; }
     const fy = num(r.fuel_year), d = num(r.depy), P = num(r.price);
     let swapT = ''; try { const x = swapTax(r, P, 'new'); if (x && !isNaN(x.t)) swapT = `신차 취득세·부대비용 약 ${manwon(x.t)}원`; } catch (e) {}
     const GROUPS = [
@@ -2090,7 +2098,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
         if (!title) { g.appendChild(node); node.classList.add('inpgrp'); return; }
         const dt = g.appendChild(el('details', 'psec')); const key = sel;
         dt.open = PROF_OPEN[key] != null ? PROF_OPEN[key] : !!open;
-        const sm = dt.appendChild(el('summary')); sm.appendChild(el('b', null, title)); const tz = sm.appendChild(el('span', 'tz', teaser)); sm.appendChild(el('em', 'mo'));
+        const sm = dt.appendChild(el('summary')); const ic = (title.match(/^\S+/) || [''])[0];
+        sm.appendChild(el('span', 'ic', ic)); const tx = sm.appendChild(el('span', 'tx')); tx.appendChild(el('b', null, title.slice(ic.length).trim())); const tz = tx.appendChild(el('span', 'tz', teaser)); sm.appendChild(el('span', 'mo', '›'));
         dt.appendChild(node); node.classList.add('inpsec');
         dt.addEventListener('toggle', () => { PROF_OPEN[key] = dt.open; });
         if (sel === '.prev') rvLoad().then(() => { const L = (RVDATA || {})[r.id] || []; if (L.length) tz.textContent = `한줄평 ${L.length}개 · 평균 ★${(L.reduce((a, x) => a + (+x[0] || 0), 0) / L.length).toFixed(1)}`; else tz.textContent = '아직 한줄평이 없어요 · 첫 한줄평을 남겨 주세요'; }).catch(() => {});
@@ -2099,7 +2108,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
     // 영상란: 등록된 영상은 바로 보이고, 주제별·채널별 찾기는 접어 둠
     const V = W.querySelector('.pvideo');
     if (V && V.querySelector('.vgrid')) {
-      const more = el('details', 'psec vmorebox'); const sm = more.appendChild(el('summary')); sm.appendChild(el('b', null, '🔎 주제별 · 채널별로 더 찾아보기')); sm.appendChild(el('span', 'tz', '시승기 · 단점 · 연비 실측 · 오너 후기')); sm.appendChild(el('em', 'mo'));
+      const more = el('details', 'psec vmorebox'); const sm = more.appendChild(el('summary')); sm.appendChild(el('span', 'ic', '🔎')); const tx = sm.appendChild(el('span', 'tx')); tx.appendChild(el('b', null, '주제별 · 채널별로 더 찾아보기')); tx.appendChild(el('span', 'tz', '시승기 · 단점 · 연비 실측 · 오너 후기')); sm.appendChild(el('span', 'mo', '›'));
       const body = more.appendChild(el('div'));
       const firstSec = V.querySelector(':scope > .vsec'); if (firstSec) { let n = firstSec; while (n) { const nx = n.nextSibling; body.appendChild(n); n = nx; } V.appendChild(more); }
     }
