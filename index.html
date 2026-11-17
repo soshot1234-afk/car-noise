@@ -865,6 +865,108 @@ html, body { margin: 0; background: #14161b; }
 .vd .mrow .nm2 { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
 .vd .mrow .nm { text-align: left; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .vd .mrow small { font-size: 12px; color: var(--mu); }
+/* 차생 그래프 */
+.vd .lfcard { padding-bottom: 14px; }
+.vd .lfhd { padding: 16px 16px 6px; display: flex; flex-direction: column; gap: 6px; }
+.vd .lfhd h2 { margin: 0; font-size: 24px; color: var(--hi); }
+.vd .lfhd .note { font-size: 13.5px; line-height: 1.55; }
+.vd .lflist { list-style: none; margin: 8px 12px 0; padding: 0; display: flex; flex-direction: column; gap: 6px; counter-reset: lf; }
+.vd .lflist li { counter-increment: lf; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: center; background: var(--pn2); border: 1px solid var(--line); border-radius: 10px; padding: 7px 8px 7px 10px; }
+.vd .lflist li.on { border-color: var(--gold); }
+.vd .lfli { display: flex; flex-direction: column; min-width: 0; }
+.vd .lfli b { font-size: 14px; color: var(--hi); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vd .lfli b::before { content: counter(lf) ". "; color: var(--mu); font-weight: 600; }
+.vd .lfli small { font-size: 12px; color: var(--mu); }
+.vd .lfwx3 { font-size: 15px; white-space: nowrap; }
+.vd .lfact { display: flex; gap: 2px; }
+.vd .lfib { appearance: none; border: 1px solid var(--line2); background: var(--pn); color: var(--tx); border-radius: 8px; min-width: 32px; height: 32px; font-size: 14px; cursor: pointer; padding: 0 6px; }
+.vd .lfib:hover { border-color: var(--gold); }
+.vd .lfform { margin: 12px 12px 0; padding: 14px; border: 1px solid var(--line2); border-radius: 14px; background: var(--row); display: flex; flex-direction: column; gap: 12px; }
+.vd .lfform h3 { margin: 0; font-size: 18px; color: var(--hi); }
+.vd .lfsearch input, .vd .lfevmid input { width: 100%; box-sizing: border-box; background: var(--pn); color: var(--tx); border: 1.5px solid var(--line2); border-radius: 10px; padding: 11px 12px; font: inherit; font-size: 15px; }
+.vd .lfsearch input:focus { border-color: var(--gold); outline: none; }
+.vd .lfres { display: flex; flex-direction: column; gap: 4px; margin-top: 6px; }
+.vd .lfri { appearance: none; text-align: left; border: 1px solid var(--line); background: var(--pn); color: var(--tx); border-radius: 10px; padding: 8px 10px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; font: inherit; }
+.vd .lfri:hover { border-color: var(--gold); }
+.vd .lfri b { font-size: 14px; }
+.vd .lfri small { font-size: 12px; color: var(--mu); }
+.vd .lfri.man { border-style: dashed; }
+.vd .lfex, .vd .lfbmw { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.vd .lfpicked { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.vd .lfpicked b { font-size: 15.5px; color: var(--hi); }
+.vd .lfpicked small { color: var(--mu); font-size: 12.5px; }
+.vd .lfpicked .chip { margin-left: auto; }
+.vd .lfrow { display: flex; flex-direction: column; gap: 6px; }
+.vd .lfl { font-size: 12.5px; font-weight: 800; color: var(--mu); }
+.vd .lfl2 { font-size: 12px; font-weight: 800; color: var(--mu); margin-right: 4px; align-self: center; }
+.vd .lfchips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.vd .lfchips .chip { margin-left: 0; border-radius: 14px; }
+.vd .lfchips .chip[aria-pressed=true] { background: var(--gold); border-color: var(--gold); color: #15171c; font-weight: 700; }
+.vd .lfstep { display: inline-flex; align-items: center; gap: 8px; margin-left: 4px; }
+.vd .lfstep b { min-width: 76px; text-align: center; font-size: 14px; color: var(--hi); }
+.vd .lfsr { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 6px; align-items: center; font-size: 13px; font-weight: 700; }
+.vd .lfst { display: inline-flex; align-items: center; flex-wrap: wrap; }
+.vd .lfs { appearance: none; border: 0; background: none; cursor: pointer; font-size: 28px; line-height: 1; padding: 2px 3px; color: var(--line2); }
+.vd .lfs.on { color: #e3b448; }
+.vd .lfs.half { background: linear-gradient(90deg, #e3b448 50%, var(--line2) 50%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.vd .lfwx { font-size: 14px; margin-left: 6px; color: var(--tx); white-space: nowrap; }
+.vd .lfev { border-radius: 10px; padding: 8px; display: flex; flex-direction: column; gap: 6px; background: var(--pn); border: 1.5px solid var(--line); }
+.vd .lfev.g { border-color: #2f9e5b; }
+.vd .lfev.b { border-color: #e5534b; }
+.vd .lfevtop { display: flex; gap: 6px; align-items: flex-start; justify-content: space-between; }
+.vd .lfevmid { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 6px; align-items: center; }
+.vd .lfmo { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--mu); }
+.vd .lfmo input { width: 64px !important; padding: 8px !important; }
+.vd .lfgood { border-color: #2f9e5b !important; color: #4cc47f !important; }
+.vd .lfbad { border-color: #e5534b !important; color: #f07a73 !important; }
+.vd .lfbtns { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vd .lfbtns .chip:disabled, .vd .lfgo .chip:disabled { opacity: .45; cursor: not-allowed; }
+.vd .lfgo { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 12px 0; }
+.vd .lfgo .chip.big, .vd .lfbtns .chip.big { font-size: 15px; padding: 10px 16px; border-radius: 10px; }
+.vd .lfpriv { margin: 10px 12px 0; }
+/* 결과 카드 (밝은 하늘 · 테마와 무관하게 고정색) */
+.vd .lfsky { margin: 14px auto 0; max-width: 440px; border-radius: 26px; overflow: hidden; color: #15181e; background: linear-gradient(#ffe98a 0%, #fff3c4 20%, #f6f3ea 40%, #dfe5ec 60%, #aab6c6 82%, #7d8a9e 100%); box-shadow: 0 10px 30px rgba(0, 0, 0, .25); display: flex; flex-direction: column; }
+@media (max-width: 480px) { .vd .lfsky { margin: 12px 12px 0; } }
+.vd .lftop { padding: 18px 18px 0; }
+.vd .lfk { font-size: 12px; font-weight: 900; letter-spacing: .08em; color: #9a6a10; }
+.vd .lft { margin: 8px 0 0; font-size: 27px; line-height: 1.2; color: #15181e; word-break: keep-all; }
+.vd .lfline { margin: 6px 0 0; font-size: 13.5px; font-weight: 700; color: #7a5a10; }
+.vd .lfsvg { width: 100%; height: auto; display: block; margin-top: 4px; }
+.vd .lfsum { margin: 0 14px; background: rgba(255, 255, 255, .9); border-radius: 14px; padding: 10px 12px; font-size: 13px; font-weight: 800; line-height: 1.65; }
+.vd .lfbadges { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 14px 0; }
+.vd .lfpill { font-size: 12.5px; font-weight: 800; border-radius: 14px; padding: 5px 10px; background: rgba(255, 255, 255, .88); color: #15181e; }
+.vd .lfft { display: flex; justify-content: space-between; padding: 12px 18px 14px; font-size: 12px; font-weight: 800; color: #fff; }
+.vd .lfbt { justify-content: center; margin: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.vd .lfdet { padding-bottom: 12px; }
+.vd .lfrowd { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 9px 12px; border-bottom: 1px solid var(--sep); }
+.vd .lfi { font-size: 24px; text-align: center; }
+.vd .lfm { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vd .lfm > b, .vd .lflink { font-size: 14.5px; font-weight: 800; color: var(--hi); }
+.vd .lflink { appearance: none; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; font: inherit; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line2); }
+.vd .lfm small { font-size: 12px; color: var(--mu); }
+.vd .lfty { white-space: nowrap; }
+.vd .lfty.fade { color: #f07a73; } .vd .lfty.grow { color: #4cc47f; } .vd .lfty.dip { color: #9dbbff; } .vd .lfty.flat, .vd .lfty.cool, .vd .lfty.bmw { color: var(--tx); }
+.vd .lfevs.g { color: #4cc47f; } .vd .lfevs.b { color: #f07a73; }
+.vd .lfsp { font-size: 15px; white-space: nowrap; }
+.vd .lftypes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 6px; margin: 10px 12px 0; }
+.vd .lftbox { border-radius: 10px; padding: 8px 10px; background: var(--pn2); display: flex; flex-direction: column; gap: 2px; font-size: 13px; }
+.vd .lftbox small { color: var(--mu); }
+.vd .lfbl { margin: 12px 12px 0; }
+.vd .lfbl h3 { margin: 0 0 6px; font-size: 15px; color: var(--hi); }
+.vd .lfbl p { margin: 3px 0; font-size: 13px; line-height: 1.5; }
+.vd .lfbl p span { color: var(--mu); }
+.vd .lffc { margin: 12px 12px 0; background: var(--deep); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.vd .lffck { color: var(--gold); font-size: 13px; }
+.vd .lffc p { margin: 0; font-size: 13.5px; line-height: 1.55; }
+.vd .lfconsent { margin: 12px 12px 0; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.vd .lfck { display: flex; gap: 8px; align-items: center; font-size: 13.5px; font-weight: 700; cursor: pointer; }
+.vd .lfck input { width: 18px; height: 18px; }
+@media (max-width: 400px) {
+  .vd .lfs { font-size: 25px; padding: 2px 2px; }
+  .vd .lfsr { grid-template-columns: 1fr; gap: 2px; }
+  .vd .lfevmid { grid-template-columns: 1fr; }
+  .vd .lft { font-size: 23px; }
+}
 /* 놀이터 */
 .vd .playseg .chip { font-size: 15px; padding: 9px 18px; font-weight: 700; }
 .vd .wcsetup { padding-bottom: 14px; }
@@ -1283,7 +1385,7 @@ body.kkopen{overflow:hidden}
   <nav class="tabs" role="tablist">
       <button class="tab" role="tab" id="t-home" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7M5.5 9.5V20h5v-6h3v6h5V9.5"/></svg><span><b>홈</b><small>오늘의 선수 · 뉴스</small></span></button>
       <button class="tab" role="tab" id="t-rank" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span><b>랭킹</b><small>종합 순위</small></span></button>
-      <button class="tab" role="tab" id="t-play" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.4 1.8L14.5 14h-5l-1.1 1.8A3 3 0 0 1 3 14v-1a4 4 0 0 1 4-4ZM8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg><span><b>놀이터</b><small>월드컵 · MBTI · 퀴즈</small></span></button>
+      <button class="tab" role="tab" id="t-play" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.4 1.8L14.5 14h-5l-1.1 1.8A3 3 0 0 1 3 14v-1a4 4 0 0 1 4-4ZM8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg><span><b>놀이터</b><small>차생 그래프 · 월드컵 · MBTI</small></span></button>
       <button class="tab" role="tab" id="t-prof" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span><b>선수</b><small>차 한 대 자세히</small></span></button>
       <button class="tab" role="tab" id="t-sq" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3.5 6l2 4.5L8 9.5V21h8V9.5l2.5 1 2-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3Z"/></svg><span><b>스쿼드 <em class="badge" id="sqN">0</em></b><small>찜한 차로 팀 짜기</small></span></button>
       <button class="tab" role="tab" id="t-wiz" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></svg><span><b>추천</b><small>5문항 영입 상담</small></span></button>
@@ -4938,8 +5040,8 @@ body.kkopen{overflow:hidden}
   function renderPlay() {
     const box = $('#playbox'); box.textContent = '';
     const seg = box.appendChild(el('div', 'pseg playseg'));
-    [['dg', '🏁 드림카까지'], ['wc', '🏆 이상형 월드컵'], ['mb', '🧠 차 MBTI'], ['qz', '🎯 능력치 퀴즈'], ['vid', '🎬 리뷰 영상관']].forEach(([k, t]) => { const b = seg.appendChild(btnEl('chip', t, () => { PLAY.mode = k; renderPlay(); writeHash(); })); b.setAttribute('aria-pressed', PLAY.mode === k); });
-    if (PLAY.mode === 'wc') renderWC(box); else if (PLAY.mode === 'vid') renderVidHub(box); else if (PLAY.mode === 'qz') renderQuiz(box); else if (PLAY.mode === 'dg') renderDream(box); else renderMBTI(box);
+    [['life', '📈 차생 그래프'], ['dg', '🏁 드림카까지'], ['wc', '🏆 이상형 월드컵'], ['mb', '🧠 차 MBTI'], ['qz', '🎯 능력치 퀴즈'], ['vid', '🎬 리뷰 영상관']].forEach(([k, t]) => { const b = seg.appendChild(btnEl('chip', t, () => { PLAY.mode = k; renderPlay(); writeHash(); })); b.setAttribute('aria-pressed', PLAY.mode === k); });
+    if (PLAY.mode === 'life') renderLife(box); else if (PLAY.mode === 'wc') renderWC(box); else if (PLAY.mode === 'vid') renderVidHub(box); else if (PLAY.mode === 'qz') renderQuiz(box); else if (PLAY.mode === 'dg') renderDream(box); else renderMBTI(box);
   }
 
   // ------------------------------------------------------------------ 리뷰 영상관 (선수 화면)
@@ -5290,6 +5392,451 @@ body.kkopen{overflow:hidden}
     btn.textContent = old; btn.disabled = false;
   }
 
+  // ------------------------------------------------------------------ 놀이터: 차생 그래프 (탔던 차 별점 → 날씨 그래프 + 성향)
+  const LF = { stage: 'edit', list: [], edit: null, draft: null, q: '', consent: false, sent: '' };
+  try { const v = JSON.parse(LS.get('life1') || 'null'); if (v && Array.isArray(v.list)) LF.list = v.list.filter((x) => x && x.name && Array.isArray(x.s)).slice(0, 30); } catch (e) {}
+  const lfSave = () => LS.set('life1', JSON.stringify({ list: LF.list }));
+  const LF_GOOD = [['🧳', '여행'], ['🛣️', '첫 장거리'], ['🎉', '출고 날'], ['👨‍👩‍👧', '가족'], ['🏕️', '캠핑·차박'], ['😊', '기타']];
+  const LF_BAD = [['💥', '사고'], ['🔧', '고장'], ['🚨', '딱지'], ['💸', '큰 수리비'], ['🅿️', '주차 스트레스'], ['😣', '기타']];
+  const LF_FUEL = ['가솔린', '디젤', 'LPG', '하이브리드', 'PHEV', '전기'];
+  const LF_BODY = ['경차', '세단', '해치백', 'SUV', 'MPV', '쿠페', '픽업'];
+  const lfWx = (s, peak) => (peak ? '🌈' : s >= 4.5 ? '☀️' : s >= 3.5 ? '🌤️' : s >= 2.5 ? '⛅' : s >= 1.5 ? '🌧️' : '⛈️');
+  const lfWxName = (s) => (s >= 4.5 ? '쨍쨍' : s >= 3.5 ? '맑음' : s >= 2.5 ? '흐림' : s >= 1.5 ? '비' : '천둥번개');
+  const lfMon = (m) => (m < 12 ? m + '개월' : Math.floor(m / 12) + '년' + (m % 12 ? ' ' + (m % 12) + '개월' : ''));
+  const lfRep = (c) => (c.s[0] + c.s[1] * 2 + c.s[2]) / 4;
+  const lfCar = (c) => (c.id && byId[c.id]) || null;
+  const lfShort = (c) => { if (c.bmw) return 'BMW'; const r = lfCar(c); let n = (r ? shortName(modelKey(r)).replace(new RegExp('^' + r.brand + ' '), '') : c.name).replace(/\s*\([^)]*\)/g, '').trim(); if (n.length > 7) n = n.split(' ')[0]; return n.length > 8 ? n.slice(0, 8) : n; };
+  function lfType(s) {
+    const [a, b, c] = s; const d = c - a;
+    if (Math.max(a, b, c) - Math.min(a, b, c) <= 0.5 && Math.abs(c - a) < 0.5) return ['🗿', '한결같은형', 'flat'];
+    if (b < Math.min(a, c) - 0.25 && c >= a - 0.5) return ['🔄', '권태기 극복형', 'dip'];
+    if (d <= -1) return ['🌸', '콩깍지형', 'fade'];
+    if (d >= 0.5) return ['🍲', '정드는형', 'grow'];
+    if (d < 0) return ['🍂', '살짝 식은형', 'cool'];
+    return ['🗿', '한결같은형', 'flat'];
+  }
+  // 그래프 모양 → 제목 앞 수식어
+  const LF_PRE = {
+    allhigh: ['365일 맑음인', '차 운이 타고난 사람'], flat: ['구름 조금, 평온한', '큰 기대도 큰 실망도 없는 현명한 운전자'],
+    lastbest: ['폭풍 뒤 무지개를 만난', '돌고 돌아, 지금이 제일 맑다'], rise: ['점점 개는', '탈수록 나한테 맞는 차를 찾아가는 중'],
+    step: ['차츰 맑아지는', '한 칸씩, 꾸준히 좋아졌다'], fall: ['점점 흐려지는', '아직 인생 차를 못 만났을 뿐'],
+    firstbest: ['첫날이 가장 맑았던', '첫 차의 설렘을 아직 못 잊었다'], peakdrop: ['맑았다 흐려진', '최고의 날은 지나갔지만, 다음 차가 있다'],
+    valley: ['비 갠 뒤 맑음의', '비 온 뒤에 땅이 굳는다'], zigzag: ['변덕스러운 날씨의', '맑았다 흐렸다 해도, 길은 계속 이어졌다'],
+    zigup: ['오락가락 끝에 갠', '흔들려도 결국 맑은 쪽으로 왔다'], zigdown: ['오락가락하다 흐려진', '맑은 날도 많았으니, 다음 차는 맑을 차례'],
+    shower: ['소나기 한 번 지나간', '한 번의 소나기만 빼면 대체로 맑음'], monsoon: ['긴 장마를 견딘', '비 온 뒤에 땅이 굳는다']
+  };
+  function lfShape(v) {
+    const n = v.length, mx = Math.max(...v), mn = Math.min(...v), f = v[0], l = v[n - 1];
+    if (mn >= 4) return 'allhigh';
+    if (mx - mn <= 0.75) return 'flat';
+    const dirs = []; for (let i = 1; i < n; i++) { const d = v[i] - v[i - 1]; if (Math.abs(d) >= 0.25) dirs.push(Math.sign(d)); }
+    let turns = 0; for (let i = 1; i < dirs.length; i++) if (dirs[i] !== dirs[i - 1]) turns++;
+    const rainy = v.filter((x) => x < 2.5).length;
+    if (n >= 4 && rainy >= n / 2 && l >= 3.5) return 'monsoon';
+    if (n >= 4) { const s = [...v].sort((a, b) => a - b); const med = s[Math.floor(n / 2)]; if (s[0] <= med - 1.5 && s[1] >= med - 0.5 && v.indexOf(s[0]) > 0 && v.indexOf(s[0]) < n - 1) return 'shower'; }
+    if (dirs.length && dirs.every((d) => d >= 0) && l > f) return dirs.length < n - 1 ? 'step' : 'rise';
+    if (dirs.length && dirs.every((d) => d <= 0) && l < f) return 'fall';
+    if (turns >= 3) return l - f >= 1 ? 'zigup' : f - l >= 1 ? 'zigdown' : 'zigzag';
+    if (l === mx && l - f >= 1 && Math.min(...v.slice(0, -1)) < f) return 'lastbest';
+    if (l === mx && l > f) return 'rise';
+    if (f === mx && f - l >= 1) return 'firstbest';
+    const mi = v.indexOf(mx), ni = v.indexOf(mn);
+    if (mi > 0 && mi < n - 1 && mx - Math.max(f, l) >= 0.75) return 'peakdrop';
+    if (ni > 0 && ni < n - 1 && Math.min(f, l) - mn >= 0.75) return 'valley';
+    return turns >= 2 ? 'zigzag' : l >= f ? 'rise' : 'fall';
+  }
+  // 능력치 취향 이름
+  const LF_LIKE = { quiet: ['🔇', '고요 수집가'], eff: ['⛽', '연비 계산기'], accel: ['🏎️', '스피드 중독자'], power: ['💪', '마력 수집가'], agile: ['🌀', '코너 장인'], size: ['🚌', '큰 차 애호가'], room: ['🛋️', '공간 욕심쟁이'], cargo: ['📦', '짐꾼 드라이버'], seats: ['👨‍👩‍👧', '뒷좌석 배려왕'], safety: ['🛡️', '안전 제일주의자'], tadas: ['🤖', '주행보조 신봉자'], tinfo: ['📺', '큰 화면 애호가'], tconv: ['🎁', '옵션 욕심쟁이'], resale: ['💰', '감가 방어러'], upkeep: ['🪙', '유지비 짠돌이'], value: ['🏷️', '가성비 사냥꾼'], durab: ['🧰', '무탈 수집가'] };
+  const LF_TOL = { quiet: ['🔊', '소음 관용파'], eff: ['🛢️', '연비는 몰라파'], room: ['🤏', '좁아도 괜찮아파'], accel: ['🐢', '느긋한 드라이버'], tadas: ['🕹️', '아날로그 감성파'], tinfo: ['📻', '화면은 거들 뿐파'], size: ['🐜', '작은 차 예찬론자'], upkeep: ['🔥', '기름값은 기분값파'] };
+  const lfS = (r, k) => { const v = r && r['s_' + k]; return typeof v === 'number' && !isNaN(v) ? v : null; };
+  const lfFuel = (c) => { const r = lfCar(c); const p = r ? r.powertrain : c.fuel; return p === '수소전기' ? '전기' : p || ''; };
+  const lfBody = (c) => { const r = lfCar(c); return r ? r.body : c.body || ''; };
+  const lfEco = (f) => /하이브리드|PHEV|전기/.test(f);
+  function lfAnalyze(full) {
+    const list = full.filter((c) => !c.bmw); const bm = full.filter((c) => c.bmw);
+    const n = list.length; const reps = list.map(lfRep); const types = list.map((c) => lfType(c.s));
+    const wts = list.map((c) => Math.sqrt(Math.max(1, c.m || 12)));
+    const soft = n <= 3; const sfx = soft ? ' 쪽' : '';
+    const seq = n === 1 ? list[0].s : reps;
+    const shape = lfShape(seq);
+    // 정체성 후보 (이름, 세기)
+    const C = []; const add = (t, w) => C.push([t, w]);
+    const F = list.map(lfFuel), B = list.map(lfBody), R = list.map(lfCar);
+    const f0 = F[0], fl = F[n - 1];
+    if (n >= 2 && !lfEco(f0) && /하이브리드/.test(fl)) add('하이브리드 귀순자', 1);
+    if (n >= 2 && !lfEco(f0) && /전기/.test(fl)) add('전기차 개종자', 1);
+    if (n >= 2 && f0 === 'PHEV' || F.slice(1).includes('PHEV')) add('플러그 양다리', 0.7);
+    if (n >= 2 && f0 === '디젤' && fl === '가솔린') add('디젤 탈출러', 0.85);
+    if (n >= 2 && F.every((f) => f === '디젤')) add('디젤 장인', 0.8);
+    if (n >= 2 && F.every((f) => f === '하이브리드')) add('하이브리드 원주민', 0.85);
+    if (n >= 2 && F.every((f) => f === '전기')) add('충전 원주민', 0.9);
+    if (F.includes('LPG')) add('LPG 실속파', 0.75);
+    if (n >= 2 && B[0] !== 'SUV' && B[n - 1] === 'SUV' && B.filter((b) => b === 'SUV').length >= n / 2) add('SUV 귀화자', 0.8);
+    if (n >= 2 && B[0] === 'SUV' && B[n - 1] === '세단') add('세단 회귀자', 0.8);
+    if (n >= 3 && B.every((b) => b === 'SUV')) add('SUV 외길 인생', 0.6);
+    if (n >= 3 && B.every((b) => b === '세단')) add('세단 외길 인생', 0.6);
+    if (B.includes('MPV') || R.some((r) => r && r.seats >= 7)) add('7인승 가장', 0.7);
+    if (B.includes('해치백')) add('해치백 감성러', 0.6);
+    { const k = B.filter((b) => /쿠페|컨버터블/.test(b)).length; if (k) add('낭만 드라이버', k >= n / 3 || /쿠페|컨버터블/.test(B[n - 1]) ? 0.85 : 0.5); }
+    if (B.includes('픽업')) add('짐칸 로망러', 0.8);
+    const brands = list.map((c, i) => (R[i] ? R[i].brand : (c.name.split(' ')[0] || '').trim()));
+    const ub = new Set(brands.filter(Boolean));
+    if (n >= 3 && ub.size >= Math.ceil(n * 0.7)) add('브랜드 유목민', 0.7);
+    if (n >= 2 && ub.size === 1 && brands[0]) add(brands[0] + ' 원클럽맨', 0.75);
+    const og = R.map((r) => (r ? r.origin : null));
+    if (n >= 2 && og[0] === '국산' && og[n - 1] === '수입') add('수입차 데뷔러', 0.75);
+    if (n >= 2 && og[0] === '수입' && og[n - 1] === '국산') add('국산 회귀자', 0.75);
+    if (n >= 2 && og.every((o) => o === '수입')) add('수입차 외길', 0.7);
+    const pr = R.map((r) => (r ? num(r.price) : NaN));
+    if (n >= 2 && pr[0] > 0 && pr[n - 1] > 0) { const x = pr[n - 1] / pr[0]; if (x >= 2) add('체급 승격자', 0.7 + Math.min(0.2, (x - 2) / 10)); if (x <= 0.6) add('다운사이징 현자', 0.8); }
+    const avgM = list.reduce((a, c) => a + (c.m || 0), 0) / n; const totM = full.reduce((a, c) => a + (c.m || 0), 0);
+    if (avgM >= 60) add('10년 타기 장인', 0.85); else if (n >= 3 && avgM <= 18) add('차 갈아타기 선수', 0.75);
+    // 능력치 취향 (① 강점 공명 + ⑦ 가중 취향 벡터)
+    const vec = {}; const tol = {};
+    Object.keys(LF_LIKE).forEach((k) => {
+      const pool = list.map((c, i) => [lfS(R[i], k), reps[i] - 3, wts[i]]).filter((x) => x[0] != null);
+      if (!pool.length) return;
+      vec[k] = pool.reduce((a, [s, d, w]) => a + d * (s - 10) * w, 0) / pool.reduce((a, x) => a + x[2], 0);
+      const hi = pool.filter((x) => x[1] >= 1 && x[0] <= 6); if (hi.length && LF_TOL[k]) tol[k] = hi.length;
+    });
+    const likes = Object.entries(vec).filter(([, v]) => v > 2).sort((a, b) => b[1] - a[1]);
+    if (likes.length) add(LF_LIKE[likes[0][0]][1], 0.45 + Math.min(0.3, likes[0][1] / 40));
+    if (!C.length) add(lfEco(fl) ? '친환경 드라이버' : n === 1 ? '첫 차 오너' : '자동차 여행자', 0.1);
+    C.sort((a, b) => b[1] - a[1]);
+    const title = LF_PRE[shape][0] + ' ' + C[0][0];
+    // 배지
+    const badges = [];
+    const cnt = (k) => types.filter((t) => t[2] === k).length;
+    if (n === 1) badges.push([types[0][0], types[0][1] + ' 오너', '처음 ★' + list[0].s[0] + ' → 마지막 ★' + list[0].s[2]]);
+    if (n >= 2 && cnt('fade') >= n / 2) badges.push(['🌸', '금사빠 오너', `${n}대 중 ${cnt('fade')}대가 처음보다 마지막이 흐림`]);
+    if (n >= 2 && cnt('grow') >= n / 2) badges.push(['🍲', '진국 감별사', `${n}대 중 ${cnt('grow')}대가 탈수록 맑아짐`]);
+    if (n >= 2 && cnt('flat') >= n / 2) badges.push(['🗿', '한결같은 오너', `${n}대 중 ${cnt('flat')}대가 처음과 끝이 같음`]);
+    if (cnt('dip') >= 2) badges.push(['🔄', '권태기 극복러', `${cnt('dip')}대에서 중간 위기를 넘김`]);
+    const fades = list.filter((c, i) => types[i][2] === 'fade' && c.m);
+    let kong = null; if (fades.length) { kong = Math.max(1, Math.round(fades.reduce((a, c) => a + c.m / 2, 0) / fades.length)); badges.push(['⏳', `콩깍지 ${kong}개월설`, `콩깍지는 평균 ${kong}개월쯤 벗겨짐`]); }
+    if (n >= 3) { const xs = list.map((c) => c.m || 0), ys = list.map((c) => c.s[2]); const mx = xs.reduce((a, b) => a + b) / n, my = ys.reduce((a, b) => a + b) / n; const cv = xs.reduce((a, x, i) => a + (x - mx) * (ys[i] - my), 0); const sx = Math.sqrt(xs.reduce((a, x) => a + (x - mx) ** 2, 0)), sy = Math.sqrt(ys.reduce((a, y) => a + (y - my) ** 2, 0)); if (sx && sy && cv / sx / sy >= 0.5) badges.push(['👴', '오래 탈수록 정드는', '오래 탄 차일수록 마지막 별이 높음']); }
+    if (n >= 2 && list.filter((c) => c.s[2] >= c.s[1]).length >= n * 0.75 && cnt('flat') < n) badges.push(['🏃', '질리기 전에 바꾸는', '대부분 별이 떨어지기 전에 보냄']);
+    if (list.reduce((a, c) => a + c.s[2], 0) / n >= 4) badges.push(['💸', '팔 때 웃는 사람', '마지막 별 평균 ★' + (list.reduce((a, c) => a + c.s[2], 0) / n).toFixed(1)]);
+    // 별점 스타일 (⑧)
+    const all = list.flatMap((c) => c.s); const avg = all.reduce((a, b) => a + b, 0) / all.length; const sd = Math.sqrt(all.reduce((a, b) => a + (b - avg) ** 2, 0) / all.length);
+    if (n >= 2 && avg <= 2.5) badges.push(['🧂', '짠물 평론가' + sfx, '별점 평균 ★' + avg.toFixed(1)]);
+    else if (n >= 2 && avg >= 4.2) badges.push(['🧚', '칭찬 요정' + sfx, '별점 평균 ★' + avg.toFixed(1)]);
+    if (n >= 2 && sd >= 1.3) badges.push(['⚖️', '극과 극 평론가' + sfx, '별을 아주 후하게도, 아주 짜게도 줌']);
+    if (all.length >= 6 && all.filter((x) => x % 1).length >= all.length / 2) badges.push(['½', '반 개의 미학', '별 반 개를 자주 씀']);
+    // 취향 (① ② ③)
+    if (likes.length) { const k = likes[0][0]; if (C[0][0] !== LF_LIKE[k][1]) badges.push([LF_LIKE[k][0], LF_LIKE[k][1] + sfx, '별을 많이 준 차들의 공통 강점: ' + (ATTR.find((a) => a.k === k) || {}).label]); }
+    const tk = Object.entries(tol).sort((a, b) => b[1] - a[1])[0]; if (tk) badges.push([LF_TOL[tk[0]][0], LF_TOL[tk[0]][1] + sfx, '그 능력치가 낮은 차에도 별을 후하게 줌']);
+    if (n >= 2) { // ③ 대비 분석
+      const hi = reps.indexOf(Math.max(...reps)), lo = reps.indexOf(Math.min(...reps));
+      if (hi !== lo && R[hi] && R[lo]) { let best = null; ['room', 'cargo', 'quiet', 'eff', 'accel', 'safety', 'tadas', 'size'].forEach((k) => { const a = lfS(R[hi], k), b = lfS(R[lo], k); if (a != null && b != null && a - b >= 3 && (!best || a - b > best[1])) best = [k, a - b]; }); if (best && !badges.some((x) => x[1].startsWith(LF_LIKE[best[0]][1]))) badges.push(['🔍', ({ room: '공간파', cargo: '적재파', quiet: '고요파', eff: '연비파', accel: '스피드파', safety: '안전파', tadas: '주행보조파', size: '덩치파' })[best[0]] + ' 평론가' + sfx, `최고 차와 최악 차를 가른 건 ${(ATTR.find((a) => a.k === best[0]) || {}).label}`]); }
+      // ④ 범주 편애
+      const grp = (fn) => { const m = {}; list.forEach((c, i) => { const g = fn(c, i); if (!g) return; (m[g] = m[g] || []).push(reps[i]); }); return Object.entries(m).map(([g, a]) => [g, a.reduce((x, y) => x + y) / a.length]); };
+      const fg = grp((c, i) => (lfEco(F[i]) ? '친환경' : '내연기관')); if (fg.length === 2) { const e = fg.find((x) => x[0] === '친환경')[1], g = fg.find((x) => x[0] === '내연기관')[1]; if (e - g >= 1) badges.push(['🔋', '친환경 편애형' + sfx, `친환경 차에 별이 평균 ${(e - g).toFixed(1)}개 더`]); else if (g - e >= 1) badges.push(['⛽', '엔진 소리 편애형' + sfx, `내연기관 차에 별이 평균 ${(g - e).toFixed(1)}개 더`]); }
+      const bg = grp((c, i) => (B[i] === 'SUV' ? 'SUV' : B[i] ? '그 외' : null)); if (bg.length === 2) { const s = bg.find((x) => x[0] === 'SUV')[1], o = bg.find((x) => x[0] === '그 외')[1]; if (s - o >= 1) badges.push(['🚙', 'SUV 편애형' + sfx, `SUV에 별이 평균 ${(s - o).toFixed(1)}개 더`]); else if (o - s >= 1) badges.push(['🚗', '낮은 차 편애형' + sfx, `세단·해치백에 별이 평균 ${(o - s).toFixed(1)}개 더`]); }
+      // ⑤ 가격 감도
+      const pp = list.map((c, i) => [pr[i], reps[i]]).filter((x) => x[0] > 0); if (pp.length >= 2) { const s = [...pp].sort((a, b) => a[0] - b[0]); if (s[s.length - 1][0] / s[0][0] >= 1.3) { const d = s[s.length - 1][1] - s[0][1]; if (d >= 1) badges.push(['💎', '비싼 게 좋은 사람' + sfx, '비싼 차일수록 별이 높음']); else if (d <= -1) badges.push(['🏷️', '가성비 평론가' + sfx, '싼 차에 별을 더 줌']); } }
+    }
+    // 칭호
+    if (B[0] === '경차') badges.push(['🐣', '경차로 데뷔', '첫 차가 경차']);
+    if (totM >= 240) badges.push(['🕰️', '시대 관통자', `총 ${lfMon(totM)} 운전`]);
+    if (list.some((c) => Math.min(...c.s) >= 4.5)) badges.push(['🏆', '인생 차 보유자', '처음부터 끝까지 ★4.5 이상인 차가 있음']);
+    if (n >= 6) badges.push(['🔑', `차력 ${n}대`, `${n}대를 거쳐 온 베테랑`]);
+    if (list[0].m >= 60) badges.push(['💍', '첫 차와 장기 연애', `첫 차를 ${lfMon(list[0].m)}`]);
+    // BMW (버스·메트로·워킹) 시절
+    if (bm.length) { const bmM = bm.reduce((a, c) => a + (c.m || 0), 0); badges.push(['🚶', `뚜벅이 경력 ${lfMon(bmM)}`, '버스·메트로·워킹으로 버틴 기간']); const br = bm.reduce((a, c) => a + lfRep(c), 0) / bm.length, cr = reps.reduce((a, b) => a + b, 0) / n; if (br - cr >= 0.5) badges.push(['🚌', '차 없을 때가 더 맑았던', `BMW 시절 ★${br.toFixed(1)} > 차 평균 ★${cr.toFixed(1)}`]); else if (cr - br >= 1) badges.push(['🔑', '차 생기고 인생 핌', `차 평균 ★${cr.toFixed(1)} > BMW 시절 ★${br.toFixed(1)}`]); }
+    // 이벤트
+    const ev = full.flatMap((c) => (c.ev || []).map((e) => Object.assign({ car: c }, e)));
+    const good = ev.filter((e) => e.t === 'g'), bad = ev.filter((e) => e.t === 'b');
+    if (good.length >= 3) badges.push(['🧳', '추억 부자', `좋은 기억 ${good.length}개`]);
+    if (good.length >= 2 && good.filter((e) => /여행|장거리|캠핑/.test(e.k || '')).length >= good.length / 2) badges.push(['🗺️', '여행파 드라이버', '좋은 기억의 절반 이상이 여행']);
+    if (list.some((c) => (c.ev || []).some((e) => e.t === 'b') && c.s[2] >= 3)) badges.push(['🩹', '액땜 마스터', '안 좋은 일이 있었어도 끝까지 맑음']);
+    if (list.some((c) => (c.ev || []).some((e) => e.t === 'b') && c.s[2] < 2.5 && c.s[2] < c.s[0])) badges.push(['💔', '그 사건 이후', '안 좋은 일 뒤로 별이 회복되지 못함']);
+    // 같은 묶음 정리 + 상위만
+    const seen = new Set(); const B2 = badges.filter((b) => { const g = b[1].replace(/ 쪽$/, ''); if (seen.has(g) || C[0][0] === g) return false; seen.add(g); return true; });
+    // ⑥ 취향 일치율
+    let match = null; const kn = list.map((c, i) => [R[i] && !isNaN(R[i]._ovr) ? R[i]._ovr : null, reps[i]]).filter((x) => x[0] != null);
+    if (kn.length >= 2) { let ok = 0, tot = 0; for (let i = 0; i < kn.length; i++) for (let j = i + 1; j < kn.length; j++) { const a = kn[i][1] - kn[j][1], b = kn[i][0] - kn[j][0]; if (Math.abs(a) < 0.25 || b === 0) continue; tot++; if (Math.sign(a) === Math.sign(b)) ok++; } if (tot) match = Math.round((ok / tot) * 100); }
+    else if (kn.length === 1) { const pool = activePool().map((r) => r._ovr).sort((a, b) => a - b); const pct = pool.filter((x) => x <= kn[0][0]).length / Math.max(1, pool.length); match = Math.max(0, Math.min(100, Math.round(100 - Math.abs(kn[0][1] - (1 + 4 * pct)) * 25))); }
+    // 날씨 집계
+    const peak = reps.indexOf(Math.max(...reps)); const peakOk = reps[peak] >= 4.5;
+    const wcount = { sun: reps.filter((x) => x >= 3.5).length, cloud: reps.filter((x) => x >= 2.5 && x < 3.5).length, rain: reps.filter((x) => x < 2.5).length };
+    // 한 줄 설명
+    let line = LF_PRE[shape][1];
+    if (B2.some((b) => b[1] === '금사빠 오너')) { const g = list.find((c, i) => types[i][2] === 'grow'); line = g ? `설렘은 짧고, ${lfEco(lfFuel(g)) ? lfFuel(g) : lfShort(g)}${/[가-힣]$/.test(lfEco(lfFuel(g)) ? lfFuel(g) : lfShort(g)) && ((((lfEco(lfFuel(g)) ? lfFuel(g) : lfShort(g)).slice(-1).charCodeAt(0) - 0xac00) % 28) === 0) ? '는' : '은'} 길었다` : '설렘은 짧고, 다음 차는 길기를'; }
+    if (wcount.rain >= n / 2 && n >= 2) line = '비 온 뒤에 땅이 굳는다 — 다음 차는 맑을 차례';
+    // 다음 차 예보 (끝까지 맑았던 차 기준)
+    let fc = null; const keep = list.map((c, i) => [c, R[i]]).filter(([c, r]) => r && c.s[2] >= 4);
+    const base = keep.length ? keep : list.map((c, i) => [c, R[i]]).filter(([, r]) => r).sort((a, b) => lfRep(b[0]) - lfRep(a[0])).slice(0, 1);
+    if (base.length) {
+      const KS = ['quiet', 'eff', 'accel', 'room', 'cargo', 'safety', 'tadas', 'resale', 'value', 'agile', 'tconv'];
+      const av = KS.map((k) => [k, base.reduce((a, [, r]) => a + (lfS(r, k) || 0), 0) / base.length]).sort((a, b) => b[1] - a[1]).slice(0, 2);
+      const mk = new Set(list.map((c) => (lfCar(c) ? modelKey(lfCar(c)) : c.name)));
+      const P = base.map(([, r]) => num(r.price)).filter((x) => x > 0).sort((a, b) => a - b); const mid = P.length ? P[Math.floor(P.length / 2)] : 4000;
+      const cands = activePool().filter((r) => !mk.has(modelKey(r)) && num(r.price) >= mid * 0.6 && num(r.price) <= mid * 1.8).map((r) => [r, av.reduce((a, [k]) => a + (lfS(r, k) || 0), 0) + (r._ovr || 0) / 8]).sort((a, b) => b[1] - a[1]);
+      const pick = []; const used = new Set(); for (const [r] of cands) { const m = modelKey(r); if (used.has(m)) continue; used.add(m); pick.push(r); if (pick.length === 2) break; }
+      fc = { from: base.map(([c]) => lfShort(c)).slice(0, 2), keys: av.map(([k]) => (ATTR.find((a) => a.k === k) || {}).label), cars: pick, keep: keep.length > 0 };
+    }
+    const allReps = full.map(lfRep); const peakAll = peakOk ? full.indexOf(list[peak]) : -1;
+    return { allReps, peakAll, n, reps, types, shape, title, idn: C[0][0], line, badges: B2, match, peak: peakOk ? peak : -1, wcount, kong, good: good.length, bad: bad.length, totM, fc };
+  }
+  // 그래프 좌표 (SVG·이미지 공용)
+  function lfGeo(list, W, H, pad) {
+    const tot = list.reduce((a, c) => a + Math.max(1, c.m || 12), 0); const X0 = pad.l, X1 = W - pad.r; const Y = (s) => pad.t + (H - pad.t - pad.b) * (1 - (s - 0.5) / 4.5);
+    const pts = [], segs = []; let x = X0;
+    list.forEach((c, i) => {
+      const m = Math.max(1, c.m || 12); const w = (X1 - X0) * m / tot;
+      const P = [[0.12, c.s[0], null], [0.5, c.s[1], null], [0.88, c.s[2], null]].concat((c.ev || []).map((e) => [Math.min(0.97, Math.max(0.03, e.mo / m)), e.s, e]));
+      P.sort((a, b) => a[0] - b[0]); P.forEach(([f, s, e]) => pts.push({ x: x + w * f, y: Y(s), s, e, car: i }));
+      segs.push({ x0: x, x1: x + w, w, c, i }); x += w;
+    });
+    let d = `M${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+    for (let i = 1; i < pts.length; i++) { const a = pts[i - 1], b = pts[i], dx = (b.x - a.x) / 2; d += ` C${(a.x + dx).toFixed(1)} ${a.y.toFixed(1)},${(b.x - dx).toFixed(1)} ${b.y.toFixed(1)},${b.x.toFixed(1)} ${b.y.toFixed(1)}`; }
+    return { pts, segs, d, Y, X0, X1 };
+  }
+  function lfSvg(list, A) {
+    const W = 360, H = 330, G = lfGeo(list, W, H, { l: 30, r: 22, t: 34, b: 30 });
+    const NS = 'http://www.w3.org/2000/svg'; const sv = document.createElementNS(NS, 'svg'); sv.setAttribute('viewBox', `0 0 ${W} ${H}`); sv.setAttribute('class', 'lfsvg'); sv.setAttribute('role', 'img'); sv.setAttribute('aria-label', '차생 그래프: ' + list.map((c, i) => `${lfShort(c)} ${lfWxName(A.allReps[i])}`).join(', '));
+    const mk = (t, at, txt) => { const e = document.createElementNS(NS, t); Object.entries(at).forEach(([k, v]) => e.setAttribute(k, v)); if (txt != null) e.textContent = txt; sv.appendChild(e); return e; };
+    [4.75, 3.75, 2.75, 1.75, 0.75].forEach((s) => mk('text', { x: 4, y: G.Y(s) + 5, 'font-size': 13, opacity: 0.7 }, lfWx(s)));
+    G.segs.forEach((s, i) => { if (i) mk('line', { x1: s.x0, y1: 14, x2: s.x0, y2: H - 22, stroke: 'rgba(58,63,74,.14)', 'stroke-dasharray': '3 3' }); });
+    mk('path', { d: G.d, fill: 'none', stroke: '#3a3f4a', 'stroke-width': 8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+    mk('path', { d: G.d, fill: 'none', stroke: '#fff', 'stroke-width': 1.5, 'stroke-dasharray': '6 5' });
+    G.pts.forEach((p) => { if (p.e) { mk('circle', { cx: p.x, cy: p.y, r: 9, fill: '#fff', stroke: p.e.t === 'g' ? '#2f9e5b' : '#e5534b', 'stroke-width': 2.5 }); mk('text', { x: p.x, y: p.y + 4, 'font-size': 10.5, 'text-anchor': 'middle' }, p.e.ic); } else mk('circle', { cx: p.x, cy: p.y, r: 3, fill: '#fff', stroke: '#3a3f4a', 'stroke-width': 1.5 }); });
+    G.segs.forEach((s, i) => {
+      const c = s.c; const vals = [c.s[0], c.s[1], c.s[2]].concat((c.ev || []).map((e) => e.s)); const cx = s.x0 + s.w / 2;
+      const up = i % 2 === 0; const top = G.Y(Math.max(...vals)), bot = G.Y(Math.min(...vals));
+      if (!(c.ev || []).length && s.w >= 18) mk('text', { x: cx, y: top - 10, 'font-size': s.w >= 30 ? 16 : 12, 'text-anchor': 'middle' }, c.bmw ? '🚌' : lfWx(A.allReps[i], i === A.peakAll));
+      if (s.w < 16 && list.length > 6) return;
+      let ly = up ? top - (s.w >= 18 && !(c.ev || []).length ? 36 : 16) : bot + 22; ly = Math.max(10, Math.min(H - 16, ly));
+      mk('text', { x: cx, y: ly, 'font-size': s.w >= 34 ? 10 : 8.5, 'font-weight': 900, fill: '#2a2f3a', 'text-anchor': 'middle' }, lfShort(c));
+      if (s.w >= 26) mk('text', { x: cx, y: ly + 10, 'font-size': 8, 'font-weight': 700, fill: '#5b6170', 'text-anchor': 'middle' }, lfMon(c.m || 12));
+    });
+    const endY = NOWY, startY = Math.round(endY - A.totM / 12);
+    mk('text', { x: G.X0, y: H - 6, 'font-size': 9, 'font-weight': 800, fill: '#5b6170' }, '약 ' + startY);
+    mk('text', { x: G.X1, y: H - 6, 'font-size': 9, 'font-weight': 800, fill: '#5b6170', 'text-anchor': 'end' }, '지금');
+    return sv;
+  }
+  // 별점 입력 (반 개 단위: 같은 별을 다시 누르면 반 개)
+  function lfStars(val, on) {
+    const w = el('span', 'lfst'); w.setAttribute('role', 'radiogroup');
+    const draw = () => { w.textContent = ''; for (let i = 1; i <= 5; i++) { const b = w.appendChild(el('button', 'lfs' + (val >= i ? ' on' : val >= i - 0.5 ? ' half' : ''), '★')); b.type = 'button'; b.setAttribute('aria-label', `별 ${i}개`); b.addEventListener('click', () => { val = val === i ? i - 0.5 : i; if (val < 0.5) val = 0.5; draw(); on(val); }); } w.appendChild(el('b', 'lfwx', lfWx(val) + ' ' + val.toFixed(1))); };
+    draw(); return w;
+  }
+  function lfNewDraft() { return { id: null, name: '', fuel: '', body: '', m: 24, s: [4, 3.5, 3], ev: [] }; }
+  function renderLife(box) {
+    if (LF.stage === 'result' && LF.list.some((x) => !x.bmw)) return lfResult(box);
+    LF.stage = 'edit';
+    const c = box.appendChild(el('div', 'card lfcard'));
+    const hd = c.appendChild(el('div', 'lfhd')); hd.appendChild(el('span', 'kick', 'NEW · 차생 그래프'));
+    hd.appendChild(el('h2', 'jal', '📈 내 차생 그래프'));
+    hd.appendChild(el('p', 'note', '탔던 차를 첫 차부터 순서대로 추가하고, 처음 · 타면서 · 마지막에 별점을 주세요. 별점이 날씨가 되고, 내 차 인생 성향이 나와요. 2대만 넣어도 결과가 나와요.'));
+    // 목록
+    if (LF.list.length) {
+      const ul = c.appendChild(el('ol', 'lflist'));
+      LF.list.forEach((x, i) => {
+        const li = ul.appendChild(el('li', LF.edit === i ? 'on' : ''));
+        const t = li.appendChild(el('span', 'lfli')); t.appendChild(el('b', null, x.bmw ? '🚌 BMW 시절' : (lfCar(x) ? shortName(lfCar(x).name) : x.name))); t.appendChild(el('small', null, lfMon(x.m) + ((x.ev || []).length ? ' · ' + x.ev.map((e) => e.ic).join('') : '')));
+        li.appendChild(el('span', 'lfwx3', x.s.map((s) => lfWx(s)).join('→')));
+        const act = li.appendChild(el('span', 'lfact'));
+        if (i) act.appendChild(btnEl('lfib', '↑', () => { const a = LF.list; [a[i - 1], a[i]] = [a[i], a[i - 1]]; LF.edit = null; LF.draft = null; lfSave(); renderPlay(); })).setAttribute('aria-label', '앞으로');
+        act.appendChild(btnEl('lfib', '✏️', () => { LF.edit = i; LF.draft = JSON.parse(JSON.stringify(x)); renderPlay(); const f = document.querySelector('.lfform'); if (f) f.scrollIntoView({ block: 'nearest' }); })).setAttribute('aria-label', '수정');
+        act.appendChild(btnEl('lfib', '✕', () => { LF.list.splice(i, 1); LF.edit = null; LF.draft = null; lfSave(); renderPlay(); })).setAttribute('aria-label', '삭제');
+      });
+    }
+    // 추가 폼
+    const D = LF.draft || (LF.draft = lfNewDraft());
+    const f = c.appendChild(el('div', 'lfform'));
+    f.appendChild(el('h3', 'jal', LF.edit != null ? '✏️ ' + (LF.edit + 1) + '번째 차 수정' : '＋ ' + (LF.list.length + 1) + '번째 차 추가'));
+    const picked = D.id || D.name;
+    if (!picked) {
+      const sw = f.appendChild(el('div', 'lfsearch')); const inp = sw.appendChild(el('input')); inp.placeholder = '차 이름 검색 (예: 아반떼, ㅅㅌ, K3)'; inp.autocomplete = 'off'; inp.value = LF.q; inp.maxLength = 30;
+      const res = sw.appendChild(el('div', 'lfres'));
+      const draw = () => {
+        LF.q = inp.value; res.textContent = ''; const q = inp.value.trim(); if (!q) return;
+        searchCars(q, 6).forEach((r) => { const b = res.appendChild(btnEl('lfri', '', () => { D.id = r.id; D.name = r.name; LF.q = ''; renderPlay(); })); b.appendChild(el('b', null, r.name)); b.appendChild(el('small', null, [r.powertrain, r.body, r.og ? '단종 모델' : fmt(r.price) + '만'].join(' · '))); });
+        const m = res.appendChild(btnEl('lfri man', '', () => { D.name = q.slice(0, 20); D.id = null; LF.q = ''; renderPlay(); })); m.appendChild(el('b', null, `'${q.slice(0, 20)}' 직접 입력`)); m.appendChild(el('small', null, '목록에 없는 옛날 차도 OK — 연료·차종만 골라 주세요'));
+      };
+      inp.addEventListener('input', draw); draw();
+      const bw = f.appendChild(el('div', 'lfchips lfbmw')); bw.appendChild(el('span', 'note', '차 없던 시기도 넣을 수 있어요 →')); bw.appendChild(btnEl('chip sm', '🚌 BMW 시절 (버스·메트로·워킹)', () => { D.bmw = true; D.name = 'BMW'; D.id = null; D.s = [3, 3, 3]; LF.q = ''; renderPlay(); }));
+      setTimeout(() => { if (LF.q) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); } }, 0);
+      if (!LF.list.length) { const ex = f.appendChild(el('p', 'note lfex')); ex.appendChild(el('span', null, '어떻게 나오는지 먼저 보고 싶다면 → ')); ex.appendChild(btnEl('chip sm', '예시로 채워 보기', () => { LF.list = lfSample(); LF.draft = null; lfSave(); renderPlay(); })); }
+    } else {
+      const r = D.id && byId[D.id];
+      const ph = f.appendChild(el('div', 'lfpicked')); ph.appendChild(el('b', null, D.bmw ? '🚌 BMW 시절 (버스·메트로·워킹)' : '🚗 ' + (r ? r.name : D.name))); if (r) ph.appendChild(el('small', null, [r.powertrain, r.body].join(' · ')));
+      ph.appendChild(btnEl('chip sm', '차 바꾸기', () => { D.id = null; D.name = ''; D.bmw = false; renderPlay(); }));
+      if (D.bmw) f.appendChild(el('p', 'note lfbmwn', '차 없이 대중교통·걷기로 다닌 기간이에요. 그때 생활 만족도를 별점으로 매겨 주세요.'));
+      if (!r && !D.bmw) {
+        const row = (lab, arr, key) => { const w = f.appendChild(el('div', 'lfrow')); w.appendChild(el('span', 'lfl', lab)); const g = w.appendChild(el('div', 'lfchips')); arr.forEach((v) => { const b = g.appendChild(btnEl('chip sm', v, () => { D[key] = v; renderPlay(); })); b.setAttribute('aria-pressed', D[key] === v); }); };
+        row('연료', LF_FUEL, 'fuel'); row('차종', LF_BODY, 'body');
+      }
+      // 기간
+      const pr = f.appendChild(el('div', 'lfrow')); pr.appendChild(el('span', 'lfl', '얼마나 탔어요?'));
+      const g = pr.appendChild(el('div', 'lfchips'));
+      [[6, '6개월'], [12, '1년'], [24, '2년'], [36, '3년'], [60, '5년'], [120, '10년']].forEach(([m, t]) => { const b = g.appendChild(btnEl('chip sm', t, () => { D.m = m; renderPlay(); })); b.setAttribute('aria-pressed', D.m === m); });
+      const st = g.appendChild(el('span', 'lfstep'));
+      st.appendChild(btnEl('lfib', '−', () => { D.m = Math.max(1, D.m - 1); renderPlay(); })).setAttribute('aria-label', '1개월 빼기');
+      st.appendChild(el('b', null, lfMon(D.m)));
+      st.appendChild(btnEl('lfib', '＋', () => { D.m = Math.min(360, D.m + 1); renderPlay(); })).setAttribute('aria-label', '1개월 더하기');
+      // 별점 3번
+      const sr = f.appendChild(el('div', 'lfrow')); sr.appendChild(el('span', 'lfl', '그때 별점은? (같은 별을 한 번 더 누르면 반 개)'));
+      ['처음 탔을 때', '타면서', '마지막 · 팔 때'].forEach((t, i) => { const r2 = sr.appendChild(el('div', 'lfsr')); r2.appendChild(el('span', null, t)); r2.appendChild(lfStars(D.s[i], (v) => { D.s[i] = v; })); });
+      // 기억
+      const er = f.appendChild(el('div', 'lfrow')); er.appendChild(el('span', 'lfl', '기억에 남는 일 (선택)'));
+      (D.ev || []).forEach((e, k) => {
+        const it = er.appendChild(el('div', 'lfev ' + (e.t === 'g' ? 'g' : 'b')));
+        const top = it.appendChild(el('div', 'lfevtop'));
+        const icons = top.appendChild(el('div', 'lfchips')); icons.appendChild(el('span', 'lfl2', '분류'));
+        (e.t === 'g' ? LF_GOOD : LF_BAD).forEach(([ic, lab]) => { const b = icons.appendChild(btnEl('chip sm', ic + ' ' + lab, () => { if (!e.txt || e.txt === e.k) e.txt = lab; e.ic = ic; e.k = lab; renderPlay(); })); b.setAttribute('aria-pressed', e.ic === ic); });
+        top.appendChild(btnEl('lfib', '✕', () => { D.ev.splice(k, 1); renderPlay(); })).setAttribute('aria-label', '기억 지우기');
+        const mid = it.appendChild(el('div', 'lfevmid'));
+        const mo = mid.appendChild(el('label', 'lfmo')); const mi = mo.appendChild(el('input')); mi.type = 'number'; mi.min = 1; mi.max = D.m; mi.value = e.mo; mi.inputMode = 'numeric'; mo.appendChild(el('span', null, '개월째'));
+        mi.addEventListener('change', () => { e.mo = Math.max(1, Math.min(D.m, parseInt(mi.value, 10) || 1)); mi.value = e.mo; });
+        const tx = mid.appendChild(el('input', 'lftx')); tx.maxLength = 20; tx.value = e.txt || ''; tx.placeholder = '한 줄 (예: 제주 여행)'; tx.addEventListener('input', () => { e.txt = tx.value; });
+        const s2 = it.appendChild(el('div', 'lfsr')); s2.appendChild(el('span', null, '그때 기분')); s2.appendChild(lfStars(e.s, (v) => { e.s = v; }));
+      });
+      if ((D.ev || []).length < 4) {
+        const eb = er.appendChild(el('div', 'lfchips'));
+        eb.appendChild(btnEl('chip sm lfgood', '＋ 😊 좋은 기억', () => { (D.ev = D.ev || []).push({ t: 'g', ic: '🧳', k: '여행', txt: '여행', mo: Math.max(1, Math.round(D.m / 2)), s: 5 }); renderPlay(); }));
+        eb.appendChild(btnEl('chip sm lfbad', '＋ 😣 안 좋은 기억', () => { (D.ev = D.ev || []).push({ t: 'b', ic: '💥', k: '사고', txt: '사고', mo: Math.max(1, Math.round(D.m / 2)), s: 1.5 }); renderPlay(); }));
+      }
+      const ok = !!(r || D.bmw || (D.fuel && D.body));
+      const bt = f.appendChild(el('div', 'lfbtns'));
+      const ad = bt.appendChild(btnEl('chip big', LF.edit != null ? '✓ 수정 완료' : '＋ 목록에 추가', () => {
+        if (!ok) return; (D.ev || []).forEach((e) => { e.mo = Math.max(1, Math.min(D.m, e.mo)); e.txt = String(e.txt || '').slice(0, 20); });
+        D.ev = (D.ev || []).sort((a, b) => a.mo - b.mo);
+        if (LF.edit != null) LF.list[LF.edit] = D; else LF.list.push(D);
+        LF.edit = null; LF.draft = null; lfSave(); renderPlay();
+        const nx = document.querySelector('.lfsearch input'); if (nx) nx.focus({ preventScroll: true });
+      }));
+      ad.disabled = !ok; if (!ok) bt.appendChild(el('span', 'note', '연료와 차종을 골라 주세요'));
+      if (LF.edit != null) bt.appendChild(btnEl('chip big', '취소', () => { LF.edit = null; LF.draft = null; renderPlay(); }));
+    }
+    const go = c.appendChild(el('div', 'lfgo'));
+    const hasCar = LF.list.some((x) => !x.bmw);
+    const gb = go.appendChild(btnEl('chip gold big', '📈 차생 그래프 보기', () => { LF.stage = 'result'; renderPlay(); scrollToSection('t-play'); }));
+    gb.disabled = !hasCar;
+    go.appendChild(el('span', 'note', LF.list.length ? `${LF.list.length}대 입력됨${LF.list.length < 2 ? ' · 2대 이상이면 더 재밌어요' : ''}` : '먼저 차를 1대 이상 추가해 주세요'));
+    if (LF.list.length) go.appendChild(btnEl('chip sm', '전부 지우기', () => { if (!confirm('입력한 차를 전부 지울까요?')) return; LF.list = []; LF.draft = null; LF.edit = null; lfSave(); renderPlay(); }));
+    c.appendChild(el('p', 'note lfpriv', '입력한 내용은 이 기기(브라우저)에만 저장돼요. 결과 화면에서 직접 동의한 경우에만 별점이 익명으로 모입니다.'));
+  }
+  function lfSample() {
+    const f = (q) => { const r = searchCars(q, 1)[0]; return r ? r.id : null; };
+    return [['기아 올 뉴 프라이드', 20, [4, 3.5, 3]], ['현대 엑센트(신형) 1.4', 14, [3, 2, 1.5]], ['라세티', 10, [2.5, 1, 0.5], [{ t: 'b', ic: '🔧', k: '고장', txt: '고장', mo: 3, s: 0.5 }], '가솔린', '세단'], ['쉐보레 스파크 1.0', 24, [2, 2.5, 3]], ['기아 더 뉴 K3 1.6', 22, [4.5, 4, 3.5], [{ t: 'g', ic: '🛣️', k: '첫 장거리', txt: '첫 장거리', mo: 6, s: 5 }]], ['기아 더 뉴 셀토스 1.6T', 14, [4.5, 4, 3.5]], ['기아 디 올 뉴 니로 1.6 HEV', 16, [4.5, 5, 5], [{ t: 'g', ic: '🧳', k: '여행', txt: '제주 여행', mo: 8, s: 5 }]], ['현대 투싼 (NX4) 1.6T', 22, [4, 3, 2.5], [{ t: 'b', ic: '💥', k: '사고', txt: '접촉사고', mo: 12, s: 1.5 }]], ['르노코리아 아르카나 E-Tech 하이브리드', 26, [4, 3, 3]]]
+      .map(([q, m, s, ev, fuel, body]) => { const id = fuel ? null : f(q); return { id, name: id ? byId[id].name : q, fuel: fuel || '', body: body || '', m, s, ev: ev || [] }; });
+  }
+  function lfResult(box) {
+    const L = LF.list; const A = lfAnalyze(L); const CL = L.filter((c) => !c.bmw);
+    const card = box.appendChild(el('div', 'lfsky'));
+    const top = card.appendChild(el('div', 'lftop')); top.appendChild(el('span', 'lfk', `내 차생 그래프 · ${L.length}대 · ${lfMon(A.totM)}`));
+    top.appendChild(el('h2', 'jal lft', A.title));
+    top.appendChild(el('p', 'lfline', '"' + A.line + '"'));
+    card.appendChild(lfSvg(L, A));
+    const sm = card.appendChild(el('div', 'lfsum'));
+    const lines = [];
+    lines.push(`☀️ 맑은 날 ${A.wcount.sun} · ⛅ 흐린 날 ${A.wcount.cloud} · 🌧️ 비 온 날 ${A.wcount.rain}`);
+    if (CL.length >= 2) { const hi = A.reps.indexOf(Math.max(...A.reps)), lo = A.reps.indexOf(Math.min(...A.reps)); if (hi !== lo) lines.push(`${A.peak >= 0 ? '🌈' : '🌤️'} 최고의 날: ${lfShort(CL[hi])} · ${lfWx(A.reps[lo])} 최악의 날: ${lfShort(CL[lo])}`); }
+    if (A.good || A.bad) lines.push(`😊 좋은 기억 ${A.good} · 😣 안 좋은 기억 ${A.bad}`);
+    lines.forEach((t) => sm.appendChild(el('div', null, t)));
+    const bd = card.appendChild(el('div', 'lfbadges'));
+    A.badges.slice(0, 4).forEach((b) => { const s = bd.appendChild(el('span', 'lfpill', b[0] + ' ' + b[1])); s.title = b[2]; });
+    if (A.match != null) bd.appendChild(el('span', 'lfpill', `🎯 카스쿼드와 취향 ${A.match}% 일치`));
+    const ft = card.appendChild(el('div', 'lfft')); ft.appendChild(el('span', null, 'CAR SQUAD')); ft.appendChild(el('span', null, '너의 차생 그래프는? →'));
+    // 버튼
+    const bt = box.appendChild(el('div', 'wcbtns lfbt'));
+    const sv = bt.appendChild(btnEl('chip gold', '🖼 이미지로 저장 · 공유', () => saveBlob(() => lfImage(L, A), 'carsquad-차생그래프.png', sv)));
+    const sh = bt.appendChild(btnEl('chip', '🔗 친구에게 해 보라고 보내기', () => shareLink('tab=play&g=life', `[카스쿼드] 내 차생 그래프는 "${A.title}" — 너도 해 봐`, sh)));
+    bt.appendChild(btnEl('chip', '✏️ 차 고치기 · 추가', () => { LF.stage = 'edit'; renderPlay(); scrollToSection('t-play'); }));
+    // 상세
+    const dt = box.appendChild(el('div', 'card lfdet'));
+    dt.appendChild(el('div', 'ch')).appendChild(el('h2', null, '차마다 3번의 날씨'));
+    const order = L.map((c, i) => i);
+    order.forEach((i) => {
+      const c = L[i]; const ci = CL.indexOf(c); const ty = c.bmw ? ['🚌', 'BMW 시절', 'bmw'] : A.types[ci]; const row = dt.appendChild(el('div', 'lfrowd'));
+      row.appendChild(el('span', 'lfi', c.bmw ? '🚌' : lfWx(A.allReps[i], i === A.peakAll)));
+      const m = row.appendChild(el('span', 'lfm')); const r = lfCar(c);
+      const nb = m.appendChild(r ? btnEl('lflink', shortName(r.name), () => openProfile(r.id)) : el('b', null, c.bmw ? 'BMW 시절 (버스·메트로·워킹)' : c.name));
+      nb.title = r ? '선수 페이지 보기' : '';
+      const sub = m.appendChild(el('small'));
+      sub.appendChild(document.createTextNode((i + 1) + '번째 · ' + lfMon(c.m) + ' · '));
+      if (!c.bmw) sub.appendChild(el('b', 'lfty ' + ty[2], ty[0] + ' ' + ty[1])); else sub.appendChild(document.createTextNode('뚜벅이 시절'));
+      (c.ev || []).forEach((e) => m.appendChild(el('small', 'lfevs ' + e.t, `${e.ic} ${e.mo}개월째 ${e.txt || e.k} · ${lfWx(e.s)}`)));
+      row.appendChild(el('span', 'lfsp', c.s.map((s) => lfWx(s)).join(' → ')));
+    });
+    // 유형 요약
+    const tg = {}; CL.forEach((c, i) => { const k = A.types[i][1]; (tg[k] = tg[k] || { ic: A.types[i][0], k: A.types[i][2], a: [], z: [] }); tg[k].a.push(c.s[0]); tg[k].z.push(c.s[2]); });
+    const tw = dt.appendChild(el('div', 'lftypes'));
+    Object.entries(tg).forEach(([k, v]) => { const b = tw.appendChild(el('div', 'lftbox ' + v.k)); b.appendChild(el('b', null, `${v.ic} ${k} ${v.a.length}대`)); const av = (a) => (a.reduce((x, y) => x + y, 0) / a.length).toFixed(1); b.appendChild(el('small', null, `처음 ★${av(v.a)} → 마지막 ★${av(v.z)}`)); });
+    // 배지 설명
+    if (A.badges.length) { const bl = dt.appendChild(el('div', 'lfbl')); bl.appendChild(el('h3', null, '나의 배지')); A.badges.forEach((b) => { const p = bl.appendChild(el('p')); p.appendChild(el('b', null, b[0] + ' ' + b[1])); p.appendChild(el('span', null, ' — ' + b[2])); }); }
+    // 다음 차 예보
+    if (A.fc && A.fc.cars.length) {
+      const fc = dt.appendChild(el('div', 'lffc')); fc.appendChild(el('b', 'lffck', '🔮 다음 차 예보'));
+      fc.appendChild(el('p', null, `${A.fc.keep ? '끝까지 맑았던 차' : '가장 맑았던 차'}(${A.fc.from.join('·')})의 강점: ${A.fc.keys.join(' · ')}. 이 강점이 큰 차라면 ☀️ 맑음 예상`));
+      const cs = fc.appendChild(el('div', 'lfchips'));
+      A.fc.cars.forEach((r, i) => cs.appendChild(btnEl('chip', shortName(r.name) + (i ? ' 🌤️' : ' ☀️'), () => openProfile(r.id))));
+      fc.appendChild(el('small', 'note', '내 별점과 카스쿼드 능력치로 계산한 재미용 추천이에요.'));
+    }
+    // 별점 보태기 (동의한 경우에만)
+    const cn = dt.appendChild(el('div', 'lfconsent'));
+    const known = L.filter((c) => c.id);
+    if (STATS_URL && known.length) {
+      const key = known.map((c) => c.id + ':' + c.s.join('/') + ':' + c.m).join('|');
+      if (LF.sent === key) cn.appendChild(el('p', 'note', '✓ 별점을 보탰어요. 고맙습니다! 차별 평균은 모이는 대로 선수 페이지에 올라가요.'));
+      else {
+        const lb = cn.appendChild(el('label', 'lfck')); const ck = lb.appendChild(el('input')); ck.type = 'checkbox'; ck.checked = LF.consent; lb.appendChild(el('span', null, '내 별점을 카스쿼드 "차주 별점"에 익명으로 보태기'));
+        cn.appendChild(el('small', 'note', '사이트에 있는 차의 별점 3개 · 탄 기간 · 결과 이름만 보내요. 기억의 한 줄 내용과 이름·연락처는 보내지 않아요.'));
+        const sb = cn.appendChild(btnEl('chip sm', '보태기', () => {
+          if (!ck.checked) return;
+          const rows = known.map((c) => [c.id, c.m, c.s[0], c.s[1], c.s[2], (c.ev || []).filter((e) => e.t === 'g').length, (c.ev || []).filter((e) => e.t === 'b').length]);
+          try { fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ t: 'report', id: '', name: '차생 그래프', kinds: '차생 별점', msg: JSON.stringify({ r: rows, title: A.title }), src: '', contact: '', page: '', v: '' }) }); } catch (e) {}
+          LF.sent = key; renderPlay();
+        }));
+        sb.disabled = !LF.consent; ck.addEventListener('change', () => { LF.consent = ck.checked; sb.disabled = !ck.checked; });
+      }
+    }
+  }
+  async function lfImage(L, A) {
+    const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+    const P = (w, s) => `${w} ${s}px "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif`;
+    const J = (s) => `${s}px Jalnan, "Pretendard Variable", Pretendard, sans-serif`;
+    try { await Promise.all([document.fonts.load(J(60), A.title), document.fonts.load(P('800', 30), '가')]); } catch (e) {}
+    const bg = g.createLinearGradient(0, 0, 0, H); [['#ffe98a', 0], ['#fff3c4', 0.18], ['#f6f3ea', 0.38], ['#dfe5ec', 0.58], ['#aab6c6', 0.8], ['#7d8a9e', 1]].forEach(([c, o]) => bg.addColorStop(o, c)); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    g.fillStyle = '#9a6a10'; g.font = P('900', 32); g.fillText(`내 차생 그래프 · ${L.length}대 · ${lfMon(A.totM)}`, 64, 120);
+    g.fillStyle = '#15181e'; g.font = J(78); let y = 220; wrapLines(g, A.title, W - 128, 3).forEach((l) => { g.fillText(l, 64, y); y += 94; });
+    g.fillStyle = '#7a5a10'; g.font = P('700', 34); wrapLines(g, '"' + A.line + '"', W - 128, 2).forEach((l) => { g.fillText(l, 64, y - 20); y += 48; });
+    // 그래프
+    const gy = y + 10, gh = 900, sc = W / 360;
+    g.save(); g.translate(0, gy); g.scale(sc, gh / 330);
+    const G = lfGeo(L, 360, 330, { l: 30, r: 22, t: 34, b: 30 });
+    g.font = P('400', 13); g.globalAlpha = 0.7; [4.75, 3.75, 2.75, 1.75, 0.75].forEach((s) => g.fillText(lfWx(s), 4, G.Y(s) + 5)); g.globalAlpha = 1;
+    g.strokeStyle = 'rgba(58,63,74,.14)'; g.lineWidth = 1; g.setLineDash([3, 3]); G.segs.forEach((s, i) => { if (i) { g.beginPath(); g.moveTo(s.x0, 14); g.lineTo(s.x0, 308); g.stroke(); } }); g.setLineDash([]);
+    const path = new Path2D(G.d); g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = '#3a3f4a'; g.lineWidth = 8; g.stroke(path); g.strokeStyle = '#fff'; g.lineWidth = 1.5; g.setLineDash([6, 5]); g.stroke(path); g.setLineDash([]);
+    G.pts.forEach((p) => { g.beginPath(); g.arc(p.x, p.y, p.e ? 9 : 3, 0, Math.PI * 2); g.fillStyle = '#fff'; g.fill(); g.lineWidth = p.e ? 2.5 : 1.5; g.strokeStyle = p.e ? (p.e.t === 'g' ? '#2f9e5b' : '#e5534b') : '#3a3f4a'; g.stroke(); if (p.e) { g.font = P('400', 10.5); g.textAlign = 'center'; g.fillStyle = '#000'; g.fillText(p.e.ic, p.x, p.y + 4); g.textAlign = 'left'; } });
+    g.textAlign = 'center';
+    G.segs.forEach((s, i) => {
+      const c = s.c; const vals = [c.s[0], c.s[1], c.s[2]].concat((c.ev || []).map((e) => e.s)); const cx = s.x0 + s.w / 2; const top = G.Y(Math.max(...vals)), bot = G.Y(Math.min(...vals));
+      if (!(c.ev || []).length && s.w >= 18) { g.font = P('400', s.w >= 30 ? 16 : 12); g.fillStyle = '#000'; g.fillText(c.bmw ? '🚌' : lfWx(A.allReps[i], i === A.peakAll), cx, top - 10); }
+      if (s.w < 16 && L.length > 6) return;
+      let ly = i % 2 === 0 ? top - (s.w >= 18 && !(c.ev || []).length ? 36 : 16) : bot + 22; ly = Math.max(10, Math.min(314, ly));
+      g.fillStyle = '#2a2f3a'; g.font = P('900', s.w >= 34 ? 10 : 8.5); g.fillText(lfShort(c), cx, ly);
+      if (s.w >= 26) { g.fillStyle = '#5b6170'; g.font = P('700', 8); g.fillText(lfMon(c.m || 12), cx, ly + 10); }
+    });
+    g.restore(); g.textAlign = 'left';
+    // 요약 상자
+    let by = gy + gh + 10; const lines = [`☀️ 맑은 날 ${A.wcount.sun} · ⛅ 흐린 날 ${A.wcount.cloud} · 🌧️ 비 온 날 ${A.wcount.rain}`];
+    A.badges.slice(0, 2).forEach((b) => lines.push(`${b[0]} ${b[1]}: ${b[2]}`)); if (A.good || A.bad) lines.push(`😊 좋은 기억 ${A.good} · 😣 안 좋은 기억 ${A.bad}`);
+    g.font = P('800', 32); const bh = 40 + lines.length * 50; g.fillStyle = 'rgba(255,255,255,.9)'; rr(g, 48, by, W - 96, bh, 28); g.fill();
+    g.fillStyle = '#15181e'; lines.forEach((t, i) => g.fillText(wrapLines(g, t, W - 160, 1)[0], 80, by + 66 + i * 50)); by += bh + 30;
+    // 배지
+    let bx = 48; g.font = P('800', 30);
+    const pills = A.badges.slice(2, 5).map((b) => b[0] + ' ' + b[1]); if (A.match != null) pills.push(`🎯 취향 일치 ${A.match}%`);
+    pills.forEach((t) => { const w = g.measureText(t).width + 44; if (bx + w > W - 48) { bx = 48; by += 72; } if (by > H - 200) return; g.fillStyle = 'rgba(255,255,255,.85)'; rr(g, bx, by, w, 58, 29); g.fill(); g.fillStyle = '#15181e'; g.fillText(t, bx + 22, by + 40); bx += w + 14; });
+    g.fillStyle = '#fff'; g.font = P('900', 36); g.fillText('CAR SQUAD · carsquad.pages.dev', 64, H - 64);
+    g.font = P('800', 32); g.textAlign = 'right'; g.fillText('너의 차생 그래프는? →', W - 64, H - 64); g.textAlign = 'left';
+    return new Promise((res) => cv.toBlob(res, 'image/png'));
+  }
+  window.__lifeTest = { analyze: lfAnalyze, shape: lfShape, type: lfType, image: lfImage };
+
   // ------------------------------------------------------------------ tabs & hash
   const TABS = [['t-home', 'p-home'], ['t-rank', 'p-rank'], ['t-play', 'p-play'], ['t-prof', 'p-prof'], ['t-sq', 'p-sq'], ['t-wiz', 'p-wiz'], ['t-cmp', 'p-cmp'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
   let cur = 't-home';
@@ -5323,7 +5870,7 @@ body.kkopen{overflow:hidden}
     const t = p.get('tab'); cur = t && $('#t-' + t) ? 't-' + t : 't-home';
     if (p.get('wc') && byId[p.get('wc')]) { PLAY.sharedWc = p.get('wc'); PLAY.mode = 'wc'; }
     if (p.get('mb') && MBTI[p.get('mb')]) { PLAY.mode = 'mb'; const mt = p.get('mb'); PLAY.mb = { stage: 'result', i: 0, ans: [], result: { type: mt, pct: null }, me: '', bud: 0, shared: true }; }
-    if (['mb', 'wc', 'vid', 'qz', 'dg'].includes(p.get('g'))) PLAY.mode = p.get('g');
+    if (['mb', 'wc', 'vid', 'qz', 'dg', 'life'].includes(p.get('g'))) PLAY.mode = p.get('g');
     if (p.get('dr')) { PLAY.mode = 'dg'; PLAY.dgShared = p.get('dr'); cur = 't-play'; }
   }
   // 휴대폰 뒤로가기: 열린 창 닫기 → 이전 탭/차로 → 첫 화면에서는 한 번 더 눌러야 나가기
