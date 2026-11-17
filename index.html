@@ -5608,7 +5608,7 @@ body.kkopen{overflow:hidden}
     if (n >= 2 && hiI === n - 1 && reps[hiI] - reps[0] >= 1) L2(`돌고 돌아 ${jo(nm(hiI), '에서', '에서')} 날이 활짝 갰다`, 3);
     if (n >= 2 && hiI === 0 && reps[0] - reps[n - 1] >= 1) L2(`${jo(nm(0), '의', '의')} 첫 설렘을 아직 못 잊었다`, 3);
     if (n >= 2 && loI < n - 1 && reps[loI + 1] - reps[loI] >= 1) L2(`${jo(nm(loI), '에서', '에서')} 비 맞고, ${jo(nm(loI + 1), '에서', '에서')} 개었다`, 2.6);
-    if (n >= 2 && list[longI].m >= 24) L2(reps[longI] >= 3.5 ? `제일 오래 함께한 ${jo(nm(longI), '이', '가')} 제일 든든했다 (${lfMon(list[longI].m)})` : `${lfMon(list[longI].m)}을 버틴 ${jo(nm(longI), '이', '가')} 제일 고생했다`, 2 + Math.min(0.8, list[longI].m / 75));
+    if (n >= 2 && list[longI].m >= 24) L2(reps[longI] >= 3.5 ? `제일 오래 함께한 ${jo(nm(longI), '이', '가')} 제일 든든했다 (${lfMon(list[longI].m)})` : `${lfMon(list[longI].m)}을 버틴 ${jo(nm(longI), '이', '가')} 제일 고생했다`, 2 + Math.min(0.8, list[longI].m / 75) + (list[longI].m / Math.max(1, totM) >= 0.4 ? 0.6 : 0));
     if (B2.some((b) => b[1] === '금사빠 오너')) L2(growI >= 0 ? `설렘은 평균 ${kong}개월, 정은 ${jo(nm(growI), '에', '에')} 남았다` : `설렘은 평균 ${kong}개월이면 끝 — 다음 설렘은 오래가기를`, growI >= 0 ? 3.2 : 2.6);
     if (growI >= 0 && cnt('grow') >= n / 2) L2(`처음엔 몰랐는데, ${jo(nm(growI), '은', '는')} 탈수록 좋았다`, 3);
     if (gEv) L2(`${gEv[0].txt || gEv[0].k}의 기억 — ${jo(nm(gEv[1]), '이', '가')} 제일 빛났다`, 3.4);
