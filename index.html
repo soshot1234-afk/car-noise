@@ -5490,32 +5490,35 @@ body.kkopen{overflow:hidden}
     const C = []; const add = (t, w) => C.push([t, w]);
     const F = list.map(lfFuel), B = list.map(lfBody), R = list.map(lfCar);
     const f0 = F[0], fl = F[n - 1];
-    if (n >= 2 && !lfEco(f0) && /하이브리드/.test(fl)) add('하이브리드 귀순자', 1);
-    if (n >= 2 && !lfEco(f0) && /전기/.test(fl)) add('전기차 개종자', 1);
+    if (n >= 2 && !lfEco(f0) && /하이브리드|전기/.test(fl)) { // 갈아탄 사실만으로는 약하게, 친환경 차에 별을 더 줬을 때만 강하게
+      const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length; const er = mean(reps.filter((v, i) => lfEco(F[i]))), nr = mean(reps.filter((v, i) => !lfEco(F[i]))); const df = er - nr;
+      const nm = /전기/.test(fl) ? ['전기차 신입생', '전기차는 글쎄파'] : ['하이브리드 정착민', '하이브리드는 글쎄파'];
+      if (df >= 0.75) add(nm[0], 0.55 + Math.min(0.25, df / 6)); else if (df <= -0.75) add(nm[1], 0.7); else add(nm[0], 0.3);
+    }
     if (n >= 2 && f0 === 'PHEV' || F.slice(1).includes('PHEV')) add('플러그 양다리', 0.7);
-    if (n >= 2 && f0 === '디젤' && fl === '가솔린') add('디젤 탈출러', 0.85);
+    if (n >= 2 && f0 === '디젤' && fl === '가솔린') add('디젤 졸업생', 0.85);
     if (n >= 2 && F.every((f) => f === '디젤')) add('디젤 장인', 0.8);
-    if (n >= 2 && F.every((f) => f === '하이브리드')) add('하이브리드 원주민', 0.85);
-    if (n >= 2 && F.every((f) => f === '전기')) add('충전 원주민', 0.9);
-    if (F.includes('LPG')) add('LPG 실속파', 0.75);
-    if (n >= 2 && B[0] !== 'SUV' && B[n - 1] === 'SUV' && B.filter((b) => b === 'SUV').length >= n / 2) add('SUV 귀화자', 0.8);
-    if (n >= 2 && B[0] === 'SUV' && B[n - 1] === '세단') add('세단 회귀자', 0.8);
+    if (n >= 2 && F.every((f) => f === '하이브리드')) add('하이브리드 토박이', 0.85);
+    if (n >= 2 && F.every((f) => f === '전기')) add('충전 토박이', 0.9);
+    if (F.includes('LPG')) add('LPG 실속파', reps[F.indexOf('LPG')] >= 3.5 ? 0.7 : 0.4);
+    if (n >= 2 && B[0] !== 'SUV' && B[n - 1] === 'SUV' && B.filter((b) => b === 'SUV').length >= n / 2) add('SUV 전향파', reps[n - 1] - reps[0] >= 0.5 ? 0.7 : 0.4);
+    if (n >= 2 && B[0] === 'SUV' && B[n - 1] === '세단') add('세단 복귀파', reps[n - 1] - reps[0] >= 0.5 ? 0.7 : 0.4);
     if (n >= 3 && B.every((b) => b === 'SUV')) add('SUV 외길 인생', 0.6);
     if (n >= 3 && B.every((b) => b === '세단')) add('세단 외길 인생', 0.6);
-    if (B.includes('MPV') || R.some((r) => r && r.seats >= 7)) add('7인승 가장', 0.7);
+    if (B.includes('MPV') || R.some((r) => r && r.seats >= 7)) add('7인승 가장', 0.5);
     if (B.includes('해치백')) add('해치백 감성러', 0.6);
     { const k = B.filter((b) => /쿠페|컨버터블/.test(b)).length; if (k) add('낭만 드라이버', k >= n / 3 || /쿠페|컨버터블/.test(B[n - 1]) ? 0.85 : 0.5); }
     if (B.includes('픽업')) add('짐칸 로망러', 0.8);
     const brands = list.map((c, i) => (R[i] ? R[i].brand : (c.name.split(' ')[0] || '').trim()));
     const ub = new Set(brands.filter(Boolean));
-    if (n >= 3 && ub.size >= Math.ceil(n * 0.7)) add('브랜드 유목민', 0.7);
+    if (n >= 3 && ub.size >= Math.ceil(n * 0.7)) add('브랜드 유목민', ub.size === n && n >= 4 ? 0.7 : 0.5);
     if (n >= 2 && ub.size === 1 && brands[0]) add(brands[0] + ' 원클럽맨', 0.75);
     const og = R.map((r) => (r ? r.origin : null));
-    if (n >= 2 && og[0] === '국산' && og[n - 1] === '수입') add('수입차 데뷔러', 0.75);
-    if (n >= 2 && og[0] === '수입' && og[n - 1] === '국산') add('국산 회귀자', 0.75);
+    if (n >= 2 && og[0] === '국산' && og[n - 1] === '수입') add('수입차 입문생', 0.75);
+    if (n >= 2 && og[0] === '수입' && og[n - 1] === '국산') add('역시 국산파', 0.75);
     if (n >= 2 && og.every((o) => o === '수입')) add('수입차 외길', 0.7);
     const pr = R.map((r) => (r ? num(r.price) : NaN));
-    if (n >= 2 && pr[0] > 0 && pr[n - 1] > 0) { const x = pr[n - 1] / pr[0]; if (x >= 2) add('체급 승격자', 0.7 + Math.min(0.2, (x - 2) / 10)); if (x <= 0.6) add('다운사이징 현자', 0.8); }
+    if (n >= 2 && pr[0] > 0 && pr[n - 1] > 0) { const x = pr[n - 1] / pr[0]; const up = reps[n - 1] - reps[0]; if (x >= 2) add('체급 승격자', up >= 0.5 ? 0.6 + Math.min(0.15, (x - 2) / 10) : 0.35); if (x <= 0.6) add('다운사이징 현자', up >= 0 ? 0.65 : 0.35); }
     const avgM = list.reduce((a, c) => a + (c.m || 0), 0) / n; const totM = full.reduce((a, c) => a + (c.m || 0), 0);
     if (avgM >= 60) add('10년 타기 장인', 0.85); else if (n >= 3 && avgM <= 18) add('차 갈아타기 선수', 0.75);
     // 능력치 취향 (① 강점 공명 + ⑦ 가중 취향 벡터)
@@ -5527,9 +5530,12 @@ body.kkopen{overflow:hidden}
       const hi = pool.filter((x) => x[1] >= 1 && x[0] <= 6); if (hi.length && LF_TOL[k]) tol[k] = hi.length;
     });
     const likes = Object.entries(vec).filter(([, v]) => v > 2).sort((a, b) => b[1] - a[1]);
-    if (likes.length) add(LF_LIKE[likes[0][0]][1], 0.45 + Math.min(0.3, likes[0][1] / 40));
+    if (likes.length) add(LF_LIKE[likes[0][0]][1], 0.5 + Math.min(0.25, likes[0][1] / 30));
     if (!C.length) add(lfEco(fl) ? '친환경 드라이버' : n === 1 ? '첫 차 오너' : '자동차 여행자', 0.1);
     C.sort((a, b) => b[1] - a[1]);
+    { // 비슷한 세기의 후보가 여럿이면 입력값으로 고정된 순번을 써서 골고루 (같은 입력 = 같은 결과)
+      const close = C.filter((x) => x[1] >= C[0][1] - 0.1); if (close.length > 1) { let h = 0; JSON.stringify(list.map((c) => [c.id || c.name, c.m, c.s])).split('').forEach((ch) => { h = (h * 31 + ch.charCodeAt(0)) >>> 0; }); const pk = close[h % close.length]; C.splice(C.indexOf(pk), 1); C.unshift(pk); }
+    }
     const title = LF_PRE[shape][0] + ' ' + C[0][0];
     // 배지
     const badges = [];
@@ -5659,7 +5665,7 @@ body.kkopen{overflow:hidden}
     c.appendChild(el('h2', 'jal mbh', '📈 내 차 인생, 날씨로 보면?'));
     c.appendChild(el('p', 'mbdesc', '인생 그래프처럼, 지금까지 탄 차를 순서대로 넣으면 별점이 날씨가 되어 한 장의 그래프가 돼요. 나는 처음에만 설레는 "금사빠 오너"일까, 탈수록 정드는 "진국 감별사"일까?'));
     const ax = c.appendChild(el('div', 'mbaxlist'));
-    [['①', '탔던 차를 순서대로 추가', '첫 차부터 지금 차까지 · 목록에 없는 옛날 차, 차 없던 🚌 BMW 시절도 OK'], ['②', '차마다 별점 3번 = 날씨 3번', '처음 탔을 때 · 타면서 · 마지막(팔 때) — 별이 많을수록 맑아요'], ['③', '(선택) 기억 · 드림카', '여행·사고 같은 기억은 그래프에 콕, 드림카는 그래프 끝 🏁 다음 목적지로'], ['④', '결과: 성향 이름 + 배지', '"맑았다 흐려진 하이브리드 귀순자" 같은 이름과 다음 차 예보, 이미지로 저장']].forEach(([k, a, b]) => { const r = ax.appendChild(el('div', 'mbaxi')); r.appendChild(el('b', null, k)); const d = r.appendChild(el('span')); d.appendChild(el('strong', null, a)); d.appendChild(el('small', null, b)); });
+    [['①', '탔던 차를 순서대로 추가', '첫 차부터 지금 차까지 · 목록에 없는 옛날 차, 차 없던 🚌 BMW 시절도 OK'], ['②', '차마다 별점 3번 = 날씨 3번', '처음 탔을 때 · 타면서 · 마지막(팔 때) — 별이 많을수록 맑아요'], ['③', '(선택) 기억 · 드림카', '여행·사고 같은 기억은 그래프에 콕, 드림카는 그래프 끝 🏁 다음 목적지로'], ['④', '결과: 성향 이름 + 배지', '"맑았다 흐려진 하이브리드 정착민" 같은 이름과 다음 차 예보, 이미지로 저장']].forEach(([k, a, b]) => { const r = ax.appendChild(el('div', 'mbaxi')); r.appendChild(el('b', null, k)); const d = r.appendChild(el('span')); d.appendChild(el('strong', null, a)); d.appendChild(el('small', null, b)); });
     const lg = c.appendChild(el('div', 'lflegend'));
     [[5, '★5'], [4, '★4'], [3, '★3'], [2, '★2'], [1, '★1']].forEach(([s, t]) => { const i = lg.appendChild(el('span')); i.appendChild(el('b', null, lfWx(s))); i.appendChild(el('small', null, t + ' ' + lfWxName(s))); });
     // 예시 미리보기
@@ -5673,7 +5679,7 @@ body.kkopen{overflow:hidden}
     mini.addEventListener('click', () => { LF.stage = 'demo'; renderPlay(); scrollToSection('t-play'); });
     ex.appendChild(el('p', 'lfexh', '이런 이름들이 나와요'));
     const nm = ex.appendChild(el('div', 'lfnames'));
-    ['점점 개는 SUV 귀화자', '첫날이 가장 맑았던 수입차 데뷔러', '365일 맑음인 브랜드 유목민', '긴 장마를 견딘 체급 승격자', '구름 조금, 평온한 고요 수집가', '폭풍 뒤 무지개를 만난 전기차 개종자'].forEach((t) => nm.appendChild(el('span', null, t)));
+    ['점점 개는 SUV 전향파', '첫날이 가장 맑았던 수입차 입문생', '365일 맑음인 브랜드 유목민', '긴 장마를 견딘 체급 승격자', '구름 조금, 평온한 고요 수집가', '폭풍 뒤 무지개를 만난 전기차 신입생'].forEach((t) => nm.appendChild(el('span', null, t)));
     const bt = c.appendChild(el('div', 'mbstart'));
     bt.appendChild(btnEl('chip gold big', LF.list.length ? '▶ 이어서 만들기' : '▶ 내 차생 그래프 만들기', () => { LF.stage = 'edit'; renderPlay(); scrollToSection('t-play'); }));
     bt.appendChild(btnEl('chip big', '👀 예시 결과 전체 보기', () => { LF.stage = 'demo'; renderPlay(); scrollToSection('t-play'); }));
