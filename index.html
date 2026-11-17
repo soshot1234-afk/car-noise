@@ -5594,9 +5594,30 @@ body.kkopen{overflow:hidden}
     const peak = reps.indexOf(Math.max(...reps)); const peakOk = reps[peak] >= 4.5;
     const wcount = { sun: reps.filter((x) => x >= 3.5).length, cloud: reps.filter((x) => x >= 2.5 && x < 3.5).length, rain: reps.filter((x) => x < 2.5).length };
     // 한 줄 설명
-    let line = LF_PRE[shape][1];
-    if (B2.some((b) => b[1] === '금사빠 오너')) { const g = list.find((c, i) => types[i][2] === 'grow'); line = g ? `설렘은 짧고, ${lfEco(lfFuel(g)) ? lfFuel(g) : lfShort(g)}${/[가-힣]$/.test(lfEco(lfFuel(g)) ? lfFuel(g) : lfShort(g)) && ((((lfEco(lfFuel(g)) ? lfFuel(g) : lfShort(g)).slice(-1).charCodeAt(0) - 0xac00) % 28) === 0) ? '는' : '은'} 길었다` : '설렘은 짧고, 다음 차는 길기를'; }
-    if (wcount.rain >= n / 2 && n >= 2) line = '비 온 뒤에 땅이 굳는다 — 다음 차는 맑을 차례';
+    // 한 줄 설명: 그래프 모양만이 아니라 최고·최악·가장 오래 탄 차·기억·기간으로 문장을 만듦 (입력이 바뀌면 문장도 바뀜)
+    const jo = (w, a, b) => { const ch = String(w).trim().slice(-1); let has; if (/[가-힣]/.test(ch)) has = (ch.charCodeAt(0) - 0xac00) % 28 !== 0; else if (/[0-9]/.test(ch)) has = '013678'.includes(ch); else has = /[lmnr]/i.test(ch); return w + (has ? a : b); };
+    const nm = (i) => lfShort(list[i]);
+    const hiI = reps.indexOf(Math.max(...reps)), loI = reps.indexOf(Math.min(...reps));
+    const longI = list.reduce((b, c, i) => ((c.m || 0) > (list[b].m || 0) ? i : b), 0);
+    const growI = types.findIndex((t) => t[2] === 'grow');
+    const gEv = list.flatMap((c, i) => (c.ev || []).filter((e) => e.t === 'g').map((e) => [e, i])).sort((a, b) => b[0].s - a[0].s)[0];
+    const bEv = list.flatMap((c, i) => (c.ev || []).filter((e) => e.t === 'b').map((e) => [e, i])).sort((a, b) => a[0].s - b[0].s)[0];
+    const LC = []; const L2 = (t, w) => LC.push([t, w]);
+    L2(LF_PRE[shape][1], 1);
+    if (n >= 2 && hiI !== loI) L2(`${jo(nm(hiI), '에선', '에선')} 쨍쨍, ${jo(nm(loI), '에선', '에선')} 천둥번개`, shape === 'zigzag' ? 3 : 1.5);
+    if (n >= 2 && hiI === n - 1 && reps[hiI] - reps[0] >= 1) L2(`돌고 돌아 ${jo(nm(hiI), '에서', '에서')} 날이 활짝 갰다`, 3);
+    if (n >= 2 && hiI === 0 && reps[0] - reps[n - 1] >= 1) L2(`${jo(nm(0), '의', '의')} 첫 설렘을 아직 못 잊었다`, 3);
+    if (n >= 2 && loI < n - 1 && reps[loI + 1] - reps[loI] >= 1) L2(`${jo(nm(loI), '에서', '에서')} 비 맞고, ${jo(nm(loI + 1), '에서', '에서')} 개었다`, 2.6);
+    if (n >= 2 && list[longI].m >= 24) L2(reps[longI] >= 3.5 ? `제일 오래 함께한 ${jo(nm(longI), '이', '가')} 제일 든든했다 (${lfMon(list[longI].m)})` : `${lfMon(list[longI].m)}을 버틴 ${jo(nm(longI), '이', '가')} 제일 고생했다`, 2.2 + Math.min(1, list[longI].m / 60));
+    if (B2.some((b) => b[1] === '금사빠 오너')) L2(growI >= 0 ? `설렘은 평균 ${kong}개월, 정은 ${jo(nm(growI), '에', '에')} 남았다` : `설렘은 평균 ${kong}개월이면 끝 — 다음 설렘은 오래가기를`, 3.2);
+    if (growI >= 0 && cnt('grow') >= n / 2) L2(`처음엔 몰랐는데, ${jo(nm(growI), '은', '는')} 탈수록 좋았다`, 3);
+    if (gEv) L2(`${gEv[0].txt || gEv[0].k} 하던 날, ${jo(nm(gEv[1]), '이', '가')} 제일 빛났다`, 3.4);
+    if (bEv) L2(list[bEv[1]].s[2] >= 3 ? `${bEv[0].txt || bEv[0].k}도 있었지만, ${jo(nm(bEv[1]), '은', '는')} 끝까지 맑았다` : `${bEv[0].txt || bEv[0].k} 뒤로 ${jo(nm(bEv[1]), '은', '는')} 다시 개지 않았다`, 3.4);
+    if (bm.length) L2(`차 없던 ${lfMon(bm.reduce((a, c) => a + (c.m || 0), 0))}도 내 차생의 일부`, 1.8);
+    if (wcount.rain >= n / 2 && n >= 2) L2(`비 온 뒤에 땅이 굳는다 — ${jo(nm(n - 1), '부터는', '부터는')} 맑을 차례`, 3.1);
+    LC.sort((a, b) => b[1] - a[1]);
+    let line = LC[0][0];
+    { const top = LC.filter((x) => x[1] >= LC[0][1] - 0.35); if (top.length > 1) { let h = 7; JSON.stringify(full.map((c) => [c.id || c.name, c.m, c.s, (c.ev || []).length])).split('').forEach((ch) => { h = (h * 33 + ch.charCodeAt(0)) >>> 0; }); line = top[h % top.length][0]; } }
     // 다음 차 예보 (끝까지 맑았던 차 기준)
     let fc = null; const keep = list.map((c, i) => [c, R[i]]).filter(([c, r]) => r && c.s[2] >= 4);
     const base = keep.length ? keep : list.map((c, i) => [c, R[i]]).filter(([, r]) => r).sort((a, b) => lfRep(b[0]) - lfRep(a[0])).slice(0, 1);
@@ -5658,6 +5679,8 @@ body.kkopen{overflow:hidden}
     const draw = () => { w.textContent = ''; for (let i = 1; i <= 5; i++) { const b = w.appendChild(el('button', 'lfs' + (val >= i ? ' on' : val >= i - 0.5 ? ' half' : ''), '★')); b.type = 'button'; b.setAttribute('aria-label', `별 ${i}개`); b.addEventListener('click', () => { val = val === i ? i - 0.5 : i; if (val < 0.5) val = 0.5; draw(); on(val); }); } w.appendChild(el('b', 'lfwx', lfWx(val) + ' ' + val.toFixed(1))); };
     draw(); return w;
   }
+  // 수정 중이던 차를 '수정 완료' 없이 그래프 보기로 넘어가도 반영
+  function lfCommitDraft() { const D = LF.draft; if (!D || !(D.id || D.name)) return; if (!(D.id && byId[D.id]) && !D.bmw && !(D.fuel && D.body)) return; (D.ev || []).forEach((e) => { e.mo = Math.max(1, Math.min(D.m, e.mo)); e.txt = String(e.txt || '').slice(0, 20); }); D.ev = (D.ev || []).sort((a, b) => a.mo - b.mo); if (LF.edit != null) LF.list[LF.edit] = D; else LF.list.push(D); LF.edit = null; LF.draft = null; lfSave(); }
   function lfNewDraft() { return { id: null, name: '', fuel: '', body: '', m: 24, s: [4, 3.5, 3], ev: [] }; }
   function lfIntro(box) {
     const c = box.appendChild(el('div', 'card mbintro lfintro'));
@@ -5789,7 +5812,7 @@ body.kkopen{overflow:hidden}
     }
     const go = c.appendChild(el('div', 'lfgo'));
     const hasCar = LF.list.some((x) => !x.bmw);
-    const gb = go.appendChild(btnEl('chip gold big', '📈 차생 그래프 보기', () => { LF.stage = 'result'; renderPlay(); scrollToSection('t-play'); }));
+    const gb = go.appendChild(btnEl('chip gold big', '📈 차생 그래프 보기', () => { lfCommitDraft(); LF.stage = 'result'; renderPlay(); scrollToSection('t-play'); }));
     gb.disabled = !hasCar;
     go.appendChild(el('span', 'note', LF.list.length ? `${LF.list.length}대 입력됨${LF.list.length < 2 ? ' · 2대 이상이면 더 재밌어요' : ''}` : '먼저 차를 1대 이상 추가해 주세요'));
     if (LF.list.length) go.appendChild(btnEl('chip sm', '전부 지우기', () => { if (!confirm('입력한 차를 전부 지울까요?')) return; LF.list = []; LF.draft = null; LF.edit = null; lfSave(); renderPlay(); }));
