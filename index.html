@@ -831,6 +831,8 @@ html, body { margin: 0; background: #14161b; }
 .vd .heroinfo { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .vd .heroname { font-size: 28px; line-height: 1.2; text-align: left; color: var(--hi); padding: 0; }
 .vd .herostat { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.vd .qtile.qnew { border-color: #e3b448 !important; box-shadow: 0 0 0 1px #e3b448 inset; }
+.vd .qtile.qnew small { color: var(--gold); font-weight: 700; }
 .vd .quick { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 900px) { .vd .quick { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .vd .qtile { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 14px 14px 12px; border: 1px solid var(--line); background: var(--pn); border-radius: 10px; cursor: pointer; color: var(--tx); text-align: left; font: inherit; min-height: 92px; }
@@ -5174,6 +5176,7 @@ body.kkopen{overflow:hidden}
 
   // ------------------------------------------------------------------ 홈
   const UPDATES = [
+    ['11.17', '놀이터에 📈 차생 그래프 추가 — 탔던 차 별점으로 그리는 내 차 인생 날씨 그래프'],
     ['11.14', '스쿼드 포지션별 능력치 개편 (FM 포지션 기준)'],
     ['11.14', '능력치 분류 개편: 피지컬 · 멘탈 · 테크닉 · 히든 · 선수정보 (가성비 신설)'],
     ['11.14', '점수 신뢰도 개편 · 빈칸 추정 · 거주성 개편 · 테크닉·나이(에이징 커브) 신설'],
@@ -5225,8 +5228,8 @@ body.kkopen{overflow:hidden}
     hb.appendChild(linkEl('chip', '🎬 리뷰 영상', YT(modelKey(r) + ' 시승기')));
     // 바로가기
     const qk = box.appendChild(el('div', 'quick'));
-    [['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['🧠', '차 MBTI', '나는 어떤 차 체질?', () => goPlay('mb')], ['🎯', '추천받기', '질문 5개로 Top 3', () => show('t-wiz')], ['⚽', '내 스쿼드', `찜한 차 ${SQ.fav.length}대`, () => show('t-sq')], ['📊', '랭킹', '조건 걸고 순위', () => show('t-rank')], ['🎬', '리뷰 영상관', '대표 리뷰 모아보기', () => goPlay('vid')], ['🎯', '능력치 퀴즈', '나는 몇 급 스카우트?', () => goPlay('qz')]]
-      .forEach(([ic, t, s, fn]) => { const b = qk.appendChild(btnEl('qtile', '', fn)); b.appendChild(el('span', 'qic', ic)); b.appendChild(el('b', null, t)); b.appendChild(el('small', null, s)); });
+    [['📈', '차생 그래프', 'NEW · 내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['🧠', '차 MBTI', '나는 어떤 차 체질?', () => goPlay('mb')], ['🎯', '추천받기', '질문 5개로 Top 3', () => show('t-wiz')], ['⚽', '내 스쿼드', `찜한 차 ${SQ.fav.length}대`, () => show('t-sq')], ['📊', '랭킹', '조건 걸고 순위', () => show('t-rank')], ['🎬', '리뷰 영상관', '대표 리뷰 모아보기', () => goPlay('vid')], ['🎯', '능력치 퀴즈', '나는 몇 급 스카우트?', () => goPlay('qz')]]
+      .forEach(([ic, t, s, fn]) => { const b = qk.appendChild(btnEl('qtile' + (s.startsWith('NEW') ? ' qnew' : ''), '', fn)); b.appendChild(el('span', 'qic', ic)); b.appendChild(el('b', null, t)); b.appendChild(el('small', null, s)); });
     // 최근 본 선수
     const rec = recentList().slice(0, 6);
     if (rec.length) {
