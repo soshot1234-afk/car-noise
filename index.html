@@ -5479,7 +5479,7 @@ body.kkopen{overflow:hidden}
   const lfFuel = (c) => { const r = lfCar(c); const p = r ? r.powertrain : c.fuel; return p === '수소전기' ? '전기' : p || ''; };
   const lfBody = (c) => { const r = lfCar(c); return r ? r.body : c.body || ''; };
   const lfEco = (f) => /하이브리드|PHEV|전기/.test(f);
-  function lfAnalyze(full) {
+  function lfAnalyze(full, dream) {
     const list = full.filter((c) => !c.bmw); const bm = full.filter((c) => c.bmw);
     const n = list.length; const reps = list.map(lfRep); const types = list.map((c) => lfType(c.s));
     const wts = list.map((c) => Math.sqrt(Math.max(1, c.m || 12)));
@@ -5608,13 +5608,36 @@ body.kkopen{overflow:hidden}
     if (n >= 2 && hiI === n - 1 && reps[hiI] - reps[0] >= 1) L2(`돌고 돌아 ${jo(nm(hiI), '에서', '에서')} 날이 활짝 갰다`, 3);
     if (n >= 2 && hiI === 0 && reps[0] - reps[n - 1] >= 1) L2(`${jo(nm(0), '의', '의')} 첫 설렘을 아직 못 잊었다`, 3);
     if (n >= 2 && loI < n - 1 && reps[loI + 1] - reps[loI] >= 1) L2(`${jo(nm(loI), '에서', '에서')} 비 맞고, ${jo(nm(loI + 1), '에서', '에서')} 개었다`, 2.6);
-    if (n >= 2 && list[longI].m >= 24) L2(reps[longI] >= 3.5 ? `제일 오래 함께한 ${jo(nm(longI), '이', '가')} 제일 든든했다 (${lfMon(list[longI].m)})` : `${lfMon(list[longI].m)}을 버틴 ${jo(nm(longI), '이', '가')} 제일 고생했다`, 2.2 + Math.min(1, list[longI].m / 60));
-    if (B2.some((b) => b[1] === '금사빠 오너')) L2(growI >= 0 ? `설렘은 평균 ${kong}개월, 정은 ${jo(nm(growI), '에', '에')} 남았다` : `설렘은 평균 ${kong}개월이면 끝 — 다음 설렘은 오래가기를`, 3.2);
+    if (n >= 2 && list[longI].m >= 24) L2(reps[longI] >= 3.5 ? `제일 오래 함께한 ${jo(nm(longI), '이', '가')} 제일 든든했다 (${lfMon(list[longI].m)})` : `${lfMon(list[longI].m)}을 버틴 ${jo(nm(longI), '이', '가')} 제일 고생했다`, 2 + Math.min(0.8, list[longI].m / 75));
+    if (B2.some((b) => b[1] === '금사빠 오너')) L2(growI >= 0 ? `설렘은 평균 ${kong}개월, 정은 ${jo(nm(growI), '에', '에')} 남았다` : `설렘은 평균 ${kong}개월이면 끝 — 다음 설렘은 오래가기를`, growI >= 0 ? 3.2 : 2.6);
     if (growI >= 0 && cnt('grow') >= n / 2) L2(`처음엔 몰랐는데, ${jo(nm(growI), '은', '는')} 탈수록 좋았다`, 3);
-    if (gEv) L2(`${gEv[0].txt || gEv[0].k} 하던 날, ${jo(nm(gEv[1]), '이', '가')} 제일 빛났다`, 3.4);
+    if (gEv) L2(`${gEv[0].txt || gEv[0].k}의 기억 — ${jo(nm(gEv[1]), '이', '가')} 제일 빛났다`, 3.4);
     if (bEv) L2(list[bEv[1]].s[2] >= 3 ? `${bEv[0].txt || bEv[0].k}도 있었지만, ${jo(nm(bEv[1]), '은', '는')} 끝까지 맑았다` : `${bEv[0].txt || bEv[0].k} 뒤로 ${jo(nm(bEv[1]), '은', '는')} 다시 개지 않았다`, 3.4);
     if (bm.length) L2(`차 없던 ${lfMon(bm.reduce((a, c) => a + (c.m || 0), 0))}도 내 차생의 일부`, 1.8);
     if (wcount.rain >= n / 2 && n >= 2) L2(`비 온 뒤에 땅이 굳는다 — ${jo(nm(n - 1), '부터는', '부터는')} 맑을 차례`, 3.1);
+    // 추가 문장 (총 30가지 이상)
+    const mean = (a) => (a.length ? a.reduce((x, y) => x + y, 0) / a.length : NaN);
+    const shortI = list.reduce((b, c, i) => ((c.m || 99) < (list[b].m || 99) ? i : b), 0);
+    if (n >= 2 && list[shortI].m <= 12 && shortI !== longI) L2(`${jo(nm(shortI), '과는', '와는')} ${lfMon(list[shortI].m)} 만에 헤어졌다`, 2.3);
+    if (dream && byId[dream]) L2(`다음 목적지는 ${jo(lfShort({ id: dream, name: '' }), '이다', '다')} — 맑음 예보`, 2.4);
+    if (n >= 3 && ub.size === 1 && brands[0]) L2(`${brands[0]} 한 우물만 판 의리의 차생`, 2.9);
+    if (n >= 4 && ub.size >= 4) L2(`${ub.size}개 브랜드를 돌아본 차 유랑기`, 2.5);
+    { const ei = list.map((c, i) => i).filter((i) => lfEco(F[i])), ni = list.map((c, i) => i).filter((i) => !lfEco(F[i]));
+      if (ei.length && ni.length) { const df = mean(ei.map((i) => reps[i])) - mean(ni.map((i) => reps[i])); const best = ei.sort((a, b) => reps[b] - reps[a])[0];
+        if (df >= 0.75) L2(`기름값 영수증 보다가, ${jo(nm(best), '에서', '에서')} 정신 차렸다`, 2.9); else if (df <= -0.75) L2(`친환경이 다 좋은 건 아니더라 — ${nm(best)}`, 2.9); } }
+    { const si = list.findIndex((c, i) => i > 0 && B[i] === 'SUV' && B[i - 1] && B[i - 1] !== 'SUV'); if (si > 0 && reps[si] >= reps[si - 1] + 0.5) L2(`높은 시야에 눈뜨고 ${jo(nm(si), '으로', '로')} 넘어왔다`, 2.6); }
+    if (n >= 2 && pr[0] > 0 && pr[n - 1] > 0) { const x = pr[n - 1] / pr[0]; if (x >= 1.8) L2(reps[n - 1] > reps[0] ? '차급은 올라갔고, 별점도 따라 올라갔다' : '차급은 올라갔는데, 별점은 따라오지 않았다', 2.6); if (x <= 0.6) L2(reps[n - 1] >= reps[0] ? '작아진 차, 오히려 마음은 편해졌다' : '작아진 차가 아직은 좀 아쉽다', 2.6); }
+    if (B[0] === '경차') L2(`${jo(nm(0), '으로', '로')} 시작한 작은 첫걸음`, 2.2);
+    if (totM >= 120) L2(`${Math.round(totM / 12)}년 동안 ${n}대, 차생 한 편의 드라마`, 2.1);
+    { const di = types.findIndex((t) => t[2] === 'dip'); if (di >= 0) L2(`${jo(nm(di), '과는', '와는')} 권태기도 있었지만 결국 화해했다`, 2.8); }
+    { const li = list.findIndex((c) => Math.min(...c.s) >= 4.5); if (li >= 0) L2(`인생 차는 단연 ${nm(li)}`, 3); }
+    if (n >= 3 && cnt('flat') >= n / 2) L2(`${n}대 모두 한결같았다 — 차 고르는 눈이 꾸준하다`, 2.8);
+    if (n >= 2 && avg <= 2.5) L2('별 주는 데 인색한, 깐깐한 차생', 2.7);
+    if (n >= 2 && avg >= 4.2) L2('어떤 차를 타도 잘 맞추는 무던한 차생', 2.7);
+    { const gs = list.reduce((a, c) => a + (c.ev || []).filter((e) => e.t === 'g').length, 0); if (gs >= 2) L2(`${gs}번의 좋은 기억이 차생을 밝혔다`, 3.2); }
+    if (n >= 2 && hiI !== n - 1 && reps[n - 1] >= 4) L2(`지금 타는 ${jo(nm(n - 1), '도', '도')} 맑음 — 순항 중`, 2.4);
+    if (n >= 2 && reps[n - 1] <= 2.5) L2(`지금 ${jo(nm(n - 1), '은', '는')} 흐림 — 슬슬 다음 차를 볼 때?`, 2.8);
+    if (bm.length && mean(bm.map(lfRep)) - mean(reps) >= 0.5) L2('차 없을 때가 오히려 맑았다', 3);
     LC.sort((a, b) => b[1] - a[1]);
     let line = LC[0][0];
     { const top = LC.filter((x) => x[1] >= LC[0][1] - 0.35); if (top.length > 1) { let h = 7; JSON.stringify(full.map((c) => [c.id || c.name, c.m, c.s, (c.ev || []).length])).split('').forEach((ch) => { h = (h * 33 + ch.charCodeAt(0)) >>> 0; }); line = top[h % top.length][0]; } }
@@ -5694,7 +5717,7 @@ body.kkopen{overflow:hidden}
     // 예시 미리보기
     const ex = c.appendChild(el('div', 'lfexwrap'));
     ex.appendChild(el('p', 'lfexh', '예시 — 9대를 탄 외근직 직장인'));
-    const L = lfSample(); const A = lfAnalyze(L); const dr = lfSampleDream();
+    const L = lfSample(); const dr = lfSampleDream(); const A = lfAnalyze(L, dr);
     const mini = ex.appendChild(el('button', 'lfsky lfmini')); mini.type = 'button'; mini.title = '예시 결과 크게 보기';
     const tp = mini.appendChild(el('div', 'lftop')); tp.appendChild(el('span', 'lfk', '차생 그래프 · 9대 · 14년')); tp.appendChild(el('b', 'jal lft', A.title));
     mini.appendChild(lfSvg(L, A, dr));
@@ -5824,7 +5847,7 @@ body.kkopen{overflow:hidden}
       .map(([q, m, s, ev, fuel, body]) => { const id = fuel ? null : f(q); return { id, name: id ? byId[id].name : q, fuel: fuel || '', body: body || '', m, s, ev: ev || [] }; });
   }
   function lfResult(box, demo) {
-    const L = demo ? lfSample() : LF.list; const A = lfAnalyze(L); const CL = L.filter((c) => !c.bmw); const DR = demo ? lfSampleDream() : (LF.dream && byId[LF.dream] ? LF.dream : null);
+    const L = demo ? lfSample() : LF.list; const DR = demo ? lfSampleDream() : (LF.dream && byId[LF.dream] ? LF.dream : null); const A = lfAnalyze(L, DR); const CL = L.filter((c) => !c.bmw);
     if (demo) { const dn = box.appendChild(el('div', 'lfdemo')); dn.appendChild(el('b', null, '👀 예시 결과예요')); dn.appendChild(el('span', null, '9대를 탄 외근직 직장인의 차생 그래프 — 내 차를 넣으면 이렇게 나와요')); dn.appendChild(btnEl('chip gold', '▶ 내 걸로 만들기', () => { LF.stage = 'edit'; renderPlay(); scrollToSection('t-play'); })); dn.appendChild(btnEl('chip', '← 설명으로', () => { LF.stage = 'intro'; renderPlay(); scrollToSection('t-play'); })); }
     const card = box.appendChild(el('div', 'lfsky'));
     const top = card.appendChild(el('div', 'lftop')); top.appendChild(el('span', 'lfk', `${demo ? '예시' : '내'} 차생 그래프 · ${L.length}대 · ${lfMon(A.totM)}`));
