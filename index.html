@@ -5776,16 +5776,16 @@ body.kkopen{overflow:hidden}
       A.fc.cars.forEach((r, i) => cs.appendChild(btnEl('chip', shortName(r.name) + (i ? ' 🌤️' : ' ☀️'), () => openProfile(r.id))));
       fc.appendChild(el('small', 'note', '내 별점과 카스쿼드 능력치로 계산한 재미용 추천이에요.'));
     }
-    // 별점 보태기 (동의한 경우에만)
+    // 별점 남기기 (동의한 경우에만)
     const cn = dt.appendChild(el('div', 'lfconsent'));
     const known = L.filter((c) => c.id);
     if (STATS_URL && known.length) {
       const key = known.map((c) => c.id + ':' + c.s.join('/') + ':' + c.m).join('|');
-      if (LF.sent === key) cn.appendChild(el('p', 'note', '✓ 별점을 보탰어요. 고맙습니다! 차별 평균은 모이는 대로 선수 페이지에 올라가요.'));
+      if (LF.sent === key) cn.appendChild(el('p', 'note', '✓ 별점이 남겨졌어요. 고맙습니다! 차별 평균은 모이는 대로 선수 페이지에 올라가요.'));
       else {
-        const lb = cn.appendChild(el('label', 'lfck')); const ck = lb.appendChild(el('input')); ck.type = 'checkbox'; ck.checked = LF.consent; lb.appendChild(el('span', null, '내 별점을 카스쿼드 "차주 별점"에 익명으로 보태기'));
+        const lb = cn.appendChild(el('label', 'lfck')); const ck = lb.appendChild(el('input')); ck.type = 'checkbox'; ck.checked = LF.consent; lb.appendChild(el('span', null, '내 별점을 카스쿼드 "차주 별점"에 익명으로 남기기'));
         cn.appendChild(el('small', 'note', '사이트에 있는 차의 별점 3개 · 탄 기간 · 결과 이름만 보내요. 기억의 한 줄 내용과 이름·연락처는 보내지 않아요.'));
-        const sb = cn.appendChild(btnEl('chip sm', '보태기', () => {
+        const sb = cn.appendChild(btnEl('chip sm', '⭐ 별점 남기기', () => {
           if (!ck.checked) return;
           const rows = known.map((c) => [c.id, c.m, c.s[0], c.s[1], c.s[2], (c.ev || []).filter((e) => e.t === 'g').length, (c.ev || []).filter((e) => e.t === 'b').length]);
           try { fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ t: 'report', id: '', name: '차생 그래프', kinds: '차생 별점', msg: JSON.stringify({ r: rows, title: A.title }), src: '', contact: '', page: '', v: '' }) }); } catch (e) {}
