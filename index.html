@@ -924,6 +924,32 @@ html, body { margin: 0; background: #14161b; }
 .vd .lfgo { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 14px 12px 0; }
 .vd .lfgo .chip.big, .vd .lfbtns .chip.big { font-size: 15px; padding: 10px 16px; border-radius: 10px; }
 .vd .lfpriv { margin: 10px 12px 0; }
+.vd .lfh2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: space-between; }
+.vd .lfintro .lflegend { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 14px 0; }
+.vd .lflegend span { display: flex; align-items: center; gap: 5px; background: var(--pn2); border: 1px solid var(--line); border-radius: 12px; padding: 4px 9px; }
+.vd .lflegend b { font-size: 18px; } .vd .lflegend small { font-size: 12px; color: var(--mu); font-weight: 700; }
+.vd .lfexwrap { margin: 14px 14px 0; display: flex; flex-direction: column; gap: 8px; }
+.vd .lfexh { margin: 4px 0 0; font-size: 13px; font-weight: 800; color: var(--gold); }
+.vd .lfmini { margin: 0 auto; width: 100%; max-width: 380px; border: 0; padding: 0 0 12px; text-align: left; cursor: pointer; font: inherit; transition: transform .12s; }
+.vd .lfmini:hover { transform: translateY(-2px); }
+.vd .lfmini .lft { display: block; font-size: 21px; margin-top: 6px; }
+.vd .lfnames { display: flex; flex-wrap: wrap; gap: 6px; }
+.vd .lfnames span { font-size: 12.5px; font-weight: 700; border: 1px dashed var(--line2); border-radius: 12px; padding: 4px 9px; color: var(--tx); }
+.vd .lfpad { margin: 10px 14px 14px; }
+.vd .lfintro .mbstart { margin: 14px 14px 0; }
+.vd .lfdemo { margin: 14px 16px 0; padding: 12px 14px; border: 1px solid var(--gold); border-radius: 12px; background: var(--pn); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.vd .lfdemo b { color: var(--gold); } .vd .lfdemo span { font-size: 13px; color: var(--mu); flex: 1 1 220px; }
+.vd .lfdreamin { margin: 12px 12px 0; padding: 14px; border: 1px dashed var(--gold); border-radius: 14px; display: flex; flex-direction: column; gap: 8px; }
+.vd .lfdreamin h3 { margin: 0; font-size: 17px; color: var(--hi); }
+.vd .lfdth { width: 72px; height: 48px; border-radius: 8px; overflow: hidden; background: var(--pn2); flex: none; display: block; }
+.vd .lfdth img, .vd .lfdph img { width: 100%; height: 100%; object-fit: cover; display: block; color: transparent; font-size: 0; }
+.vd .lfdth .credit, .vd .lfdph .credit, .vd .lfdth .adm, .vd .lfdph .adm { display: none; }
+.vd .lfdth .nophoto, .vd .lfdph .nophoto { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--mu); font-weight: 800; }
+.vd .lfdream { appearance: none; border: 3px solid #e3b448; padding: 0; margin: 12px 14px 0; border-radius: 18px; overflow: hidden; position: relative; height: 170px; cursor: pointer; background: #2a2f3a; font: inherit; text-align: left; }
+.vd .lfdph { position: absolute; inset: 0; display: block; }
+.vd .lfdtx { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 14px 10px; background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.75)); color: #fff; display: flex; flex-direction: column; gap: 1px; }
+.vd .lfdtx small { font-size: 11.5px; font-weight: 800; color: #ffd23f; } .vd .lfdtx small:last-child { color: #e6e8ec; font-weight: 700; }
+.vd .lfdtx b { font-size: 16px; font-weight: 900; }
 /* 결과 카드 (밝은 하늘 · 테마와 무관하게 고정색) */
 .vd .lfsky { margin: 14px auto 0; max-width: 440px; border-radius: 26px; overflow: hidden; color: #15181e; background: linear-gradient(#ffe98a 0%, #fff3c4 20%, #f6f3ea 40%, #dfe5ec 60%, #aab6c6 82%, #7d8a9e 100%); box-shadow: 0 10px 30px rgba(0, 0, 0, .25); display: flex; flex-direction: column; }
 @media (max-width: 480px) { .vd .lfsky { margin: 12px 12px 0; } }
@@ -5394,8 +5420,9 @@ body.kkopen{overflow:hidden}
 
   // ------------------------------------------------------------------ 놀이터: 차생 그래프 (탔던 차 별점 → 날씨 그래프 + 성향)
   const LF = { stage: 'edit', list: [], edit: null, draft: null, q: '', consent: false, sent: '' };
-  try { const v = JSON.parse(LS.get('life1') || 'null'); if (v && Array.isArray(v.list)) LF.list = v.list.filter((x) => x && x.name && Array.isArray(x.s)).slice(0, 30); } catch (e) {}
-  const lfSave = () => LS.set('life1', JSON.stringify({ list: LF.list }));
+  try { const v = JSON.parse(LS.get('life1') || 'null'); if (v && Array.isArray(v.list)) LF.list = v.list.filter((x) => x && x.name && Array.isArray(x.s)).slice(0, 30); if (v && v.dream && byId[v.dream]) LF.dream = v.dream; } catch (e) {}
+  if (!LF.list.length) LF.stage = 'intro';
+  const lfSave = () => LS.set('life1', JSON.stringify({ list: LF.list, dream: LF.dream || null }));
   const LF_GOOD = [['🧳', '여행'], ['🛣️', '첫 장거리'], ['🎉', '출고 날'], ['👨‍👩‍👧', '가족'], ['🏕️', '캠핑·차박'], ['😊', '기타']];
   const LF_BAD = [['💥', '사고'], ['🔧', '고장'], ['🚨', '딱지'], ['💸', '큰 수리비'], ['🅿️', '주차 스트레스'], ['😣', '기타']];
   const LF_FUEL = ['가솔린', '디젤', 'LPG', '하이브리드', 'PHEV', '전기'];
@@ -5405,7 +5432,7 @@ body.kkopen{overflow:hidden}
   const lfMon = (m) => (m < 12 ? m + '개월' : Math.floor(m / 12) + '년' + (m % 12 ? ' ' + (m % 12) + '개월' : ''));
   const lfRep = (c) => (c.s[0] + c.s[1] * 2 + c.s[2]) / 4;
   const lfCar = (c) => (c.id && byId[c.id]) || null;
-  const lfShort = (c) => { if (c.bmw) return 'BMW'; const r = lfCar(c); let n = (r ? shortName(modelKey(r)).replace(new RegExp('^' + r.brand + ' '), '') : c.name).replace(/\s*\([^)]*\)/g, '').trim(); if (n.length > 7) n = n.split(' ')[0]; return n.length > 8 ? n.slice(0, 8) : n; };
+  const lfShort = (c) => { if (c.bmw) return 'BMW'; const r = lfCar(c); let n = (r ? shortName(modelKey(r)).replace(new RegExp('^' + r.brand + ' '), '') : c.name).replace(/\s*\([^)]*\)/g, '').trim(); if (n.length > 7) { const w = n.split(' '); n = w[0]; for (let i = 1; n.length < 3 && w[i]; i++) n += ' ' + w[i]; } return n.length > 8 ? n.slice(0, 8) : n; };
   function lfType(s) {
     const [a, b, c] = s; const d = c - a;
     if (Math.max(a, b, c) - Math.min(a, b, c) <= 0.5 && Math.abs(c - a) < 0.5) return ['🗿', '한결같은형', 'flat'];
@@ -5580,8 +5607,8 @@ body.kkopen{overflow:hidden}
     return { allReps, peakAll, n, reps, types, shape, title, idn: C[0][0], line, badges: B2, match, peak: peakOk ? peak : -1, wcount, kong, good: good.length, bad: bad.length, totM, fc };
   }
   // 그래프 좌표 (SVG·이미지 공용)
-  function lfGeo(list, W, H, pad) {
-    const tot = list.reduce((a, c) => a + Math.max(1, c.m || 12), 0); const X0 = pad.l, X1 = W - pad.r; const Y = (s) => pad.t + (H - pad.t - pad.b) * (1 - (s - 0.5) / 4.5);
+  function lfGeo(list, W, H, pad, dream) {
+    const tot = list.reduce((a, c) => a + Math.max(1, c.m || 12), 0); const X0 = pad.l, X1 = W - pad.r - (dream ? 46 : 0); const Y = (s) => pad.t + (H - pad.t - pad.b) * (1 - (s - 0.5) / 4.5);
     const pts = [], segs = []; let x = X0;
     list.forEach((c, i) => {
       const m = Math.max(1, c.m || 12); const w = (X1 - X0) * m / tot;
@@ -5591,14 +5618,17 @@ body.kkopen{overflow:hidden}
     });
     let d = `M${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
     for (let i = 1; i < pts.length; i++) { const a = pts[i - 1], b = pts[i], dx = (b.x - a.x) / 2; d += ` C${(a.x + dx).toFixed(1)} ${a.y.toFixed(1)},${(b.x - dx).toFixed(1)} ${b.y.toFixed(1)},${b.x.toFixed(1)} ${b.y.toFixed(1)}`; }
-    return { pts, segs, d, Y, X0, X1 };
+    let dp = null, dd = '';
+    if (dream) { const a = pts[pts.length - 1]; dp = { x: W - pad.r - 10, y: Y(4.85) }; const dx = (dp.x - a.x) / 2; dd = `M${a.x.toFixed(1)} ${a.y.toFixed(1)} C${(a.x + dx).toFixed(1)} ${a.y.toFixed(1)},${(dp.x - dx).toFixed(1)} ${dp.y.toFixed(1)},${dp.x.toFixed(1)} ${dp.y.toFixed(1)}`; }
+    return { pts, segs, d, Y, X0, X1, dp, dd };
   }
-  function lfSvg(list, A) {
-    const W = 360, H = 330, G = lfGeo(list, W, H, { l: 30, r: 22, t: 34, b: 30 });
+  function lfSvg(list, A, dream) {
+    const W = 360, H = 330, G = lfGeo(list, W, H, { l: 30, r: 22, t: 34, b: 30 }, dream);
     const NS = 'http://www.w3.org/2000/svg'; const sv = document.createElementNS(NS, 'svg'); sv.setAttribute('viewBox', `0 0 ${W} ${H}`); sv.setAttribute('class', 'lfsvg'); sv.setAttribute('role', 'img'); sv.setAttribute('aria-label', '차생 그래프: ' + list.map((c, i) => `${lfShort(c)} ${lfWxName(A.allReps[i])}`).join(', '));
     const mk = (t, at, txt) => { const e = document.createElementNS(NS, t); Object.entries(at).forEach(([k, v]) => e.setAttribute(k, v)); if (txt != null) e.textContent = txt; sv.appendChild(e); return e; };
     [4.75, 3.75, 2.75, 1.75, 0.75].forEach((s) => mk('text', { x: 4, y: G.Y(s) + 5, 'font-size': 13, opacity: 0.7 }, lfWx(s)));
     G.segs.forEach((s, i) => { if (i) mk('line', { x1: s.x0, y1: 14, x2: s.x0, y2: H - 22, stroke: 'rgba(58,63,74,.14)', 'stroke-dasharray': '3 3' }); });
+    if (G.dp) { mk('path', { d: G.dd, fill: 'none', stroke: '#e3a03b', 'stroke-width': 3, 'stroke-dasharray': '2 6', 'stroke-linecap': 'round' }); mk('circle', { cx: G.dp.x, cy: G.dp.y, r: 11, fill: '#fff6df', stroke: '#e3a03b', 'stroke-width': 2.5 }); mk('text', { x: G.dp.x, y: G.dp.y + 4.5, 'font-size': 12, 'text-anchor': 'middle' }, '🏁'); mk('text', { x: G.dp.x - 4, y: G.dp.y + 26, 'font-size': 9, 'font-weight': 900, fill: '#9a6a10', 'text-anchor': 'middle' }, '드림카'); mk('text', { x: G.dp.x - 4, y: G.dp.y + 37, 'font-size': 8.5, 'font-weight': 800, fill: '#2a2f3a', 'text-anchor': 'middle' }, lfShort({ id: dream, name: '' })); }
     mk('path', { d: G.d, fill: 'none', stroke: '#3a3f4a', 'stroke-width': 8, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
     mk('path', { d: G.d, fill: 'none', stroke: '#fff', 'stroke-width': 1.5, 'stroke-dasharray': '6 5' });
     G.pts.forEach((p) => { if (p.e) { mk('circle', { cx: p.x, cy: p.y, r: 9, fill: '#fff', stroke: p.e.t === 'g' ? '#2f9e5b' : '#e5534b', 'stroke-width': 2.5 }); mk('text', { x: p.x, y: p.y + 4, 'font-size': 10.5, 'text-anchor': 'middle' }, p.e.ic); } else mk('circle', { cx: p.x, cy: p.y, r: 3, fill: '#fff', stroke: '#3a3f4a', 'stroke-width': 1.5 }); });
@@ -5623,12 +5653,41 @@ body.kkopen{overflow:hidden}
     draw(); return w;
   }
   function lfNewDraft() { return { id: null, name: '', fuel: '', body: '', m: 24, s: [4, 3.5, 3], ev: [] }; }
+  function lfIntro(box) {
+    const c = box.appendChild(el('div', 'card mbintro lfintro'));
+    c.appendChild(el('span', 'kick', 'NEW · 차생 그래프'));
+    c.appendChild(el('h2', 'jal mbh', '📈 내 차 인생, 날씨로 보면?'));
+    c.appendChild(el('p', 'mbdesc', '인생 그래프처럼, 지금까지 탄 차를 순서대로 넣으면 별점이 날씨가 되어 한 장의 그래프가 돼요. 나는 처음에만 설레는 "금사빠 오너"일까, 탈수록 정드는 "진국 감별사"일까?'));
+    const ax = c.appendChild(el('div', 'mbaxlist'));
+    [['①', '탔던 차를 순서대로 추가', '첫 차부터 지금 차까지 · 목록에 없는 옛날 차, 차 없던 🚌 BMW 시절도 OK'], ['②', '차마다 별점 3번 = 날씨 3번', '처음 탔을 때 · 타면서 · 마지막(팔 때) — 별이 많을수록 맑아요'], ['③', '(선택) 기억 · 드림카', '여행·사고 같은 기억은 그래프에 콕, 드림카는 그래프 끝 🏁 다음 목적지로'], ['④', '결과: 성향 이름 + 배지', '"맑았다 흐려진 하이브리드 귀순자" 같은 이름과 다음 차 예보, 이미지로 저장']].forEach(([k, a, b]) => { const r = ax.appendChild(el('div', 'mbaxi')); r.appendChild(el('b', null, k)); const d = r.appendChild(el('span')); d.appendChild(el('strong', null, a)); d.appendChild(el('small', null, b)); });
+    const lg = c.appendChild(el('div', 'lflegend'));
+    [[5, '★5'], [4, '★4'], [3, '★3'], [2, '★2'], [1, '★1']].forEach(([s, t]) => { const i = lg.appendChild(el('span')); i.appendChild(el('b', null, lfWx(s))); i.appendChild(el('small', null, t + ' ' + lfWxName(s))); });
+    // 예시 미리보기
+    const ex = c.appendChild(el('div', 'lfexwrap'));
+    ex.appendChild(el('p', 'lfexh', '예시 — 9대를 탄 외근직 직장인'));
+    const L = lfSample(); const A = lfAnalyze(L); const dr = lfSampleDream();
+    const mini = ex.appendChild(el('button', 'lfsky lfmini')); mini.type = 'button'; mini.title = '예시 결과 크게 보기';
+    const tp = mini.appendChild(el('div', 'lftop')); tp.appendChild(el('span', 'lfk', '차생 그래프 · 9대 · 14년')); tp.appendChild(el('b', 'jal lft', A.title));
+    mini.appendChild(lfSvg(L, A, dr));
+    const bdg = mini.appendChild(el('div', 'lfbadges')); A.badges.slice(0, 3).forEach((b) => bdg.appendChild(el('span', 'lfpill', b[0] + ' ' + b[1])));
+    mini.addEventListener('click', () => { LF.stage = 'demo'; renderPlay(); scrollToSection('t-play'); });
+    ex.appendChild(el('p', 'lfexh', '이런 이름들이 나와요'));
+    const nm = ex.appendChild(el('div', 'lfnames'));
+    ['점점 개는 SUV 귀화자', '첫날이 가장 맑았던 수입차 데뷔러', '365일 맑음인 브랜드 유목민', '긴 장마를 견딘 체급 승격자', '구름 조금, 평온한 고요 수집가', '폭풍 뒤 무지개를 만난 전기차 개종자'].forEach((t) => nm.appendChild(el('span', null, t)));
+    const bt = c.appendChild(el('div', 'mbstart'));
+    bt.appendChild(btnEl('chip gold big', LF.list.length ? '▶ 이어서 만들기' : '▶ 내 차생 그래프 만들기', () => { LF.stage = 'edit'; renderPlay(); scrollToSection('t-play'); }));
+    bt.appendChild(btnEl('chip big', '👀 예시 결과 전체 보기', () => { LF.stage = 'demo'; renderPlay(); scrollToSection('t-play'); }));
+    c.appendChild(el('p', 'note lfpad', '약 2~3분 · 2대만 넣어도 결과가 나와요 · 입력한 내용은 이 기기에만 저장돼요'));
+  }
+  function lfSampleDream() { const r = searchCars('디 올 뉴 팰리세이드', 1)[0] || searchCars('팰리세이드', 1)[0]; return r ? r.id : null; }
   function renderLife(box) {
+    if (LF.stage === 'intro') return lfIntro(box);
+    if (LF.stage === 'demo') return lfResult(box, true);
     if (LF.stage === 'result' && LF.list.some((x) => !x.bmw)) return lfResult(box);
     LF.stage = 'edit';
     const c = box.appendChild(el('div', 'card lfcard'));
     const hd = c.appendChild(el('div', 'lfhd')); hd.appendChild(el('span', 'kick', 'NEW · 차생 그래프'));
-    hd.appendChild(el('h2', 'jal', '📈 내 차생 그래프'));
+    const h2 = hd.appendChild(el('div', 'lfh2')); h2.appendChild(el('h2', 'jal', '📈 내 차생 그래프')); h2.appendChild(btnEl('chip sm', '❓ 이게 뭐예요?', () => { LF.stage = 'intro'; renderPlay(); scrollToSection('t-play'); }));
     hd.appendChild(el('p', 'note', '탔던 차를 첫 차부터 순서대로 추가하고, 처음 · 타면서 · 마지막에 별점을 주세요. 별점이 날씨가 되고, 내 차 인생 성향이 나와요. 2대만 넣어도 결과가 나와요.'));
     // 목록
     if (LF.list.length) {
@@ -5711,6 +5770,17 @@ body.kkopen{overflow:hidden}
       ad.disabled = !ok; if (!ok) bt.appendChild(el('span', 'note', '연료와 차종을 골라 주세요'));
       if (LF.edit != null) bt.appendChild(btnEl('chip big', '취소', () => { LF.edit = null; LF.draft = null; renderPlay(); }));
     }
+    // 드림카 (선택)
+    const dw = c.appendChild(el('div', 'lfdreamin'));
+    dw.appendChild(el('h3', 'jal', '🏁 드림카 (선택)'));
+    dw.appendChild(el('p', 'note', '다음에 타고 싶은 차를 고르면 그래프 끝에 "다음 목적지"로 표시되고, 결과 맨 아래에 사진이 들어가요.'));
+    const dr = LF.dream && byId[LF.dream];
+    if (dr) { const pk = dw.appendChild(el('div', 'lfpicked')); const th = pk.appendChild(el('span', 'lfdth')); photo(th, dr); pk.appendChild(el('b', null, dr.name)); pk.appendChild(btnEl('chip sm', '✕ 빼기', () => { LF.dream = null; lfSave(); renderPlay(); })); }
+    else {
+      const sw = dw.appendChild(el('div', 'lfsearch')); const inp = sw.appendChild(el('input')); inp.placeholder = '드림카 검색 (예: 팰리세이드, 911)'; inp.autocomplete = 'off'; inp.maxLength = 30;
+      const res = sw.appendChild(el('div', 'lfres'));
+      inp.addEventListener('input', () => { res.textContent = ''; const q = inp.value.trim(); if (!q) return; searchCars(q, 12).filter((r) => !r.og).slice(0, 5).forEach((r) => { const b = res.appendChild(btnEl('lfri', '', () => { LF.dream = r.id; lfSave(); renderPlay(); })); b.appendChild(el('b', null, r.name)); b.appendChild(el('small', null, [r.powertrain, r.body, fmt(r.price) + '만'].join(' · '))); }); });
+    }
     const go = c.appendChild(el('div', 'lfgo'));
     const hasCar = LF.list.some((x) => !x.bmw);
     const gb = go.appendChild(btnEl('chip gold big', '📈 차생 그래프 보기', () => { LF.stage = 'result'; renderPlay(); scrollToSection('t-play'); }));
@@ -5724,13 +5794,14 @@ body.kkopen{overflow:hidden}
     return [['기아 올 뉴 프라이드', 20, [4, 3.5, 3]], ['현대 엑센트(신형) 1.4', 14, [3, 2, 1.5]], ['라세티', 10, [2.5, 1, 0.5], [{ t: 'b', ic: '🔧', k: '고장', txt: '고장', mo: 3, s: 0.5 }], '가솔린', '세단'], ['쉐보레 스파크 1.0', 24, [2, 2.5, 3]], ['기아 더 뉴 K3 1.6', 22, [4.5, 4, 3.5], [{ t: 'g', ic: '🛣️', k: '첫 장거리', txt: '첫 장거리', mo: 6, s: 5 }]], ['기아 더 뉴 셀토스 1.6T', 14, [4.5, 4, 3.5]], ['기아 디 올 뉴 니로 1.6 HEV', 16, [4.5, 5, 5], [{ t: 'g', ic: '🧳', k: '여행', txt: '제주 여행', mo: 8, s: 5 }]], ['현대 투싼 (NX4) 1.6T', 22, [4, 3, 2.5], [{ t: 'b', ic: '💥', k: '사고', txt: '접촉사고', mo: 12, s: 1.5 }]], ['르노코리아 아르카나 E-Tech 하이브리드', 26, [4, 3, 3]]]
       .map(([q, m, s, ev, fuel, body]) => { const id = fuel ? null : f(q); return { id, name: id ? byId[id].name : q, fuel: fuel || '', body: body || '', m, s, ev: ev || [] }; });
   }
-  function lfResult(box) {
-    const L = LF.list; const A = lfAnalyze(L); const CL = L.filter((c) => !c.bmw);
+  function lfResult(box, demo) {
+    const L = demo ? lfSample() : LF.list; const A = lfAnalyze(L); const CL = L.filter((c) => !c.bmw); const DR = demo ? lfSampleDream() : (LF.dream && byId[LF.dream] ? LF.dream : null);
+    if (demo) { const dn = box.appendChild(el('div', 'lfdemo')); dn.appendChild(el('b', null, '👀 예시 결과예요')); dn.appendChild(el('span', null, '9대를 탄 외근직 직장인의 차생 그래프 — 내 차를 넣으면 이렇게 나와요')); dn.appendChild(btnEl('chip gold', '▶ 내 걸로 만들기', () => { LF.stage = 'edit'; renderPlay(); scrollToSection('t-play'); })); dn.appendChild(btnEl('chip', '← 설명으로', () => { LF.stage = 'intro'; renderPlay(); scrollToSection('t-play'); })); }
     const card = box.appendChild(el('div', 'lfsky'));
-    const top = card.appendChild(el('div', 'lftop')); top.appendChild(el('span', 'lfk', `내 차생 그래프 · ${L.length}대 · ${lfMon(A.totM)}`));
+    const top = card.appendChild(el('div', 'lftop')); top.appendChild(el('span', 'lfk', `${demo ? '예시' : '내'} 차생 그래프 · ${L.length}대 · ${lfMon(A.totM)}`));
     top.appendChild(el('h2', 'jal lft', A.title));
     top.appendChild(el('p', 'lfline', '"' + A.line + '"'));
-    card.appendChild(lfSvg(L, A));
+    card.appendChild(lfSvg(L, A, DR));
     const sm = card.appendChild(el('div', 'lfsum'));
     const lines = [];
     lines.push(`☀️ 맑은 날 ${A.wcount.sun} · ⛅ 흐린 날 ${A.wcount.cloud} · 🌧️ 비 온 날 ${A.wcount.rain}`);
@@ -5740,12 +5811,13 @@ body.kkopen{overflow:hidden}
     const bd = card.appendChild(el('div', 'lfbadges'));
     A.badges.slice(0, 4).forEach((b) => { const s = bd.appendChild(el('span', 'lfpill', b[0] + ' ' + b[1])); s.title = b[2]; });
     if (A.match != null) bd.appendChild(el('span', 'lfpill', `🎯 카스쿼드와 취향 ${A.match}% 일치`));
+    if (DR) { const r = byId[DR]; const db = card.appendChild(btnEl('lfdream', '', () => openProfile(r.id))); db.title = '선수 페이지 보기'; const ph = db.appendChild(el('span', 'lfdph')); photo(ph, r); const tx = db.appendChild(el('span', 'lfdtx')); tx.appendChild(el('small', null, '🏁 다음 목적지 · 드림카')); tx.appendChild(el('b', null, r.name)); if (!isNaN(r._ovr)) tx.appendChild(el('small', null, `OVR ${r._ovr} · ${fmt(r.price)}만 원`)); }
     const ft = card.appendChild(el('div', 'lfft')); ft.appendChild(el('span', null, 'CAR SQUAD')); ft.appendChild(el('span', null, '너의 차생 그래프는? →'));
     // 버튼
     const bt = box.appendChild(el('div', 'wcbtns lfbt'));
-    const sv = bt.appendChild(btnEl('chip gold', '🖼 이미지로 저장 · 공유', () => saveBlob(() => lfImage(L, A), 'carsquad-차생그래프.png', sv)));
+    const sv = bt.appendChild(btnEl('chip gold', '🖼 이미지로 저장 · 공유', () => saveBlob(() => lfImage(L, A, DR), 'carsquad-차생그래프.png', sv)));
     const sh = bt.appendChild(btnEl('chip', '🔗 친구에게 해 보라고 보내기', () => shareLink('tab=play&g=life', `[카스쿼드] 내 차생 그래프는 "${A.title}" — 너도 해 봐`, sh)));
-    bt.appendChild(btnEl('chip', '✏️ 차 고치기 · 추가', () => { LF.stage = 'edit'; renderPlay(); scrollToSection('t-play'); }));
+    if (!demo) bt.appendChild(btnEl('chip', '✏️ 차 고치기 · 추가', () => { LF.stage = 'edit'; renderPlay(); scrollToSection('t-play'); }));
     // 상세
     const dt = box.appendChild(el('div', 'card lfdet'));
     dt.appendChild(el('div', 'ch')).appendChild(el('h2', null, '차마다 3번의 날씨'));
@@ -5779,12 +5851,12 @@ body.kkopen{overflow:hidden}
     // 별점 남기기 (동의한 경우에만)
     const cn = dt.appendChild(el('div', 'lfconsent'));
     const known = L.filter((c) => c.id);
-    if (STATS_URL && known.length) {
+    if (STATS_URL && known.length && !demo) {
       const key = known.map((c) => c.id + ':' + c.s.join('/') + ':' + c.m).join('|');
       if (LF.sent === key) cn.appendChild(el('p', 'note', '✓ 별점이 남겨졌어요. 고맙습니다! 차별 평균은 모이는 대로 선수 페이지에 올라가요.'));
       else {
         const lb = cn.appendChild(el('label', 'lfck')); const ck = lb.appendChild(el('input')); ck.type = 'checkbox'; ck.checked = LF.consent; lb.appendChild(el('span', null, '내 별점을 카스쿼드 "차주 별점"에 익명으로 남기기'));
-        cn.appendChild(el('small', 'note', '사이트에 있는 차의 별점 3개 · 탄 기간 · 결과 이름만 보내요. 기억의 한 줄 내용과 이름·연락처는 보내지 않아요.'));
+        cn.appendChild(el('small', 'note', '사이트에 있는 차라면, 그 차의 차주 별점에 내 별점이 추가돼요.'));
         const sb = cn.appendChild(btnEl('chip sm', '⭐ 별점 남기기', () => {
           if (!ck.checked) return;
           const rows = known.map((c) => [c.id, c.m, c.s[0], c.s[1], c.s[2], (c.ev || []).filter((e) => e.t === 'g').length, (c.ev || []).filter((e) => e.t === 'b').length]);
@@ -5795,7 +5867,7 @@ body.kkopen{overflow:hidden}
       }
     }
   }
-  async function lfImage(L, A) {
+  async function lfImage(L, A, DR) {
     const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
     const P = (w, s) => `${w} ${s}px "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif`;
     const J = (s) => `${s}px Jalnan, "Pretendard Variable", Pretendard, sans-serif`;
@@ -5805,11 +5877,12 @@ body.kkopen{overflow:hidden}
     g.fillStyle = '#15181e'; g.font = J(78); let y = 220; wrapLines(g, A.title, W - 128, 3).forEach((l) => { g.fillText(l, 64, y); y += 94; });
     g.fillStyle = '#7a5a10'; g.font = P('700', 34); wrapLines(g, '"' + A.line + '"', W - 128, 2).forEach((l) => { g.fillText(l, 64, y - 20); y += 48; });
     // 그래프
-    const gy = y + 10, gh = 900, sc = W / 360;
+    const gy = y + 10, gh = DR ? 720 : 900, sc = W / 360;
     g.save(); g.translate(0, gy); g.scale(sc, gh / 330);
-    const G = lfGeo(L, 360, 330, { l: 30, r: 22, t: 34, b: 30 });
+    const G = lfGeo(L, 360, 330, { l: 30, r: 22, t: 34, b: 30 }, DR);
     g.font = P('400', 13); g.globalAlpha = 0.7; [4.75, 3.75, 2.75, 1.75, 0.75].forEach((s) => g.fillText(lfWx(s), 4, G.Y(s) + 5)); g.globalAlpha = 1;
     g.strokeStyle = 'rgba(58,63,74,.14)'; g.lineWidth = 1; g.setLineDash([3, 3]); G.segs.forEach((s, i) => { if (i) { g.beginPath(); g.moveTo(s.x0, 14); g.lineTo(s.x0, 308); g.stroke(); } }); g.setLineDash([]);
+    if (G.dp) { g.strokeStyle = '#e3a03b'; g.lineWidth = 3; g.lineCap = 'round'; g.setLineDash([2, 6]); g.stroke(new Path2D(G.dd)); g.setLineDash([]); g.beginPath(); g.arc(G.dp.x, G.dp.y, 11, 0, Math.PI * 2); g.fillStyle = '#fff6df'; g.fill(); g.lineWidth = 2.5; g.stroke(); g.textAlign = 'center'; g.font = P('400', 12); g.fillStyle = '#000'; g.fillText('🏁', G.dp.x, G.dp.y + 4.5); g.font = P('900', 9); g.fillStyle = '#9a6a10'; g.fillText('드림카', G.dp.x - 4, G.dp.y + 26); g.textAlign = 'left'; }
     const path = new Path2D(G.d); g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = '#3a3f4a'; g.lineWidth = 8; g.stroke(path); g.strokeStyle = '#fff'; g.lineWidth = 1.5; g.setLineDash([6, 5]); g.stroke(path); g.setLineDash([]);
     G.pts.forEach((p) => { g.beginPath(); g.arc(p.x, p.y, p.e ? 9 : 3, 0, Math.PI * 2); g.fillStyle = '#fff'; g.fill(); g.lineWidth = p.e ? 2.5 : 1.5; g.strokeStyle = p.e ? (p.e.t === 'g' ? '#2f9e5b' : '#e5534b') : '#3a3f4a'; g.stroke(); if (p.e) { g.font = P('400', 10.5); g.textAlign = 'center'; g.fillStyle = '#000'; g.fillText(p.e.ic, p.x, p.y + 4); g.textAlign = 'left'; } });
     g.textAlign = 'center';
@@ -5830,7 +5903,19 @@ body.kkopen{overflow:hidden}
     // 배지
     let bx = 48; g.font = P('800', 30);
     const pills = A.badges.slice(2, 5).map((b) => b[0] + ' ' + b[1]); if (A.match != null) pills.push(`🎯 취향 일치 ${A.match}%`);
-    pills.forEach((t) => { const w = g.measureText(t).width + 44; if (bx + w > W - 48) { bx = 48; by += 72; } if (by > H - 200) return; g.fillStyle = 'rgba(255,255,255,.85)'; rr(g, bx, by, w, 58, 29); g.fill(); g.fillStyle = '#15181e'; g.fillText(t, bx + 22, by + 40); bx += w + 14; });
+    const lim = DR ? H - 400 : H - 200;
+    pills.forEach((t) => { const w = g.measureText(t).width + 44; if (bx + w > W - 48) { bx = 48; by += 72; } if (by > lim) return; g.fillStyle = 'rgba(255,255,255,.85)'; rr(g, bx, by, w, 58, 29); g.fill(); g.fillStyle = '#15181e'; g.fillText(t, bx + 22, by + 40); bx += w + 14; });
+    if (DR) { // 드림카 사진
+      const r = byId[DR]; const py = H - 360, ph = 240, px = 48, pw = W - 96;
+      const m = manual(r); const pinfo = photoCache[r.photo]; let img = null;
+      try { img = await loadImg(m ? m.url : (thumbUrl(r, 960) || (pinfo && pinfo.url)), m ? null : r); } catch (e) {}
+      g.save(); rr(g, px, py, pw, ph, 28); g.clip();
+      if (img) { const sc2 = Math.max(pw / img.width, ph / img.height), iw = img.width * sc2, ih = img.height * sc2; g.drawImage(img, px + (pw - iw) / 2, py + (ph - ih) / 2, iw, ih); } else { g.fillStyle = '#2a2f3a'; g.fillRect(px, py, pw, ph); }
+      const sh = g.createLinearGradient(0, py, 0, py + ph); sh.addColorStop(0.35, 'rgba(0,0,0,0)'); sh.addColorStop(1, 'rgba(0,0,0,.72)'); g.fillStyle = sh; g.fillRect(px, py, pw, ph);
+      g.restore(); g.strokeStyle = '#e3b448'; g.lineWidth = 5; rr(g, px, py, pw, ph, 28); g.stroke();
+      g.fillStyle = '#ffd23f'; g.font = P('900', 28); g.fillText('🏁 다음 목적지 · 드림카', px + 30, py + ph - 70);
+      g.fillStyle = '#fff'; g.font = P('900', 40); g.fillText(wrapLines(g, r.name, pw - 60, 1)[0], px + 30, py + ph - 24);
+    }
     g.fillStyle = '#fff'; g.font = P('900', 36); g.fillText('CAR SQUAD · carsquad.pages.dev', 64, H - 64);
     g.font = P('800', 32); g.textAlign = 'right'; g.fillText('너의 차생 그래프는? →', W - 64, H - 64); g.textAlign = 'left';
     return new Promise((res) => cv.toBlob(res, 'image/png'));
