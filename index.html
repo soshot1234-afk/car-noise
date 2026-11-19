@@ -1598,6 +1598,100 @@ body.nlnoscroll { overflow: hidden; }
 .nlldet b { font-size: 16px; }
 .nlldet p { margin: 6px 0 0; font-size: 15px; line-height: 1.55; }
 .vd.nl .nlprof > .nlmut { padding: 0 16px; margin: 0; }
+/* D 아이콘 홈 */
+.nlban { appearance: none; border: 0; border-radius: 20px; padding: 18px 20px; text-align: left; position: relative; cursor: pointer; font: inherit; color: #15181e; display: flex; flex-direction: column; gap: 4px; min-height: 104px; }
+.nlban small { font-size: 12.5px; font-weight: 900; color: #1b8a4b; }
+.nlban b { font-size: 21px; line-height: 1.3; white-space: pre-line; }
+.nlbani { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 46px; }
+.nlicons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 6px; padding: 4px 0; }
+.nlicon { appearance: none; border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font: inherit; color: #15181e; }
+.nlicon span { width: 62px; height: 62px; border-radius: 20px; background: #fff; display: grid; place-items: center; font-size: 30px; box-shadow: 0 2px 8px rgba(0, 0, 0, .06); }
+.nlicon:hover span { box-shadow: 0 0 0 2px #e3b448; }
+.nlicon b { font-size: 14px; }
+.nlsec { font-size: 18px; font-weight: 900; margin-top: 8px; }
+.nlhscroll { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+.nlhc { appearance: none; flex: none; width: 128px; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; font: inherit; color: #15181e; display: flex; flex-direction: column; gap: 4px; }
+.nlhcp { width: 128px; height: 84px; border-radius: 14px; overflow: hidden; background: #eef0f3; }
+.nlhcp img { width: 100%; height: 100%; object-fit: cover; }
+.vd.nl .nlhcp .credit, .vd.nl .nlstp .credit, .vd.nl .nlanp .credit { display: none; }
+.nlhc b { font-size: 14.5px; line-height: 1.3; word-break: keep-all; }
+.nlhc small { font-size: 12.5px; color: #6b7280; font-weight: 700; }
+.nlctabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px; }
+.nlctabs button { appearance: none; flex: none; border: 0; background: none; font: inherit; font-size: 15px; font-weight: 800; color: #8a919d; padding: 8px 10px; cursor: pointer; border-radius: 10px; }
+.nlctabs button.on { color: #15181e; background: #fff; box-shadow: inset 0 -3px 0 #15181e; border-radius: 10px 10px 0 0; }
+.nlchips.left { justify-content: flex-start; }
+.nlstore { appearance: none; width: 100%; border: 0; background: #fff; border-radius: 18px; padding: 12px; display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 14px; text-align: left; cursor: pointer; font: inherit; color: #15181e; }
+.nlstore:hover { box-shadow: 0 0 0 2px #e3b448; }
+.nlstp { width: 104px; height: 80px; border-radius: 14px; overflow: hidden; background: #eef0f3; }
+.nlstp img { width: 100%; height: 100%; object-fit: cover; }
+.nlstm { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.nlstm > b { font-size: 16.5px; line-height: 1.3; word-break: keep-all; }
+.nlstm > small { font-size: 13.5px; color: #4b5563; }
+.nlstar { display: flex; align-items: center; gap: 4px; font-size: 14px; }
+.nlstar span { color: #e3b448; }
+.nlstar b { font-family: "Barlow Condensed", sans-serif; font-size: 18px; }
+.nlstar small { font-size: 13px; color: #8a919d; }
+.nlstar.big span { font-size: 20px; letter-spacing: 1px; }
+.nlstar.big b { font-size: 26px; }
+.nltags { display: flex; gap: 4px; flex-wrap: wrap; }
+.nltags i { font-style: normal; font-size: 12px; font-weight: 800; background: #f1f8e4; color: #4d6b0e; border-radius: 6px; padding: 2px 7px; }
+.nlhero.short { height: 220px; }
+.nlstore-hd { margin: -26px 14px 0; position: relative; background: #fff; border-radius: 20px; padding: 18px 16px; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 6px 20px rgba(0, 0, 0, .06); text-align: center; }
+.nlstore-hd h1 { margin: 0; font-size: 26px; word-break: keep-all; }
+.nlinfo2 { width: 100%; border-top: 1px solid #eceef1; margin-top: 8px; padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.nlinfo2 div { display: flex; justify-content: space-between; gap: 10px; font-size: 15px; }
+.nlinfo2 span { color: #6b7280; font-weight: 700; }
+.nlptabs { position: sticky; top: 56px; z-index: 6; display: flex; background: #fff; border-bottom: 1px solid #eceef1; }
+.nlptabs button { appearance: none; flex: 1; border: 0; background: none; padding: 13px 4px; font: inherit; font-size: 15px; font-weight: 800; color: #4b5563; cursor: pointer; }
+.nlptabs button:hover { color: #15181e; box-shadow: inset 0 -3px 0 #15181e; }
+.nlmenu { background: #fff; margin: 0 14px; border-radius: 18px; padding: 6px 16px 8px; scroll-margin-top: 120px; }
+.nlmenu h3 { margin: 10px 0 4px; font-size: 18px; }
+.nlmrow { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #f1f3f6; }
+.nlmrow:first-of-type { border-top: 0; }
+.nlmrow > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.nlmrow b { font-size: 16px; }
+.nlmrow small { font-size: 13.5px; color: #6b7280; line-height: 1.45; word-break: keep-all; }
+.nlmsc { flex: none; min-width: 40px; text-align: center; font-family: "Barlow Condensed", sans-serif; font-size: 22px; font-weight: 700; border-radius: 10px; padding: 4px 6px; color: #15181e; }
+.nlmv { flex: none; font-size: 15px; font-weight: 800; text-align: right; max-width: 55%; }
+/* E 검색 한 줄 */
+.vd.nl #homebox.nlhome.nle { min-height: calc(100vh - 140px); justify-content: flex-start; align-items: stretch; padding-top: 12vh; }
+.nlelogo { display: flex; justify-content: center; }
+.nlelogo .logo { width: 58px; height: 58px; }
+.nleq { text-align: center; margin: 4px 0 6px; font-size: 26px; }
+.nlebox { display: flex; align-items: center; gap: 10px; background: #fff; border: 2px solid #15181e; border-radius: 18px; padding: 4px 14px; box-shadow: 0 6px 18px rgba(0, 0, 0, .06); }
+.nlebox span { font-size: 18px; }
+.nlebox input { flex: 1; min-width: 0; border: 0; outline: none; font: inherit; font-size: 17px; padding: 13px 0; background: transparent; color: #15181e; }
+.nleres { display: flex; flex-direction: column; gap: 8px; }
+.nlwhy { font-size: 14px; font-weight: 800; color: #1b8a4b; background: #eaf8ef; border-radius: 10px; padding: 8px 12px; }
+.nlefoot { margin-top: auto; padding-top: 30px; display: flex; justify-content: center; gap: 12px; align-items: center; font-size: 13px; color: #8a919d; }
+.nllink { appearance: none; border: 0; background: none; font: inherit; font-size: 13.5px; font-weight: 800; color: #4b5563; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.nlvs { background: #fff; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.nlvsr { display: grid; grid-template-columns: 1fr 76px 1fr; align-items: center; text-align: center; padding: 8px 0; border-top: 1px solid #f1f3f6; }
+.nlvsr.hd { border-top: 0; }
+.nlvsr > span { font-size: 13px; color: #8a919d; font-weight: 800; }
+.nlvsr > b { font-size: 16px; font-weight: 700; color: #6b7280; }
+.nlvsr > b.win { color: #15181e; font-weight: 900; }
+.nlvsr > b.win::after { content: " ●"; color: #45d37f; font-size: 11px; vertical-align: middle; }
+.nlvsn { appearance: none; border: 0; background: none; font: inherit; font-size: 15.5px; font-weight: 900; color: #15181e; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #d6dbe1; word-break: keep-all; }
+.nlvsum { margin: 8px 0; text-align: center; font-size: 15px; font-weight: 900; }
+.nlvs .nlbtn { align-self: center; }
+.nlfakesearch.top { margin: 12px 14px 0; }
+.nlans { margin: 0 14px; background: #fff; border-radius: 22px; padding: 18px 16px; display: flex; flex-direction: column; gap: 8px; }
+.nlans h1 { margin: 0; font-size: 28px; word-break: keep-all; }
+.nlverd { margin: 0; font-size: 15.5px; line-height: 1.6; color: #2b2f36; word-break: keep-all; }
+.nlanp { height: 190px; border-radius: 16px; overflow: hidden; background: #eef0f3; }
+.nlanp img { width: 100%; height: 100%; object-fit: cover; }
+.nlfacts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; }
+.nlfacts div { background: #f6f7f9; border-radius: 12px; padding: 8px 2px; display: flex; flex-direction: column; }
+.nlfacts small { font-size: 11.5px; color: #6b7280; font-weight: 800; }
+.nlfacts b { white-space: nowrap; font-family: "Barlow Condensed", sans-serif; font-size: 21px; line-height: 1.1; }
+.nlfacts em { font-style: normal; font-size: 11.5px; color: #8a919d; }
+.nlk.pad, .nlchips.pad { padding: 0 16px; }
+.nlqa { display: flex; flex-direction: column; gap: 8px; padding: 0 14px; }
+.nlqq { align-self: flex-end; background: #15181e; color: #fff; border-radius: 16px 16px 4px 16px; padding: 9px 14px; font-size: 15px; font-weight: 700; }
+.nlqan { align-self: stretch; background: #fff; border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 15.5px; line-height: 1.6; display: flex; flex-direction: column; gap: 8px; word-break: keep-all; }
+.nlqan p { margin: 0; }
+.nlqan .nlrow { background: #f6f7f9; }
 </style>
 </head><body>
 <script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';</script>
@@ -6179,16 +6273,16 @@ body.nlnoscroll { overflow: hidden; }
     let v = '';
     try {
       const q = (new URLSearchParams(location.search).get('look') || '').toLowerCase();
-      const h = location.hostname.match(/^look-([abc])\./);
-      if (q) { v = q; LS.set('nl_look', /^[abc]$/.test(q) ? q : 'off'); }
+      const h = location.hostname.match(/^look-([a-e])\./);
+      if (q) { v = q; LS.set('nl_look', /^[a-e]$/.test(q) ? q : 'off'); }
       else if (h) v = h[1];
       else v = LS.get('nl_look') || '';
     } catch (e) {}
-    if (!/^[abc]$/.test(v)) v = '';
-    return { v, budget: 3000, kind: '', sort: 'ovr', body: '', more: 0, find: false, fb: 0, fbody: '', flip: false, open: false, pid: null, lamp: null };
+    if (!/^[a-e]$/.test(v)) v = '';
+    return { v, cat: '', q: '', asked: [], budget: 3000, kind: '', sort: 'ovr', body: '', more: 0, find: false, fb: 0, fbody: '', flip: false, open: false, pid: null, lamp: null };
   })();
   const NLC = { R: '#e2554c', O: '#e5a443', L: '#c8d758', G: '#45d37f', GOLD: '#e3b448', INK: '#15181e' };
-  const NLNAME = { a: '예산 속도계 + 매거진', b: '두 갈래 + 선수 카드', c: '계기판 클러스터' };
+  const NLNAME = { a: '예산 속도계 + 매거진', b: '두 갈래 + 선수 카드', c: '계기판 클러스터', d: '아이콘 홈 (배민식)', e: '검색 한 줄' };
   const nlCol = (v) => (isNaN(v) ? '#cfd4db' : v >= 16 ? NLC.G : v >= 11 ? NLC.L : v >= 6 ? NLC.O : NLC.R);
   const nlTx = (v) => (isNaN(v) ? '#8a919d' : v >= 16 ? '#1b8a4b' : v >= 11 ? '#6f7d0e' : v >= 6 ? '#b8730c' : '#c4352d');
   const nlS = (r, k) => gv(k, r['s_' + k]);
@@ -6218,10 +6312,10 @@ body.nlnoscroll { overflow: hidden; }
     const strip = el('div', 'nlstrip');
     strip.appendChild(el('span', null, `테스트 시안 ${NL.v.toUpperCase()} · ${NLNAME[NL.v]}`));
     const sw = strip.appendChild(el('span', 'nlsw'));
-    [['a', 'A'], ['b', 'B'], ['c', 'C'], ['off', '지금 화면']].forEach(([k, t]) => { const a = sw.appendChild(el('a', k === NL.v ? 'on' : '', t)); a.href = '?look=' + k + location.hash; });
+    [['a', 'A'], ['b', 'B'], ['c', 'C'], ['d', 'D'], ['e', 'E'], ['off', '지금']].forEach(([k, t]) => { const a = sw.appendChild(el('a', k === NL.v ? 'on' : '', t)); a.href = '?look=' + k + location.hash; });
     const hd = el('header', 'nlhd'); hd.id = 'nlhd';
     const mb = hd.appendChild(btnEl('nlib', '', () => nlDrawer(true))); mb.setAttribute('aria-label', '메뉴 열기'); mb.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 7h16M4 12h16M4 17h16" stroke="#15181e" stroke-width="2.2" stroke-linecap="round"/></svg>';
-    const br = hd.appendChild(btnEl('nlbrand', '', () => { NL.find = false; show('t-home'); }));
+    const br = hd.appendChild(btnEl('nlbrand', '', () => { NL.find = false; NL.cat = ''; show('t-home'); }));
     const lg = document.querySelector('.topbar .logo'); if (lg) br.appendChild(lg.cloneNode(true));
     br.appendChild(el('b', null, 'CAR SQUAD')); br.appendChild(el('span', 'nlwhere', '')).id = 'nlwhere';
     const sb = hd.appendChild(btnEl('nlib', '', () => nlSearch())); sb.setAttribute('aria-label', '차 검색'); sb.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24"><circle cx="10.5" cy="10.5" r="6.5" stroke="#15181e" stroke-width="2.2" fill="none"/><path d="m16 16 4.5 4.5" stroke="#15181e" stroke-width="2.2" stroke-linecap="round"/></svg>';
@@ -6233,7 +6327,7 @@ body.nlnoscroll { overflow: hidden; }
     const top = pn.appendChild(el('div', 'nldtop')); if (lg) top.appendChild(lg.cloneNode(true)); top.appendChild(el('b', null, '메뉴'));
     top.appendChild(btnEl('nlx', '✕', () => nlDrawer(false))).setAttribute('aria-label', '닫기');
     const grp = (t, items) => { pn.appendChild(el('div', 'nldg', t)); items.forEach(([ic, label, sub, fn, id]) => { const b = pn.appendChild(btnEl('nldi', '', () => { nlDrawer(false); fn(); })); if (id) b.dataset.tab = id; b.appendChild(el('span', 'nldic', ic)); const tx = b.appendChild(el('span')); tx.appendChild(el('b', null, label)); if (sub) tx.appendChild(el('small', null, sub)); }); };
-    const go = (t) => () => { NL.find = false; show(t); };
+    const go = (t) => () => { NL.find = false; NL.cat = ''; show(t); };
     grp('차 고르기', [['🏠', '홈', '', go('t-home'), 't-home'], ['🏆', '랭킹', '종합 순위', go('t-rank'), 't-rank'], ['👤', '선수', '차 한 대 자세히', go('t-prof'), 't-prof'], ['⚔️', '비교', '최대 4대 맞대결', go('t-cmp'), 't-cmp'], ['🧭', '추천', '5문항 영입 상담', go('t-wiz'), 't-wiz'], ['🔁', '이적시장', '중고 시세', go('t-used'), 't-used'], ['🏎️', '펀카', '슈퍼카~핫해치', go('t-fun'), 't-fun'], ['📋', '전체 명단', '스카우트', go('t-all'), 't-all']]);
     grp('놀기', [['📈', '차생 그래프', '내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🧠', '차 MBTI', '24문항', () => goPlay('mb')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['⚽', '스쿼드', '찜한 차로 팀 짜기', go('t-sq'), 't-sq']]);
     grp('기타', [['📏', '점수 매기는 법', '', go('t-how'), 't-how']]);
@@ -6257,7 +6351,7 @@ body.nlnoscroll { overflow: hidden; }
   }
   function nlAfterShow(id) {
     if (!NL.v) return;
-    const w = $('#nlwhere'); if (w) w.textContent = id === 't-home' && NL.find ? '· 찾기' : NLTITLE[id] ? '· ' + NLTITLE[id] : '';
+    const w = $('#nlwhere'); if (w) w.textContent = id === 't-home' && NL.cat && nlCat(NL.cat) ? '· ' + nlCat(NL.cat)[2] : id === 't-home' && NL.find ? '· 찾기' : NLTITLE[id] ? '· ' + NLTITLE[id] : '';
     const vd = document.querySelector('.vd'); if (vd) vd.classList.toggle('nofilt', ['t-home', 't-play', 't-prof'].includes(id));
   }
   // 목록 한 줄 (사진 · 이름 · 작은 다이얼)
@@ -6280,8 +6374,11 @@ body.nlnoscroll { overflow: hidden; }
   // ---- 홈
   function nlHome(box) {
     box.textContent = ''; box.className = 'nlhome';
+    nlAfterShow(cur);
     if (NL.v === 'a') return nlHomeA(box);
     if (NL.v === 'b') return NL.find ? nlFindB(box) : nlHomeB(box);
+    if (NL.v === 'd') return nlHomeD(box);
+    if (NL.v === 'e') return nlHomeE(box);
     return nlHomeC(box);
   }
   // A: 예산 속도계 (신차 + 중고 시세 섞기)
@@ -6414,10 +6511,10 @@ body.nlnoscroll { overflow: hidden; }
   function nlProfile() {
     const sec = $('#p-prof'); if (!sec) return;
     const r = byId[state.prof]; if (!r) return;
-    if (NL.pid !== r.id) { NL.pid = r.id; NL.open = false; NL.flip = false; NL.lamp = null; }
+    if (NL.pid !== r.id) { NL.pid = r.id; NL.open = false; NL.flip = false; NL.lamp = null; NL.asked = []; }
     let box = $('#nlprof'); if (!box) { box = el('div', 'nlprof'); box.id = 'nlprof'; sec.insertBefore(box, sec.firstChild); }
     box.textContent = '';
-    if (NL.v === 'a') nlProfA(box, r); else if (NL.v === 'b') nlProfB(box, r); else nlProfC(box, r);
+    if (NL.v === 'a') nlProfA(box, r); else if (NL.v === 'b') nlProfB(box, r); else if (NL.v === 'd') nlProfD(box, r); else if (NL.v === 'e') nlProfE(box, r); else nlProfC(box, r);
     const act = box.appendChild(el('div', 'nlacts'));
     act.appendChild(favBtnChip(r)).className = 'nlbtn';
     act.appendChild(btnEl('nlbtn', state.cmp.includes(r.id) ? '비교에서 빼기' : '⚔️ 비교에 담기', () => toggleCmp(r.id)));
@@ -6491,6 +6588,175 @@ body.nlnoscroll { overflow: hidden; }
     sm.appendChild(el('p', null, grn.length ? `🟢 초록 불 ${grn.length}개: ${grn.map((x) => x.l).join('·')}` : '🟢 초록 불 없음'));
     if (NL.lamp) { const a = A[NL.lamp]; const x = lamps.find((y) => y.k === NL.lamp); const d = box.appendChild(el('div', 'nlldet')); d.style.borderColor = nlCol(x.v); d.appendChild(el('b', null, `${x.ic} ${x.l} ${isNaN(x.raw) ? '–' : Math.round(x.raw)} / 20`)); let t = ''; try { t = a.fmtv(r); } catch (e) {} d.appendChild(el('p', null, t || '기록 없음')); if (isEst(r, NL.lamp)) d.appendChild(el('p', 'nlmut', '추정값이 섞여 있어요')); if (NL.lamp === 'durab') d.appendChild(el('p', 'nlmut', '무상 점검(리콜) 횟수가 적을수록 초록 불이에요')); }
     box.appendChild(el('p', 'nlmut', '불 색 = 로고 색 · 초록 16↑ · 연두 11↑ · 주황 6↑ · 빨강 5↓'));
+  }
+  // ---- D: 아이콘 홈 (배민식 카테고리)
+  const NLCAT = [
+    ['suv', '🚙', 'SUV', (r) => r.body === 'SUV'], ['sedan', '🚗', '세단', (r) => r.body === '세단'], ['ev', '🔋', '전기', (r) => r.powertrain === '전기'], ['hev', '🍃', '하이브리드', (r) => r.powertrain === '하이브리드' || r.powertrain === 'PHEV'],
+    ['kei', '🐣', '경차', (r) => r.body === '경차' || (num(r.len) <= 3600)], ['seven', '👨‍👩‍👧‍👦', '7인승', (r) => num(r.seats) >= 7 || r.body === 'MPV'], ['value', '💰', '가성비', (r) => nlS(r, 'value') >= 14], ['pickup', '🛻', '픽업', (r) => r.body === '픽업'],
+    ['hatch', '🏎️', '해치백·펀카', (r) => r.body === '해치백' || r.body === '쿠페'], ['quiet', '🤫', '조용한 차', (r) => nlS(r, 'quiet') >= 15], ['first', '🔰', '첫차 추천', (r) => r.price <= 3000 && nlS(r, 'safety') >= 11], ['import', '🌍', '수입차', (r) => r.origin === '수입']
+  ];
+  const NLBAN = [['hev', '이번 주 추천', '기름값 아끼는\n하이브리드 모음', '🍃', '#e9f8ee', '#d6f0c0'], ['first', '이번 주 추천', '사회초년생\n첫차 후보 모음', '🔰', '#fff6e0', '#fde3b0'], ['seven', '이번 주 추천', '온 가족 다 타는\n7인승 모음', '👨‍👩‍👧‍👦', '#eef3ff', '#dbe6ff'], ['quiet', '이번 주 추천', '귀가 편한\n조용한 차 모음', '🤫', '#f5f0ff', '#e6dcff']];
+  const nlCat = (k) => NLCAT.find((c) => c[0] === k);
+  const nlTop = (r, n) => ATTR.filter((a) => !isNaN(r['s_' + a.k]) && !isEst(r, a.k) && a.k !== 'tage').sort((x, y) => nlS(r, y.k) - nlS(r, x.k)).slice(0, n);
+  function nlModels(list) { const seen = new Set(); return list.slice().sort((a, b) => b._ovr - a._ovr).filter((r) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }); }
+  function nlHomeD(box) {
+    if (NL.cat) return nlCatD(box);
+    box.appendChild(el('h2', 'nlq jal', '오늘은 뭐 타지? 🤔'));
+    const s = box.appendChild(btnEl('nlfakesearch', '', () => nlSearch())); s.innerHTML = '<span>🔍</span> 차 이름, 초성(ㅇㅂㄸ)도 OK';
+    const wk = Math.floor(Date.now() / 6048e5); const bn = NLBAN[wk % NLBAN.length];
+    const ban = box.appendChild(btnEl('nlban', '', () => { NL.cat = bn[0]; NL.more = 0; render(); window.scrollTo({ top: 0 }); }));
+    ban.style.background = `linear-gradient(110deg, ${bn[4]}, ${bn[5]})`;
+    ban.appendChild(el('small', null, bn[1])); ban.appendChild(el('b', 'jal', bn[2])); ban.appendChild(el('span', 'nlbani', bn[3]));
+    const g = box.appendChild(el('div', 'nlicons'));
+    NLCAT.slice(0, 8).forEach(([k, ic, t]) => { const b = g.appendChild(btnEl('nlicon', '', () => { NL.cat = k; NL.more = 0; render(); window.scrollTo({ top: 0 }); })); b.appendChild(el('span', null, ic)); b.appendChild(el('b', null, t)); });
+    const rnd = rng(seedOf(todayKey())); const pick = NLCAT.slice(0, 4)[Math.floor(rnd() * 4)];
+    const strip = (title, list) => { box.appendChild(el('div', 'nlsec', title)); const sc = box.appendChild(el('div', 'nlhscroll')); list.forEach((r) => { const b = sc.appendChild(btnEl('nlhc', '', () => openProfile(r.id))); const ph = b.appendChild(el('div', 'nlhcp')); photo(ph, r); b.appendChild(el('b', null, shortName(nlBrandless(r)))); b.appendChild(el('small', null, `★ ${ovrTxt(r)} · ${nlMan(r.price)}`)); }); };
+    strip(`카스쿼드 추천 ${pick[2]}`, nlModels(activePool().filter(pick[3])).slice(0, 8));
+    strip('요즘 많이 보는 차', nlModels(activePool().filter((r) => r.u_n || r.used_n)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 8));
+    nlPlayRow(box, '놀거리');
+  }
+  function nlCatD(box) {
+    const c = nlCat(NL.cat) || NLCAT[0];
+    box.appendChild(btnEl('nlback', '← 홈으로', () => { NL.cat = ''; render(); }));
+    const tabs = box.appendChild(el('div', 'nlctabs'));
+    NLCAT.forEach(([k, ic, t]) => { const b = tabs.appendChild(btnEl(k === c[0] ? 'on' : '', `${ic} ${t}`, () => { NL.cat = k; NL.more = 0; render(); })); if (k === c[0]) setTimeout(() => b.scrollIntoView({ inline: 'center', block: 'nearest' }), 0); });
+    const so = box.appendChild(el('div', 'nlchips sm left'));
+    [['ovr', '추천순(OVR)'], ['p', '몸값 낮은 순'], ['fe', '연비 좋은 순'], ['safe', '안전 높은 순']].forEach(([k, t]) => so.appendChild(btnEl('nlchip' + (NL.sort === k ? ' on' : ''), t, () => { NL.sort = k; render(); })));
+    let L = nlModels(activePool().filter(c[3]));
+    const srt = { ovr: (a, b) => b._ovr - a._ovr, p: (a, b) => a.price - b.price, fe: (a, b) => (nlS(b, 'eff') || 0) - (nlS(a, 'eff') || 0), safe: (a, b) => (nlS(b, 'safety') || 0) - (nlS(a, 'safety') || 0) }[NL.sort] || ((a, b) => b._ovr - a._ovr);
+    L = L.sort(srt);
+    box.appendChild(el('p', 'nlmut', `${c[1]} ${c[2]} · ${L.length}모델`));
+    const lim = 15 + NL.more * 20;
+    L.slice(0, lim).forEach((r) => {
+      const b = box.appendChild(btnEl('nlstore', '', () => openProfile(r.id)));
+      const ph = b.appendChild(el('div', 'nlstp')); photo(ph, r);
+      const m = b.appendChild(el('div', 'nlstm'));
+      m.appendChild(el('b', null, nlBrandless(r)));
+      const st = m.appendChild(el('div', 'nlstar')); st.appendChild(el('span', null, '★')); st.appendChild(el('b', null, ovrTxt(r))); st.appendChild(el('small', null, isNaN(r._rank) ? '' : `· ${r._rank}위 · ${r.brand}`));
+      m.appendChild(el('small', null, `몸값 ${nlMan(r.price)} · 월 기름값 ${nlFuel(r)}`));
+      const tg = m.appendChild(el('div', 'nltags')); nlTop(r, 2).forEach((a) => tg.appendChild(el('i', null, `${a.label} ${Math.round(r['s_' + a.k])}`)));
+    });
+    if (L.length > lim) box.appendChild(btnEl('nlmore', `${L.length - lim}모델 더 보기`, () => { NL.more++; render(); }));
+  }
+  function nlProfD(box, r) {
+    const ph = box.appendChild(el('div', 'nlhero short')); photo(ph, r);
+    const cd = box.appendChild(el('div', 'nlstore-hd'));
+    cd.appendChild(el('h1', 'jal', nlBrandless(r)));
+    const st = cd.appendChild(el('div', 'nlstar big')); st.appendChild(el('span', null, stars(r._ovr))); st.appendChild(el('b', null, ovrTxt(r))); st.appendChild(el('small', null, isNaN(r._rank) ? '' : `OVR ${r._rank}위`));
+    const inf = cd.appendChild(el('div', 'nlinfo2'));
+    const rn = num(r.rec_n);
+    [[r.og ? '마지막 신차가' : '몸값', nlMan(r.price) + ' 원'], ['월 기름값', nlFuel(r) + ' 원 (출퇴근)'], ['연비', nlFe(r)], ['무상 점검', isNaN(rn) || !rn ? '기록 없음' : rn + '번']].forEach(([k, v]) => { const d = inf.appendChild(el('div')); d.appendChild(el('span', null, k)); d.appendChild(el('b', null, v)); });
+    const tb = box.appendChild(el('div', 'nlptabs'));
+    const secs = [['대표 능력치', 'nlsd1'], ['비용', 'nlsd2'], ['선수 정보', 'nlsd3']];
+    secs.forEach(([t, id]) => tb.appendChild(btnEl('', t, () => { const e = $('#' + id); if (e) e.scrollIntoView({ behavior: 'smooth', block: 'start' }); })));
+    const s1 = box.appendChild(el('div', 'nlmenu')); s1.id = 'nlsd1'; s1.appendChild(el('h3', null, '대표 능력치'));
+    nlTop(r, 5).forEach((a, i) => { const row = s1.appendChild(el('div', 'nlmrow')); const m = row.appendChild(el('div')); m.appendChild(el('b', null, (i === 0 ? '👑 ' : '') + a.label)); let t = ''; try { t = a.fmtv(r); } catch (e) {} m.appendChild(el('small', null, t)); const v = Math.round(r['s_' + a.k]); const sc = row.appendChild(el('span', 'nlmsc', String(v))); sc.style.background = nlCol(nlS(r, a.k)); });
+    const s2 = box.appendChild(el('div', 'nlmenu')); s2.id = 'nlsd2'; s2.appendChild(el('h3', null, '비용'));
+    const c = commuteCost(r);
+    [['월 출퇴근 기름값', nlFuel(r) + ' 원', c ? `하루 왕복 ${CM.km * 2}km · 월 ${CM.days}일` : ''], ['자동차세', blank(r.tax) ? '–' : fmt(Math.round(r.tax / 1000) * 1000) + '원/년', ''], ['중고 시세', blank(r.used_price) ? '–' : nlMan(r.used_price) + ' 원', r.used_years || '']].forEach(([k, v, sub]) => { const row = s2.appendChild(el('div', 'nlmrow')); const m = row.appendChild(el('div')); m.appendChild(el('b', null, k)); if (sub) m.appendChild(el('small', null, sub)); row.appendChild(el('span', 'nlmv', v)); });
+    const s3 = box.appendChild(el('div', 'nlmenu')); s3.id = 'nlsd3'; s3.appendChild(el('h3', null, '선수 정보'));
+    const sty = style(r);
+    [['플레이 스타일', sty[0], sty[1] || ''], ['차 MBTI', carMBTI(r), ''], ['국적·구동', `${r.brand} · ${r.drive || '–'}`, '']].forEach(([k, v, sub]) => { const row = s3.appendChild(el('div', 'nlmrow')); const m = row.appendChild(el('div')); m.appendChild(el('b', null, k)); if (sub) m.appendChild(el('small', null, sub)); row.appendChild(el('span', 'nlmv', v)); });
+  }
+
+  // ---- E: 검색 한 줄
+  const NLQ_BODY = [[/suv|에스유브이/i, 'SUV'], [/세단/, '세단'], [/경차/, '경차'], [/해치백/, '해치백'], [/픽업|트럭/, '픽업'], [/mpv|미니밴|승합/i, 'MPV'], [/쿠페/, '쿠페']];
+  const NLQ_PT = [[/전기|\bev\b/i, '전기'], [/하이브리드|hev/i, '하이브리드'], [/디젤|경유/, '디젤'], [/가솔린|휘발유/, '가솔린']];
+  const NLQ_SORT = [[/연비|기름값|아끼/, 'eff', '연비 좋은 순'], [/조용|정숙|소음/, 'quiet', '조용한 순'], [/안전/, 'safety', '안전 높은 순'], [/빠른|가속|빨라/, 'accel', '빠른 순'], [/넓은|공간|실내/, 'room', '넓은 순'], [/짐|트렁크|적재/, 'cargo', '짐 많이 싣는 순'], [/가성비/, 'value', '가성비 순'], [/싼|저렴|싸/, 'price', '싼 순']];
+  function nlParse(q) {
+    const t = q.trim(); if (!t) return null;
+    const vs = t.split(/\s+(?:vs|VS|대|랑|와|과|하고)\s+|\s*vs\s*/);
+    if (vs.length === 2 && vs[0] && vs[1]) { const a = searchCars(vs[0], 1)[0], b = searchCars(vs[1], 1)[0]; if (a && b && a.id !== b.id) return { vs: [a, b] }; }
+    const P = { why: [] };
+    const m = t.match(/(\d+(?:\.\d+)?)\s*(억|천만|천|백만|만)/);
+    if (m) { const n = parseFloat(m[1]); P.max = m[2] === '억' ? n * 10000 : m[2] === '천만' || m[2] === '천' ? n * 1000 : m[2] === '백만' ? n * 100 : n; if (/이상|넘는|부터/.test(t)) { P.min = P.max; P.max = 0; P.why.push(nlMan(P.min) + ' 원 이상'); } else P.why.push(nlMan(P.max) + ' 원 이하'); }
+    NLQ_BODY.forEach(([re, v]) => { if (!P.body && re.test(t)) { P.body = v; P.why.push(v); } });
+    NLQ_PT.forEach(([re, v]) => { if (!P.pt && re.test(t)) { P.pt = v; P.why.push(v); } });
+    if (/7인승|칠인승|대가족/.test(t)) { P.seven = 1; P.why.push('7인승'); }
+    if (/수입|외제/.test(t)) { P.org = '수입'; P.why.push('수입'); } else if (/국산/.test(t)) { P.org = '국산'; P.why.push('국산'); }
+    NLQ_SORT.forEach(([re, k, l]) => { if (!P.sort && re.test(t)) { P.sort = k; P.sortL = l; } });
+    if (!P.why.length && !P.sort) return null;
+    let L = activePool().filter((r) => (!P.max || r.price <= P.max) && (!P.min || r.price >= P.min) && (!P.body || r.body === P.body) && (!P.pt || (P.pt === '하이브리드' ? /하이브리드|PHEV/.test(r.powertrain) : r.powertrain === P.pt)) && (!P.seven || num(r.seats) >= 7 || r.body === 'MPV') && (!P.org || r.origin === P.org));
+    L = nlModels(L);
+    if (P.sort === 'price') L.sort((a, b) => a.price - b.price); else if (P.sort) L.sort((a, b) => (nlS(b, P.sort) || 0) - (nlS(a, P.sort) || 0) || b._ovr - a._ovr);
+    P.list = L; P.why.push(P.sortL || 'OVR 높은 순');
+    return P;
+  }
+  function nlVsTable(box, a, b) {
+    const t = box.appendChild(el('div', 'nlvs'));
+    const hd = t.appendChild(el('div', 'nlvsr hd')); [a, b].forEach((r, i) => { const c = hd.appendChild(btnEl('nlvsn', shortName(nlBrandless(r)), () => openProfile(r.id))); if (i === 0) hd.appendChild(el('span', null, 'vs')); });
+    const rows = [['OVR', (r) => r._ovr, (r) => ovrTxt(r), 1], ['몸값', (r) => r.price, (r) => nlMan(r.price), -1], ['연비', (r) => nlS(r, 'eff'), (r) => nlFe(r), 1], ['월 기름값', (r) => { const c = commuteCost(r); return c ? c.won : NaN; }, (r) => nlFuel(r), -1], ['안전', (r) => nlS(r, 'safety'), (r) => String(Math.round(r.s_safety) || '–'), 1], ['정숙성', (r) => nlS(r, 'quiet'), (r) => String(Math.round(r.s_quiet) || '–'), 1], ['실내 공간', (r) => nlS(r, 'room'), (r) => String(Math.round(r.s_room) || '–'), 1]];
+    let wa = 0, wb = 0;
+    rows.forEach(([l, f, txt, dir]) => { const x = f(a), y = f(b); const row = t.appendChild(el('div', 'nlvsr')); const ca = row.appendChild(el('b', null, txt(a))); row.appendChild(el('span', null, l)); const cb = row.appendChild(el('b', null, txt(b))); if (!isNaN(x) && !isNaN(y) && x !== y) { const aw = (x - y) * dir > 0; (aw ? ca : cb).classList.add('win'); aw ? wa++ : wb++; } });
+    t.appendChild(el('p', 'nlvsum', wa === wb ? `${wa} 대 ${wb}, 무승부예요` : `${shortName(nlBrandless(wa > wb ? a : b))} ${Math.max(wa, wb)} 대 ${Math.min(wa, wb)} 우세`));
+    t.appendChild(btnEl('nlbtn', '비교 화면에서 전부 보기 →', () => { state.cmp = [a.id, b.id]; show('t-cmp'); }));
+  }
+  function nlHomeE(box) {
+    box.classList.add('nle');
+    const lg = document.querySelector('.topbar .logo'); const hl = box.appendChild(el('div', 'nlelogo')); if (lg) hl.appendChild(lg.cloneNode(true));
+    box.appendChild(el('h2', 'jal nleq', '어떤 차가 궁금하세요?'));
+    const wrap = box.appendChild(el('div', 'nlebox'));
+    wrap.appendChild(el('span', null, '🔍'));
+    const inp = wrap.appendChild(el('input')); inp.placeholder = '차 이름, 초성, 조건 다 돼요'; inp.autocomplete = 'off'; inp.value = NL.q || ''; inp.setAttribute('aria-label', '검색');
+    const ex = box.appendChild(el('div', 'nlchips'));
+    const res = box.appendChild(el('div', 'nleres'));
+    const run = () => {
+      const q = inp.value; NL.q = q; res.textContent = '';
+      ex.hidden = !!q.trim();
+      if (!q.trim()) return;
+      const P = nlParse(q);
+      if (P && P.vs) { res.appendChild(el('div', 'nlwhy', '두 차 맞대결')); nlVsTable(res, P.vs[0], P.vs[1]); return; }
+      if (P) {
+        res.appendChild(el('div', 'nlwhy', `이렇게 찾았어요: ${P.why.join(' · ')} → ${P.list.length}모델`));
+        P.list.slice(0, NL.more ? 60 : 12).forEach((r) => res.appendChild(nlRow(r, `${r.body || ''} · ${nlMan(r.price)} · 연비 ${nlFe(r)}`, () => openProfile(r.id))));
+        if (P.list.length > 12 && !NL.more) res.appendChild(btnEl('nlmore', `${P.list.length - 12}모델 더 보기`, () => { NL.more = 1; run(); }));
+        if (!P.list.length) res.appendChild(el('p', 'nlmut', '조건에 맞는 차가 없어요. 예산을 올리거나 조건을 하나 빼 보세요'));
+        return;
+      }
+      const L = searchCars(q, 10);
+      if (!L.length) { res.appendChild(el('p', 'nlmut', '못 찾았어요. 예: "아반떼", "3천만 원 이하 SUV", "연비 좋은 하이브리드", "투싼 vs 스포티지"')); return; }
+      L.forEach((r) => res.appendChild(nlRow(r, null, () => openProfile(r.id))));
+    };
+    [['3천만 원 이하 SUV'], ['연비 좋은 차'], ['아반떼 vs 쏘나타']].forEach(([t]) => ex.appendChild(btnEl('nlchip', t, () => { inp.value = t; NL.more = 0; run(); })));
+    inp.addEventListener('input', () => { NL.more = 0; run(); });
+    run();
+    const ft = box.appendChild(el('div', 'nlefoot'));
+    ft.appendChild(el('span', null, '국내 판매차 능력치 비교'));
+    ft.appendChild(btnEl('nllink', '🎮 놀이터', () => show('t-play')));
+  }
+  function nlProfE(box, r) {
+    const sb = box.appendChild(btnEl('nlfakesearch top', '', () => { NL.q = ''; show('t-home'); })); sb.innerHTML = `<span>🔍</span> ${r.name}`;
+    const ans = box.appendChild(el('div', 'nlans'));
+    ans.appendChild(el('div', 'nlk', [r.body, r.powertrain, r.origin].filter(Boolean).join(' · ')));
+    ans.appendChild(el('h1', 'jal', nlBrandless(r)));
+    const sty = style(r); ans.appendChild(el('p', 'nlverd', `한 줄 요약: ${sty[0]}${sty[1] ? ' — ' + sty[1] : ''}`));
+    const ph = ans.appendChild(el('div', 'nlanp')); photo(ph, r);
+    const g = ans.appendChild(el('div', 'nlfacts'));
+    [['OVR', ovrTxt(r), isNaN(r._rank) ? '' : r._rank + '위'], [r.og ? '마지막 신차가' : '몸값', nlMan(r.price), ''], ['연비', String(num(r.fe) || '–'), r.fe_unit || ''], ['월 기름값', nlFuel(r), '출퇴근']].forEach(([l, v, s]) => { const d = g.appendChild(el('div')); d.appendChild(el('small', null, l)); d.appendChild(el('b', null, v)); if (s) d.appendChild(el('em', null, s)); });
+    box.appendChild(el('div', 'nlk pad', '이어서 물어보기'));
+    const qa = box.appendChild(el('div', 'nlqa'));
+    const NQ = nlQs(r);
+    const chips = box.appendChild(el('div', 'nlchips left pad'));
+    (NL.asked || []).forEach((k) => { const q = NQ.find((x) => x[0] === k); if (q) nlAnswer(qa, r, q); });
+    NQ.filter((q) => !(NL.asked || []).includes(q[0])).forEach((q) => chips.appendChild(btnEl('nlchip', q[1], () => { NL.asked = (NL.asked || []).concat(q[0]); nlProfile(); })));
+  }
+  function nlQs(r) {
+    const same = activePool().filter((x) => x.body === r.body && modelKey(x) !== modelKey(r));
+    return [
+      ['fe', '연비는 어때?', () => { const c = commuteCost(r); const pool = nlModels(activePool().filter((x) => x.body === r.body && x.fe_unit === r.fe_unit)); const rank = pool.findIndex((x) => modelKey(x) === modelKey(r)); const better = pool.slice().sort((a, b) => num(b.fe) - num(a.fe)); const rk = better.findIndex((x) => modelKey(x) === modelKey(r)); return `연비 ${nlFe(r)}예요. ${c ? `하루 왕복 ${CM.km * 2}km 출퇴근이면 한 달 기름값 약 ${nlFuel(r)} 원.` : ''} ${rk >= 0 ? `${r.body} ${better.length}모델 중 연비 ${rk + 1}위.` : ''}`; }],
+      ['rec', '무상 점검(리콜)은?', () => { const n = num(r.rec_n); return isNaN(n) || !n ? '자동차리콜센터 기록 기준으로 무상 점검(리콜) 안내가 아직 없어요.' : `${r.rec_since ? r.rec_since + '년 이후 ' : ''}무상 점검(리콜) 안내가 ${n}번 있었어요(1년에 ${r.rec_rate}번꼴). 내 차가 대상인지는 자동차리콜센터(car.go.kr)에서 차대번호로 확인할 수 있어요.`; }],
+      ['safe', '안전은?', () => (r.safety_text ? `충돌 평가: ${r.safety_text}. 안전 능력치 ${Math.round(r.s_safety)} / 20.` : '공식 충돌 평가 기록이 아직 없어요.')],
+      ['used', '중고 시세는?', () => (blank(r.used_price) ? '엔카 기준으로 비교할 만한 중고 매물이 부족해요.' : `엔카 기준 중고 시세 약 ${nlMan(r.used_price)} 원(${r.used_years || ''})${isNaN(num(r.retention)) ? '' : `, 신차 값의 ${r.retention}% 수준`}이에요. 시세는 추정치라 실제 매물과 다를 수 있어요.`)],
+      ['alt', '이 가격대 다른 차는?', null, () => nlModels(same.filter((x) => Math.abs(x.price - r.price) <= r.price * 0.12 && x._ovr >= r._ovr - 3)).slice(0, 3)],
+      ['vs', '라이벌이랑 비교', null, null, () => nlModels(same).sort((a, b) => Math.abs(a.price - r.price) - Math.abs(b.price - r.price))[0]]
+    ];
+  }
+  function nlAnswer(qa, r, q) {
+    qa.appendChild(el('div', 'nlqq', q[1]));
+    const a = qa.appendChild(el('div', 'nlqan'));
+    if (q[2]) { a.textContent = q[2](); return; }
+    if (q[3]) { const L = q[3](); if (!L.length) { a.textContent = '비슷한 가격(±12%)에 같은 차종은 마땅한 게 없어요.'; return; } a.appendChild(el('p', null, `같은 ${r.body}, 비슷한 몸값(±12%) 중 OVR 높은 순이에요.`)); L.forEach((x) => a.appendChild(nlRow(x, null, () => openProfile(x.id)))); return; }
+    if (q[4]) { const b = q[4](); if (!b) { a.textContent = '비교할 라이벌을 못 찾았어요.'; return; } a.appendChild(el('p', null, `몸값이 가장 비슷한 ${r.body}: ${b.name}`)); nlVsTable(a, r, b); }
   }
   if (NL.v) nlShell();
 
