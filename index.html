@@ -1870,6 +1870,22 @@ body.nlnoscroll { overflow: hidden; }
 .nlmin em { flex: 1; min-width: 0; font-style: normal; font-size: 15px; font-weight: 800; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
 .nlmcur { display: none; }
 .nlmin b { flex: none; background: #e3b448; color: #15181e; font-size: 14px; font-weight: 800; border-radius: 9px; padding: 7px 13px; text-shadow: none; }
+.nlhknob { touch-action: none; cursor: grab; z-index: 4; pointer-events: auto; }
+.nlhg.drag .nlhknob { transition: none; cursor: grabbing; box-shadow: 0 0 0 7px rgba(227, 180, 72, .28), 0 8px 14px rgba(0, 0, 0, .5); }
+.nlhknob i { border: 0; width: 18px; height: 14px; border-radius: 0; background: repeating-linear-gradient(180deg, rgba(21, 24, 30, .45) 0 2px, transparent 2px 6px); }
+.nlhg.hint .nlhknob { animation: nlgearhint 1.3s ease-in-out .5s 2; }
+@keyframes nlgearhint { 0%, 100% { transform: translate(0, 0); } 35% { transform: translate(0, -26px); } 55% { transform: translate(0, -22px); } }
+.vd.nl .nlhs small { color: #c9ced6; }
+.vd.nl .nlhs.up small, .vd.nl .nlhs.dn small { left: 50%; right: auto; transform: translateX(-50%); padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+.vd.nl .nlhs.on small { background: #e3b448; color: #15181e; box-shadow: none; }
+/* 룸미러: 검색칸 크기로 납작하게 */
+.nlmirror { margin: 0 18px; padding-top: 8px; }
+.nlmstem { top: -2px; width: 16px; height: 12px; margin-left: -8px; border-radius: 5px 5px 2px 2px; }
+.nlmbody { padding: 3px; border-radius: 18px; }
+.vd.nl .nlmglass { padding: 3px; border-radius: 15px; }
+.nlmcam, .nlmchin { display: none; }
+.nlmin { border-radius: 13px; padding: 3px 3px 3px 12px; }
+.nlmin b { padding: 8px 13px; }
 /* C: 메뉴 = 오디오 패널, 상태등 = 공조 패널 (어두운 피아노 블랙) */
 .vd.nl-c .nllamps { background: linear-gradient(180deg, #23272e, #0d0f12); border-radius: 20px; padding: 12px 10px; gap: 8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 8px 18px rgba(0, 0, 0, .14); }
 .vd.nl-c .nllamp { position: relative; background: linear-gradient(180deg, #2f343c 0%, #1d2026 55%, #15181c 100%); border: 0; border-radius: 10px; padding: 12px 2px 8px; color: #e9edf2; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 2px 0 #000, 0 0 0 1px #0a0b0d; opacity: 1; transform: none; }
@@ -7058,19 +7074,47 @@ body.nlnoscroll { overflow: hidden; }
     const G = [['1', '차 찾기', 0, 0, () => nlGoBrowse()], ['2', '랭킹', 0, 1, () => show('t-rank')], ['3', '비교', 1, 0, () => show('t-cmp')], ['4', '놀이터', 1, 1, () => show('t-play')], ['5', '스쿼드', 2, 0, () => show('t-sq')], ['R', '최근 본 차', 2, 1, () => (rec ? openProfile(rec) : show('t-prof'))]];
     const X = (c) => (c * 2 + 1) / 6 * 100, Y = (rw) => (rw ? 85 : 15), NY = 50;
     gb.insertAdjacentHTML('beforeend', `<svg class="nlhgate" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true"><path d="M50 24V136M150 24V136M250 24V136M50 80H250" /></svg>`);
-    const knob = gb.appendChild(el('div', 'nlhknob')); knob.appendChild(el('i'));
+    const knob = gb.appendChild(el('div', 'nlhknob')); knob.appendChild(el('i')); knob.setAttribute('aria-hidden', 'true');
     const put = (x, y) => { knob.style.left = x + '%'; knob.style.top = y + '%'; };
     put(50, NY);
-    let busy = false;
-    G.forEach(([n, t, c, rw, fn]) => {
+    let busy = false; const slots = [];
+    const go = (k) => { const [, , c, rw, fn] = G[k]; busy = true; gb.classList.add('moving'); slots[k].classList.add('on'); put(X(c), Y(rw)); setTimeout(() => { gb.classList.remove('moving'); busy = false; fn(); }, 380); };
+    G.forEach(([n, t, c, rw], k) => {
       const b = gb.appendChild(btnEl('nlhs' + (rw ? ' dn' : ' up'), '', () => {
         if (busy) return; busy = true; gb.classList.add('moving');
-        put(X(c), NY); setTimeout(() => { put(X(c), Y(rw)); b.classList.add('on'); }, 200);
-        setTimeout(() => { gb.classList.remove('moving'); busy = false; fn(); }, 560);
+        put(X(c), NY); setTimeout(() => { busy = false; go(k); }, 200);
       }));
-      b.style.left = X(c) + '%'; b.style.top = Y(rw) + '%';
-      b.appendChild(el('b', null, n)); b.appendChild(el('small', null, t));
+      b.style.left = X(c) + '%'; b.style.top = Y(rw) + '%'; b.setAttribute('aria-label', n + '단 ' + t);
+      b.appendChild(el('b', null, n)); b.appendChild(el('small', null, t)); slots.push(b);
     });
+    // 기어봉 끌어서 변속: 가운데 줄은 좌우로, 1·3·5 / 2·4·R 칸은 위아래로만
+    let drag = null, cx = 50, cy = NY;
+    const COLS = [X(0), X(1), X(2)];
+    knob.addEventListener('pointerdown', (e) => {
+      if (busy) return; e.preventDefault(); knob.setPointerCapture(e.pointerId);
+      const r = gb.getBoundingClientRect(); drag = { r }; gb.classList.add('drag'); gb.classList.remove('hint');
+    });
+    knob.addEventListener('pointermove', (e) => {
+      if (!drag) return; const { r } = drag;
+      const px = Math.max(COLS[0], Math.min(COLS[2], (e.clientX - r.left) / r.width * 100));
+      const py = Math.max(15, Math.min(85, (e.clientY - r.top) / r.height * 100));
+      if (Math.abs(cy - NY) < 4) {
+        const col = COLS.reduce((a, c) => (Math.abs(c - px) < Math.abs(a - px) ? c : a), COLS[0]);
+        if (Math.abs(py - NY) > 6 && Math.abs(col - px) < 9) { cx = col; cy = py; } else { cx = px; cy = NY; }
+      } else { cy = py; }
+      put(cx, cy);
+      const t = cy <= 30 || cy >= 70 ? G.findIndex(([, , c, rw]) => X(c) === cx && (rw ? cy >= 70 : cy <= 30)) : -1;
+      slots.forEach((sb, k) => sb.classList.toggle('on', k === t));
+    });
+    const end = () => {
+      if (!drag) return; drag = null; gb.classList.remove('drag');
+      if (cy <= 30 || cy >= 70) { const k = G.findIndex(([, , c, rw]) => X(c) === cx && (rw ? cy >= 70 : cy <= 30)); if (k >= 0) return go(k); }
+      cx = 50; cy = NY; put(cx, cy); slots.forEach((sb) => sb.classList.remove('on'));
+    };
+    knob.addEventListener('pointerup', end); knob.addEventListener('pointercancel', end);
+    // 처음 한 번: 기어봉이 살짝 움직였다 돌아와서 '끌 수 있다'를 보여 줌
+    if (NL.gearUntil == null) { let seen = false; try { seen = sessionStorage.getItem('nlgear') === '1'; sessionStorage.setItem('nlgear', '1'); } catch (e) { /* 저장 안 되면 이번만 */ } NL.gearUntil = seen ? 0 : Date.now() + 3400; }
+    if (Date.now() < NL.gearUntil) { gb.classList.add('hint'); setTimeout(() => gb.classList.remove('hint'), Math.max(0, NL.gearUntil - Date.now())); }
   }
   function nlHomeC(box) {
     if (NL.view === 'browse') return nlBrowseHome(box);
