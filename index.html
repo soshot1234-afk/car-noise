@@ -1861,6 +1861,15 @@ body.nlnoscroll { overflow: hidden; }
 .vd.nl .nlmglass { color: #f4f6f8; }
 .vd.nl .nlmchin b, .vd.nl .nlmchin b.card { background: #2b3038; color: #c9ced6; }
 .vd.nl .nlmchin b.card { min-width: 24px; width: 24px; }
+/* C: 룸미러 안 검색칸 (거울 색은 그대로) */
+.vd.nl .nlmglass { padding: 18px 12px 12px; text-align: left; white-space: normal; text-shadow: none; }
+.nlmin { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, .14); border: 1.5px solid rgba(255, 255, 255, .75); border-radius: 14px; padding: 7px 6px 7px 12px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .25); }
+.nlmin svg { flex: none; }
+.nlmin svg circle, .nlmin svg path { stroke: #fff; }
+.nlmin em { flex: 1; min-width: 0; font-style: normal; font-size: 16px; font-weight: 800; color: #fff; line-height: 1.25; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
+.nlmin em small { display: block; font-size: 12.5px; font-weight: 600; color: rgba(255, 255, 255, .8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nlmcur { display: none; }
+.nlmin b { flex: none; background: #e3b448; color: #15181e; font-size: 14px; font-weight: 800; border-radius: 10px; padding: 10px 14px; text-shadow: none; }
 /* C: 메뉴 = 오디오 패널, 상태등 = 공조 패널 (어두운 피아노 블랙) */
 .vd.nl-c .nllamps { background: linear-gradient(180deg, #23272e, #0d0f12); border-radius: 20px; padding: 12px 10px; gap: 8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 8px 18px rgba(0, 0, 0, .14); }
 .vd.nl-c .nllamp { position: relative; background: linear-gradient(180deg, #2f343c 0%, #1d2026 55%, #15181c 100%); border: 0; border-radius: 10px; padding: 12px 2px 8px; color: #e9edf2; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 2px 0 #000, 0 0 0 1px #0a0b0d; opacity: 1; transform: none; }
@@ -1871,6 +1880,11 @@ body.nlnoscroll { overflow: hidden; }
 .vd.nl-c .nllamp .nlled { position: absolute; top: 6px; right: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--lc); box-shadow: 0 0 6px var(--lc); }
 .vd.nl-c .nllamp.on { background: linear-gradient(180deg, #3b4048 0%, #262a31 55%, #1b1e23 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 0 0 1.5px var(--lc), 0 2px 0 #000; }
 .vd.nl-c .nllamp.on::before { content: ''; position: absolute; left: 50%; top: 4px; width: 16px; height: 3px; margin-left: -8px; border-radius: 2px; background: var(--lc); box-shadow: 0 0 8px var(--lc); }
+.vd.nl[data-theme=light] { --sel: #15181e; --link: #9c7313; }
+.vd.nl .chip[aria-pressed=true] { box-shadow: none; }
+.vd.nl-c .nllamp.on small { color: #fff !important; }
+.vd.nl .statbox .nm { color: #15181e; } .vd.nl .statbox small, .vd.nl .statbox li::marker, .vd.nl .statbox .note { color: #596170; }
+.vd.nl .sqboard.pitch { background: repeating-linear-gradient(180deg, #4e9a62 0 10%, #56a36a 10% 20%); }
 /* C 메뉴: 센터페시아 하드 버튼 아이콘 (흰 목록 + 검은 버튼, 지금 화면은 위쪽 초록 불) */
 .nldkey { position: relative; flex: none; width: 40px; height: 36px; border-radius: 9px; display: grid; place-items: center; color: #eef1f5; background: linear-gradient(180deg, #3a4049 0%, #22262d 55%, #1a1d23 100%); box-shadow: 0 2px 0 #0c0e12, 0 3px 6px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .14), inset 0 -2px 3px rgba(0, 0, 0, .4); }
 .nldkey i { position: absolute; top: 4px; left: 50%; width: 12px; height: 2.5px; margin-left: -6px; border-radius: 2px; background: #454b55; }
@@ -7057,7 +7071,7 @@ body.nlnoscroll { overflow: hidden; }
   }
   function nlHomeC(box) {
     if (NL.view === 'browse') return nlBrowseHome(box);
-    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.innerHTML = '<i class="nlmcam"></i><span>🔍</span> 차 이름·조건으로 검색'; mb.appendChild(nlHtml('div', 'nlmchin', '<i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
+    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.setAttribute('aria-label', '차 검색'); s.innerHTML = '<i class="nlmcam"></i><span class="nlmin"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="#15181e" stroke-width="2.4" fill="none"/><path d="m16 16 4.5 4.5" stroke="#15181e" stroke-width="2.4" stroke-linecap="round"/></svg><em>어떤 차 찾으세요?<small>예: 그랜저, 7인승 SUV</small></em><i class="nlmcur"></i><b>검색</b></span>'; mb.appendChild(nlHtml('div', 'nlmchin', '<i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
     const rnd = rng(seedOf(todayKey()));
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
     const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
@@ -7243,7 +7257,7 @@ body.nlnoscroll { overflow: hidden; }
 
   // theme
   (function () { const root = document.querySelector('.vd'); const b = $('#thm');
-    const apply = (t) => { root.setAttribute('data-theme', t); b.setAttribute('aria-checked', t === 'dark'); b.title = t === 'light' ? '어두운 화면으로 바꾸기' : '밝은 화면으로 바꾸기'; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = '#14161c'; };
+    const apply = (t) => { if (document.documentElement.classList.contains('nlroot')) t = 'light'; root.setAttribute('data-theme', t); b.setAttribute('aria-checked', t === 'dark'); b.title = t === 'light' ? '어두운 화면으로 바꾸기' : '밝은 화면으로 바꾸기'; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = '#14161c'; };
     const saved = LS.get('carro_theme'); let sys = 'light'; try { sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch (e) {}
     apply(saved === 'dark' || saved === 'light' ? saved : sys);
     const tip = $('#thmtip'); const hideTip = () => { tip.hidden = true; LS.set('carro_thm_hint', '1'); };
