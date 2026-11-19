@@ -1819,12 +1819,6 @@ body.nlnoscroll { overflow: hidden; }
 .nlmdots i { width: 5px; height: 5px; border-radius: 50%; background: #d6dbe1; }
 .nlmdots i.on { width: 14px; border-radius: 3px; background: #15181e; }
 .nlclrow > .nlcg:first-child::after { content: ''; display: block; height: 11px; }
-.nlmirror { position: relative; margin: 2px 22px 0; padding-top: 14px; }
-.nlmstem { position: absolute; left: 50%; top: -12px; width: 18px; height: 28px; margin-left: -9px; border-radius: 6px 6px 4px 4px; background: linear-gradient(90deg, #2b3039, #15181e); }
-.nlmglass { appearance: none; position: relative; width: 100%; border: 6px solid #15181e; border-radius: 22px 22px 34px 34px / 20px 20px 30px 30px; background: linear-gradient(170deg, #f9fafb 0%, #eef1f4 45%, #e3e7ec 100%); box-shadow: 0 6px 14px rgba(0, 0, 0, .12), inset 0 1px 0 #fff; padding: 13px 18px; font: inherit; font-size: 15.5px; color: #6b7280; text-align: center; cursor: pointer; }
-.nlmglass::after { content: ''; position: absolute; left: 12%; top: 6px; width: 30%; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .9); }
-.nlmglass span { margin-right: 6px; }
-.nlmglass:hover { border-color: #2b3039; }
 .nlhgw { background: #15181e; border-radius: 22px; padding: 30px 10px 28px; box-shadow: 0 10px 24px rgba(0, 0, 0, .18); }
 .nlhg { position: relative; height: 150px; }
 .nlhgate { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -1840,10 +1834,6 @@ body.nlnoscroll { overflow: hidden; }
 .vd.nl .nlhs:hover b, .vd.nl .nlhs:hover small, .vd.nl .nlhs.on small { color: #fff; }
 .nlplogo { appearance: none; border: 0; background: none; padding: 0; margin: 0 0 8px; display: block; cursor: pointer; }
 .nlplogo .nllogo { max-width: 72px; }
-.nlmglass { padding-right: 86px; padding-left: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 15px; }
-.nlhipass { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 5px; background: #1f242c; color: #e9edf2; font: 800 10.5px/1 "Pretendard Variable", Pretendard, sans-serif; font-style: normal; padding: 6px 8px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); letter-spacing: -.02em; }
-.nlhipass i { width: 6px; height: 6px; border-radius: 50%; background: #45d37f; box-shadow: 0 0 6px #45d37f; animation: nlhp 2.4s ease-in-out infinite; }
-@keyframes nlhp { 0%, 70%, 100% { opacity: 1; } 80% { opacity: .25; } }
 .nlcgd { position: relative; }
 .nlswipe { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 6px; background: rgba(21, 24, 30, .82); color: #fff; border-radius: 999px; padding: 6px 10px; pointer-events: none; animation: nlswf 3.2s ease forwards; z-index: 2; }
 .nlswipe i { font: 900 16px/1 "Pretendard Variable", Pretendard, sans-serif; font-style: normal; opacity: .7; }
@@ -1853,6 +1843,24 @@ body.nlnoscroll { overflow: hidden; }
 @keyframes nlswf { 0% { opacity: 0; } 12% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
 .nlcgd.nudge svg { animation: nlnudge 1s ease-in-out 2; }
 @keyframes nlnudge { 0%, 100% { transform: translateX(0); } 30% { transform: translateX(-7px); } 60% { transform: translateX(3px); } }
+.nlmirror { position: relative; margin: 4px 18px 0; padding-top: 12px; }
+.nlmstem { position: absolute; left: 50%; top: -10px; width: 22px; height: 26px; margin-left: -11px; border-radius: 7px 7px 3px 3px; background: linear-gradient(90deg, #3a4048, #1c2026 60%, #2a2f36); }
+.nlmbody { position: relative; background: linear-gradient(180deg, #2a2f36, #15181e); border-radius: 26px 26px 30px 30px / 22px 22px 26px 26px; padding: 5px 5px 0; box-shadow: 0 8px 18px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255, 255, 255, .12); }
+.nlmglass { appearance: none; position: relative; display: block; width: 100%; border: 0; border-radius: 22px 22px 6px 6px / 18px 18px 6px 6px; background: linear-gradient(172deg, #9aa3ad 0%, #6d7680 38%, #4b535c 70%, #5d666f 100%); padding: 16px 16px 14px; font: inherit; font-size: 15px; font-weight: 700; color: #f4f6f8; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); text-align: center; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.nlmglass::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .22) 42%, transparent 55%); pointer-events: none; }
+.nlmglass span { margin-right: 6px; }
+.nlmglass:hover { filter: brightness(1.06); }
+.nlmcam { position: absolute; left: 50%; top: 6px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #1b1f25; box-shadow: inset 0 0 0 1.5px #3b424b; }
+.nlmchin { display: flex; align-items: center; justify-content: flex-end; gap: 6px; height: 26px; padding: 0 14px 2px; }
+.nlmchin em { margin-right: auto; font: italic 700 11px/1 "Barlow Condensed", sans-serif; color: #c9ced6; letter-spacing: .02em; }
+.nlmchin .led { width: 5px; height: 5px; border-radius: 50%; background: #45d37f; box-shadow: 0 0 6px #45d37f; margin-right: 4px; animation: nlhp 2.4s ease-in-out infinite; }
+@keyframes nlhp { 0%, 70%, 100% { opacity: 1; } 80% { opacity: .25; } }
+.nlmchin b { min-width: 24px; height: 14px; padding: 0 4px; border-radius: 3px; background: #2b3038; box-shadow: inset 0 0 0 1px #41474f; font: 700 8.5px/14px "Barlow Condensed", sans-serif; color: #c9ced6; text-align: center; }
+.nlmchin b.card { display: grid; place-items: center; }
+.nlmchin b.card u { width: 10px; height: 7px; border: 1.2px solid #c9ced6; border-radius: 1.5px; }
+.vd.nl .nlmglass { color: #f4f6f8; }
+.vd.nl .nlmchin b, .vd.nl .nlmchin b.card { background: #2b3038; color: #c9ced6; }
+.vd.nl .nlmchin b.card { min-width: 24px; width: 24px; }
 /* 제조사 로고 */
 .nllw { height: 40px; display: flex; align-items: center; justify-content: center; }
 .nllogo { display: block; width: auto; max-width: 92px; object-fit: contain; }
@@ -7028,7 +7036,7 @@ body.nlnoscroll { overflow: hidden; }
   }
   function nlHomeC(box) {
     if (NL.view === 'browse') return nlBrowseHome(box);
-    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const s = mir.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.innerHTML = '<span>🔍</span> 차 이름·조건으로 검색<em class="nlhipass" aria-hidden="true"><i></i>하이패스</em>';
+    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.innerHTML = '<i class="nlmcam"></i><span>🔍</span> 차 이름·조건으로 검색'; mb.appendChild(nlHtml('div', 'nlmchin', '<em>hi-pass</em><i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
     const rnd = rng(seedOf(todayKey()));
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
     const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
