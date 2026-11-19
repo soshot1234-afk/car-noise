@@ -1792,6 +1792,19 @@ body.nlnoscroll { overflow: hidden; }
 .nlext small { font-size: 13px; color: #6b7280; }
 .vd.nl #homebox.nlhome.nle { padding-top: 7vh; }
 
+/* 제조사 로고 줄·그리드 (시안) */
+.nllstrip { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+.nllstrip .nllogo { max-width: 34px; }
+.vd.nl .nlext .nllstrip, .nlext .nllstrip { flex-direction: row; justify-content: flex-start; gap: 10px; margin: 0; min-height: 26px; }
+.nlext .nllstrip .nllogo { max-width: 26px; }
+.nlbgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 6px; padding: 4px 0; }
+.nlbg { appearance: none; border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font: inherit; color: #15181e; min-width: 0; }
+.nlbg b { font-size: 13.5px; font-weight: 700; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.nlbgl { width: 62px; height: 62px; border-radius: 20px; background: #fff; border: 1px solid #eceef1; display: grid; place-items: center; font-size: 22px; font-weight: 800; color: #6b7280; }
+.nlbgl .nllogo { max-width: 38px; }
+.nlbgl .nllogo.png { max-width: 44px; }
+.nlbgrid.ring .nlbgl { border-radius: 50%; border: 2px solid #e3e6ea; }
+.nlbg:hover .nlbgl { border-color: #15181e; }
 /* 제조사 로고 */
 .nllw { height: 40px; display: flex; align-items: center; justify-content: center; }
 .nllogo { display: block; width: auto; max-width: 92px; object-fit: contain; }
@@ -6517,6 +6530,7 @@ body.nlnoscroll { overflow: hidden; }
     const two = box.appendChild(el('div', 'nltwo'));
     const c1 = two.appendChild(btnEl('nlway find', '', () => { NL.find = true; render(); nlAfterShow(cur); window.scrollTo({ top: 0 }); }));
     c1.innerHTML = `<span class="nlwi">🔍</span><b class="jal">차 찾기</b><small>제조사 → 모델 → 트림 순서로<br>또는 예산·차종 조건으로</small><span class="nlarr">→</span>`;
+    c1.insertBefore(nlLogoStrip(5, 20), c1.querySelector('.nlarr'));
     const c2 = two.appendChild(btnEl('nlway play', '', () => show('t-play')));
     c2.innerHTML = `<span class="nlwi">🎮</span><b class="jal">놀아 보기</b><small>차생 그래프 · 차 MBTI<br>이상형 월드컵 · 드림카까지</small><span class="nlarr">→</span>`;
     const rec = recentList().slice(0, 4);
@@ -6635,10 +6649,7 @@ body.nlnoscroll { overflow: hidden; }
     const g = box.appendChild(el('div', 'nlicons'));
     NLCAT.slice(0, 8).forEach(([k, ic, t]) => { const b = g.appendChild(btnEl('nlicon', '', () => { NL.cat = k; NL.more = 0; render(); window.scrollTo({ top: 0 }); })); const sp = b.appendChild(el('span')); sp.innerHTML = nlIco(k, 30); sp.style.background = NLTINT[k] || '#f4f5f7'; b.appendChild(el('b', null, t)); });
     box.appendChild(el('div', 'nlsec', '제조사로 찾기'));
-    const bs = box.appendChild(el('div', 'nlhscroll chips'));
-    const bm = new Map(); activePool().forEach((r) => bm.set(r.brand, (bm.get(r.brand) || 0) + 1));
-    [...bm.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).forEach(([br]) => { const c = bs.appendChild(btnEl('nlchip nllc2', '', () => nlGoBrowse(br))); const lg = nlLogo(br, 20); if (lg) c.appendChild(lg); c.appendChild(document.createTextNode(br)); });
-    bs.appendChild(btnEl('nlchip', '전체 제조사 →', () => nlGoBrowse()));
+    nlBrandGrid(box, 7, 'sq');
     const rnd = rng(seedOf(todayKey())); const pick = NLCAT.slice(0, 4)[Math.floor(rnd() * 4)];
     const strip = (title, list) => { box.appendChild(el('div', 'nlsec', title)); const sc = box.appendChild(el('div', 'nlhscroll')); list.forEach((r) => { const b = sc.appendChild(btnEl('nlhc', '', () => openProfile(r.id))); const ph = b.appendChild(el('div', 'nlhcp')); photo(ph, r); b.appendChild(el('b', null, shortName(nlBrandless(r)))); b.appendChild(el('small', null, `★ ${ovrTxt(r)} · ${nlMan(r.price)}`)); }); };
     strip(`카스쿼드 추천 ${pick[2]}`, nlModels(activePool().filter(pick[3])).slice(0, 8));
@@ -6749,7 +6760,7 @@ body.nlnoscroll { overflow: hidden; }
     };
     ex.className = 'nlextiles';
     [['💸', '3천만 원 이하 SUV', '예산·차종으로 찾기'], ['⛽', '연비 좋은 하이브리드', '조건으로 줄 세우기'], ['⚔️', '아반떼 vs 쏘나타', '두 차 맞대결']].forEach(([ic, t, sub]) => { const b = ex.appendChild(btnEl('nlext', '', () => { inp.value = t; NL.more = 0; run(); })); b.appendChild(el('span', null, ic)); const m = b.appendChild(el('div')); m.appendChild(el('b', null, t)); m.appendChild(el('small', null, sub)); });
-    { const b = ex.appendChild(btnEl('nlext', '', () => nlGoBrowse())); b.appendChild(el('span', null, '🏭')); const m = b.appendChild(el('div')); m.appendChild(el('b', null, '제조사별로 둘러보기')); m.appendChild(el('small', null, '현대 → 아반떼 → 트림')); }
+    { const b = ex.appendChild(btnEl('nlext', '', () => nlGoBrowse())); b.appendChild(nlLogoStrip(3, 16)); const m = b.appendChild(el('div')); m.appendChild(el('b', null, '제조사별로 둘러보기')); m.appendChild(el('small', null, '현대 → 아반떼 → 트림')); }
     inp.addEventListener('input', () => { NL.more = 0; run(); });
     run();
     const ft = box.appendChild(el('div', 'nlefoot'));
@@ -6793,6 +6804,15 @@ body.nlnoscroll { overflow: hidden; }
   // ---- 제조사 로고 (가리키는 용도로만 · 모양·색 변형 없음 · logos/README.md)
   const NLLOGO = {"기아":"kia.svg","현대":"hyundai.svg","BMW":"bmw.svg","벤츠":"mercedes.svg","아우디":"audi.svg","볼보":"volvo.svg","폴스타":"polestar.svg","포드":"ford.svg","테슬라":"tesla.svg","토요타":"toyota.svg","혼다":"honda.svg","닛산":"nissan.svg","폭스바겐":"volkswagen.svg","포르쉐":"porsche.svg","미니":"mini.svg","페라리":"ferrari.svg","람보르기니":"lamborghini.svg","마세라티":"maserati.svg","맥라렌":"mclaren.svg","롤스로이스":"rollsroyce.svg","벤틀리":"bentley.svg","애스턴마틴":"astonmartin.svg","캐딜락":"cadillac.svg","쉐보레":"chevrolet.svg","지프":"jeep.svg","랜드로버":"landrover.svg","램":"ram.svg","르노코리아":"renault.svg","푸조":"peugeot.svg","제네시스":"genesis.png","렉서스":"lexus.png","링컨":"lincoln.png","GMC":"gmc.png","로터스":"lotus.png"};
   function nlLogo(brand, h) { const f = NLLOGO[brand]; if (!f) return null; const i = el('img', 'nllogo' + (/\.png$/.test(f) ? ' png' : '')); i.src = 'logos/' + f; i.alt = brand; i.loading = 'lazy'; i.style.height = h + 'px'; i.addEventListener('error', () => i.remove()); return i; }
+  // 제조사 로고 줄·그리드 (가리키는 용도 · 원본 그대로)
+  function nlTopBrands(n) { const m = new Map(); activePool().forEach((r) => m.set(r.brand, (m.get(r.brand) || 0) + 1)); return [...m.entries()].sort((a, b) => b[1] - a[1]).map((x) => x[0]).filter((b) => NLLOGO[b]).slice(0, n); }
+  function nlLogoStrip(n, h) { const s = el('div', 'nllstrip'); nlTopBrands(n).forEach((b) => { const lg = nlLogo(b, h); if (lg) s.appendChild(lg); }); return s; }
+  function nlBrandGrid(box, n, cls) {
+    const g = box.appendChild(el('div', 'nlbgrid ' + (cls || '')));
+    nlTopBrands(n).forEach((b) => { const btn = g.appendChild(btnEl('nlbg', '', () => nlGoBrowse(b))); const t = btn.appendChild(el('span', 'nlbgl')); const lg = nlLogo(b, 26); if (lg) t.appendChild(lg); btn.appendChild(el('b', null, b)); });
+    const more = g.appendChild(btnEl('nlbg more', '', () => nlGoBrowse())); more.appendChild(el('span', 'nlbgl', '→')); more.appendChild(el('b', null, '전체 제조사'));
+    return g;
+  }
   const NLTM = '제조사 로고와 명칭은 각 제조사의 상표예요. 카스쿼드는 제조사와 제휴 관계가 아니며, 어느 회사 차인지 알려 드리는 용도로만 써요.';
   // ---- 공통: 제조사 → 모델 → 트림 (엔카·헤이딜러식 단계 찾기)
   const nlModelName = (r) => shortName(modelKey(r).replace(new RegExp('^' + r.brand + '\\s*'), '')) || r.name;
@@ -6845,7 +6865,7 @@ body.nlnoscroll { overflow: hidden; }
     nlBrowse(box);
   }
   const nlGoBrowse = (brand) => { NL.view = 'browse'; NL.find = false; NL.cat = ''; NL.br = { brand: brand || '', model: '' }; if (cur !== 't-home') show('t-home'); else render(); window.scrollTo({ top: 0 }); };
-  const nlBrowseBtn = (box, sub) => { const b = box.appendChild(btnEl('nlwide', '', () => nlGoBrowse())); b.appendChild(el('b', null, '🏭 제조사별로 찾기')); b.appendChild(el('small', null, sub || '현대 → 아반떼 → 트림 순서로')); b.appendChild(el('span', 'nlarr', '→')); return b; };
+  const nlBrowseBtn = (box, sub) => { const b = box.appendChild(btnEl('nlwide', '', () => nlGoBrowse())); b.appendChild(el('b', null, '제조사별로 찾기')); b.appendChild(el('small', null, sub || '현대 → 아반떼 → 트림 순서로')); b.appendChild(nlLogoStrip(6, 18)); b.appendChild(el('span', 'nlarr', '→')); return b; };
 
   // ---- A: 예산 바늘 (점 11개를 눌러서 고르기 · −/+ 버튼)
   const NLSTEP = [1500, 2000, 2500, 3000, 3500, 4000, 5000, 6000, 7000, 8500, 10000];
@@ -6962,6 +6982,8 @@ body.nlnoscroll { overflow: hidden; }
     cl.appendChild(el('p', 'nlmut', `${r.body || ''} · ${r.powertrain || ''} · 신차 ${nlMan(r.price)} · 월 출퇴근 기름값 ${nlFuel(r)}`));
     cl.appendChild(btnEl('nlgo', '이 선수 자세히 보기', () => openProfile(r.id)));
     nlGearbox(box);
+    box.appendChild(el('div', 'nlsec', '제조사로 찾기'));
+    nlBrandGrid(box, 7, 'ring');
   }
   function nlProfC(box, r) {
     const ph = box.appendChild(el('div', 'nlhero short')); photo(ph, r);
