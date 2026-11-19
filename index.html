@@ -7036,7 +7036,7 @@ body.nlnoscroll { overflow: hidden; }
   }
   function nlHomeC(box) {
     if (NL.view === 'browse') return nlBrowseHome(box);
-    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.innerHTML = '<i class="nlmcam"></i><span>🔍</span> 차 이름·조건으로 검색'; mb.appendChild(nlHtml('div', 'nlmchin', '<em>hi-pass</em><i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
+    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.innerHTML = '<i class="nlmcam"></i><span>🔍</span> 차 이름·조건으로 검색'; mb.appendChild(nlHtml('div', 'nlmchin', '<i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
     const rnd = rng(seedOf(todayKey()));
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
     const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
