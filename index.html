@@ -1403,6 +1403,509 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .kkinp button{border:0;background:#15181e;color:#fff;border-radius:22px;padding:0 16px;font:inherit;font-size:14.5px;font-weight:800;cursor:pointer}
 body.kkopen{overflow:hidden}
 </style>
+<style>
+/* ===== 새 화면 시안 (NL) ===== */
+.vd.nl .band { display: none !important; }
+.vd.nl .nlopen, .vd.nl .nlgo, .vd.nl .nlbtn.dark, .vd.nl .nlchip.on { color: #fff; }
+.vd.nl .nlopen, .vd.nl .nlgo { font-size: 16px; }
+.vd.nl .nlgear button { color: #c9ced6; } .vd.nl .nlgear button.on { color: #15181e; }
+html.nlroot, html.nlroot body { background: #f6f7f9; }
+body.nlnoscroll { overflow: hidden; }
+.vd.nl { background: #f6f7f9; color: #15181e; }
+.vd.nl > .topbar, .vd.nl > .tabs, .vd.nl .tabs { display: none !important; }
+.vd.nl .nlstrip { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; padding: 6px 14px; background: #15181e; color: #fff; font-size: 12.5px; font-weight: 700; }
+.vd.nl .nlsw { display: flex; gap: 4px; }
+.vd.nl .nlsw a { color: #c9ced6; text-decoration: none; border: 1px solid #3a404c; border-radius: 999px; padding: 2px 9px; font-size: 12px; }
+.vd.nl .nlsw a.on { background: #e3b448; border-color: #e3b448; color: #15181e; }
+.nlhd { position: sticky; top: 0; z-index: 45; display: flex; align-items: center; gap: 6px; height: 56px; padding: 0 8px; background: #fff; border-bottom: 1px solid #eceef1; }
+.nlib { appearance: none; border: 0; background: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; cursor: pointer; flex: none; }
+.nlib:hover { background: #f1f3f6; }
+.nlbrand { appearance: none; border: 0; background: none; flex: 1; display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 0; min-width: 0; color: #15181e; }
+.nlbrand .logo { width: 30px; height: 30px; flex: none; }
+.nlbrand b { font-family: "Jalnan", sans-serif; font-weight: 400; font-size: 18px; letter-spacing: .02em; white-space: nowrap; }
+.nlwhere { font-size: 14px; color: #6b7280; font-weight: 700; white-space: nowrap; }
+.nldraw { position: fixed; inset: 0; z-index: 200; background: rgba(15, 17, 21, .38); }
+.nldraw[hidden] { display: none; }
+.nldpn { position: absolute; left: 0; top: 0; bottom: 0; width: min(300px, 84vw); background: #fff; overflow-y: auto; padding: 10px 10px 30px; box-shadow: 8px 0 30px rgba(0, 0, 0, .12); animation: nlin .18s ease-out; }
+@keyframes nlin { from { transform: translateX(-30px); opacity: 0; } }
+.nldtop { display: flex; align-items: center; gap: 8px; padding: 6px 6px 10px; }
+.nldtop .logo { width: 28px; height: 28px; }
+.nldtop b { flex: 1; font-size: 17px; }
+.nlx { appearance: none; border: 0; background: #f1f3f6; width: 38px; height: 38px; border-radius: 10px; font-size: 16px; cursor: pointer; color: #15181e; }
+.nldg { font-size: 12.5px; font-weight: 800; color: #8a919d; padding: 14px 10px 6px; }
+.nldi { appearance: none; border: 0; background: none; width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 12px; cursor: pointer; text-align: left; color: #15181e; font: inherit; }
+.nldi:hover, .nldi.on { background: #f4f5f7; }
+.nldi.on b { color: #b8860b; }
+.nldic { font-size: 20px; width: 28px; text-align: center; }
+.nldi span:last-child { display: flex; flex-direction: column; }
+.nldi b { font-size: 16px; }
+.nldi small { font-size: 12.5px; color: #8a919d; }
+.nlso { position: fixed; inset: 0; z-index: 210; background: rgba(15, 17, 21, .38); display: flex; justify-content: center; align-items: flex-start; padding: 12px; }
+.nlsobox { width: min(560px, 100%); background: #fff; border-radius: 18px; padding: 12px; box-shadow: 0 20px 50px rgba(0, 0, 0, .2); max-height: 86vh; overflow-y: auto; }
+.nlsorow { display: flex; gap: 8px; }
+.nlsorow input { flex: 1; min-width: 0; font: inherit; font-size: 17px; padding: 12px 14px; border: 2px solid #15181e; border-radius: 12px; outline: none; color: #15181e; background: #fff; }
+.nlsores { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.vd.nl .nlmut, .nlso .nlmut { font-size: 13.5px; color: #6b7280; margin: 6px 0 0; line-height: 1.5; }
+.nlk { font-size: 13px; font-weight: 800; color: #8a919d; letter-spacing: .02em; }
+/* 목록 한 줄 */
+.nlrow { appearance: none; width: 100%; border: 0; background: #fff; border-radius: 18px; padding: 10px 12px; display: grid; grid-template-columns: 88px minmax(0, 1fr) 54px; gap: 12px; align-items: center; cursor: pointer; text-align: left; font: inherit; color: #15181e; box-shadow: 0 1px 0 #eceef1; }
+.nlrow:hover { box-shadow: 0 0 0 2px #e3b448; }
+.nlth { width: 88px; height: 58px; border-radius: 12px; overflow: hidden; background: #eef0f3; position: relative; }
+.nlth img, .nlhero img, .nlcph img, .nlmcp img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vd.nl .nlth .credit, .vd.nl .nlcph .credit, .vd.nl .nlmcp .credit { display: none; }
+.vd.nl .nophoto { display: grid; place-items: center; width: 100%; height: 100%; font-size: 12px; color: #9aa1ad; background: repeating-linear-gradient(135deg, #eceff3 0 8px, #f4f5f7 8px 16px); }
+.nlrm { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.nlrm b { font-size: 16px; line-height: 1.3; word-break: keep-all; }
+.nlrm small { font-size: 13.5px; color: #6b7280; }
+.nlrg { position: relative; width: 54px; display: flex; flex-direction: column; align-items: center; }
+.nlrg b { font-family: "Barlow Condensed", sans-serif; font-size: 17px; font-weight: 700; margin-top: -4px; }
+/* 홈 공통 */
+.vd.nl #homebox.nlhome { max-width: 560px; margin: 0 auto; padding: 16px 14px 40px; display: flex; flex-direction: column; gap: 14px; }
+.nlchips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.nlchip { appearance: none; border: 1.5px solid #d6dbe1; background: #fff; color: #15181e; border-radius: 999px; padding: 9px 14px; font: inherit; font-size: 14.5px; font-weight: 800; cursor: pointer; }
+.nlchips.sm .nlchip { padding: 6px 12px; font-size: 13.5px; }
+.nlchip.on { background: #15181e; border-color: #15181e; color: #fff; }
+.nlplay { background: #fff; border-radius: 18px; padding: 12px 14px; }
+.nlpscroll { display: flex; gap: 8px; overflow-x: auto; margin-top: 8px; scrollbar-width: none; }
+.nlpill { appearance: none; flex: none; border: 0; background: #f4f5f7; border-radius: 999px; padding: 10px 14px; font: inherit; font-size: 14.5px; font-weight: 800; color: #15181e; cursor: pointer; }
+.nlpill:hover { background: #fff3d6; }
+.nlmore { appearance: none; border: 1.5px solid #d6dbe1; background: #fff; border-radius: 14px; padding: 13px; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; color: #15181e; }
+/* A 예산 속도계 */
+.nlbud { background: #fff; border-radius: 24px; padding: 20px 16px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.nlbud h2 { margin: 0; font-size: 25px; }
+.nlgw { margin-top: 4px; cursor: grab; user-select: none; }
+.nlbig b { font-family: "Barlow Condensed", "Jalnan", sans-serif; font-size: 46px; font-weight: 700; line-height: 1; }
+.nlbig span { font-size: 15px; font-weight: 800; color: #6b7280; margin-left: 4px; }
+.nlodo { display: flex; align-items: center; gap: 5px; margin-top: 6px; }
+.nlodo i { font-style: normal; display: inline-grid; place-items: center; width: 40px; height: 54px; border-radius: 9px; background: #15181e; color: #fff; font-family: "Barlow Condensed", monospace; font-size: 36px; font-weight: 700; }
+.nlodo span { font-size: 18px; font-weight: 900; margin-left: 4px; }
+.nlrange { width: min(320px, 90%); accent-color: #e3b448; margin: 8px 0 6px; height: 28px; }
+.nlres { display: flex; flex-direction: column; gap: 8px; scroll-margin-top: 70px; }
+.nlreshd { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; padding: 6px 2px; }
+.nlreshd b { font-size: 17px; }
+.nlseg { display: flex; background: #e9ecf0; border-radius: 12px; padding: 3px; }
+.nlseg button { appearance: none; border: 0; background: none; padding: 7px 11px; border-radius: 9px; font: inherit; font-size: 13.5px; font-weight: 800; color: #6b7280; cursor: pointer; }
+.nlseg button.on { background: #fff; color: #15181e; box-shadow: 0 1px 3px rgba(0, 0, 0, .1); }
+/* B 두 갈래 */
+.nlfakesearch { appearance: none; border: 1.5px solid #d6dbe1; background: #fff; border-radius: 14px; padding: 14px 16px; text-align: left; font: inherit; font-size: 15.5px; color: #8a919d; cursor: pointer; display: flex; gap: 10px; align-items: center; }
+.nlq { margin: 10px 2px 0; font-size: 24px; }
+.nltwo { display: flex; flex-direction: column; gap: 12px; }
+.nlway { appearance: none; position: relative; border: 2px solid #eceef1; background: #fff; border-radius: 24px; padding: 22px 20px; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 6px; font: inherit; color: #15181e; }
+.nlway.find { border-color: #45d37f; box-shadow: 0 6px 20px rgba(69, 211, 127, .15); }
+.nlway:hover { border-color: #e3b448; }
+.nlwi { font-size: 34px; }
+.nlway b { font-size: 26px; }
+.nlway small { font-size: 15px; color: #6b7280; line-height: 1.5; }
+.nlarr { position: absolute; right: 20px; bottom: 20px; font-size: 22px; font-weight: 900; }
+.nlrecent { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.nlback { appearance: none; border: 0; background: none; align-self: flex-start; font: inherit; font-size: 15px; font-weight: 800; color: #6b7280; cursor: pointer; padding: 4px 0; }
+.nlcgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (min-width: 520px) { .nlcgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.nlmc { appearance: none; border: 0; border-radius: 18px 18px 26px 26px; padding: 10px 10px 12px; cursor: pointer; font: inherit; color: #15181e; text-align: center; display: flex; flex-direction: column; gap: 6px; }
+.t-g { background: linear-gradient(170deg, #e8faef, #9fe9bd); } .t-l { background: linear-gradient(170deg, #f5f8dc, #dbe68a); } .t-o { background: linear-gradient(170deg, #fdf3e2, #f2c983); } .t-r { background: linear-gradient(170deg, #fde9e7, #f1a29c); }
+.nlmct { display: flex; justify-content: space-between; align-items: baseline; }
+.nlmct b { font-family: "Barlow Condensed", sans-serif; font-size: 30px; font-weight: 700; line-height: 1; }
+.nlmct small { font-size: 11.5px; font-weight: 900; color: #4b5563; }
+.nlmcp { height: 70px; border-radius: 12px; overflow: hidden; background: rgba(255, 255, 255, .6); }
+.nlmcn { font-size: 14.5px; font-weight: 900; line-height: 1.3; word-break: keep-all; min-height: 2.6em; display: flex; align-items: center; justify-content: center; }
+.nlmcs { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 6px; font-size: 12.5px; color: #374151; text-align: left; border-top: 1px solid rgba(0, 0, 0, .12); padding-top: 6px; }
+.nlmcs b { font-family: "Barlow Condensed", sans-serif; font-size: 16px; }
+.nlmcf { font-size: 12px; font-weight: 800; color: #4b5563; }
+/* C 클러스터 홈 */
+.nlclu { background: #fff; border-radius: 24px; padding: 16px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.nlclrow { display: grid; grid-template-columns: 1fr 1.1fr 1fr; align-items: center; gap: 4px; width: 100%; }
+.nlclrow.big { grid-template-columns: 1fr 1fr; background: #fff; border-radius: 24px; padding: 12px 8px; }
+.nlcg { display: flex; flex-direction: column; align-items: center; }
+.nlcg svg { max-width: 100%; height: auto; }
+.nlcg b { font-family: "Barlow Condensed", sans-serif; font-size: 30px; font-weight: 700; line-height: 1; margin-top: -8px; }
+.nlclrow.big .nlcg b { font-size: 38px; }
+.nlcg small { font-size: 12.5px; font-weight: 800; color: #6b7280; }
+.nlcph { aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; background: #eef0f3; }
+.nlcn { margin: 6px 0 0; font-size: 22px; word-break: keep-all; }
+.nlgo { appearance: none; border: 0; background: #15181e; color: #fff; border-radius: 14px; padding: 14px 22px; font: inherit; font-size: 16px; font-weight: 900; cursor: pointer; margin-top: 6px; width: 100%; }
+.nlgear { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: #15181e; border-radius: 18px; padding: 6px; position: sticky; bottom: 10px; z-index: 5; }
+.nlgear button { appearance: none; border: 0; background: none; color: #c9ced6; border-radius: 13px; padding: 8px 0; cursor: pointer; font: inherit; display: flex; flex-direction: column; align-items: center; }
+.nlgear button b { font-family: "Barlow Condensed", sans-serif; font-size: 24px; line-height: 1; }
+.nlgear button small { font-size: 12px; font-weight: 700; }
+.nlgear button.on { background: #fff; color: #15181e; }
+.nlgear button:hover { color: #fff; } .nlgear button.on:hover { color: #15181e; }
+.nlc { text-align: center; }
+/* 선수 화면 */
+.vd.nl #p-prof.nlclosed .psearch, .vd.nl #p-prof.nlclosed #profile { display: none !important; }
+.vd.nl .nlprof { max-width: 560px; margin: 0 auto; padding: 0 0 16px; display: flex; flex-direction: column; gap: 12px; }
+.nlacts { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 14px; }
+.nlacts.c { justify-content: center; }
+.nlbtn { appearance: none; border: 1.5px solid #d6dbe1; background: #fff; color: #15181e; border-radius: 12px; padding: 10px 14px; font: inherit; font-size: 14.5px; font-weight: 800; cursor: pointer; }
+.nlbtn.dark { background: #15181e; border-color: #15181e; color: #fff; }
+.nlopen { appearance: none; margin: 0 14px; border: 0; background: #15181e; color: #fff; border-radius: 14px; padding: 15px; font: inherit; font-size: 16px; font-weight: 900; cursor: pointer; }
+/* A 매거진 */
+.nlhero { height: 260px; background: linear-gradient(#c5ccd6, #8592a5); overflow: hidden; position: relative; }
+@media (min-width: 600px) { .nlhero { border-radius: 0 0 24px 24px; height: 320px; } }
+.vd.nl .nlhero .credit { position: absolute; right: 8px; bottom: 6px; font-size: 10.5px; color: #fff; background: rgba(0, 0, 0, .35); padding: 2px 6px; border-radius: 6px; text-decoration: none; }
+.nlpaper { background: #f5f2ec; margin-top: -12px; border-radius: 20px 20px 0 0; padding: 22px 20px 20px; position: relative; display: flex; flex-direction: column; gap: 12px; }
+.nlkick { font-size: 12.5px; font-weight: 900; letter-spacing: .12em; color: #1b8a4b; }
+.nlttl { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+.nlttl span { font-size: 22px; font-weight: 400; color: #4b5563; }
+.nlttl b { font-size: 34px; line-height: 1.15; word-break: keep-all; }
+.nllead p { margin: 0 0 4px; font-size: 16.5px; line-height: 1.7; color: #2b2f36; word-break: keep-all; }
+.nlnums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; border-top: 1px solid #ddd7cc; padding-top: 14px; }
+.nlnums b { display: block; white-space: nowrap; font-family: "Barlow Condensed", sans-serif; font-size: 30px; font-weight: 700; line-height: 1; }
+.nlnums small { font-size: 12.5px; color: #6b7280; font-weight: 700; }
+.nlsw2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.nlsw2 > div { background: #fff; border-radius: 14px; padding: 12px; }
+.nlsw2 p { margin: 6px 0 0; display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; }
+.nlsw2 p b { font-family: "Barlow Condensed", sans-serif; font-size: 20px; }
+/* B 선수 카드 */
+.nlcardwrap { perspective: 1200px; padding: 18px 14px 0; display: flex; justify-content: center; }
+.nlcard { position: relative; width: min(340px, 100%); min-height: 470px; transition: transform .5s; transform-style: preserve-3d; border-radius: 26px 26px 60px 60px; }
+.nlcard.flip { transform: rotateY(180deg); }
+.nlface { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: inherit; padding: 18px 20px 26px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 14px 30px rgba(0, 0, 0, .12); }
+.nlcard.t-g .nlface { background: linear-gradient(170deg, #eafbf1, #8fe3b1); } .nlcard.t-l .nlface { background: linear-gradient(170deg, #f7fae1, #d3e070); } .nlcard.t-o .nlface { background: linear-gradient(170deg, #fdf4e4, #edbc6a); } .nlcard.t-r .nlface { background: linear-gradient(170deg, #fdebe9, #ec8f88); }
+.nlface.back { transform: rotateY(180deg); }
+.nlctop { display: grid; grid-template-columns: 70px 1fr; gap: 8px; align-items: start; }
+.nlcovr { display: flex; flex-direction: column; align-items: center; }
+.nlcovr b { font-family: "Barlow Condensed", sans-serif; font-size: 56px; font-weight: 700; line-height: .95; }
+.nlcovr small { font-size: 13px; font-weight: 900; color: #374151; }
+.nlctop .nlcph { aspect-ratio: auto; height: 130px; background: rgba(255, 255, 255, .5); }
+.nlcname { text-align: center; font-size: 25px; border-bottom: 1.5px solid rgba(0, 0, 0, .18); padding-bottom: 8px; word-break: keep-all; }
+.nlcsix { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; padding: 4px 6px; }
+.nlcsix div { display: flex; align-items: baseline; gap: 8px; font-size: 16px; font-weight: 800; }
+.nlcsix b { font-family: "Barlow Condensed", sans-serif; font-size: 26px; min-width: 28px; text-align: right; }
+.nlcfoot { margin-top: auto; text-align: center; font-size: 13.5px; font-weight: 800; color: #374151; }
+.nlbar { display: grid; grid-template-columns: 64px 1fr 40px; gap: 8px; align-items: center; font-size: 15px; font-weight: 800; }
+.nlbar i { height: 12px; background: rgba(255, 255, 255, .7); border-radius: 6px; overflow: hidden; }
+.nlbar em { display: block; height: 100%; border-radius: 6px; }
+.nlbar b { font-family: "Barlow Condensed", sans-serif; font-size: 20px; text-align: right; }
+.nlbst { margin: 0; font-size: 15px; line-height: 1.55; font-weight: 700; }
+/* C 클러스터 선수 */
+.nlchd { padding: 16px 16px 0; }
+.nlchd small { font-size: 13.5px; color: #6b7280; font-weight: 700; }
+.nlchd h1 { margin: 4px 0 0; font-size: 28px; word-break: keep-all; }
+.nlprof > .nlclrow.big { margin: 0 14px; width: auto; }
+.nlinfo { margin: 0 14px; background: #fff; border-radius: 18px; padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.nlinfo small { display: block; font-size: 12.5px; color: #6b7280; font-weight: 700; }
+.nlinfo b { font-family: "Barlow Condensed", sans-serif; font-size: 26px; }
+.nlprof > .nlk { padding: 0 16px; }
+.nllamps { margin: 0 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.nllamp { appearance: none; border: 0; background: #fff; border-radius: 16px; padding: 10px 4px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; font: inherit; color: #15181e; }
+.nllamp.on { box-shadow: 0 0 0 2px #15181e; }
+.nllc { width: 44px; height: 44px; border-radius: 50%; border: 3px solid; display: grid; place-items: center; font-size: 20px; }
+.nllamp b { font-size: 13px; }
+.nllamp small { font-family: "Barlow Condensed", sans-serif; font-size: 18px; font-weight: 700; }
+.nllsum { margin: 0 14px; background: #fff; border-radius: 16px; padding: 10px 14px; }
+.nllsum p { margin: 2px 0; font-size: 15px; font-weight: 800; }
+.nlldet { margin: 0 14px; background: #fff; border-radius: 16px; padding: 12px 14px; border: 2px solid; }
+.nlldet b { font-size: 16px; }
+.nlldet p { margin: 6px 0 0; font-size: 15px; line-height: 1.55; }
+.vd.nl .nlprof > .nlmut { padding: 0 16px; margin: 0; }
+/* D 아이콘 홈 */
+.nlban { appearance: none; border: 0; border-radius: 20px; padding: 18px 20px; text-align: left; position: relative; cursor: pointer; font: inherit; color: #15181e; display: flex; flex-direction: column; gap: 4px; min-height: 104px; }
+.nlban small { font-size: 12.5px; font-weight: 900; color: #1b8a4b; }
+.nlban b { font-size: 21px; line-height: 1.3; white-space: pre-line; }
+.nlbani { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 46px; }
+.nlicons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 6px; padding: 4px 0; }
+.nlicon { appearance: none; border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font: inherit; color: #15181e; }
+.nlicon span { width: 62px; height: 62px; border-radius: 20px; background: #fff; display: grid; place-items: center; font-size: 30px; box-shadow: 0 2px 8px rgba(0, 0, 0, .06); }
+.nlicon:hover span { box-shadow: 0 0 0 2px #e3b448; }
+.nlicon b { font-size: 14px; }
+.nlsec { font-size: 18px; font-weight: 900; margin-top: 8px; }
+.nlhscroll { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+.nlhc { appearance: none; flex: none; width: 128px; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; font: inherit; color: #15181e; display: flex; flex-direction: column; gap: 4px; }
+.nlhcp { width: 128px; height: 84px; border-radius: 14px; overflow: hidden; background: #eef0f3; }
+.nlhcp img { width: 100%; height: 100%; object-fit: cover; }
+.vd.nl .nlhcp .credit, .vd.nl .nlstp .credit, .vd.nl .nlanp .credit { display: none; }
+.nlhc b { font-size: 14.5px; line-height: 1.3; word-break: keep-all; }
+.nlhc small { font-size: 12.5px; color: #6b7280; font-weight: 700; }
+.nlctabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px; }
+.nlctabs button { appearance: none; flex: none; border: 0; background: none; font: inherit; font-size: 15px; font-weight: 800; color: #8a919d; padding: 8px 10px; cursor: pointer; border-radius: 10px; }
+.nlctabs button.on { color: #15181e; background: #fff; box-shadow: inset 0 -3px 0 #15181e; border-radius: 10px 10px 0 0; }
+.nlchips.left { justify-content: flex-start; }
+.nlstore { appearance: none; width: 100%; border: 0; background: #fff; border-radius: 18px; padding: 12px; display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 14px; text-align: left; cursor: pointer; font: inherit; color: #15181e; }
+.nlstore:hover { box-shadow: 0 0 0 2px #e3b448; }
+.nlstp { width: 104px; height: 80px; border-radius: 14px; overflow: hidden; background: #eef0f3; }
+.nlstp img { width: 100%; height: 100%; object-fit: cover; }
+.nlstm { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.nlstm > b { font-size: 16.5px; line-height: 1.3; word-break: keep-all; }
+.nlstm > small { font-size: 13.5px; color: #4b5563; }
+.nlstar { display: flex; align-items: center; gap: 4px; font-size: 14px; }
+.nlstar span { color: #e3b448; }
+.nlstar b { font-family: "Barlow Condensed", sans-serif; font-size: 18px; }
+.nlstar small { font-size: 13px; color: #8a919d; }
+.nlstar.big span { font-size: 20px; letter-spacing: 1px; }
+.nlstar.big b { font-size: 26px; }
+.nltags { display: flex; gap: 4px; flex-wrap: wrap; }
+.nltags i { font-style: normal; font-size: 12px; font-weight: 800; background: #f1f8e4; color: #4d6b0e; border-radius: 6px; padding: 2px 7px; }
+.nlhero.short { height: 220px; }
+.nlstore-hd { margin: -26px 14px 0; position: relative; background: #fff; border-radius: 20px; padding: 18px 16px; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 6px 20px rgba(0, 0, 0, .06); text-align: center; }
+.nlstore-hd h1 { margin: 0; font-size: 26px; word-break: keep-all; }
+.nlinfo2 { width: 100%; border-top: 1px solid #eceef1; margin-top: 8px; padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.nlinfo2 div { display: flex; justify-content: space-between; gap: 10px; font-size: 15px; }
+.nlinfo2 span { color: #6b7280; font-weight: 700; }
+.nlptabs { position: sticky; top: 56px; z-index: 6; display: flex; background: #fff; border-bottom: 1px solid #eceef1; }
+.nlptabs button { appearance: none; flex: 1; border: 0; background: none; padding: 13px 4px; font: inherit; font-size: 15px; font-weight: 800; color: #4b5563; cursor: pointer; }
+.nlptabs button:hover { color: #15181e; box-shadow: inset 0 -3px 0 #15181e; }
+.nlmenu { background: #fff; margin: 0 14px; border-radius: 18px; padding: 6px 16px 8px; scroll-margin-top: 120px; }
+.nlmenu h3 { margin: 10px 0 4px; font-size: 18px; }
+.nlmrow { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #f1f3f6; }
+.nlmrow:first-of-type { border-top: 0; }
+.nlmrow > div { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.nlmrow b { font-size: 16px; }
+.nlmrow small { font-size: 13.5px; color: #6b7280; line-height: 1.45; word-break: keep-all; }
+.nlmsc { flex: none; min-width: 40px; text-align: center; font-family: "Barlow Condensed", sans-serif; font-size: 22px; font-weight: 700; border-radius: 10px; padding: 4px 6px; color: #15181e; }
+.nlmv { flex: none; font-size: 15px; font-weight: 800; text-align: right; max-width: 55%; }
+/* E 검색 한 줄 */
+.vd.nl #homebox.nlhome.nle { min-height: calc(100vh - 140px); justify-content: flex-start; align-items: stretch; padding-top: 12vh; }
+.nlelogo { display: flex; justify-content: center; }
+.nlelogo .logo { width: 58px; height: 58px; }
+.nleq { text-align: center; margin: 4px 0 6px; font-size: 26px; }
+.nlebox { display: flex; align-items: center; gap: 10px; background: #fff; border: 2px solid #15181e; border-radius: 18px; padding: 4px 14px; box-shadow: 0 6px 18px rgba(0, 0, 0, .06); }
+.nlebox span { font-size: 18px; }
+.nlebox input { flex: 1; min-width: 0; border: 0; outline: none; font: inherit; font-size: 17px; padding: 13px 0; background: transparent; color: #15181e; }
+.nleres { display: flex; flex-direction: column; gap: 8px; }
+.nlwhy { font-size: 14px; font-weight: 800; color: #1b8a4b; background: #eaf8ef; border-radius: 10px; padding: 8px 12px; }
+.nlefoot { margin-top: auto; padding-top: 30px; display: flex; justify-content: center; gap: 12px; align-items: center; font-size: 13px; color: #8a919d; }
+.nllink { appearance: none; border: 0; background: none; font: inherit; font-size: 13.5px; font-weight: 800; color: #4b5563; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.nlvs { background: #fff; border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.nlvsr { display: grid; grid-template-columns: 1fr 76px 1fr; align-items: center; text-align: center; padding: 8px 0; border-top: 1px solid #f1f3f6; }
+.nlvsr.hd { border-top: 0; }
+.nlvsr > span { font-size: 13px; color: #8a919d; font-weight: 800; }
+.nlvsr > b { font-size: 16px; font-weight: 700; color: #6b7280; }
+.nlvsr > b.win { color: #15181e; font-weight: 900; }
+.nlvsr > b.win::after { content: " ●"; color: #45d37f; font-size: 11px; vertical-align: middle; }
+.nlvsn { appearance: none; border: 0; background: none; font: inherit; font-size: 15.5px; font-weight: 900; color: #15181e; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #d6dbe1; word-break: keep-all; }
+.nlvsum { margin: 8px 0; text-align: center; font-size: 15px; font-weight: 900; }
+.nlvs .nlbtn { align-self: center; }
+.nlfakesearch.top { margin: 12px 14px 0; }
+.nlans { margin: 0 14px; background: #fff; border-radius: 22px; padding: 18px 16px; display: flex; flex-direction: column; gap: 8px; }
+.nlans h1 { margin: 0; font-size: 28px; word-break: keep-all; }
+.nlverd { margin: 0; font-size: 15.5px; line-height: 1.6; color: #2b2f36; word-break: keep-all; }
+.nlanp { height: 190px; border-radius: 16px; overflow: hidden; background: #eef0f3; }
+.nlanp img { width: 100%; height: 100%; object-fit: cover; }
+.nlfacts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; }
+.nlfacts div { background: #f6f7f9; border-radius: 12px; padding: 8px 2px; display: flex; flex-direction: column; }
+.nlfacts small { font-size: 11.5px; color: #6b7280; font-weight: 800; }
+.nlfacts b { white-space: nowrap; font-family: "Barlow Condensed", sans-serif; font-size: 21px; line-height: 1.1; }
+.nlfacts em { font-style: normal; font-size: 11.5px; color: #8a919d; }
+.nlk.pad, .nlchips.pad { padding: 0 16px; }
+.nlqa { display: flex; flex-direction: column; gap: 8px; padding: 0 14px; }
+.nlqq { align-self: flex-end; background: #15181e; color: #fff; border-radius: 16px 16px 4px 16px; padding: 9px 14px; font-size: 15px; font-weight: 700; }
+.nlqan { align-self: stretch; background: #fff; border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 15.5px; line-height: 1.6; display: flex; flex-direction: column; gap: 8px; word-break: keep-all; }
+.nlqan p { margin: 0; }
+.nlqan .nlrow { background: #f6f7f9; }
+/* 보완 v2 */
+.vd.nl .chip[aria-pressed=true] { box-shadow: none !important; }
+.nlctabs { border-bottom: 0; }
+.nlctabs button.on { background: #15181e; color: #fff; box-shadow: none; border-radius: 999px; }
+.nlptabs button:hover { box-shadow: none; background: #f4f5f7; }
+.nlseg.wide { display: grid; grid-template-columns: 1fr 1fr; }
+.nlseg.wide button { padding: 11px 6px; font-size: 14.5px; }
+/* 단계 찾기 */
+.nlcrumb { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; font-size: 15px; }
+.nlcrumb button { appearance: none; border: 0; background: #fff; border-radius: 999px; padding: 8px 14px; font: inherit; font-weight: 800; color: #6b7280; cursor: pointer; }
+.nlcrumb button.on { background: #15181e; color: #fff; }
+.nlcrumb i { font-style: normal; color: #b5bbc4; font-weight: 900; }
+.nlck { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: #4b5563; cursor: pointer; }
+.nlck input { width: 18px; height: 18px; accent-color: #15181e; }
+.nlbrands { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.nlbrand2 { appearance: none; border: 1.5px solid #e5e7eb; background: #fff; border-radius: 16px; padding: 16px 6px; cursor: pointer; font: inherit; color: #15181e; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.nlbrand2:hover { border-color: #15181e; }
+.nlbrand2 b { font-size: 16px; word-break: keep-all; }
+.nlbrand2 small { font-size: 12.5px; color: #8a919d; font-weight: 700; }
+.nltrim { appearance: none; width: 100%; border: 0; background: #fff; border-radius: 16px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; text-align: left; font: inherit; color: #15181e; }
+.nltrim:hover { box-shadow: 0 0 0 2px #15181e; }
+.nltrim > div:first-child { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.nltrim b { font-size: 16px; word-break: keep-all; }
+.nltrim small { font-size: 13px; color: #6b7280; line-height: 1.45; }
+.nltr { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.nltr b { font-family: "Barlow Condensed", sans-serif; font-size: 22px; }
+.nltr span { font-size: 13px; font-weight: 900; }
+.nlwide { appearance: none; position: relative; border: 1.5px solid #e5e7eb; background: #fff; border-radius: 18px; padding: 16px 18px; text-align: left; cursor: pointer; font: inherit; color: #15181e; display: flex; flex-direction: column; gap: 3px; }
+.nlwide:hover { border-color: #15181e; }
+.nlwide b { font-size: 17px; }
+.nlwide small { font-size: 13.5px; color: #6b7280; }
+.nlwide .nlarr { right: 18px; bottom: auto; top: 50%; transform: translateY(-50%); }
+.nlhscroll.chips { gap: 6px; }
+.nlhscroll.chips .nlchip { flex: none; }
+/* A 다이얼 */
+.nlg.dial .nldot { cursor: pointer; outline: none; }
+.nlg.dial .nldot:hover circle:last-child, .nlg.dial .nldot:focus-visible circle:last-child { stroke: #15181e; stroke-width: 2; }
+.nlg.dial .nlneedle { transition: all .2s; }
+.nlgw { cursor: default; }
+.nlpm { display: flex; align-items: center; gap: 14px; }
+.vd.nl .nlpmb { appearance: none; width: 54px; height: 54px; border-radius: 50%; border: 2px solid #15181e; background: #fff; font: inherit; font-size: 28px; font-weight: 900; color: #15181e; cursor: pointer; display: grid; place-items: center; line-height: 1; transition: transform .1s; }
+.nlpmb:active { transform: scale(.92); background: #15181e; color: #fff; }
+.nlpmb:disabled { opacity: .3; cursor: default; }
+.nlpm .nlbig { min-width: 150px; }
+/* C 오른쪽 다이얼 */
+.nlcg.tap { appearance: none; border: 0; background: none; padding: 4px; border-radius: 16px; cursor: pointer; font: inherit; color: #15181e; transition: background .15s; }
+.nlcg.tap:hover { background: #f4f5f7; }
+.nlcg.tap:active { transform: scale(.97); }
+.nlcgt { font-style: normal; font-size: 12px; font-weight: 800; color: #15181e; background: #f1f3f6; border-radius: 999px; padding: 3px 9px; margin-top: 4px; }
+/* C 기어 */
+.nlgearw { background: #15181e; border-radius: 22px; padding: 12px 14px 16px; position: sticky; bottom: 10px; z-index: 5; box-shadow: 0 10px 24px rgba(0, 0, 0, .18); }
+.nlgearh { color: #9aa3b0; font-size: 12.5px; font-weight: 800; text-align: center; margin-bottom: 8px; }
+.nlgearbox { position: relative; height: 78px; }
+.nltrack { position: absolute; left: 12.5%; right: 12.5%; top: 24px; height: 6px; border-radius: 3px; background: #4a5160; }
+.nltrack::before { content: ''; position: absolute; inset: -9px 0; background: repeating-linear-gradient(90deg, transparent 0 calc(33.33% - 3px), #4a5160 calc(33.33% - 3px) 33.33%); background-size: 100% 100%; opacity: 0; }
+.nlknob { position: absolute; top: 1px; width: 52px; height: 52px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f6d27a, #e3b448 55%, #b8860b); box-shadow: 0 4px 10px rgba(0, 0, 0, .45), inset 0 -3px 6px rgba(0, 0, 0, .25); transition: left .32s cubic-bezier(.5, 1.6, .4, 1); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; pointer-events: none; z-index: 2; }
+.nlknob i { display: block; width: 20px; height: 2px; border-radius: 1px; background: rgba(21, 24, 30, .45); }
+.vd.nl .nlgk { appearance: none; position: absolute; top: 0; width: 25%; height: 78px; border: 0; background: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 0; font: inherit; color: #c9ced6; padding: 0 0 2px; z-index: 3; }
+.vd.nl .nlgk b { color: #c9ced6; left: 50%; transform: translateX(-50%); position: absolute; top: 12px; font-family: "Barlow Condensed", sans-serif; font-size: 26px; line-height: 1; width: 30px; height: 30px; display: grid; place-items: center; }
+.vd.nl .nlgk.on b { color: #15181e; }
+.vd.nl .nlgk small { font-size: 12.5px; font-weight: 800; color: #9aa3b0; }
+.vd.nl .nlgk.on small { color: #fff; }
+.vd.nl .nlgk:hover small, .vd.nl .nlgk:hover b { color: #fff; }
+.vd.nl .nlgk.on:hover b { color: #15181e; }
+.vd.nl .nlgk:active b { transform: translateX(-50%) scale(.88); }
+.nlgearbox.moving .nlknob { box-shadow: 0 0 0 6px rgba(227, 180, 72, .35), 0 4px 10px rgba(0, 0, 0, .45); }
+/* C 상태등 */
+.nllh { display: flex; align-items: baseline; gap: 8px; padding: 6px 16px 0; }
+.nllh b { font-size: 18px; }
+.nllh span { font-size: 14px; font-weight: 800; color: #c4352d; }
+.nllh small { margin-left: auto; font-size: 13px; color: #6b7280; font-weight: 700; }
+.nllamp { border: 2px solid transparent; transition: transform .12s, opacity .12s; position: relative; }
+.nllamps:has(.nllamp.on) .nllamp:not(.on) { opacity: .62; }
+.nllamp .nllc { border-color: var(--lc); background: color-mix(in srgb, var(--lc) 18%, #fff); }
+.nllamp.on { border-color: #15181e; background: color-mix(in srgb, var(--lc) 30%, #fff); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0, 0, 0, .1); opacity: 1; }
+.nllamp.on .nllc { background: var(--lc); }
+.nllamp.on::after { content: ''; position: absolute; left: 50%; bottom: -11px; transform: translateX(-50%); border: 8px solid transparent; border-top-color: #15181e; }
+.nllamp:hover { opacity: 1 !important; }
+.nlldet { border: 2px solid #15181e !important; border-left-width: 8px !important; border-left-color: var(--lc) !important; }
+.nlldh { display: flex; align-items: center; gap: 10px; }
+.nlldh b { font-size: 18px; flex: 1; }
+.nlldh em { font-style: normal; font-family: "Barlow Condensed", sans-serif; font-size: 20px; font-weight: 700; border-radius: 10px; padding: 2px 10px; }
+.nllc.sm { width: 36px; height: 36px; font-size: 17px; border: 0; background: color-mix(in srgb, var(--lc) 30%, #fff); }
+.nllv { font-weight: 800; }
+/* D 아이콘 */
+.nlicon span { box-shadow: none; border: 1px solid #eceef1; }
+.nlicon:hover span { border-color: #15181e; box-shadow: none; }
+.nlbani { right: 18px; opacity: .9; }
+/* E 예시 */
+.nlextiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.nlextiles[hidden] { display: none; }
+.nlext { appearance: none; border: 1.5px solid #e5e7eb; background: #fff; border-radius: 18px; padding: 16px 14px; text-align: left; cursor: pointer; font: inherit; color: #15181e; display: flex; flex-direction: column; gap: 8px; min-height: 108px; }
+.nlext:hover { border-color: #15181e; }
+.nlext:active { transform: scale(.98); }
+.nlext > span { font-size: 26px; }
+.nlext div { display: flex; flex-direction: column; gap: 3px; }
+.nlext b { font-size: 16px; line-height: 1.35; word-break: keep-all; }
+.nlext small { font-size: 13px; color: #6b7280; }
+.vd.nl #homebox.nlhome.nle { padding-top: 7vh; }
+
+/* 제조사 로고 줄·그리드 (시안) */
+.nllstrip { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+.nllstrip .nllogo { max-width: 34px; }
+.vd.nl .nlext .nllstrip, .nlext .nllstrip { flex-direction: row; justify-content: flex-start; gap: 10px; margin: 0; min-height: 26px; }
+.nlext .nllstrip .nllogo { max-width: 26px; }
+.nlbgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 6px; padding: 4px 0; }
+.nlbg { appearance: none; border: 0; background: none; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font: inherit; color: #15181e; min-width: 0; }
+.nlbg b { font-size: 13.5px; font-weight: 700; max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.nlbgl { width: 62px; height: 62px; border-radius: 20px; background: #fff; border: 1px solid #eceef1; display: grid; place-items: center; font-size: 22px; font-weight: 800; color: #6b7280; }
+.nlbgl .nllogo { max-width: 38px; }
+.nlbgl .nllogo.png { max-width: 44px; }
+.nlbgrid.ring .nlbgl { border-radius: 50%; border: 2px solid #e3e6ea; }
+.nlbg:hover .nlbgl { border-color: #15181e; }
+/* C 다듬기 (11/19 밤): 글자색 고정 · 오른쪽 계기판 모드 · 백미러 검색 · H 기어 */
+.vd.nl h1, .vd.nl h2, .vd.nl h3, .vd.nl .nlcn { color: #15181e; }
+.nlcgr { gap: 0; }
+.nlcgd { appearance: none; border: 0; background: none; padding: 0; cursor: pointer; border-radius: 50%; touch-action: pan-y; width: 100%; display: flex; justify-content: center; }
+.nlcgd svg { max-width: 100%; height: auto; }
+.nlcgd:active { transform: scale(.97); }
+.nlmode { display: flex; align-items: center; justify-content: center; gap: 2px; height: 18px; }
+.nlmode small { white-space: nowrap; font-size: 12px; }
+.nlmb { appearance: none; border: 0; background: none; width: 22px; height: 26px; margin: -4px 0; flex: none; border-radius: 50%; font: 900 20px/1 "Pretendard Variable", Pretendard, sans-serif; color: #15181e; cursor: pointer; display: grid; place-items: center; }
+.nlmb:hover { background: #f1f3f6; }
+.nlmdots { display: flex; gap: 4px; justify-content: center; margin-top: 6px; }
+.nlmdots i { width: 5px; height: 5px; border-radius: 50%; background: #d6dbe1; }
+.nlmdots i.on { width: 14px; border-radius: 3px; background: #15181e; }
+.nlclrow > .nlcg:first-child::after { content: ''; display: block; height: 11px; }
+.nlhgw { background: #15181e; border-radius: 22px; padding: 30px 10px 28px; box-shadow: 0 10px 24px rgba(0, 0, 0, .18); }
+.nlhg { position: relative; height: 150px; }
+.nlhgate { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nlhgate path { fill: none; stroke: #343a46; stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.nlhknob { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f6d27a, #e3b448 55%, #b8860b); box-shadow: 0 6px 12px rgba(0, 0, 0, .5), inset 0 -3px 6px rgba(0, 0, 0, .25); transition: left .2s ease-in-out, top .28s cubic-bezier(.5, 1.5, .5, 1); z-index: 4; pointer-events: none; display: grid; place-items: center; }
+.nlhknob i { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(21, 24, 30, .35); }
+.nlhg.moving .nlhknob { box-shadow: 0 0 0 6px rgba(227, 180, 72, .3), 0 6px 12px rgba(0, 0, 0, .5); }
+.vd.nl .nlhs { appearance: none; position: absolute; width: 84px; height: 44px; margin: -22px 0 0 -42px; border: 0; background: none; cursor: pointer; font: inherit; padding: 0; z-index: 3; display: grid; place-items: center; }
+.vd.nl .nlhs b { width: 44px; height: 44px; display: grid; place-items: center; font: 700 24px/1 "Barlow Condensed", sans-serif; color: #c9ced6; }
+.vd.nl .nlhs small { position: absolute; left: 0; right: 0; text-align: center; font-size: 12.5px; font-weight: 800; color: #9aa3b0; white-space: nowrap; }
+.vd.nl .nlhs.up small { bottom: 100%; margin-bottom: 2px; }
+.vd.nl .nlhs.dn small { top: 100%; margin-top: 2px; }
+.vd.nl .nlhs:hover b, .vd.nl .nlhs:hover small, .vd.nl .nlhs.on small { color: #fff; }
+.nlplogo { appearance: none; border: 0; background: none; padding: 0; margin: 0 0 8px; display: block; cursor: pointer; }
+.nlplogo .nllogo { max-width: 72px; }
+.nlcgd { position: relative; }
+.nlswipe { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 6px; background: rgba(21, 24, 30, .82); color: #fff; border-radius: 999px; padding: 6px 10px; pointer-events: none; animation: nlswf 3.2s ease forwards; z-index: 2; }
+.nlswipe i { font: 900 16px/1 "Pretendard Variable", Pretendard, sans-serif; font-style: normal; opacity: .7; }
+.nlswipe b { position: relative; width: 34px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .25); }
+.nlswipe b::after { content: ''; position: absolute; top: -4px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: #e3b448; animation: nlswd 1s ease-in-out 3 alternate; }
+@keyframes nlswd { from { left: 22px; } to { left: 0; } }
+@keyframes nlswf { 0% { opacity: 0; } 12% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+.nlcgd.nudge svg { animation: nlnudge 1s ease-in-out 2; }
+@keyframes nlnudge { 0%, 100% { transform: translateX(0); } 30% { transform: translateX(-7px); } 60% { transform: translateX(3px); } }
+.nlmirror { position: relative; margin: 4px 18px 0; padding-top: 12px; }
+.nlmstem { position: absolute; left: 50%; top: -10px; width: 22px; height: 26px; margin-left: -11px; border-radius: 7px 7px 3px 3px; background: linear-gradient(90deg, #3a4048, #1c2026 60%, #2a2f36); }
+.nlmbody { position: relative; background: linear-gradient(180deg, #2a2f36, #15181e); border-radius: 26px 26px 30px 30px / 22px 22px 26px 26px; padding: 5px 5px 0; box-shadow: 0 8px 18px rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255, 255, 255, .12); }
+.nlmglass { appearance: none; position: relative; display: block; width: 100%; border: 0; border-radius: 22px 22px 6px 6px / 18px 18px 6px 6px; background: linear-gradient(172deg, #9aa3ad 0%, #6d7680 38%, #4b535c 70%, #5d666f 100%); padding: 16px 16px 14px; font: inherit; font-size: 15px; font-weight: 700; color: #f4f6f8; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); text-align: center; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.nlmglass::before { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .22) 42%, transparent 55%); pointer-events: none; }
+.nlmglass span { margin-right: 6px; }
+.nlmglass:hover { filter: brightness(1.06); }
+.nlmcam { position: absolute; left: 50%; top: 6px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #1b1f25; box-shadow: inset 0 0 0 1.5px #3b424b; }
+.nlmchin { display: flex; align-items: center; justify-content: flex-end; gap: 6px; height: 26px; padding: 0 14px 2px; }
+.nlmchin em { margin-right: auto; font: italic 700 11px/1 "Barlow Condensed", sans-serif; color: #c9ced6; letter-spacing: .02em; }
+.nlmchin .led { width: 5px; height: 5px; border-radius: 50%; background: #45d37f; box-shadow: 0 0 6px #45d37f; margin-right: 4px; animation: nlhp 2.4s ease-in-out infinite; }
+@keyframes nlhp { 0%, 70%, 100% { opacity: 1; } 80% { opacity: .25; } }
+.nlmchin b { min-width: 24px; height: 14px; padding: 0 4px; border-radius: 3px; background: #2b3038; box-shadow: inset 0 0 0 1px #41474f; font: 700 8.5px/14px "Barlow Condensed", sans-serif; color: #c9ced6; text-align: center; }
+.nlmchin b.card { display: grid; place-items: center; }
+.nlmchin b.card u { width: 10px; height: 7px; border: 1.2px solid #c9ced6; border-radius: 1.5px; }
+.vd.nl .nlmglass { color: #f4f6f8; }
+.vd.nl .nlmchin b, .vd.nl .nlmchin b.card { background: #2b3038; color: #c9ced6; }
+.vd.nl .nlmchin b.card { min-width: 24px; width: 24px; }
+/* C: 룸미러 안 검색칸 (거울 색은 그대로) */
+.vd.nl .nlmglass { padding: 18px 12px 12px; text-align: left; white-space: normal; text-shadow: none; }
+.nlmin { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, .14); border: 1.5px solid rgba(255, 255, 255, .75); border-radius: 14px; padding: 7px 6px 7px 12px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .25); }
+.nlmin svg { flex: none; }
+.nlmin svg circle, .nlmin svg path { stroke: #fff; }
+.nlmin em { flex: 1; min-width: 0; font-style: normal; font-size: 16px; font-weight: 800; color: #fff; line-height: 1.25; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
+.nlmin em small { display: block; font-size: 12.5px; font-weight: 600; color: rgba(255, 255, 255, .8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nlmcur { display: none; }
+.nlmin b { flex: none; background: #e3b448; color: #15181e; font-size: 14px; font-weight: 800; border-radius: 10px; padding: 10px 14px; text-shadow: none; }
+/* C: 메뉴 = 오디오 패널, 상태등 = 공조 패널 (어두운 피아노 블랙) */
+.vd.nl-c .nllamps { background: linear-gradient(180deg, #23272e, #0d0f12); border-radius: 20px; padding: 12px 10px; gap: 8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 8px 18px rgba(0, 0, 0, .14); }
+.vd.nl-c .nllamp { position: relative; background: linear-gradient(180deg, #2f343c 0%, #1d2026 55%, #15181c 100%); border: 0; border-radius: 10px; padding: 12px 2px 8px; color: #e9edf2; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 2px 0 #000, 0 0 0 1px #0a0b0d; opacity: 1; transform: none; }
+.vd.nl-c .nllamps:has(.nllamp.on) .nllamp:not(.on) { opacity: 1; }
+.vd.nl-c .nllamp .nlgly { width: auto; height: 30px; border: 0; background: none; color: #eef1f5; filter: drop-shadow(0 1px 0 #000); }
+.vd.nl-c .nllamp b { color: #c9ced6; font-size: 12px; }
+.vd.nl-c .nllamp small, .vd.nl-c .nllamp.on small { color: #fff; }
+.vd.nl-c .nllamp .nlled { position: absolute; top: 6px; right: 7px; width: 6px; height: 6px; border-radius: 50%; background: var(--lc); box-shadow: 0 0 6px var(--lc); }
+.vd.nl-c .nllamp.on { background: linear-gradient(180deg, #3b4048 0%, #262a31 55%, #1b1e23 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 0 0 1.5px var(--lc), 0 2px 0 #000; }
+.vd.nl-c .nllamp.on::before { content: ''; position: absolute; left: 50%; top: 4px; width: 16px; height: 3px; margin-left: -8px; border-radius: 2px; background: var(--lc); box-shadow: 0 0 8px var(--lc); }
+.vd.nl[data-theme=light] { --sel: #15181e; --link: #9c7313; }
+.vd.nl .chip[aria-pressed=true] { box-shadow: none; }
+.vd.nl-c .nllamp.on small { color: #fff !important; }
+.vd.nl .statbox .nm { color: #15181e; } .vd.nl .statbox small, .vd.nl .statbox li::marker, .vd.nl .statbox .note { color: #596170; }
+.vd.nl .sqboard.pitch { background: repeating-linear-gradient(180deg, #4e9a62 0 10%, #56a36a 10% 20%); }
+/* C 메뉴: 센터페시아 하드 버튼 아이콘 (흰 목록 + 검은 버튼, 지금 화면은 위쪽 초록 불) */
+.nldkey { position: relative; flex: none; width: 40px; height: 36px; border-radius: 9px; display: grid; place-items: center; color: #eef1f5; background: linear-gradient(180deg, #3a4049 0%, #22262d 55%, #1a1d23 100%); box-shadow: 0 2px 0 #0c0e12, 0 3px 6px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .14), inset 0 -2px 3px rgba(0, 0, 0, .4); }
+.nldkey i { position: absolute; top: 4px; left: 50%; width: 12px; height: 2.5px; margin-left: -6px; border-radius: 2px; background: #454b55; }
+.nldkey svg { margin-top: 3px; filter: drop-shadow(0 1px 0 rgba(0, 0, 0, .6)); }
+.nldi.on .nldkey i { background: #45d37f; box-shadow: 0 0 6px #45d37f; }
+.nldi:active .nldkey { transform: translateY(1px); box-shadow: 0 1px 0 #0c0e12, inset 0 1px 0 rgba(255, 255, 255, .1); }
+.nldraw.nlv-c .nldi small { display: none; }
+.nldraw.nlv-c .nldi { border-bottom: 1px solid #f0f1f3; border-radius: 0; padding: 9px 6px; }
+.nldraw.nlv-c .nldi.on { background: none; } .nldraw.nlv-c .nldi.on b { color: #15181e; }
+/* 제조사 로고 */
+.nllw { height: 40px; display: flex; align-items: center; justify-content: center; }
+.nllogo { display: block; width: auto; max-width: 92px; object-fit: contain; }
+.nllogo.png { filter: grayscale(1) brightness(.35) contrast(1.4); max-width: 64px; }
+.nllt { font-style: normal; width: 34px; height: 34px; border-radius: 50%; background: #f1f3f6; display: grid; place-items: center; font-weight: 900; font-size: 16px; color: #4b5563; }
+.nlbrand2 { padding-top: 14px; gap: 6px; }
+.nlbh { display: flex; align-items: center; gap: 12px; }
+.nlbh .nlmut { margin: 0; }
+.nllc2 { display: inline-flex; align-items: center; gap: 7px; }
+.nllc2 .nllogo { max-width: 40px; }
+.vd.nl .nltm, .nldpn .nltm { font-size: 12px; color: #9aa1ad; line-height: 1.5; margin: 14px 4px 0; }
+</style>
 </head><body>
 <script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';</script>
 <div class="vd">
@@ -5208,6 +5711,7 @@ body.kkopen{overflow:hidden}
   }
   function renderHome() {
     const box = $('#homebox'); box.textContent = '';
+    if (NL.v) return nlHome(box);
     const rnd = rng(seedOf(todayKey()));
     // 오늘의 선수
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
@@ -5977,10 +6481,664 @@ body.kkopen{overflow:hidden}
   }
   window.__lifeTest = { analyze: lfAnalyze, shape: lfShape, type: lfType, image: lfImage };
 
+  // ------------------------------------------------------------------ 새 화면 시안 (NL) · ?look=a|b|c 또는 look-a/b/c 주소
+  const NL = (() => {
+    let v = '';
+    try {
+      const q = (new URLSearchParams(location.search).get('look') || '').toLowerCase();
+      const h = location.hostname.match(/^look-([a-e])\./);
+      if (q) { v = q; LS.set('nl_look', /^[a-e]$/.test(q) ? q : 'off'); }
+      else if (h) v = h[1];
+      else v = LS.get('nl_look') || '';
+    } catch (e) {}
+    if (!/^[a-e]$/.test(v)) v = '';
+    return { v, view: '', br: { brand: '', model: '' }, brOrg: '국산', brOld: false, fmode: 'brand', cg: '', cat: '', q: '', asked: [], budget: 3000, kind: '신차', sort: 'ovr', body: '', more: 0, find: false, fb: 0, fbody: '', flip: false, open: false, pid: null, lamp: null };
+  })();
+  const NLC = { R: '#e2554c', O: '#e5a443', L: '#c8d758', G: '#45d37f', GOLD: '#e3b448', INK: '#15181e' };
+  const NLNAME = { a: '예산 속도계 + 매거진', b: '두 갈래 + 선수 카드', c: '계기판 클러스터', d: '아이콘 홈 (배민식)', e: '검색 한 줄' };
+  const nlCol = (v) => (isNaN(v) ? '#cfd4db' : v >= 16 ? NLC.G : v >= 11 ? NLC.L : v >= 6 ? NLC.O : NLC.R);
+  const nlTx = (v) => (isNaN(v) ? '#8a919d' : v >= 16 ? '#1b8a4b' : v >= 11 ? '#6f7d0e' : v >= 6 ? '#b8730c' : '#c4352d');
+  const nlS = (r, k) => gv(k, r['s_' + k]);
+  const nlMan = (p) => (p >= 10000 ? (p / 10000).toFixed(p % 10000 ? 1 : 0) + '억' : fmt(Math.round(p)) + '만');
+  const nlBrandless = (r) => { const n = r.name.replace(new RegExp('^' + r.brand + '\\s*'), ''); return n || r.name; };
+  function nlGauge(f, size, o) {
+    o = o || {};
+    f = Math.max(0, Math.min(1, isNaN(f) ? 0 : f));
+    const cols = [NLC.R, NLC.R, NLC.R, NLC.O, NLC.O, NLC.L, NLC.L, NLC.L, NLC.G, NLC.G, NLC.G];
+    const lit = isNaN(o.lit) ? Math.round(f * 10) : o.lit;
+    let s = `<svg class="nlg" viewBox="0 0 200 200" width="${size}" height="${size}" aria-hidden="true">`;
+    for (let i = 0; i < 11; i++) { const a = (135 + i * 27) * Math.PI / 180; s += `<circle cx="${(100 + 76 * Math.cos(a)).toFixed(1)}" cy="${(100 + 76 * Math.sin(a)).toFixed(1)}" r="13" fill="${i <= lit ? cols[i] : '#e6e9ee'}"/>`; }
+    const nd = (ff, c, w) => { const a = (135 + ff * 270) * Math.PI / 180; return `<line x1="100" y1="100" x2="${(100 + 54 * Math.cos(a)).toFixed(1)}" y2="${(100 + 54 * Math.sin(a)).toFixed(1)}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`; };
+    if (!isNaN(o.f2)) s += nd(Math.max(0, Math.min(1, o.f2)), '#9aa3b0', 8);
+    s += nd(f, NLC.INK, 9) + `<circle cx="100" cy="100" r="14" fill="${NLC.GOLD}" stroke="#fff" stroke-width="4"/></svg>`;
+    return s;
+  }
+  function nlHtml(tag, cls, html) { const e = el(tag, cls); e.innerHTML = html; return e; }
+  function nlFe(r) { const fe = num(r.fe); return isNaN(fe) ? '–' : fe + (r.fe_unit ? ' ' + r.fe_unit : ''); }
+  function nlFuel(r) { const c = commuteCost(r); return c ? (c.won / 10000).toFixed(1) + '만' : '–'; }
+
+  // ---- 공통 틀: 머리줄(☰ · 로고 · 🔍) + 왼쪽 메뉴 + 시안 띠
+  const NLTITLE = { 't-home': '', 't-rank': '랭킹', 't-play': '놀이터', 't-prof': '선수', 't-sq': '스쿼드', 't-wiz': '추천', 't-cmp': '비교', 't-fun': '펀카', 't-used': '이적시장', 't-all': '전체 명단', 't-how': '기준' };
+  function nlShell() {
+    const vd = document.querySelector('.vd'); if (!vd || $('#nlhd')) return;
+    vd.classList.add('nl', 'nl-' + NL.v); vd.setAttribute('data-theme', 'light'); document.documentElement.classList.add('nlroot');
+    const strip = el('div', 'nlstrip');
+    strip.appendChild(el('span', null, `테스트 시안 ${NL.v.toUpperCase()} · ${NLNAME[NL.v]}`));
+    const sw = strip.appendChild(el('span', 'nlsw'));
+    [['a', 'A'], ['b', 'B'], ['c', 'C'], ['d', 'D'], ['e', 'E'], ['off', '지금']].forEach(([k, t]) => { const a = sw.appendChild(el('a', k === NL.v ? 'on' : '', t)); a.href = '?look=' + k + location.hash; });
+    const hd = el('header', 'nlhd'); hd.id = 'nlhd';
+    const mb = hd.appendChild(btnEl('nlib', '', () => nlDrawer(true))); mb.setAttribute('aria-label', '메뉴 열기'); mb.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 7h16M4 12h16M4 17h16" stroke="#15181e" stroke-width="2.2" stroke-linecap="round"/></svg>';
+    const br = hd.appendChild(btnEl('nlbrand', '', () => { NL.find = false; NL.cat = ''; NL.view = ''; show('t-home'); }));
+    const lg = document.querySelector('.topbar .logo'); if (lg) br.appendChild(lg.cloneNode(true));
+    br.appendChild(el('b', null, 'CAR SQUAD')); br.appendChild(el('span', 'nlwhere', '')).id = 'nlwhere';
+    const sb = hd.appendChild(btnEl('nlib', '', () => nlSearch())); sb.setAttribute('aria-label', '차 검색'); sb.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24"><circle cx="10.5" cy="10.5" r="6.5" stroke="#15181e" stroke-width="2.2" fill="none"/><path d="m16 16 4.5 4.5" stroke="#15181e" stroke-width="2.2" stroke-linecap="round"/></svg>';
+    vd.insertBefore(hd, vd.firstChild); vd.insertBefore(strip, vd.firstChild);
+    // 왼쪽 메뉴
+    const dw = document.body.appendChild(el('div', 'nldraw nlv-' + NL.v)); dw.id = 'nldraw'; dw.hidden = true;
+    dw.addEventListener('click', (e) => { if (e.target === dw) nlDrawer(false); });
+    const pn = dw.appendChild(el('nav', 'nldpn'));
+    const top = pn.appendChild(el('div', 'nldtop')); if (lg) top.appendChild(lg.cloneNode(true)); top.appendChild(el('b', null, '메뉴'));
+    top.appendChild(btnEl('nlx', '✕', () => nlDrawer(false))).setAttribute('aria-label', '닫기');
+    const grp = (t, items) => { pn.appendChild(el('div', 'nldg', t)); const gw = pn.appendChild(el('div', 'nldgrid')); items.forEach(([ic, label, sub, fn, id]) => { const b = gw.appendChild(btnEl('nldi', '', () => { nlDrawer(false); fn(); })); if (id) b.dataset.tab = id; if (NL.v === 'c' && NLMSYM[label]) { const k = b.appendChild(el('span', 'nldkey')); k.appendChild(el('i')); k.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${NLMSYM[label]}</svg>`); } else b.appendChild(el('span', 'nldic', ic)); const tx = b.appendChild(el('span')); tx.appendChild(el('b', null, label)); if (sub) tx.appendChild(el('small', null, sub)); }); };
+    const go = (t) => () => { NL.find = false; NL.cat = ''; NL.view = ''; show(t); };
+    grp('차 고르기', [['🏠', '홈', '', go('t-home'), 't-home'], ['🏆', '랭킹', '종합 순위', go('t-rank'), 't-rank'], ['🏭', '제조사별로 찾기', '제조사 → 모델 → 트림', () => nlGoBrowse()], ['👤', '선수', '차 한 대 자세히', go('t-prof'), 't-prof'], ['⚔️', '비교', '최대 4대 맞대결', go('t-cmp'), 't-cmp'], ['🧭', '추천', '5문항 영입 상담', go('t-wiz'), 't-wiz'], ['🔁', '이적시장', '중고 시세', go('t-used'), 't-used'], ['🏎️', '펀카', '슈퍼카~핫해치', go('t-fun'), 't-fun'], ['📋', '전체 명단', '스카우트', go('t-all'), 't-all']]);
+    grp('놀기', [['📈', '차생 그래프', '내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🧠', '차 MBTI', '24문항', () => goPlay('mb')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['⚽', '스쿼드', '찜한 차로 팀 짜기', go('t-sq'), 't-sq']]);
+    grp('기타', [['📏', '점수 매기는 법', '', go('t-how'), 't-how']]);
+    pn.appendChild(el('p', 'nltm', NLTM));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { nlDrawer(false); const so = $('#nlso'); if (so) so.remove(); } });
+  }
+  function nlDrawer(on) { const d = $('#nldraw'); if (!d) return; d.hidden = !on; document.body.classList.toggle('nlnoscroll', on); if (on) d.querySelectorAll('.nldi').forEach((b) => b.classList.toggle('on', b.dataset.tab === cur)); }
+  function nlSearch() {
+    let so = $('#nlso'); if (so) so.remove();
+    so = document.body.appendChild(el('div', 'nlso')); so.id = 'nlso';
+    so.addEventListener('click', (e) => { if (e.target === so) so.remove(); });
+    const bx = so.appendChild(el('div', 'nlsobox'));
+    const row = bx.appendChild(el('div', 'nlsorow'));
+    const inp = row.appendChild(el('input')); inp.placeholder = '차 이름 검색 (초성·영문 OK)'; inp.autocomplete = 'off';
+    row.appendChild(btnEl('nlx', '✕', () => so.remove())).setAttribute('aria-label', '닫기');
+    const res = bx.appendChild(el('div', 'nlsores'));
+    const hint = () => { res.textContent = ''; res.appendChild(el('p', 'nlmut', '예: 아반떼, ㅅㄹㅌ, grandeur')); };
+    hint();
+    inp.addEventListener('input', () => { const q = inp.value; if (!q.trim()) return hint(); res.textContent = ''; const list = searchCars(q, 10); if (!list.length) res.appendChild(el('p', 'nlmut', '못 찾았어요. 다른 이름으로 해 보세요'));
+      list.forEach((r) => res.appendChild(nlRow(r, null, () => { so.remove(); openProfile(r.id); }))); });
+    setTimeout(() => inp.focus(), 30);
+  }
+  function nlAfterShow(id) {
+    if (!NL.v) return;
+    const w = $('#nlwhere'); if (w) w.textContent = id === 't-home' && NL.view === 'browse' ? '· 제조사별' : id === 't-home' && NL.cat && nlCat(NL.cat) ? '· ' + nlCat(NL.cat)[2] : id === 't-home' && NL.find ? '· 찾기' : NLTITLE[id] ? '· ' + NLTITLE[id] : '';
+    const vd = document.querySelector('.vd'); if (vd) vd.classList.toggle('nofilt', ['t-home', 't-play', 't-prof'].includes(id));
+  }
+  // 목록 한 줄 (사진 · 이름 · 작은 다이얼)
+  function nlRow(r, info, fn) {
+    const b = btnEl('nlrow', '', fn);
+    const ph = b.appendChild(el('div', 'nlth')); photo(ph, r);
+    const m = b.appendChild(el('div', 'nlrm'));
+    m.appendChild(el('b', null, r.name));
+    m.appendChild(el('small', null, info || `${r.body || ''} · ${r.og ? '이전 세대' : '신차 ' + nlMan(r.price)}`));
+    const g = b.appendChild(el('div', 'nlrg')); g.innerHTML = nlGauge(r._ovr / 100, 46); g.appendChild(el('b', null, ovrTxt(r)));
+    return b;
+  }
+  const nlPlayRow = (box, title) => {
+    const w = box.appendChild(el('div', 'nlplay'));
+    w.appendChild(el('div', 'nlk', title || '놀러 왔다면'));
+    const s = w.appendChild(el('div', 'nlpscroll'));
+    [['📈', '차생 그래프', 'life'], ['🏁', '드림카까지', 'dg'], ['🧠', '차 MBTI', 'mb'], ['🏆', '월드컵', 'wc']].forEach(([ic, t, m]) => s.appendChild(btnEl('nlpill', ic + ' ' + t, () => goPlay(m))));
+  };
+
+  // ---- 홈
+  function nlHome(box) {
+    box.textContent = ''; box.className = 'nlhome';
+    nlAfterShow(cur);
+    if (NL.view === 'browse') return nlBrowseHome(box);
+    if (NL.v === 'a') return nlHomeA(box);
+    if (NL.v === 'b') return NL.find ? nlFindB(box) : nlHomeB(box);
+    if (NL.v === 'd') return nlHomeD(box);
+    if (NL.v === 'e') return nlHomeE(box);
+    return nlHomeC(box);
+  }
+  // A: 예산 속도계 (신차 + 중고 시세 섞기)
+  const NLB = { min: 1000, max: 10000 };
+  function nlBudgetList(B, body) {
+    const seen = new Map();
+    CARS.forEach((r) => {
+      if (r.ex || isNaN(r._ovr)) return;
+      if (body && r.body !== body) return;
+      let it = null;
+      if (!r.og && r.price <= B) it = { r, kind: '신차', p: r.price };
+      else if (!blank(r.used_price) && r.used_price <= B) it = { r, kind: '중고', p: r.used_price, yrs: r.used_years };
+      if (!it) return;
+      const key = modelKey(r) + '|' + it.kind;
+      const o = seen.get(key); if (!o || o.r._ovr < r._ovr) seen.set(key, it);
+    });
+    return [...seen.values()];
+  }
+  // B: 두 갈래
+  function nlHomeB(box) {
+    const s = box.appendChild(btnEl('nlfakesearch', '', () => nlSearch())); s.innerHTML = '<span>🔍</span> 차 이름으로 검색 (예: 아반떼, ㅅㄹㅌ)';
+    box.appendChild(el('h2', 'nlq jal', '오늘은 무엇을 할까요?'));
+    const two = box.appendChild(el('div', 'nltwo'));
+    const c1 = two.appendChild(btnEl('nlway find', '', () => { NL.find = true; render(); nlAfterShow(cur); window.scrollTo({ top: 0 }); }));
+    c1.innerHTML = `<span class="nlwi">🔍</span><b class="jal">차 찾기</b><small>제조사 → 모델 → 트림 순서로<br>또는 예산·차종 조건으로</small><span class="nlarr">→</span>`;
+    c1.insertBefore(nlLogoStrip(5, 20), c1.querySelector('.nlarr'));
+    const c2 = two.appendChild(btnEl('nlway play', '', () => show('t-play')));
+    c2.innerHTML = `<span class="nlwi">🎮</span><b class="jal">놀아 보기</b><small>차생 그래프 · 차 MBTI<br>이상형 월드컵 · 드림카까지</small><span class="nlarr">→</span>`;
+    const rec = recentList().slice(0, 4);
+    if (rec.length) { const w = box.appendChild(el('div', 'nlrecent')); w.appendChild(el('div', 'nlk', '최근 본 선수')); rec.forEach((id) => w.appendChild(nlRow(byId[id], null, () => openProfile(id)))); }
+  }
+  function nlFindB(box) {
+    const bk = box.appendChild(btnEl('nlback', '← 홈으로', () => { NL.find = false; render(); nlAfterShow(cur); })); bk.type = 'button';
+    box.appendChild(el('h2', 'nlq jal', '차 찾기'));
+    const fm = box.appendChild(el('div', 'nlseg wide'));
+    [['brand', '제조사 → 모델 → 트림'], ['cond', '예산·차종 조건']].forEach(([k, t]) => fm.appendChild(btnEl(NL.fmode === k ? 'on' : '', t, () => { NL.fmode = k; render(); })));
+    if (NL.fmode === 'brand') return nlBrowse(box);
+    const c1 = box.appendChild(el('div', 'nlchips'));
+    [[0, '예산 전체'], [2000, '2천↓'], [3000, '3천↓'], [5000, '5천↓'], [8000, '8천↓']].forEach(([v, t]) => c1.appendChild(btnEl('nlchip' + (NL.fb === v ? ' on' : ''), t, () => { NL.fb = v; render(); })));
+    const c2 = box.appendChild(el('div', 'nlchips sm'));
+    [['', '전체'], ['경차', '경차'], ['세단', '세단'], ['SUV', 'SUV'], ['해치백', '해치백'], ['전기', '⚡ 전기']].forEach(([v, t]) => c2.appendChild(btnEl('nlchip' + (NL.fbody === v ? ' on' : ''), t, () => { NL.fbody = v; render(); })));
+    let L = activePool().filter((r) => (!NL.fb || r.price <= NL.fb) && (!NL.fbody || (NL.fbody === '전기' ? r.powertrain === '전기' : r.body === NL.fbody)));
+    const seen = new Set(); L = L.sort((a, b) => b._ovr - a._ovr).filter((r) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; });
+    box.appendChild(el('p', 'nlmut', `${L.length}모델 · OVR 높은 순 · 카드 색 = 등급 (로고 색)`));
+    const g = box.appendChild(el('div', 'nlcgrid'));
+    L.slice(0, 24 + NL.more * 24).forEach((r) => g.appendChild(nlMiniCard(r)));
+    if (L.length > 24 + NL.more * 24) box.appendChild(btnEl('nlmore', '카드 더 보기', () => { NL.more++; render(); }));
+  }
+  const nlTier = (ovr) => { const v = ovr / 5; return v >= 16 ? 'g' : v >= 11 ? 'l' : v >= 6 ? 'o' : 'r'; };
+  const NLSIX = [['eff', '연비'], ['safety', '안전'], ['accel', '가속'], ['room', '공간'], ['quiet', '정숙'], ['value', '가성비']];
+  function nlMiniCard(r) {
+    const b = btnEl('nlmc t-' + nlTier(r._ovr), '', () => openProfile(r.id));
+    const t = b.appendChild(el('div', 'nlmct')); t.appendChild(el('b', null, ovrTxt(r))); t.appendChild(el('small', null, (r.body || '').slice(0, 3)));
+    const ph = b.appendChild(el('div', 'nlmcp')); photo(ph, r);
+    b.appendChild(el('div', 'nlmcn', shortName(nlBrandless(r))));
+    const s = b.appendChild(el('div', 'nlmcs'));
+    NLSIX.slice(0, 4).forEach(([k, l]) => { const v = Math.round(nlS(r, k)); const i = s.appendChild(el('span')); i.appendChild(el('b', null, isNaN(v) ? '–' : String(v))); i.appendChild(document.createTextNode(' ' + l)); });
+    b.appendChild(el('div', 'nlmcf', '몸값 ' + nlMan(r.price)));
+    return b;
+  }
+  // ---- 선수 화면
+  function nlProfile() {
+    const sec = $('#p-prof'); if (!sec) return;
+    const r = byId[state.prof]; if (!r) return;
+    if (NL.pid !== r.id) { NL.pid = r.id; NL.open = false; NL.flip = false; NL.lamp = null; NL.asked = []; }
+    let box = $('#nlprof'); if (!box) { box = el('div', 'nlprof'); box.id = 'nlprof'; sec.insertBefore(box, sec.firstChild); }
+    box.textContent = '';
+    if (NL.v === 'a') nlProfA(box, r); else if (NL.v === 'b') nlProfB(box, r); else if (NL.v === 'd') nlProfD(box, r); else if (NL.v === 'e') nlProfE(box, r); else nlProfC(box, r);
+    const act = box.appendChild(el('div', 'nlacts'));
+    act.appendChild(favBtnChip(r)).className = 'nlbtn';
+    act.appendChild(btnEl('nlbtn', state.cmp.includes(r.id) ? '비교에서 빼기' : '⚔️ 비교에 담기', () => toggleCmp(r.id)));
+    act.appendChild(btnEl('nlbtn', '📇 카드 공유', (e) => shareCard(r, e.currentTarget)));
+    const more = box.appendChild(btnEl('nlopen', NL.open ? '접기 ↑' : '능력치·비용 전부 보기 ↓', () => { NL.open = !NL.open; nlProfile(); if (NL.open) setTimeout(() => $('#profile').scrollIntoView({ block: 'start', behavior: 'smooth' }), 0); }));
+    more.setAttribute('aria-expanded', NL.open);
+    sec.classList.toggle('nlclosed', !NL.open);
+  }
+  function nlLead(r) {
+    const h = seedOf(r.id), P = (arr, k) => arr[(h >>> k) % arr.length];
+    const out = [];
+    const fe = nlFe(r), pr = nlMan(r.price) + ' 원';
+    out.push(P([`연비 ${fe}에 ${r.og ? '마지막 신차가' : '신차'} ${pr}.`, `${r.og ? '마지막 신차가' : '신차'} ${pr}, 연비는 ${fe}.`, `${pr}짜리 ${r.body || '차'}, 연비 ${fe}.`], 1));
+    const rn = num(r.rec_n);
+    out.push(isNaN(rn) || rn === 0 ? P(['무상 점검(리콜) 기록은 아직 없습니다.', '아직 무상 점검(리콜) 안내가 한 번도 없었어요.'], 3) : `무상 점검(리콜) 안내는 ${rn}번 있었어요.`);
+    const sc = ATTR.filter((a) => !isNaN(r['s_' + a.k]) && !isEst(r, a.k) && a.k !== 'tage');
+    const best = sc.slice().sort((x, y) => nlS(r, y.k) - nlS(r, x.k)), worst = sc.slice().sort((x, y) => nlS(r, x.k) - nlS(r, y.k));
+    if (best.length > 2) out.push(P([`잘하는 건 ${best[0].label}·${best[1].label}, 아쉬운 건 ${worst[0].label}.`, `${best[0].label}과 ${best[1].label}로 먹고사는 선수. 약점은 ${worst[0].label}.`.replace(/([가-힣])과 /, (m, c) => c + ((c.charCodeAt(0) - 44032) % 28 ? '과 ' : '와 ')), `강점 ${best[0].label}·${best[1].label} / 약점 ${worst[0].label}.`], 5));
+    const st = style(r); if (st && st[1]) out.push(st[1] + '.');
+    return out;
+  }
+  function nlProfA(box, r) {
+    const ph = box.appendChild(el('div', 'nlhero')); photo(ph, r);
+    const pa = box.appendChild(el('div', 'nlpaper'));
+    pa.appendChild(el('div', 'nlkick', [r.body, r.powertrain, r.origin].filter(Boolean).join(' · ')));
+    const t = pa.appendChild(el('h1', 'nlttl')); t.appendChild(el('span', null, r.brand)); t.appendChild(el('b', 'jal', nlBrandless(r)));
+    const ld = pa.appendChild(el('div', 'nllead')); nlLead(r).forEach((s) => ld.appendChild(el('p', null, s)));
+    const nums = pa.appendChild(el('div', 'nlnums'));
+    [[ovrTxt(r), isNaN(r._rank) ? 'OVR' : `OVR · ${r._rank}위`], [nlFuel(r), '월 출퇴근 기름값'], [nlMan(r.price), r.og ? '마지막 신차가' : '몸값(신차)']].forEach(([v, l]) => { const d = nums.appendChild(el('div')); d.appendChild(el('b', null, v)); d.appendChild(el('small', null, l)); });
+    const sw = pa.appendChild(el('div', 'nlsw2'));
+    const sc = ATTR.filter((a) => !isNaN(r['s_' + a.k]) && !isEst(r, a.k) && a.k !== 'tage');
+    const best = sc.slice().sort((x, y) => nlS(r, y.k) - nlS(r, x.k)).slice(0, 3), worst = sc.slice().sort((x, y) => nlS(r, x.k) - nlS(r, y.k)).slice(0, 2);
+    [['잘하는 것', best], ['아쉬운 것', worst]].forEach(([h, a]) => { const c = sw.appendChild(el('div')); c.appendChild(el('div', 'nlk', h)); a.forEach((x) => { const v = Math.round(nlS(r, x.k)); const p = c.appendChild(el('p')); p.appendChild(el('span', null, x.label)); const bb = p.appendChild(el('b', null, String(Math.round(r['s_' + x.k])))); bb.style.color = nlTx(v); }); });
+  }
+  function nlProfB(box, r) {
+    const wrap = box.appendChild(el('div', 'nlcardwrap'));
+    const cd = wrap.appendChild(el('div', 'nlcard t-' + nlTier(r._ovr) + (NL.flip ? ' flip' : '')));
+    const fr = cd.appendChild(el('div', 'nlface front'));
+    const tp = fr.appendChild(el('div', 'nlctop'));
+    const o = tp.appendChild(el('div', 'nlcovr')); o.appendChild(el('b', null, ovrTxt(r))); o.appendChild(el('small', null, (r.body || '').slice(0, 3).toUpperCase())); o.appendChild(el('small', null, FLAG[r.brand] || r.origin || ''));
+    const ph = tp.appendChild(el('div', 'nlcph')); photo(ph, r);
+    fr.appendChild(el('div', 'nlcname jal', nlBrandless(r)));
+    const g = fr.appendChild(el('div', 'nlcsix'));
+    NLSIX.forEach(([k, l]) => { const v = Math.round(r['s_' + k]); const d = g.appendChild(el('div')); d.appendChild(el('b', null, isNaN(v) ? '–' : String(v))); d.appendChild(el('span', null, l)); });
+    fr.appendChild(el('div', 'nlcfoot', `몸값 ${nlMan(r.price)}${isNaN(r._rank) ? '' : ' · ' + r._rank + '위'} · ${r.brand}`));
+    const bk = cd.appendChild(el('div', 'nlface back'));
+    bk.appendChild(el('div', 'nlk', '카드 뒷면 · 그룹 평균 (1~20)'));
+    GROUPS.forEach((G) => { const vs = G.a.map((k) => nlS(r, k)).filter((v) => !isNaN(v)); const av = vs.length ? vs.reduce((a, b) => a + b, 0) / vs.length : NaN; const row = bk.appendChild(el('div', 'nlbar')); row.appendChild(el('span', null, G.k)); const tr = row.appendChild(el('i')); const fi = tr.appendChild(el('em')); fi.style.width = (isNaN(av) ? 0 : av / 20 * 100) + '%'; fi.style.background = nlCol(av); row.appendChild(el('b', null, isNaN(av) ? '–' : av.toFixed(1))); });
+    const st = style(r); bk.appendChild(el('div', 'nlk', '플레이 스타일')); bk.appendChild(el('p', 'nlbst', st[0] + (st[1] ? ' — ' + st[1] : '')));
+    bk.appendChild(el('p', 'nlmut', '차 MBTI ' + carMBTI(r) + ' · 연비 ' + nlFe(r) + ' · 월 기름값 ' + nlFuel(r)));
+    const bt = box.appendChild(el('div', 'nlacts c'));
+    bt.appendChild(btnEl('nlbtn dark', isFav(r.id) ? '♥ 스쿼드에 있음' : '스쿼드 영입 +', () => { toggleFav(r.id); nlProfile(); }));
+    bt.appendChild(btnEl('nlbtn', NL.flip ? '앞면 보기 ↻' : '카드 뒤집기 ↻', () => { NL.flip = !NL.flip; cd.classList.toggle('flip', NL.flip); }));
+  }
+  const NLMSYM = {"홈": "<path d=\"M3.5 11.5 12 4.5l8.5 7\"/><path d=\"M6 10.5V19h12v-8.5\"/><path d=\"M9 19v-3.5h6V19M9 17.2h6\"/>", "랭킹": "<path d=\"M3.5 19.5h17\"/><path d=\"M5 19.5v-5h4.5v5M9.5 19.5V9.5h5v10M14.5 19.5v-3.5H19v3.5\"/><path d=\"M12 4.2v2.6\"/>", "제조사별로 찾기": "<path d=\"M12 3.5 19 6v6c0 4.3-3 7.3-7 8.5-4-1.2-7-4.2-7-8.5V6z\"/><path d=\"M9 12h6M12 9v6\"/>", "선수": "<path d=\"M8.5 4 4.5 6.5 3 11l3.3 1.3 1-2V20h9.4v-9.7l1 2L21 11l-1.5-4.5L15.5 4c-.9 1.8-6.1 1.8-7 0z\"/><path d=\"M11 11h2.2l-1.6 3h1.8\"/>", "비교": "<path d=\"M4 8h14.5\"/><path d=\"m15.5 5 3 3-3 3\"/><path d=\"M20 16H5.5\"/><path d=\"m8.5 13-3 3 3 3\"/>", "추천": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"2.2\"/><path d=\"M4.2 10.8h5.6M14.2 10.8h5.6M12 14.2V20\"/>", "이적시장": "<path d=\"M6 3.5h9l3 3V20.5H6z\"/><path d=\"M9 9h6M9 12.5h6M9 16h3.5\"/>", "펀카": "<path d=\"M4 17a8 8 0 1 1 16 0\"/><path d=\"m12 17 4.5-5.5\"/><path d=\"M7 13.2l.9.5M12 9.2v1M17 13.2l-.9.5\"/>", "전체 명단": "<path d=\"M8 6h12M8 12h12M8 18h12\"/><circle cx=\"4.5\" cy=\"6\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"12\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"18\" r=\".9\" fill=\"currentColor\"/>", "차생 그래프": "<path d=\"M3.5 19.5h17\"/><path d=\"m4.5 15.5 4.5-4.5 3.5 3 6-6.5\"/>", "드림카까지": "<path d=\"M6 21V4\"/><path d=\"M6 4.5h11.5l-2.5 3.5 2.5 3.5H6\"/>", "차 MBTI": "<path d=\"M4 5h16v10.5H10.5L6.5 19.5v-4H4z\"/><path d=\"M10 8.6a2 2 0 1 1 2.8 1.8c-.6.3-.8.7-.8 1.2\"/><circle cx=\"12\" cy=\"13.6\" r=\".5\" fill=\"currentColor\"/>", "이상형 월드컵": "<path d=\"M8 4.5h8v4.5c0 3-1.8 5-4 5s-4-2-4-5z\"/><path d=\"M8 6.5H5.5c0 3 1.2 4 3 4.2M16 6.5h2.5c0 3-1.2 4-3 4.2\"/><path d=\"M12 14v3.5M8.5 20h7M9.5 17.5h5V20\"/>", "스쿼드": "<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"14\" rx=\"1\"/><path d=\"M12 5v14\"/><circle cx=\"12\" cy=\"12\" r=\"2.8\"/>", "점수 매기는 법": "<path d=\"M3.5 15.5 15.5 3.5l5 5-12 12z\"/><path d=\"m7.5 11.5 1.8 1.8M10.5 8.5l1.3 1.3M13.5 5.5l1.8 1.8\"/>"};
+  const NLLGLY = {"durab": "<path d=\"M14.5 4.5a4.5 4.5 0 0 0-4.3 5.8L4 16.5 7.5 20l6.2-6.2a4.5 4.5 0 0 0 5.8-4.3l-2.6 2.6-3-.4-.4-3z\"/>", "eff": "<path d=\"M5 20V5.5A1.5 1.5 0 0 1 6.5 4h6A1.5 1.5 0 0 1 14 5.5V20M3.5 20h12\"/><path d=\"M7.5 7.5h4v3.5h-4z\"/><path d=\"M14 9.5h2a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 0 3 0V8.5L18 6\"/>", "safety": "<circle cx=\"10\" cy=\"5\" r=\"1.8\"/><path d=\"M6.5 20v-4.5L5 12.5c-.4-1.6.6-3.5 2.5-3.5h3.5c1.4 0 2.4 1 2.6 2.3l.7 4.7h3.2v4\"/><path d=\"M8.5 9.5 13 15\"/>", "quiet": "<path d=\"M4 9.5h3.5L12 5.5v13l-4.5-4H4z\"/><path d=\"M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10\"/>", "room": "<path d=\"M7 4.5c-1.2 0-2 .9-1.8 2.1L6.5 15h8l1.8 4.5\"/><path d=\"M9.5 15 8 6.5\"/><path d=\"M6.5 15h-1M14.5 15h3.5\"/>", "cargo": "<path d=\"M3 15.5V11l2.5-4.5h9L18 11h3v4.5z\"/><path d=\"M14.5 6.5 18 11\"/><circle cx=\"7\" cy=\"16.5\" r=\"2\"/><circle cx=\"17\" cy=\"16.5\" r=\"2\"/><path d=\"M15 3.5l4 3\"/>", "resale": "<path d=\"M12 3.5 19 6v6c0 4.3-3 7.3-7 8.5-4-1.2-7-4.2-7-8.5V6z\"/><path d=\"m8.8 9 1.3 5.2L12 10l1.9 4.2L15.2 9M8.5 11.5h7\"/>", "tadas": "<path d=\"M7 20 9.5 4M17 20 14.5 4\"/><path d=\"M12 6v2M12 11v2M12 16v2.5\"/><path d=\"M4.5 8.5a5 5 0 0 1 0 7M19.5 8.5a5 5 0 0 0 0 7\"/>"};
+  const NLLAMP = [['durab', '🔧', '리콜'], ['eff', '⛽', '연비'], ['safety', '🛡️', '안전'], ['quiet', '🔇', '정숙성'], ['room', '🛋️', '실내 공간'], ['cargo', '📦', '적재력'], ['resale', '💰', '감가 방어'], ['tadas', '🤖', '주행보조']];
+  // ---- D: 아이콘 홈 (배민식 카테고리)
+  const NLCAT = [
+    ['suv', '🚙', 'SUV', (r) => r.body === 'SUV'], ['sedan', '🚗', '세단', (r) => r.body === '세단'], ['ev', '🔋', '전기', (r) => r.powertrain === '전기'], ['hev', '🍃', '하이브리드', (r) => r.powertrain === '하이브리드' || r.powertrain === 'PHEV'],
+    ['kei', '🐣', '경차', (r) => r.body === '경차' || (num(r.len) <= 3600)], ['seven', '👨‍👩‍👧‍👦', '7인승', (r) => num(r.seats) >= 7 || r.body === 'MPV'], ['value', '💰', '가성비', (r) => nlS(r, 'value') >= 14], ['pickup', '🛻', '픽업', (r) => r.body === '픽업'],
+    ['hatch', '🏎️', '해치백·펀카', (r) => r.body === '해치백' || r.body === '쿠페'], ['quiet', '🤫', '조용한 차', (r) => nlS(r, 'quiet') >= 15], ['first', '🔰', '첫차 추천', (r) => r.price <= 3000 && nlS(r, 'safety') >= 11], ['import', '🌍', '수입차', (r) => r.origin === '수입']
+  ];
+  const NLBAN = [['hev', '이번 주 추천', '기름값 아끼는\n하이브리드 모음', '🍃', '#e9f8ee', '#d6f0c0'], ['first', '이번 주 추천', '사회초년생\n첫차 후보 모음', '🔰', '#fff6e0', '#fde3b0'], ['seven', '이번 주 추천', '온 가족 다 타는\n7인승 모음', '👨‍👩‍👧‍👦', '#eef3ff', '#dbe6ff'], ['quiet', '이번 주 추천', '귀가 편한\n조용한 차 모음', '🤫', '#f5f0ff', '#e6dcff']];
+  const nlCat = (k) => NLCAT.find((c) => c[0] === k);
+  const nlTop = (r, n) => ATTR.filter((a) => !isNaN(r['s_' + a.k]) && !isEst(r, a.k) && a.k !== 'tage').sort((x, y) => nlS(r, y.k) - nlS(r, x.k)).slice(0, n);
+  function nlModels(list) { const seen = new Set(); return list.slice().sort((a, b) => b._ovr - a._ovr).filter((r) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }); }
+  function nlHomeD(box) {
+    if (NL.cat) return nlCatD(box);
+    box.appendChild(el('h2', 'nlq jal', '오늘은 뭐 타지? 🤔'));
+    const s = box.appendChild(btnEl('nlfakesearch', '', () => nlSearch())); s.innerHTML = '<span>🔍</span> 차 이름, 초성(ㅇㅂㄸ)도 OK';
+    const wk = Math.floor(Date.now() / 6048e5); const bn = NLBAN[wk % NLBAN.length];
+    const ban = box.appendChild(btnEl('nlban', '', () => { NL.cat = bn[0]; NL.more = 0; render(); window.scrollTo({ top: 0 }); }));
+    ban.style.background = `linear-gradient(110deg, ${bn[4]}, ${bn[5]})`;
+    ban.appendChild(el('small', null, bn[1])); ban.appendChild(el('b', 'jal', bn[2])); const bi = ban.appendChild(el('span', 'nlbani')); bi.innerHTML = nlIco(bn[0], 52);
+    const g = box.appendChild(el('div', 'nlicons'));
+    NLCAT.slice(0, 8).forEach(([k, ic, t]) => { const b = g.appendChild(btnEl('nlicon', '', () => { NL.cat = k; NL.more = 0; render(); window.scrollTo({ top: 0 }); })); const sp = b.appendChild(el('span')); sp.innerHTML = nlIco(k, 30); sp.style.background = NLTINT[k] || '#f4f5f7'; b.appendChild(el('b', null, t)); });
+    box.appendChild(el('div', 'nlsec', '제조사로 찾기'));
+    nlBrandGrid(box, 7, 'sq');
+    const rnd = rng(seedOf(todayKey())); const pick = NLCAT.slice(0, 4)[Math.floor(rnd() * 4)];
+    const strip = (title, list) => { box.appendChild(el('div', 'nlsec', title)); const sc = box.appendChild(el('div', 'nlhscroll')); list.forEach((r) => { const b = sc.appendChild(btnEl('nlhc', '', () => openProfile(r.id))); const ph = b.appendChild(el('div', 'nlhcp')); photo(ph, r); b.appendChild(el('b', null, shortName(nlBrandless(r)))); b.appendChild(el('small', null, `★ ${ovrTxt(r)} · ${nlMan(r.price)}`)); }); };
+    strip(`카스쿼드 추천 ${pick[2]}`, nlModels(activePool().filter(pick[3])).slice(0, 8));
+    strip('요즘 많이 보는 차', nlModels(activePool().filter((r) => r.u_n || r.used_n)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 8));
+    nlPlayRow(box, '놀거리');
+  }
+  function nlCatD(box) {
+    const c = nlCat(NL.cat) || NLCAT[0];
+    box.appendChild(btnEl('nlback', '← 홈으로', () => { NL.cat = ''; render(); }));
+    const tabs = box.appendChild(el('div', 'nlctabs'));
+    NLCAT.forEach(([k, ic, t]) => { const b = tabs.appendChild(btnEl(k === c[0] ? 'on' : '', t, () => { NL.cat = k; NL.more = 0; render(); })); if (k === c[0]) setTimeout(() => b.scrollIntoView({ inline: 'center', block: 'nearest' }), 0); });
+    const so = box.appendChild(el('div', 'nlchips sm left'));
+    [['ovr', '추천순(OVR)'], ['p', '몸값 낮은 순'], ['fe', '연비 좋은 순'], ['safe', '안전 높은 순']].forEach(([k, t]) => so.appendChild(btnEl('nlchip' + (NL.sort === k ? ' on' : ''), t, () => { NL.sort = k; render(); })));
+    let L = nlModels(activePool().filter(c[3]));
+    const srt = { ovr: (a, b) => b._ovr - a._ovr, p: (a, b) => a.price - b.price, fe: (a, b) => (nlS(b, 'eff') || 0) - (nlS(a, 'eff') || 0), safe: (a, b) => (nlS(b, 'safety') || 0) - (nlS(a, 'safety') || 0) }[NL.sort] || ((a, b) => b._ovr - a._ovr);
+    L = L.sort(srt);
+    box.appendChild(el('p', 'nlmut', `${c[2]} · ${L.length}모델`));
+    const lim = 15 + NL.more * 20;
+    L.slice(0, lim).forEach((r) => {
+      const b = box.appendChild(btnEl('nlstore', '', () => openProfile(r.id)));
+      const ph = b.appendChild(el('div', 'nlstp')); photo(ph, r);
+      const m = b.appendChild(el('div', 'nlstm'));
+      m.appendChild(el('b', null, nlBrandless(r)));
+      const st = m.appendChild(el('div', 'nlstar')); st.appendChild(el('span', null, '★')); st.appendChild(el('b', null, ovrTxt(r))); st.appendChild(el('small', null, isNaN(r._rank) ? '' : `· ${r._rank}위 · ${r.brand}`));
+      m.appendChild(el('small', null, `몸값 ${nlMan(r.price)} · 월 기름값 ${nlFuel(r)}`));
+      const tg = m.appendChild(el('div', 'nltags')); nlTop(r, 2).forEach((a) => tg.appendChild(el('i', null, `${a.label} ${Math.round(r['s_' + a.k])}`)));
+    });
+    if (L.length > lim) box.appendChild(btnEl('nlmore', `${L.length - lim}모델 더 보기`, () => { NL.more++; render(); }));
+  }
+  function nlProfD(box, r) {
+    const ph = box.appendChild(el('div', 'nlhero short')); photo(ph, r);
+    const cd = box.appendChild(el('div', 'nlstore-hd'));
+    cd.appendChild(el('h1', 'jal', nlBrandless(r)));
+    const st = cd.appendChild(el('div', 'nlstar big')); st.appendChild(el('span', null, stars(r._ovr))); st.appendChild(el('b', null, ovrTxt(r))); st.appendChild(el('small', null, isNaN(r._rank) ? '' : `OVR ${r._rank}위`));
+    const inf = cd.appendChild(el('div', 'nlinfo2'));
+    const rn = num(r.rec_n);
+    [[r.og ? '마지막 신차가' : '몸값', nlMan(r.price) + ' 원'], ['월 기름값', nlFuel(r) + ' 원 (출퇴근)'], ['연비', nlFe(r)], ['무상 점검', isNaN(rn) || !rn ? '기록 없음' : rn + '번']].forEach(([k, v]) => { const d = inf.appendChild(el('div')); d.appendChild(el('span', null, k)); d.appendChild(el('b', null, v)); });
+    const tb = box.appendChild(el('div', 'nlptabs'));
+    const secs = [['대표 능력치', 'nlsd1'], ['비용', 'nlsd2'], ['선수 정보', 'nlsd3']];
+    secs.forEach(([t, id]) => tb.appendChild(btnEl('', t, () => { const e = $('#' + id); if (e) e.scrollIntoView({ behavior: 'smooth', block: 'start' }); })));
+    const s1 = box.appendChild(el('div', 'nlmenu')); s1.id = 'nlsd1'; s1.appendChild(el('h3', null, '대표 능력치'));
+    nlTop(r, 5).forEach((a, i) => { const row = s1.appendChild(el('div', 'nlmrow')); const m = row.appendChild(el('div')); m.appendChild(el('b', null, (i === 0 ? '👑 ' : '') + a.label)); let t = ''; try { t = a.fmtv(r); } catch (e) {} m.appendChild(el('small', null, t)); const v = Math.round(r['s_' + a.k]); const sc = row.appendChild(el('span', 'nlmsc', String(v))); sc.style.background = nlCol(nlS(r, a.k)); });
+    const s2 = box.appendChild(el('div', 'nlmenu')); s2.id = 'nlsd2'; s2.appendChild(el('h3', null, '비용'));
+    const c = commuteCost(r);
+    [['월 출퇴근 기름값', nlFuel(r) + ' 원', c ? `하루 왕복 ${CM.km * 2}km · 월 ${CM.days}일` : ''], ['자동차세', blank(r.tax) ? '–' : fmt(Math.round(r.tax / 1000) * 1000) + '원/년', ''], ['중고 시세', blank(r.used_price) ? '–' : nlMan(r.used_price) + ' 원', r.used_years || '']].forEach(([k, v, sub]) => { const row = s2.appendChild(el('div', 'nlmrow')); const m = row.appendChild(el('div')); m.appendChild(el('b', null, k)); if (sub) m.appendChild(el('small', null, sub)); row.appendChild(el('span', 'nlmv', v)); });
+    const s3 = box.appendChild(el('div', 'nlmenu')); s3.id = 'nlsd3'; s3.appendChild(el('h3', null, '선수 정보'));
+    const sty = style(r);
+    [['플레이 스타일', sty[0], sty[1] || ''], ['차 MBTI', carMBTI(r), ''], ['국적·구동', `${r.brand} · ${r.drive || '–'}`, '']].forEach(([k, v, sub]) => { const row = s3.appendChild(el('div', 'nlmrow')); const m = row.appendChild(el('div')); m.appendChild(el('b', null, k)); if (sub) m.appendChild(el('small', null, sub)); row.appendChild(el('span', 'nlmv', v)); });
+  }
+
+  // ---- E: 검색 한 줄
+  const NLQ_BODY = [[/suv|에스유브이/i, 'SUV'], [/세단/, '세단'], [/경차/, '경차'], [/해치백/, '해치백'], [/픽업|트럭/, '픽업'], [/mpv|미니밴|승합/i, 'MPV'], [/쿠페/, '쿠페']];
+  const NLQ_PT = [[/전기|\bev\b/i, '전기'], [/하이브리드|hev/i, '하이브리드'], [/디젤|경유/, '디젤'], [/가솔린|휘발유/, '가솔린']];
+  const NLQ_SORT = [[/연비|기름값|아끼/, 'eff', '연비 좋은 순'], [/조용|정숙|소음/, 'quiet', '조용한 순'], [/안전/, 'safety', '안전 높은 순'], [/빠른|가속|빨라/, 'accel', '빠른 순'], [/넓은|공간|실내/, 'room', '넓은 순'], [/짐|트렁크|적재/, 'cargo', '짐 많이 싣는 순'], [/가성비/, 'value', '가성비 순'], [/싼|저렴|싸/, 'price', '싼 순']];
+  function nlParse(q) {
+    const t = q.trim(); if (!t) return null;
+    const vs = t.split(/\s+(?:vs|VS|대|랑|와|과|하고)\s+|\s*vs\s*/);
+    if (vs.length === 2 && vs[0] && vs[1]) { const a = searchCars(vs[0], 1)[0], b = searchCars(vs[1], 1)[0]; if (a && b && a.id !== b.id) return { vs: [a, b] }; }
+    const P = { why: [] };
+    const m = t.match(/(\d+(?:\.\d+)?)\s*(억|천만|천|백만|만)/);
+    if (m) { const n = parseFloat(m[1]); P.max = m[2] === '억' ? n * 10000 : m[2] === '천만' || m[2] === '천' ? n * 1000 : m[2] === '백만' ? n * 100 : n; if (/이상|넘는|부터/.test(t)) { P.min = P.max; P.max = 0; P.why.push(nlMan(P.min) + ' 원 이상'); } else P.why.push(nlMan(P.max) + ' 원 이하'); }
+    NLQ_BODY.forEach(([re, v]) => { if (!P.body && re.test(t)) { P.body = v; P.why.push(v); } });
+    NLQ_PT.forEach(([re, v]) => { if (!P.pt && re.test(t)) { P.pt = v; P.why.push(v); } });
+    if (/7인승|칠인승|대가족/.test(t)) { P.seven = 1; P.why.push('7인승'); }
+    if (/수입|외제/.test(t)) { P.org = '수입'; P.why.push('수입'); } else if (/국산/.test(t)) { P.org = '국산'; P.why.push('국산'); }
+    NLQ_SORT.forEach(([re, k, l]) => { if (!P.sort && re.test(t)) { P.sort = k; P.sortL = l; } });
+    if (!P.why.length && !P.sort) return null;
+    let L = activePool().filter((r) => (!P.max || r.price <= P.max) && (!P.min || r.price >= P.min) && (!P.body || r.body === P.body) && (!P.pt || (P.pt === '하이브리드' ? /하이브리드|PHEV/.test(r.powertrain) : r.powertrain === P.pt)) && (!P.seven || num(r.seats) >= 7 || r.body === 'MPV') && (!P.org || r.origin === P.org));
+    L = nlModels(L);
+    if (P.sort === 'price') L.sort((a, b) => a.price - b.price); else if (P.sort) L.sort((a, b) => (nlS(b, P.sort) || 0) - (nlS(a, P.sort) || 0) || b._ovr - a._ovr);
+    P.list = L; P.why.push(P.sortL || 'OVR 높은 순');
+    return P;
+  }
+  function nlVsTable(box, a, b) {
+    const t = box.appendChild(el('div', 'nlvs'));
+    const hd = t.appendChild(el('div', 'nlvsr hd')); [a, b].forEach((r, i) => { const c = hd.appendChild(btnEl('nlvsn', shortName(nlBrandless(r)), () => openProfile(r.id))); if (i === 0) hd.appendChild(el('span', null, 'vs')); });
+    const rows = [['OVR', (r) => r._ovr, (r) => ovrTxt(r), 1], ['몸값', (r) => r.price, (r) => nlMan(r.price), -1], ['연비', (r) => nlS(r, 'eff'), (r) => nlFe(r), 1], ['월 기름값', (r) => { const c = commuteCost(r); return c ? c.won : NaN; }, (r) => nlFuel(r), -1], ['안전', (r) => nlS(r, 'safety'), (r) => String(Math.round(r.s_safety) || '–'), 1], ['정숙성', (r) => nlS(r, 'quiet'), (r) => String(Math.round(r.s_quiet) || '–'), 1], ['실내 공간', (r) => nlS(r, 'room'), (r) => String(Math.round(r.s_room) || '–'), 1]];
+    let wa = 0, wb = 0;
+    rows.forEach(([l, f, txt, dir]) => { const x = f(a), y = f(b); const row = t.appendChild(el('div', 'nlvsr')); const ca = row.appendChild(el('b', null, txt(a))); row.appendChild(el('span', null, l)); const cb = row.appendChild(el('b', null, txt(b))); if (!isNaN(x) && !isNaN(y) && x !== y) { const aw = (x - y) * dir > 0; (aw ? ca : cb).classList.add('win'); aw ? wa++ : wb++; } });
+    t.appendChild(el('p', 'nlvsum', wa === wb ? `${wa} 대 ${wb}, 무승부예요` : `${shortName(nlBrandless(wa > wb ? a : b))} ${Math.max(wa, wb)} 대 ${Math.min(wa, wb)} 우세`));
+    t.appendChild(btnEl('nlbtn', '비교 화면에서 전부 보기 →', () => { state.cmp = [a.id, b.id]; show('t-cmp'); }));
+  }
+  function nlHomeE(box) {
+    box.classList.add('nle');
+    const lg = document.querySelector('.topbar .logo'); const hl = box.appendChild(el('div', 'nlelogo')); if (lg) hl.appendChild(lg.cloneNode(true));
+    box.appendChild(el('h2', 'jal nleq', '어떤 차가 궁금하세요?'));
+    const wrap = box.appendChild(el('div', 'nlebox'));
+    wrap.appendChild(el('span', null, '🔍'));
+    const inp = wrap.appendChild(el('input')); inp.placeholder = '차 이름, 초성, 조건 다 돼요'; inp.autocomplete = 'off'; inp.value = NL.q || ''; inp.setAttribute('aria-label', '검색');
+    const ex = box.appendChild(el('div', 'nlchips'));
+    const res = box.appendChild(el('div', 'nleres'));
+    const run = () => {
+      const q = inp.value; NL.q = q; res.textContent = '';
+      ex.hidden = !!q.trim();
+      if (!q.trim()) return;
+      const P = nlParse(q);
+      if (P && P.vs) { res.appendChild(el('div', 'nlwhy', '두 차 맞대결')); nlVsTable(res, P.vs[0], P.vs[1]); return; }
+      if (P) {
+        res.appendChild(el('div', 'nlwhy', `이렇게 찾았어요: ${P.why.join(' · ')} → ${P.list.length}모델`));
+        P.list.slice(0, NL.more ? 60 : 12).forEach((r) => res.appendChild(nlRow(r, `${r.body || ''} · ${nlMan(r.price)} · 연비 ${nlFe(r)}`, () => openProfile(r.id))));
+        if (P.list.length > 12 && !NL.more) res.appendChild(btnEl('nlmore', `${P.list.length - 12}모델 더 보기`, () => { NL.more = 1; run(); }));
+        if (!P.list.length) res.appendChild(el('p', 'nlmut', '조건에 맞는 차가 없어요. 예산을 올리거나 조건을 하나 빼 보세요'));
+        return;
+      }
+      const L = searchCars(q, 10);
+      if (!L.length) { res.appendChild(el('p', 'nlmut', '못 찾았어요. 예: "아반떼", "3천만 원 이하 SUV", "연비 좋은 하이브리드", "투싼 vs 스포티지"')); return; }
+      L.forEach((r) => res.appendChild(nlRow(r, null, () => openProfile(r.id))));
+    };
+    ex.className = 'nlextiles';
+    [['💸', '3천만 원 이하 SUV', '예산·차종으로 찾기'], ['⛽', '연비 좋은 하이브리드', '조건으로 줄 세우기'], ['⚔️', '아반떼 vs 쏘나타', '두 차 맞대결']].forEach(([ic, t, sub]) => { const b = ex.appendChild(btnEl('nlext', '', () => { inp.value = t; NL.more = 0; run(); })); b.appendChild(el('span', null, ic)); const m = b.appendChild(el('div')); m.appendChild(el('b', null, t)); m.appendChild(el('small', null, sub)); });
+    { const b = ex.appendChild(btnEl('nlext', '', () => nlGoBrowse())); b.appendChild(nlLogoStrip(3, 16)); const m = b.appendChild(el('div')); m.appendChild(el('b', null, '제조사별로 둘러보기')); m.appendChild(el('small', null, '현대 → 아반떼 → 트림')); }
+    inp.addEventListener('input', () => { NL.more = 0; run(); });
+    run();
+    const ft = box.appendChild(el('div', 'nlefoot'));
+    ft.appendChild(el('span', null, '국내 판매차 능력치 비교'));
+    ft.appendChild(btnEl('nllink', '🎮 놀이터', () => show('t-play')));
+  }
+  function nlProfE(box, r) {
+    const sb = box.appendChild(btnEl('nlfakesearch top', '', () => { NL.q = ''; show('t-home'); })); sb.innerHTML = `<span>🔍</span> ${r.name}`;
+    const ans = box.appendChild(el('div', 'nlans'));
+    ans.appendChild(el('div', 'nlk', [r.body, r.powertrain, r.origin].filter(Boolean).join(' · ')));
+    ans.appendChild(el('h1', 'jal', nlBrandless(r)));
+    const sty = style(r); ans.appendChild(el('p', 'nlverd', `한 줄 요약: ${sty[0]}${sty[1] ? ' — ' + sty[1] : ''}`));
+    const ph = ans.appendChild(el('div', 'nlanp')); photo(ph, r);
+    const g = ans.appendChild(el('div', 'nlfacts'));
+    [['OVR', ovrTxt(r), isNaN(r._rank) ? '' : r._rank + '위'], [r.og ? '마지막 신차가' : '몸값', nlMan(r.price), ''], ['연비', String(num(r.fe) || '–'), r.fe_unit || ''], ['월 기름값', nlFuel(r), '출퇴근']].forEach(([l, v, s]) => { const d = g.appendChild(el('div')); d.appendChild(el('small', null, l)); d.appendChild(el('b', null, v)); if (s) d.appendChild(el('em', null, s)); });
+    box.appendChild(el('div', 'nlk pad', '이어서 물어보기'));
+    const qa = box.appendChild(el('div', 'nlqa'));
+    const NQ = nlQs(r);
+    const chips = box.appendChild(el('div', 'nlchips left pad'));
+    (NL.asked || []).forEach((k) => { const q = NQ.find((x) => x[0] === k); if (q) nlAnswer(qa, r, q); });
+    NQ.filter((q) => !(NL.asked || []).includes(q[0])).forEach((q) => chips.appendChild(btnEl('nlchip', q[1], () => { NL.asked = (NL.asked || []).concat(q[0]); nlProfile(); })));
+  }
+  function nlQs(r) {
+    const same = activePool().filter((x) => x.body === r.body && modelKey(x) !== modelKey(r));
+    return [
+      ['fe', '연비는 어때?', () => { const c = commuteCost(r); const pool = nlModels(activePool().filter((x) => x.body === r.body && x.fe_unit === r.fe_unit)); const rank = pool.findIndex((x) => modelKey(x) === modelKey(r)); const better = pool.slice().sort((a, b) => num(b.fe) - num(a.fe)); const rk = better.findIndex((x) => modelKey(x) === modelKey(r)); return `연비 ${nlFe(r)}예요. ${c ? `하루 왕복 ${CM.km * 2}km 출퇴근이면 한 달 기름값 약 ${nlFuel(r)} 원.` : ''} ${rk >= 0 ? `${r.body} ${better.length}모델 중 연비 ${rk + 1}위.` : ''}`; }],
+      ['rec', '무상 점검(리콜)은?', () => { const n = num(r.rec_n); return isNaN(n) || !n ? '자동차리콜센터 기록 기준으로 무상 점검(리콜) 안내가 아직 없어요.' : `${r.rec_since ? r.rec_since + '년 이후 ' : ''}무상 점검(리콜) 안내가 ${n}번 있었어요(1년에 ${r.rec_rate}번꼴). 내 차가 대상인지는 자동차리콜센터(car.go.kr)에서 차대번호로 확인할 수 있어요.`; }],
+      ['safe', '안전은?', () => (r.safety_text ? `충돌 평가: ${r.safety_text}. 안전 능력치 ${Math.round(r.s_safety)} / 20.` : '공식 충돌 평가 기록이 아직 없어요.')],
+      ['used', '중고 시세는?', () => (blank(r.used_price) ? '엔카 기준으로 비교할 만한 중고 매물이 부족해요.' : `엔카 기준 중고 시세 약 ${nlMan(r.used_price)} 원(${r.used_years || ''})${isNaN(num(r.retention)) ? '' : `, 신차 값의 ${r.retention}% 수준`}이에요. 시세는 추정치라 실제 매물과 다를 수 있어요.`)],
+      ['alt', '이 가격대 다른 차는?', null, () => nlModels(same.filter((x) => Math.abs(x.price - r.price) <= r.price * 0.12 && x._ovr >= r._ovr - 3)).slice(0, 3)],
+      ['vs', '라이벌이랑 비교', null, null, () => nlModels(same).sort((a, b) => Math.abs(a.price - r.price) - Math.abs(b.price - r.price))[0]]
+    ];
+  }
+  function nlAnswer(qa, r, q) {
+    qa.appendChild(el('div', 'nlqq', q[1]));
+    const a = qa.appendChild(el('div', 'nlqan'));
+    if (q[2]) { a.textContent = q[2](); return; }
+    if (q[3]) { const L = q[3](); if (!L.length) { a.textContent = '비슷한 가격(±12%)에 같은 차종은 마땅한 게 없어요.'; return; } a.appendChild(el('p', null, `같은 ${r.body}, 비슷한 몸값(±12%) 중 OVR 높은 순이에요.`)); L.forEach((x) => a.appendChild(nlRow(x, null, () => openProfile(x.id)))); return; }
+    if (q[4]) { const b = q[4](); if (!b) { a.textContent = '비교할 라이벌을 못 찾았어요.'; return; } a.appendChild(el('p', null, `몸값이 가장 비슷한 ${r.body}: ${b.name}`)); nlVsTable(a, r, b); }
+  }
+  // ---- 제조사 로고 (가리키는 용도로만 · 모양·색 변형 없음 · logos/README.md)
+  const NLLOGO = {"기아":"kia.svg","현대":"hyundai.svg","BMW":"bmw.svg","벤츠":"mercedes.svg","아우디":"audi.svg","볼보":"volvo.svg","폴스타":"polestar.svg","포드":"ford.svg","테슬라":"tesla.svg","토요타":"toyota.svg","혼다":"honda.svg","닛산":"nissan.svg","폭스바겐":"volkswagen.svg","포르쉐":"porsche.svg","미니":"mini.svg","페라리":"ferrari.svg","람보르기니":"lamborghini.svg","마세라티":"maserati.svg","맥라렌":"mclaren.svg","롤스로이스":"rollsroyce.svg","벤틀리":"bentley.svg","애스턴마틴":"astonmartin.svg","캐딜락":"cadillac.svg","쉐보레":"chevrolet.svg","지프":"jeep.svg","랜드로버":"landrover.svg","램":"ram.svg","르노코리아":"renault.svg","푸조":"peugeot.svg","제네시스":"genesis.png","렉서스":"lexus.png","링컨":"lincoln.png","GMC":"gmc.png","로터스":"lotus.png"};
+  function nlLogo(brand, h) { const f = NLLOGO[brand]; if (!f) return null; const i = el('img', 'nllogo' + (/\.png$/.test(f) ? ' png' : '')); i.src = 'logos/' + f; i.alt = brand; i.loading = 'lazy'; i.style.height = h + 'px'; i.addEventListener('error', () => i.remove()); return i; }
+  // 제조사 로고 줄·그리드 (가리키는 용도 · 원본 그대로)
+  function nlTopBrands(n) { const m = new Map(); activePool().forEach((r) => m.set(r.brand, (m.get(r.brand) || 0) + 1)); return [...m.entries()].sort((a, b) => b[1] - a[1]).map((x) => x[0]).filter((b) => NLLOGO[b]).slice(0, n); }
+  function nlLogoStrip(n, h) { const s = el('div', 'nllstrip'); nlTopBrands(n).forEach((b) => { const lg = nlLogo(b, h); if (lg) s.appendChild(lg); }); return s; }
+  function nlBrandGrid(box, n, cls) {
+    const g = box.appendChild(el('div', 'nlbgrid ' + (cls || '')));
+    nlTopBrands(n).forEach((b) => { const btn = g.appendChild(btnEl('nlbg', '', () => nlGoBrowse(b))); const t = btn.appendChild(el('span', 'nlbgl')); const lg = nlLogo(b, 26); if (lg) t.appendChild(lg); btn.appendChild(el('b', null, b)); });
+    const more = g.appendChild(btnEl('nlbg more', '', () => nlGoBrowse())); more.appendChild(el('span', 'nlbgl', '→')); more.appendChild(el('b', null, '전체 제조사'));
+    return g;
+  }
+  const NLTM = '제조사 로고와 명칭은 각 제조사의 상표예요. 카스쿼드는 제조사와 제휴 관계가 아니며, 어느 회사 차인지 알려 드리는 용도로만 써요.';
+  // ---- 공통: 제조사 → 모델 → 트림 (엔카·헤이딜러식 단계 찾기)
+  const nlModelName = (r) => shortName(modelKey(r).replace(new RegExp('^' + r.brand + '\\s*'), '')) || r.name;
+  const nlTrimName = (r) => { const k = modelKey(r); const rest = r.name.slice(k.length).trim(); return rest || r.trim || r.name; };
+  function nlBrowse(box, embedded) {
+    const B = NL.br;
+    const pool = CARS.filter((r) => !isNaN(r._ovr) && !r.ex && (NL.brOld || !r.og));
+    const bc = box.appendChild(el('div', 'nlcrumb'));
+    const cr = (t, fn, on) => { const b = bc.appendChild(btnEl(on ? 'on' : '', t, fn)); return b; };
+    cr('제조사', () => { B.brand = ''; B.model = ''; render(); }, !B.brand);
+    if (B.brand) { bc.appendChild(el('i', null, '›')); cr(B.brand, () => { B.model = ''; render(); }, !B.model); }
+    if (B.model) { bc.appendChild(el('i', null, '›')); cr(B.model, () => {}, true); }
+    const og = box.appendChild(el('label', 'nlck')); const ck = og.appendChild(el('input')); ck.type = 'checkbox'; ck.checked = !!NL.brOld; og.appendChild(document.createTextNode(' 이전 세대(중고)도 보기'));
+    ck.addEventListener('change', () => { NL.brOld = ck.checked; render(); });
+    if (!B.brand) {
+      const tabs = box.appendChild(el('div', 'nlseg wide'));
+      [['국산', '국산차'], ['수입', '수입차']].forEach(([k, t]) => tabs.appendChild(btnEl(NL.brOrg === k ? 'on' : '', t, () => { NL.brOrg = k; render(); })));
+      const m = new Map(); pool.filter((r) => r.origin === NL.brOrg).forEach((r) => { const o = m.get(r.brand) || { n: new Set(), c: 0 }; o.n.add(modelKey(r)); o.c++; m.set(r.brand, o); });
+      const g = box.appendChild(el('div', 'nlbrands'));
+      [...m.entries()].sort((a, b) => b[1].n.size - a[1].n.size).forEach(([br, o]) => { const b = g.appendChild(btnEl('nlbrand2', '', () => { B.brand = br; B.model = ''; render(); window.scrollTo({ top: 0 }); })); const lw = b.appendChild(el('span', 'nllw')); const lg = nlLogo(br, 34); if (lg) lw.appendChild(lg); else lw.appendChild(el('i', 'nllt', br.slice(0, 1))); b.appendChild(el('b', null, br)); b.appendChild(el('small', null, `${o.n.size}모델`)); });
+      box.appendChild(el('p', 'nltm', NLTM));
+      return;
+    }
+    if (!B.model) {
+      const m = new Map(); pool.filter((r) => r.brand === B.brand).forEach((r) => { const k = nlModelName(r); const a = m.get(k) || []; a.push(r); m.set(k, a); });
+      const bh = box.appendChild(el('div', 'nlbh')); const bl = nlLogo(B.brand, 40); if (bl) bh.appendChild(bl); bh.appendChild(el('p', 'nlmut', `${B.brand} · ${m.size}모델 · 누르면 트림이 나와요`));
+      [...m.entries()].sort((a, b) => Math.max(...b[1].map((r) => r._ovr)) - Math.max(...a[1].map((r) => r._ovr))).forEach(([k, L]) => {
+        const best = L.slice().sort((a, b) => b._ovr - a._ovr)[0]; const ps = L.map((r) => r.price);
+        const b = box.appendChild(btnEl('nlstore', '', () => { B.model = k; render(); window.scrollTo({ top: 0 }); }));
+        const ph = b.appendChild(el('div', 'nlstp')); photo(ph, best);
+        const mm = b.appendChild(el('div', 'nlstm')); mm.appendChild(el('b', null, k));
+        mm.appendChild(el('small', null, `${best.body || ''} · 트림 ${L.length}개${L.some((r) => r.og) ? ' · 이전 세대 포함' : ''}`));
+        mm.appendChild(el('small', null, Math.min(...ps) === Math.max(...ps) ? nlMan(ps[0]) + ' 원' : `${nlMan(Math.min(...ps))} ~ ${nlMan(Math.max(...ps))} 원`));
+        const st = mm.appendChild(el('div', 'nlstar')); st.appendChild(el('span', null, '★')); st.appendChild(el('b', null, 'OVR 최고 ' + ovrTxt(best)));
+      });
+      return;
+    }
+    const L = pool.filter((r) => r.brand === B.brand && nlModelName(r) === B.model).sort((a, b) => (a.og ? 1 : 0) - (b.og ? 1 : 0) || a.price - b.price);
+    box.appendChild(el('p', 'nlmut', `${B.model} · 트림 ${L.length}개 · 싼 순`));
+    L.forEach((r) => {
+      const b = box.appendChild(btnEl('nltrim', '', () => openProfile(r.id)));
+      const m = b.appendChild(el('div')); m.appendChild(el('b', null, nlTrimName(r)));
+      const cc = num(r.cc); m.appendChild(el('small', null, [r.og ? '이전 세대' : '', r.powertrain, cc === 0 ? (r.batt ? r.batt + 'kWh' : '전기') : isNaN(cc) ? '' : fmt(cc) + 'cc', '연비 ' + nlFe(r), r.trim && r.trim !== nlTrimName(r) ? r.trim : ''].filter(Boolean).join(' · ')));
+      const rt = b.appendChild(el('div', 'nltr')); rt.appendChild(el('b', null, nlMan(r.price))); const o = rt.appendChild(el('span', null, 'OVR ' + ovrTxt(r))); o.style.color = nlTx(r._ovr / 5);
+    });
+  }
+  function nlBrowseHome(box) {
+    box.appendChild(btnEl('nlback', '← 홈으로', () => { NL.view = ''; render(); }));
+    box.appendChild(el('h2', 'nlq jal', '제조사별로 찾기'));
+    nlBrowse(box);
+  }
+  const nlGoBrowse = (brand) => { NL.view = 'browse'; NL.find = false; NL.cat = ''; NL.br = { brand: brand || '', model: '' }; if (cur !== 't-home') show('t-home'); else render(); window.scrollTo({ top: 0 }); };
+  const nlBrowseBtn = (box, sub) => { const b = box.appendChild(btnEl('nlwide', '', () => nlGoBrowse())); b.appendChild(el('b', null, '제조사별로 찾기')); b.appendChild(el('small', null, sub || '현대 → 아반떼 → 트림 순서로')); b.appendChild(nlLogoStrip(6, 18)); b.appendChild(el('span', 'nlarr', '→')); return b; };
+
+  // ---- A: 예산 바늘 (점 11개를 눌러서 고르기 · −/+ 버튼)
+  const NLSTEP = [1500, 2000, 2500, 3000, 3500, 4000, 5000, 6000, 7000, 8500, 10000];
+  function nlDialSvg(idx, size) {
+    const cols = [NLC.R, NLC.R, NLC.R, NLC.O, NLC.O, NLC.L, NLC.L, NLC.L, NLC.G, NLC.G, NLC.G];
+    let s = `<svg class="nlg dial" viewBox="-36 -28 272 246" width="${size}" height="${size}" role="group" aria-label="예산 고르기">`;
+    for (let i = 0; i < 11; i++) { const a = (135 + i * 27) * Math.PI / 180; const x = (100 + 76 * Math.cos(a)).toFixed(1), y = (100 + 76 * Math.sin(a)).toFixed(1);
+      const lx = (100 + 116 * Math.cos(a)).toFixed(1), ly = (100 + 112 * Math.sin(a)).toFixed(1);
+      s += `<g class="nldot${i === idx ? ' on' : ''}" data-i="${i}" role="button" tabindex="0" aria-label="${nlMan(NLSTEP[i])} 이하"><circle cx="${x}" cy="${y}" r="21" fill="transparent"/><circle cx="${x}" cy="${y}" r="${i === idx ? 16 : 13}" fill="${i <= idx ? cols[i] : '#e6e9ee'}" ${i === idx ? 'stroke="#15181e" stroke-width="3"' : ''}/></g>`;
+      if (i % 2 === 0 || i === 10) s += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="13" font-weight="800" fill="#6b7280">${i === 10 ? '1억' : (NLSTEP[i] / 1000).toString().replace('.5', '.5') + '천'}</text>`; }
+    const f = idx / 10, a = (135 + f * 270) * Math.PI / 180;
+    s += `<line class="nlneedle" x1="100" y1="100" x2="${(100 + 52 * Math.cos(a)).toFixed(1)}" y2="${(100 + 52 * Math.sin(a)).toFixed(1)}" stroke="#15181e" stroke-width="9" stroke-linecap="round"/><circle cx="100" cy="100" r="14" fill="${NLC.GOLD}" stroke="#fff" stroke-width="4"/></svg>`;
+    return s;
+  }
+  function nlHomeA(box) {
+    if (NL.view === 'browse') return nlBrowseHome(box);
+    if (NLSTEP.indexOf(NL.budget) < 0) NL.budget = 3000;
+    const top = box.appendChild(el('div', 'nlbud'));
+    top.appendChild(el('h2', 'jal', '예산에 바늘을 맞춰 보세요'));
+    top.appendChild(el('p', 'nlmut', '점을 누르거나 − + 버튼으로 · 신차 값과 중고 시세를 함께 봐요'));
+    const gw = top.appendChild(el('div', 'nlgw'));
+    const row = top.appendChild(el('div', 'nlpm'));
+    const minus = row.appendChild(btnEl('nlpmb', '−')); minus.setAttribute('aria-label', '예산 내리기');
+    const big = row.appendChild(el('div', 'nlbig'));
+    const plus = row.appendChild(btnEl('nlpmb', '+')); plus.setAttribute('aria-label', '예산 올리기');
+    const cnt = top.appendChild(el('div', 'nlodo'));
+    const mix = top.appendChild(el('p', 'nlmut'));
+    const bd = top.appendChild(el('div', 'nlchips sm'));
+    nlPlayRow(box);
+    nlBrowseBtn(box, '예산 말고 제조사 → 모델 → 트림으로');
+    const res = box.appendChild(el('div', 'nlres')); res.id = 'nlres';
+    const set = (i) => { i = Math.max(0, Math.min(10, i)); NL.budget = NLSTEP[i]; NL.more = 0; upd(); };
+    const upd = () => {
+      const idx = NLSTEP.indexOf(NL.budget), B = NL.budget;
+      const all = nlBudgetList(B >= 10000 ? 1e9 : B, NL.body);
+      gw.innerHTML = nlDialSvg(idx, 270);
+      big.textContent = ''; big.appendChild(el('b', null, B >= 10000 ? '1억+' : nlMan(B))); big.appendChild(el('span', null, B >= 10000 ? '전부' : '원 이하'));
+      minus.disabled = idx === 0; plus.disabled = idx === 10;
+      const nKind = NL.kind ? all.filter((x) => x.kind === NL.kind).length : all.length;
+      cnt.textContent = ''; String(nKind).padStart(2, '0').split('').forEach((d) => cnt.appendChild(el('i', null, d))); cnt.appendChild(el('span', null, NL.kind ? NL.kind + ' 모델' : '모델'));
+      const nNew = all.filter((x) => x.kind === '신차').length;
+      mix.textContent = `신차 ${nNew} · 중고 시세 ${all.length - nNew} (아래에서 바꿔 보기)`;
+      bd.textContent = '';
+      [['', '전체'], ['경차', '경차'], ['세단', '세단'], ['SUV', 'SUV'], ['해치백', '해치백'], ['MPV', 'MPV']].forEach(([v, t]) => bd.appendChild(btnEl('nlchip' + (NL.body === v ? ' on' : ''), t, () => { NL.body = v; NL.more = 0; upd(); })));
+      res.textContent = '';
+      const hd = res.appendChild(el('div', 'nlreshd'));
+      hd.appendChild(el('b', null, `${B >= 10000 ? '전체' : nlMan(B) + ' 이하'} · ${all.length}모델`));
+      const kd = hd.appendChild(el('div', 'nlseg'));
+      [['신차', '신차'], ['중고', '중고'], ['', '전체']].forEach(([k, t]) => kd.appendChild(btnEl(NL.kind === k ? 'on' : '', t, () => { NL.kind = k; NL.more = 0; upd(); })));
+      const so = res.appendChild(el('div', 'nlseg'));
+      [['ovr', 'OVR순'], ['fe', '연비순'], ['p', '싼 순']].forEach(([k, t]) => so.appendChild(btnEl(NL.sort === k ? 'on' : '', t, () => { NL.sort = k; upd(); })));
+      const shown = NL.kind ? all.filter((x) => x.kind === NL.kind) : all;
+      const srt = { ovr: (a, b) => b.r._ovr - a.r._ovr, fe: (a, b) => (nlS(b.r, 'eff') || 0) - (nlS(a.r, 'eff') || 0), p: (a, b) => a.p - b.p }[NL.sort] || ((a, b) => b.r._ovr - a.r._ovr);
+      const lim = 12 + NL.more * 20;
+      shown.sort(srt).slice(0, lim).forEach((x) => res.appendChild(nlRow(x.r, x.kind === '신차' ? `${x.r.body || ''} · 신차 ${nlMan(x.p)}` : `${x.r.body || ''} · 중고 시세 ${nlMan(x.p)}${x.yrs ? ' (' + x.yrs + ')' : ''}`, () => openProfile(x.r.id))));
+      if (!shown.length) res.appendChild(el('p', 'nlmut', '이 예산에 맞는 차가 없어요. 바늘을 한 칸 올려 보세요'));
+      if (shown.length > lim) res.appendChild(btnEl('nlmore', `${shown.length - lim}모델 더 보기`, () => { NL.more++; upd(); }));
+    };
+    gw.addEventListener('click', (e) => { const g = e.target.closest('[data-i]'); if (g) set(+g.dataset.i); });
+    gw.addEventListener('keydown', (e) => { const g = e.target.closest('[data-i]'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); set(+g.dataset.i); } });
+    minus.addEventListener('click', () => set(NLSTEP.indexOf(NL.budget) - 1));
+    plus.addEventListener('click', () => set(NLSTEP.indexOf(NL.budget) + 1));
+    upd();
+  }
+
+  // ---- C: 오른쪽 다이얼 = 이 차의 대표 강점 (눌러서 바꾸기)
+  const NLCG = ['eff', 'safety', 'quiet', 'room', 'accel', 'cargo', 'resale'];
+  const nlCgDefault = (r) => NLCG.filter((k) => !isNaN(r['s_' + k]) && !isEst(r, k)).sort((a, b) => nlS(r, b) - nlS(r, a))[0] || 'eff';
+  function nlRightGauge(row, r, size) {
+    const keys = NLCG.filter((k) => !isNaN(r['s_' + k]));
+    if (!NL.cg || NL.cgFor !== r.id || !keys.includes(NL.cg)) { NL.cg = nlCgDefault(r); NL.cgFor = r.id; NL.cgAuto = true; }
+    const k = NL.cg, a = A[k];
+    const step = (d) => { const i = keys.indexOf(NL.cg); NL.cg = keys[(i + d + keys.length) % keys.length]; NL.cgAuto = false; render(); };
+    const g = row.appendChild(el('div', 'nlcg nlcgr'));
+    const dial = g.appendChild(btnEl('nlcgd', '', () => step(1))); dial.setAttribute('aria-label', '오른쪽 계기판 기준 바꾸기');
+    dial.innerHTML = nlGauge(nlS(r, k) / 20, size);
+    // 좌우로 밀어서 바꾸기
+    let sx = null; dial.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    dial.addEventListener('touchend', (e) => { if (sx == null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 30) { e.preventDefault(); step(dx < 0 ? 1 : -1); } });
+    g.appendChild(el('b', null, k === 'eff' ? String(num(r.fe) || '–') : String(Math.round(r['s_' + k]))));
+    const md = g.appendChild(el('div', 'nlmode'));
+    md.appendChild(btnEl('nlmb', '‹', () => step(-1))).setAttribute('aria-label', '이전 기준');
+    md.appendChild(el('small', null, k === 'eff' ? '연비 ' + (r.fe_unit || '') : a.label));
+    md.appendChild(btnEl('nlmb', '›', () => step(1))).setAttribute('aria-label', '다음 기준');
+    const dots = g.appendChild(el('div', 'nlmdots')); keys.forEach((x) => dots.appendChild(el('i', x === k ? 'on' : '')));
+    // 처음 한 번: 옆으로 밀 수 있다는 표시가 떴다가 사라짐
+    if (NL.swipeUntil == null) { let seen = false; try { seen = sessionStorage.getItem('nlswipe') === '1'; sessionStorage.setItem('nlswipe', '1'); } catch (e) { /* 저장 안 되면 이번만 */ } NL.swipeUntil = seen ? 0 : Date.now() + 3200; }
+    if (Date.now() < NL.swipeUntil) { const h = dial.appendChild(el('span', 'nlswipe')); h.setAttribute('aria-hidden', 'true'); h.innerHTML = '<i class="l">‹</i><b></b><i class="r">›</i>'; dial.classList.add('nudge'); setTimeout(() => { h.remove(); dial.classList.remove('nudge'); }, Math.max(0, NL.swipeUntil - Date.now())); }
+    return g;
+  }
+  function nlGearbox(box) {
+    const wrap = box.appendChild(el('div', 'nlhgw'));
+    const gb = wrap.appendChild(el('div', 'nlhg'));
+    const rec = recentList()[0];
+    // 6단 H 패턴: 위 1·3·5, 아래 2·4·R, 가운데 줄이 중립(N)
+    const G = [['1', '차 찾기', 0, 0, () => nlGoBrowse()], ['2', '랭킹', 0, 1, () => show('t-rank')], ['3', '비교', 1, 0, () => show('t-cmp')], ['4', '놀이터', 1, 1, () => show('t-play')], ['5', '스쿼드', 2, 0, () => show('t-sq')], ['R', '최근 본 차', 2, 1, () => (rec ? openProfile(rec) : show('t-prof'))]];
+    const X = (c) => (c * 2 + 1) / 6 * 100, Y = (rw) => (rw ? 85 : 15), NY = 50;
+    gb.insertAdjacentHTML('beforeend', `<svg class="nlhgate" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true"><path d="M50 24V136M150 24V136M250 24V136M50 80H250" /></svg>`);
+    const knob = gb.appendChild(el('div', 'nlhknob')); knob.appendChild(el('i'));
+    const put = (x, y) => { knob.style.left = x + '%'; knob.style.top = y + '%'; };
+    put(50, NY);
+    let busy = false;
+    G.forEach(([n, t, c, rw, fn]) => {
+      const b = gb.appendChild(btnEl('nlhs' + (rw ? ' dn' : ' up'), '', () => {
+        if (busy) return; busy = true; gb.classList.add('moving');
+        put(X(c), NY); setTimeout(() => { put(X(c), Y(rw)); b.classList.add('on'); }, 200);
+        setTimeout(() => { gb.classList.remove('moving'); busy = false; fn(); }, 560);
+      }));
+      b.style.left = X(c) + '%'; b.style.top = Y(rw) + '%';
+      b.appendChild(el('b', null, n)); b.appendChild(el('small', null, t));
+    });
+  }
+  function nlHomeC(box) {
+    if (NL.view === 'browse') return nlBrowseHome(box);
+    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.setAttribute('aria-label', '차 검색'); s.innerHTML = '<i class="nlmcam"></i><span class="nlmin"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="#15181e" stroke-width="2.4" fill="none"/><path d="m16 16 4.5 4.5" stroke="#15181e" stroke-width="2.4" stroke-linecap="round"/></svg><em>어떤 차 찾으세요?<small>예: 그랜저, 7인승 SUV</small></em><i class="nlmcur"></i><b>검색</b></span>'; mb.appendChild(nlHtml('div', 'nlmchin', '<i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
+    const rnd = rng(seedOf(todayKey()));
+    const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
+    const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
+    const cl = box.appendChild(el('div', 'nlclu'));
+    cl.appendChild(el('div', 'nlk', `오늘의 선수 · ${todayKey().slice(5).replace('-', '.')}`));
+    const row = cl.appendChild(el('div', 'nlclrow'));
+    const g1 = row.appendChild(el('div', 'nlcg')); g1.innerHTML = nlGauge(r._ovr / 100, 120); g1.appendChild(el('b', null, ovrTxt(r))); g1.appendChild(el('small', null, 'OVR'));
+    const mid = row.appendChild(el('div', 'nlcmid')); const ph = mid.appendChild(el('div', 'nlcph')); photo(ph, r);
+    nlRightGauge(row, r, 120);
+    cl.appendChild(el('h2', 'jal nlcn', r.name));
+    cl.appendChild(el('p', 'nlmut', `${r.body || ''} · ${r.powertrain || ''} · 신차 ${nlMan(r.price)} · 월 출퇴근 기름값 ${nlFuel(r)}`));
+    cl.appendChild(btnEl('nlgo', '이 선수 자세히 보기', () => openProfile(r.id)));
+    nlGearbox(box);
+    box.appendChild(el('div', 'nlsec', '제조사로 찾기'));
+    nlBrandGrid(box, 7, 'ring');
+  }
+  function nlProfC(box, r) {
+    const ph = box.appendChild(el('div', 'nlhero short')); photo(ph, r);
+    const hd = box.appendChild(el('div', 'nlchd')); { const lg = nlLogo(r.brand, 30); if (lg) { const lw = hd.appendChild(btnEl('nlplogo', '', () => nlGoBrowse(r.brand))); lw.setAttribute('aria-label', r.brand + ' 모델 보기'); lw.appendChild(lg); } } hd.appendChild(el('small', null, [r.brand, r.body, r.powertrain].filter(Boolean).join(' · '))); hd.appendChild(el('h1', 'jal', nlBrandless(r)));
+    const row = box.appendChild(el('div', 'nlclrow big'));
+    const g1 = row.appendChild(el('div', 'nlcg')); g1.innerHTML = nlGauge(r._ovr / 100, 140); g1.appendChild(el('b', null, ovrTxt(r))); g1.appendChild(el('small', null, isNaN(r._rank) ? 'OVR' : `OVR · ${r._rank}위`));
+    nlRightGauge(row, r, 140);
+    const inf = box.appendChild(el('div', 'nlinfo'));
+    const ret = num(r.retention);
+    [['월 출퇴근 기름값', nlFuel(r)], [r.og ? '마지막 신차가' : '몸값(신차)', nlMan(r.price)], ['중고 시세', blank(r.used_price) ? '–' : nlMan(r.used_price)], ['몸값 유지율', isNaN(ret) ? '–' : ret + '%']].forEach(([l, v]) => { const d = inf.appendChild(el('div')); d.appendChild(el('small', null, l)); d.appendChild(el('b', null, v)); });
+    const lamps = NLLAMP.map(([k, ic, l]) => ({ k, ic, l, v: nlS(r, k), raw: r['s_' + k] }));
+    const red = lamps.filter((x) => x.v < 6), grn = lamps.filter((x) => x.v >= 16);
+    if (!NL.lamp || !lamps.some((x) => x.k === NL.lamp)) NL.lamp = (red[0] || lamps.slice().filter((x) => !isNaN(x.v)).sort((a, b) => a.v - b.v)[0] || lamps[0]).k;
+    const lh = box.appendChild(el('div', 'nllh'));
+    lh.appendChild(el('b', null, '상태등'));
+    lh.appendChild(el('span', null, red.length ? `빨간 불 ${red.length}개` : grn.length ? `초록 불 ${grn.length}개` : '경고 없음'));
+    lh.appendChild(el('small', null, '하나씩 눌러서 확인'));
+    const lg = box.appendChild(el('div', 'nllamps'));
+    lamps.forEach((x) => { const on = NL.lamp === x.k; const b = lg.appendChild(btnEl('nllamp' + (on ? ' on' : ''), '', () => { NL.lamp = x.k; nlProfile(); })); b.setAttribute('aria-pressed', on); b.style.setProperty('--lc', nlCol(x.v)); if (NL.v === 'c' && NLLGLY[x.k]) { b.appendChild(nlHtml('span', 'nllc nlgly', `<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${NLLGLY[x.k]}</svg>`)); b.appendChild(el('i', 'nlled')); } else b.appendChild(el('span', 'nllc', x.ic)); b.appendChild(el('b', null, x.l)); const n = b.appendChild(el('small', null, isNaN(x.raw) ? '–' : String(Math.round(x.raw)))); n.style.color = on ? '#15181e' : nlTx(x.v); });
+    const x = lamps.find((y) => y.k === NL.lamp); const a = A[NL.lamp];
+    const d = box.appendChild(el('div', 'nlldet')); d.style.setProperty('--lc', nlCol(x.v));
+    const dh = d.appendChild(el('div', 'nlldh')); dh.appendChild(el('span', 'nllc sm', x.ic)); dh.appendChild(el('b', null, `${x.l}`)); const sc = dh.appendChild(el('em', null, `${isNaN(x.raw) ? '–' : Math.round(x.raw)} / 20`)); sc.style.background = nlCol(x.v);
+    let t = ''; try { t = a.fmtv(r); } catch (e) {} d.appendChild(el('p', null, t || '기록 없음'));
+    const verdict = isNaN(x.v) ? '자료가 부족해요' : x.v >= 16 ? '초록 불 — 이 차의 강점이에요' : x.v >= 11 ? '연두 불 — 평균 이상이에요' : x.v >= 6 ? '주황 불 — 평균보다 조금 아쉬워요' : '빨간 불 — 사기 전에 꼭 따져 보세요';
+    d.appendChild(el('p', 'nllv', verdict));
+    if (isEst(r, NL.lamp)) d.appendChild(el('p', 'nlmut', '추정값이 섞여 있어요'));
+    if (NL.lamp === 'durab') d.appendChild(el('p', 'nlmut', '무상 점검(리콜) 횟수가 적을수록 초록 불이에요'));
+  }
+
+  // ---- D: 선 아이콘 (이모지 대신)
+  const NLICO = {
+    suv: '<path d="M3 22v-5l3-7h15l5 7h3v5"/><path d="M7 17h20M14 10v7"/><circle cx="9" cy="23" r="2.6"/><circle cx="23" cy="23" r="2.6"/>',
+    sedan: '<path d="M3 22v-4l4-1 4-5h9l5 5 4 1v4"/><path d="M11 17h14"/><circle cx="9" cy="23" r="2.6"/><circle cx="23" cy="23" r="2.6"/>',
+    ev: '<path d="M18 3 8 18h7l-2 11 11-16h-7z"/>',
+    hev: '<path d="M6 26C6 13 14 6 27 6c0 13-7 20-20 20z"/><path d="M6 26 18 14"/>',
+    kei: '<path d="M6 22v-5l3-6h12l3 6v5"/><path d="M9 17h14"/><circle cx="11" cy="23" r="2.6"/><circle cx="21" cy="23" r="2.6"/>',
+    seven: '<circle cx="9" cy="10" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="23" cy="10" r="3"/><path d="M3 26c0-5 2.5-9 6-9s6 4 6 9M17 26c0-5 2.5-9 6-9s6 4 6 9M10 20c1-4 3-6 6-6s5 2 6 6"/>',
+    value: '<circle cx="16" cy="16" r="12"/><path d="M10 11l3 10 3-7 3 7 3-10M8.5 16h15"/>',
+    pickup: '<path d="M3 22v-5h7l3-6h7v6h9v5"/><path d="M20 17v5"/><circle cx="9" cy="23" r="2.6"/><circle cx="23" cy="23" r="2.6"/>',
+    hatch: '<path d="M3 22v-4l5-2 4-5h9l5 7v4"/><path d="M12 17h13"/><circle cx="9" cy="23" r="2.6"/><circle cx="23" cy="23" r="2.6"/>',
+    quiet: '<path d="M5 12h5l7-6v20l-7-6H5z"/><path d="M22 12l6 8M28 12l-6 8"/>',
+    first: '<path d="M8 4h16v24l-8-6-8 6z"/>',
+    import: '<circle cx="16" cy="16" r="12"/><path d="M4 16h24M16 4c4 4 5 8 5 12s-1 8-5 12c-4-4-5-8-5-12s1-8 5-12z"/>'
+  };
+  const NLTINT = { suv: '#eafaf0', sedan: '#f6f8e2', ev: '#eafaf0', hev: '#f6f8e2', kei: '#fdf4e4', seven: '#fdf4e4', value: '#f6f8e2', pickup: '#fdeceb', hatch: '#fdeceb', quiet: '#eafaf0', first: '#fdf4e4', import: '#eef1f5' };
+  const nlIco = (k, size) => `<svg viewBox="0 0 32 32" width="${size}" height="${size}" fill="none" stroke="#15181e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${NLICO[k] || ''}</svg>`;
+  if (NL.v) nlShell();
+
   // ------------------------------------------------------------------ tabs & hash
   const TABS = [['t-home', 'p-home'], ['t-rank', 'p-rank'], ['t-play', 'p-play'], ['t-prof', 'p-prof'], ['t-sq', 'p-sq'], ['t-wiz', 'p-wiz'], ['t-cmp', 'p-cmp'], ['t-fun', 'p-fun'], ['t-used', 'p-used'], ['t-all', 'p-all'], ['t-how', 'p-how']];
   let cur = 't-home';
-  function show(id) { cur = id; if (window.__kk) window.__kk.vis(id); TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); const vdr = document.querySelector('.vd'); if (vdr) vdr.classList.toggle('nofilt', ['t-home', 't-play'].includes(id)); render(); writeHash(true); scrollToSection(id); }
+  function show(id) { cur = id; if (window.__kk) window.__kk.vis(id); TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); const vdr = document.querySelector('.vd'); if (vdr) vdr.classList.toggle('nofilt', ['t-home', 't-play'].includes(id)); nlAfterShow(id); render(); writeHash(true); scrollToSection(id); }
   function scrollToSection(id) {
     const pair = TABS.find(([t]) => t === id); const sec = pair && $('#' + pair[1]); if (!sec) return;
     const tb = $('.tabs'); const cs = tb ? getComputedStyle(tb) : null; const stick = tb && cs.position === 'sticky' ? (parseFloat(cs.top) || 0) + tb.offsetHeight : 0;
@@ -6067,6 +7225,7 @@ body.kkopen{overflow:hidden}
     if (cur === 't-rank') renderRank(rows);
     if (cur === 't-wiz') renderWiz();
     if (cur === 't-prof') renderProfile();
+    if (cur === 't-prof' && NL.v) nlProfile();
     if (cur === 't-cmp') renderCmp();
     if (cur === 't-sq') renderSquad();
     if (cur === 't-home') renderHome();
@@ -6098,7 +7257,7 @@ body.kkopen{overflow:hidden}
 
   // theme
   (function () { const root = document.querySelector('.vd'); const b = $('#thm');
-    const apply = (t) => { root.setAttribute('data-theme', t); b.setAttribute('aria-checked', t === 'dark'); b.title = t === 'light' ? '어두운 화면으로 바꾸기' : '밝은 화면으로 바꾸기'; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = '#14161c'; };
+    const apply = (t) => { if (document.documentElement.classList.contains('nlroot')) t = 'light'; root.setAttribute('data-theme', t); b.setAttribute('aria-checked', t === 'dark'); b.title = t === 'light' ? '어두운 화면으로 바꾸기' : '밝은 화면으로 바꾸기'; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = '#14161c'; };
     const saved = LS.get('carro_theme'); let sys = 'light'; try { sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch (e) {}
     apply(saved === 'dark' || saved === 'light' ? saved : sys);
     const tip = $('#thmtip'); const hideTip = () => { tip.hidden = true; LS.set('carro_thm_hint', '1'); };
