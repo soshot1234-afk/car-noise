@@ -1876,7 +1876,7 @@ body.nlnoscroll { overflow: hidden; }
 .nlhg.hint .nlhknob { animation: nlgearhint 1.3s ease-in-out .5s 2; }
 @keyframes nlgearhint { 0%, 100% { transform: translate(0, 0); } 35% { transform: translate(0, -26px); } 55% { transform: translate(0, -22px); } }
 .vd.nl .nlhs small { color: #c9ced6; }
-.vd.nl .nlhs.up small, .vd.nl .nlhs.dn small { left: 50%; right: auto; transform: translateX(-50%); padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
+.vd.nl .nlhs.up small, .vd.nl .nlhs.dn small { left: 50%; right: auto; transform: translateX(-50%); font-size: 12px; padding: 3px 8px; border-radius: 999px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
 .vd.nl .nlhs.on small { background: #e3b448; color: #15181e; box-shadow: none; }
 /* 룸미러: 검색칸 크기로 납작하게 */
 .nlmirror { margin: 0 18px; padding-top: 8px; }
@@ -7070,10 +7070,10 @@ body.nlnoscroll { overflow: hidden; }
     const wrap = box.appendChild(el('div', 'nlhgw'));
     const gb = wrap.appendChild(el('div', 'nlhg'));
     const rec = recentList()[0];
-    // 6단 H 패턴: 위 1·3·5, 아래 2·4·R, 가운데 줄이 중립(N)
-    const G = [['1', '차 찾기', 0, 0, () => nlGoBrowse()], ['2', '랭킹', 0, 1, () => show('t-rank')], ['3', '비교', 1, 0, () => show('t-cmp')], ['4', '놀이터', 1, 1, () => show('t-play')], ['5', '스쿼드', 2, 0, () => show('t-sq')], ['R', '최근 본 차', 2, 1, () => (rec ? openProfile(rec) : show('t-prof'))]];
-    const X = (c) => (c * 2 + 1) / 6 * 100, Y = (rw) => (rw ? 85 : 15), NY = 50;
-    gb.insertAdjacentHTML('beforeend', `<svg class="nlhgate" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true"><path d="M50 24V136M150 24V136M250 24V136M50 80H250" /></svg>`);
+    // 6단 + R (실제 수동 기어 노브 순서): 위 R·1·3·5, 아래 (빈칸)·2·4·6, 가운데 줄이 중립(N)
+    const G = [['R', '최근 본 차', 0, 0, () => (rec ? openProfile(rec) : show('t-prof'))], ['1', '차 찾기', 1, 0, () => nlGoBrowse()], ['2', '랭킹', 1, 1, () => show('t-rank')], ['3', '비교', 2, 0, () => show('t-cmp')], ['4', '놀이터', 2, 1, () => show('t-play')], ['5', '스쿼드', 3, 0, () => show('t-sq')], ['6', '추천', 3, 1, () => show('t-wiz')]];
+    const X = (c) => (c * 2 + 1) / 8 * 100, Y = (rw) => (rw ? 85 : 15), NY = 50;
+    gb.insertAdjacentHTML('beforeend', `<svg class="nlhgate" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true"><path d="M37.5 24V80M112.5 24V136M187.5 24V136M262.5 24V136M37.5 80H262.5" /></svg>`);
     const knob = gb.appendChild(el('div', 'nlhknob')); knob.appendChild(el('i')); knob.setAttribute('aria-hidden', 'true');
     const put = (x, y) => { knob.style.left = x + '%'; knob.style.top = y + '%'; };
     put(50, NY);
@@ -7089,19 +7089,19 @@ body.nlnoscroll { overflow: hidden; }
     });
     // 기어봉 끌어서 변속: 가운데 줄은 좌우로, 1·3·5 / 2·4·R 칸은 위아래로만
     let drag = null, cx = 50, cy = NY;
-    const COLS = [X(0), X(1), X(2)];
+    const COLS = [X(0), X(1), X(2), X(3)];
     knob.addEventListener('pointerdown', (e) => {
       if (busy) return; e.preventDefault(); knob.setPointerCapture(e.pointerId);
       const r = gb.getBoundingClientRect(); drag = { r }; gb.classList.add('drag'); gb.classList.remove('hint');
     });
     knob.addEventListener('pointermove', (e) => {
       if (!drag) return; const { r } = drag;
-      const px = Math.max(COLS[0], Math.min(COLS[2], (e.clientX - r.left) / r.width * 100));
+      const px = Math.max(COLS[0], Math.min(COLS[3], (e.clientX - r.left) / r.width * 100));
       const py = Math.max(15, Math.min(85, (e.clientY - r.top) / r.height * 100));
       if (Math.abs(cy - NY) < 4) {
         const col = COLS.reduce((a, c) => (Math.abs(c - px) < Math.abs(a - px) ? c : a), COLS[0]);
-        if (Math.abs(py - NY) > 6 && Math.abs(col - px) < 9) { cx = col; cy = py; } else { cx = px; cy = NY; }
-      } else { cy = py; }
+        if (Math.abs(py - NY) > 6 && Math.abs(col - px) < 9 && !(col === COLS[0] && py > NY)) { cx = col; cy = py; } else { cx = px; cy = NY; }
+      } else { cy = cx === COLS[0] ? Math.min(py, NY) : py; }
       put(cx, cy);
       const t = cy <= 30 || cy >= 70 ? G.findIndex(([, , c, rw]) => X(c) === cx && (rw ? cy >= 70 : cy <= 30)) : -1;
       slots.forEach((sb, k) => sb.classList.toggle('on', k === t));
