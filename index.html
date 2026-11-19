@@ -1840,6 +1840,19 @@ body.nlnoscroll { overflow: hidden; }
 .vd.nl .nlhs:hover b, .vd.nl .nlhs:hover small, .vd.nl .nlhs.on small { color: #fff; }
 .nlplogo { appearance: none; border: 0; background: none; padding: 0; margin: 0 0 8px; display: block; cursor: pointer; }
 .nlplogo .nllogo { max-width: 72px; }
+.nlmglass { padding-right: 86px; padding-left: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 15px; }
+.nlhipass { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 5px; background: #1f242c; color: #e9edf2; font: 800 10.5px/1 "Pretendard Variable", Pretendard, sans-serif; font-style: normal; padding: 6px 8px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); letter-spacing: -.02em; }
+.nlhipass i { width: 6px; height: 6px; border-radius: 50%; background: #45d37f; box-shadow: 0 0 6px #45d37f; animation: nlhp 2.4s ease-in-out infinite; }
+@keyframes nlhp { 0%, 70%, 100% { opacity: 1; } 80% { opacity: .25; } }
+.nlcgd { position: relative; }
+.nlswipe { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 6px; background: rgba(21, 24, 30, .82); color: #fff; border-radius: 999px; padding: 6px 10px; pointer-events: none; animation: nlswf 3.2s ease forwards; z-index: 2; }
+.nlswipe i { font: 900 16px/1 "Pretendard Variable", Pretendard, sans-serif; font-style: normal; opacity: .7; }
+.nlswipe b { position: relative; width: 34px; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .25); }
+.nlswipe b::after { content: ''; position: absolute; top: -4px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: #e3b448; animation: nlswd 1s ease-in-out 3 alternate; }
+@keyframes nlswd { from { left: 22px; } to { left: 0; } }
+@keyframes nlswf { 0% { opacity: 0; } 12% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+.nlcgd.nudge svg { animation: nlnudge 1s ease-in-out 2; }
+@keyframes nlnudge { 0%, 100% { transform: translateX(0); } 30% { transform: translateX(-7px); } 60% { transform: translateX(3px); } }
 /* 제조사 로고 */
 .nllw { height: 40px; display: flex; align-items: center; justify-content: center; }
 .nllogo { display: block; width: auto; max-width: 92px; object-fit: contain; }
@@ -6986,6 +6999,9 @@ body.nlnoscroll { overflow: hidden; }
     md.appendChild(el('small', null, k === 'eff' ? '연비 ' + (r.fe_unit || '') : a.label));
     md.appendChild(btnEl('nlmb', '›', () => step(1))).setAttribute('aria-label', '다음 기준');
     const dots = g.appendChild(el('div', 'nlmdots')); keys.forEach((x) => dots.appendChild(el('i', x === k ? 'on' : '')));
+    // 처음 한 번: 옆으로 밀 수 있다는 표시가 떴다가 사라짐
+    if (NL.swipeUntil == null) { let seen = false; try { seen = sessionStorage.getItem('nlswipe') === '1'; sessionStorage.setItem('nlswipe', '1'); } catch (e) { /* 저장 안 되면 이번만 */ } NL.swipeUntil = seen ? 0 : Date.now() + 3200; }
+    if (Date.now() < NL.swipeUntil) { const h = dial.appendChild(el('span', 'nlswipe')); h.setAttribute('aria-hidden', 'true'); h.innerHTML = '<i class="l">‹</i><b></b><i class="r">›</i>'; dial.classList.add('nudge'); setTimeout(() => { h.remove(); dial.classList.remove('nudge'); }, Math.max(0, NL.swipeUntil - Date.now())); }
     return g;
   }
   function nlGearbox(box) {
@@ -7012,7 +7028,7 @@ body.nlnoscroll { overflow: hidden; }
   }
   function nlHomeC(box) {
     if (NL.view === 'browse') return nlBrowseHome(box);
-    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const s = mir.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.innerHTML = '<span>🔍</span> 차 이름이나 조건으로 검색';
+    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const s = mir.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.innerHTML = '<span>🔍</span> 차 이름·조건으로 검색<em class="nlhipass" aria-hidden="true"><i></i>하이패스</em>';
     const rnd = rng(seedOf(todayKey()));
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
     const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
