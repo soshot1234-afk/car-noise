@@ -1870,6 +1870,7 @@ body.nlnoscroll { overflow: hidden; }
 .nlmin em { flex: 1; min-width: 0; font-style: normal; font-size: 15px; font-weight: 800; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
 .nlmcur { display: none; }
 .nlmin b { flex: none; background: #e3b448; color: #15181e; font-size: 14px; font-weight: 800; border-radius: 9px; padding: 7px 13px; text-shadow: none; }
+.vd.nl .nlgo.nlmore { width: auto; align-self: center; margin: 2px auto 0; padding: 9px 18px; font-size: 14px; font-weight: 800; border-radius: 999px; min-height: 0; }
 .nlhknob { touch-action: none; cursor: grab; z-index: 4; pointer-events: auto; }
 .nlhg.drag .nlhknob { transition: none; cursor: grabbing; box-shadow: 0 0 0 7px rgba(227, 180, 72, .28), 0 8px 14px rgba(0, 0, 0, .5); }
 .nlhknob i { border: 0; width: 18px; height: 14px; border-radius: 0; background: repeating-linear-gradient(180deg, rgba(21, 24, 30, .45) 0 2px, transparent 2px 6px); }
@@ -7132,8 +7133,7 @@ body.nlnoscroll { overflow: hidden; }
     const mid = row.appendChild(el('div', 'nlcmid')); const ph = mid.appendChild(el('div', 'nlcph')); photo(ph, r);
     nlRightGauge(row, r, 120);
     cl.appendChild(el('h2', 'jal nlcn', r.name));
-    cl.appendChild(el('p', 'nlmut', `${r.body || ''} · ${r.powertrain || ''} · 신차 ${nlMan(r.price)} · 월 출퇴근 기름값 ${nlFuel(r)}`));
-    cl.appendChild(btnEl('nlgo', '이 선수 자세히 보기', () => openProfile(r.id)));
+    cl.appendChild(btnEl('nlgo nlmore', '자세히 보기 ›', () => openProfile(r.id)));
     nlGearbox(box);
     box.appendChild(el('div', 'nlsec', '제조사로 찾기'));
     nlBrandGrid(box, 7, 'ring');
