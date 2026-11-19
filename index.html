@@ -1873,8 +1873,6 @@ body.nlnoscroll { overflow: hidden; }
 .nlhknob { touch-action: none; cursor: grab; z-index: 4; pointer-events: auto; }
 .nlhg.drag .nlhknob { transition: none; cursor: grabbing; box-shadow: 0 0 0 7px rgba(227, 180, 72, .28), 0 8px 14px rgba(0, 0, 0, .5); }
 .nlhknob i { border: 0; width: 18px; height: 14px; border-radius: 0; background: repeating-linear-gradient(180deg, rgba(21, 24, 30, .45) 0 2px, transparent 2px 6px); }
-.nlhg.hint .nlhknob { animation: nlgearhint 1.3s ease-in-out .5s 2; }
-@keyframes nlgearhint { 0%, 100% { transform: translate(0, 0); } 35% { transform: translate(0, -26px); } 55% { transform: translate(0, -22px); } }
 .vd.nl .nlhs small { color: #c9ced6; }
 .vd.nl .nlhs.up small, .vd.nl .nlhs.dn small { left: 50%; right: auto; transform: translateX(-50%); font-size: 12px; padding: 3px 8px; border-radius: 999px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); }
 .vd.nl .nlhs.on small { background: #e3b448; color: #15181e; box-shadow: none; }
@@ -7114,7 +7112,12 @@ body.nlnoscroll { overflow: hidden; }
     knob.addEventListener('pointerup', end); knob.addEventListener('pointercancel', end);
     // 처음 한 번: 기어봉이 살짝 움직였다 돌아와서 '끌 수 있다'를 보여 줌
     if (NL.gearUntil == null) { let seen = false; try { seen = sessionStorage.getItem('nlgear') === '1'; sessionStorage.setItem('nlgear', '1'); } catch (e) { /* 저장 안 되면 이번만 */ } NL.gearUntil = seen ? 0 : Date.now() + 3400; }
-    if (Date.now() < NL.gearUntil) { gb.classList.add('hint'); setTimeout(() => gb.classList.remove('hint'), Math.max(0, NL.gearUntil - Date.now())); }
+    // 길(홈)을 따라서만: 중립 → 1단 칸 입구 → 1단 쪽으로 반쯤 → 다시 중립
+    if (Date.now() < NL.gearUntil) {
+      const seq = [[600, X(1), NY], [900, X(1), 30], [1500, X(1), NY], [1800, 50, NY]];
+      seq.forEach(([t, x, y]) => setTimeout(() => { if (!drag && !busy && gb.isConnected) { cx = x; cy = y; put(x, y); } }, t));
+      setTimeout(() => { cx = 50; cy = NY; }, 1900);
+    }
   }
   function nlHomeC(box) {
     if (NL.view === 'browse') return nlBrowseHome(box);
