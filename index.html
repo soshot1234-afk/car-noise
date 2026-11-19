@@ -1513,8 +1513,8 @@ body.nlnoscroll { overflow: hidden; }
 .nlmcf { font-size: 12px; font-weight: 800; color: #4b5563; }
 /* C 클러스터 홈 */
 .nlclu { background: #fff; border-radius: 24px; padding: 16px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.nlclrow { display: grid; grid-template-columns: 1fr 1.1fr 1fr; align-items: center; gap: 4px; width: 100%; }
-.nlclrow.big { grid-template-columns: 1fr 1fr; background: #fff; border-radius: 24px; padding: 12px 8px; }
+.nlclrow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: 4px; width: 100%; }
+.nlclrow.big { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #fff; border-radius: 24px; padding: 12px 8px; }
 .nlcg { display: flex; flex-direction: column; align-items: center; }
 .nlcg svg { max-width: 100%; height: auto; }
 .nlcg b { font-family: "Barlow Condensed", sans-serif; font-size: 30px; font-weight: 700; line-height: 1; margin-top: -8px; }
@@ -1812,7 +1812,8 @@ body.nlnoscroll { overflow: hidden; }
 .nlcgd svg { max-width: 100%; height: auto; }
 .nlcgd:active { transform: scale(.97); }
 .nlmode { display: flex; align-items: center; justify-content: center; gap: 2px; height: 18px; }
-.nlmode small { white-space: nowrap; font-size: 12px; }
+.nlmode small { white-space: nowrap; font-size: 12px; letter-spacing: -.02em; }
+.vd.nl .nlmode .nlmb { width: 18px; }
 .nlmb { appearance: none; border: 0; background: none; width: 22px; height: 26px; margin: -4px 0; flex: none; border-radius: 50%; font: 900 20px/1 "Pretendard Variable", Pretendard, sans-serif; color: #15181e; cursor: pointer; display: grid; place-items: center; }
 .nlmb:hover { background: #f1f3f6; }
 .nlmdots { display: flex; gap: 4px; justify-content: center; margin-top: 6px; }
@@ -1851,7 +1852,7 @@ body.nlnoscroll { overflow: hidden; }
 .nlmglass span { margin-right: 6px; }
 .nlmglass:hover { filter: brightness(1.06); }
 .nlmcam { position: absolute; left: 50%; top: 6px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #1b1f25; box-shadow: inset 0 0 0 1.5px #3b424b; }
-.nlmchin { display: flex; align-items: center; justify-content: flex-end; gap: 6px; height: 26px; padding: 0 14px 2px; }
+.nlmchin { display: flex; align-items: center; justify-content: flex-end; gap: 6px; height: 21px; padding: 0 14px 2px; }
 .nlmchin em { margin-right: auto; font: italic 700 11px/1 "Barlow Condensed", sans-serif; color: #c9ced6; letter-spacing: .02em; }
 .nlmchin .led { width: 5px; height: 5px; border-radius: 50%; background: #45d37f; box-shadow: 0 0 6px #45d37f; margin-right: 4px; animation: nlhp 2.4s ease-in-out infinite; }
 @keyframes nlhp { 0%, 70%, 100% { opacity: 1; } 80% { opacity: .25; } }
@@ -1862,14 +1863,13 @@ body.nlnoscroll { overflow: hidden; }
 .vd.nl .nlmchin b, .vd.nl .nlmchin b.card { background: #2b3038; color: #c9ced6; }
 .vd.nl .nlmchin b.card { min-width: 24px; width: 24px; }
 /* C: 룸미러 안 검색칸 (거울 색은 그대로) */
-.vd.nl .nlmglass { padding: 18px 12px 12px; text-align: left; white-space: normal; text-shadow: none; }
-.nlmin { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, .14); border: 1.5px solid rgba(255, 255, 255, .75); border-radius: 14px; padding: 7px 6px 7px 12px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .25); }
+.vd.nl .nlmglass { padding: 13px 10px 7px; text-align: left; white-space: normal; text-shadow: none; }
+.nlmin { position: relative; z-index: 1; display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, .14); border: 1.5px solid rgba(255, 255, 255, .75); border-radius: 12px; padding: 4px 4px 4px 12px; box-shadow: inset 0 1px 3px rgba(0, 0, 0, .25); }
 .nlmin svg { flex: none; }
 .nlmin svg circle, .nlmin svg path { stroke: #fff; }
-.nlmin em { flex: 1; min-width: 0; font-style: normal; font-size: 16px; font-weight: 800; color: #fff; line-height: 1.25; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
-.nlmin em small { display: block; font-size: 12.5px; font-weight: 600; color: rgba(255, 255, 255, .8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nlmin em { flex: 1; min-width: 0; font-style: normal; font-size: 15px; font-weight: 800; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
 .nlmcur { display: none; }
-.nlmin b { flex: none; background: #e3b448; color: #15181e; font-size: 14px; font-weight: 800; border-radius: 10px; padding: 10px 14px; text-shadow: none; }
+.nlmin b { flex: none; background: #e3b448; color: #15181e; font-size: 14px; font-weight: 800; border-radius: 9px; padding: 7px 13px; text-shadow: none; }
 /* C: 메뉴 = 오디오 패널, 상태등 = 공조 패널 (어두운 피아노 블랙) */
 .vd.nl-c .nllamps { background: linear-gradient(180deg, #23272e, #0d0f12); border-radius: 20px; padding: 12px 10px; gap: 8px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 8px 18px rgba(0, 0, 0, .14); }
 .vd.nl-c .nllamp { position: relative; background: linear-gradient(180deg, #2f343c 0%, #1d2026 55%, #15181c 100%); border: 0; border-radius: 10px; padding: 12px 2px 8px; color: #e9edf2; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 2px 0 #000, 0 0 0 1px #0a0b0d; opacity: 1; transform: none; }
@@ -7072,7 +7072,7 @@ body.nlnoscroll { overflow: hidden; }
   }
   function nlHomeC(box) {
     if (NL.view === 'browse') return nlBrowseHome(box);
-    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.setAttribute('aria-label', '차 검색'); s.innerHTML = '<i class="nlmcam"></i><span class="nlmin"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="#15181e" stroke-width="2.4" fill="none"/><path d="m16 16 4.5 4.5" stroke="#15181e" stroke-width="2.4" stroke-linecap="round"/></svg><em>어떤 차 찾으세요?<small>예: 그랜저, 7인승 SUV</small></em><i class="nlmcur"></i><b>검색</b></span>'; mb.appendChild(nlHtml('div', 'nlmchin', '<i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
+    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.setAttribute('aria-label', '차 검색'); s.innerHTML = '<i class="nlmcam"></i><span class="nlmin"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="#15181e" stroke-width="2.4" fill="none"/><path d="m16 16 4.5 4.5" stroke="#15181e" stroke-width="2.4" stroke-linecap="round"/></svg><em>어떤 차 찾으세요?</em><i class="nlmcur"></i><b>검색</b></span>'; mb.appendChild(nlHtml('div', 'nlmchin', '<i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
     const rnd = rng(seedOf(todayKey()));
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
     const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
