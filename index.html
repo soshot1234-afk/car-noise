@@ -7,9 +7,9 @@
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>카스쿼드 · CAR SQUAD — 차를 선수처럼 비교하고 내 스쿼드 짜기</title>
+<title>카스쿼드 · CAR SQUAD — 차를 선수처럼 비교하고 내 카 스쿼드 짜기</title>
 <meta name="description" content="국내 승용차 760여 종(이전 세대 포함)을 축구게임 선수처럼 1~20 능력치로 비교 — 소음·제로백·안전·감가·리콜까지">
-<meta property="og:title" content="카스쿼드 CAR SQUAD — 차를 선수처럼 비교하고 내 스쿼드 짜기">
+<meta property="og:title" content="카스쿼드 CAR SQUAD — 차를 선수처럼 비교하고 내 카 스쿼드 짜기">
 <meta property="og:description" content="국내 승용차 760여 종(이전 세대 포함)을 축구게임 선수처럼 1~20 능력치로 비교 — 소음·제로백·안전·감가·리콜까지">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://carsquad.pages.dev/">
@@ -665,7 +665,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .cklist input:checked~span:last-child{text-decoration:line-through;opacity:.55}
 @media (max-width:760px){.vd .pcommute table{font-size:12.5px}.vd .pcommute th:nth-child(2),.vd .pcommute td:nth-child(2){display:none}.vd .pcommute td small{display:block}.vd .cmbig{grid-template-columns:1fr 1fr}.vd .cmbig>div:first-child{grid-column:1 / -1}.vd .sref em{display:none}.vd .tbar{grid-template-columns:1fr auto}.vd .tbar .tinfo{grid-column:1;grid-row:2}.vd .tbar .tdiff{grid-column:2}}
 
-/* ===== 내 스쿼드 ===== */
+/* ===== 내 카 스쿼드 ===== */
 .vd #p-sq { padding: 0 0 24px; }
 .vd .sqhead { padding: 14px 16px 4px; }
 .vd .sqhead h2 { margin: 0 0 4px; }
@@ -722,7 +722,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .ch h2 { font-size: 16.5px; }
 .vd .sqhead h2 { font-size: 22px; }
 @media (max-width: 760px) { .vd .brand b { font-size: 20px; } .vd .band h1 { font-size: 22px; } }
-/* ===== 홈 · 놀이터 · 리뷰 영상관 ===== */
+/* ===== 홈 · 오락실 · 리뷰 영상관 ===== */
 .vd #homebox, .vd #playbox { padding: 14px 16px 24px; display: flex; flex-direction: column; gap: 14px; max-width: 1100px; }
 .vd #homebox .card, .vd #playbox .card { margin: 0; }
 .vd .vhub { padding-bottom: 12px; }
@@ -995,7 +995,7 @@ html, body { margin: 0; background: #14161b; }
   .vd .lfevmid { grid-template-columns: 1fr; }
   .vd .lft { font-size: 23px; }
 }
-/* 놀이터 */
+/* 오락실 */
 .vd .playseg .chip { font-size: 15px; padding: 9px 18px; font-weight: 700; }
 .vd .wcsetup { padding-bottom: 14px; }
 .vd .wcsetup > .note { padding: 10px 14px 4px; font-size: 13.5px; }
@@ -1931,9 +1931,9 @@ body.nlnoscroll { overflow: hidden; }
   <nav class="tabs" role="tablist">
       <button class="tab" role="tab" id="t-home" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7M5.5 9.5V20h5v-6h3v6h5V9.5"/></svg><span><b>홈</b><small>오늘의 선수 · 뉴스</small></span></button>
       <button class="tab" role="tab" id="t-rank" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span><b>랭킹</b><small>종합 순위</small></span></button>
-      <button class="tab" role="tab" id="t-play" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.4 1.8L14.5 14h-5l-1.1 1.8A3 3 0 0 1 3 14v-1a4 4 0 0 1 4-4ZM8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg><span><b>놀이터</b><small>차생 그래프 · 월드컵 · MBTI</small></span></button>
+      <button class="tab" role="tab" id="t-play" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.4 1.8L14.5 14h-5l-1.1 1.8A3 3 0 0 1 3 14v-1a4 4 0 0 1 4-4ZM8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg><span><b>오락실</b><small>차생 그래프 · 월드컵 · MBTI</small></span></button>
       <button class="tab" role="tab" id="t-prof" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span><b>선수</b><small>차 한 대 자세히</small></span></button>
-      <button class="tab" role="tab" id="t-sq" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3.5 6l2 4.5L8 9.5V21h8V9.5l2.5 1 2-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3Z"/></svg><span><b>스쿼드 <em class="badge" id="sqN">0</em></b><small>찜한 차로 팀 짜기</small></span></button>
+      <button class="tab" role="tab" id="t-sq" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3.5 6l2 4.5L8 9.5V21h8V9.5l2.5 1 2-4.5L16 3c-.6 1.6-2.1 2.6-4 2.6S8.6 4.6 8 3Z"/></svg><span><b>카 스쿼드 <em class="badge" id="sqN">0</em></b><small>찜한 차로 팀 짜기</small></span></button>
       <button class="tab" role="tab" id="t-wiz" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></svg><span><b>추천</b><small>5문항 영입 상담</small></span></button>
       <button class="tab" role="tab" id="t-cmp" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11M11 3l4 4-4 4M20 17H9M13 13l-4 4 4 4"/></svg><span><b>비교 <em class="badge" id="cmpN">0</em></b><small>최대 4대 맞대결</small></span></button>
       <button class="tab" role="tab" id="t-fun" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9Z"/></svg><span><b>펀카</b><small>슈퍼카~핫해치</small></span></button>
@@ -2079,14 +2079,14 @@ body.nlnoscroll { overflow: hidden; }
     <div id="homebox"></div>
   </section>
 
-  <!-- 놀이터 -->
+  <!-- 오락실 -->
   <section id="p-play" hidden>
     <div id="playbox"></div>
   </section>
 
-  <!-- 내 스쿼드 -->
+  <!-- 내 카 스쿼드 -->
   <section id="p-sq" hidden>
-    <div class="sqhead"><h2>내 스쿼드</h2><p>찜한 차(♥)로 축구·농구·야구 팀을 짜 보세요. 자리마다 보는 능력치가 달라서, 같은 차라도 어디에 세우느냐에 따라 팀 전력이 바뀝니다.</p></div>
+    <div class="sqhead"><h2>내 카 스쿼드</h2><p>찜한 차(♥)로 축구·농구·야구 팀을 짜 보세요. 자리마다 보는 능력치가 달라서, 같은 차라도 어디에 세우느냐에 따라 팀 전력이 바뀝니다.</p></div>
     <div id="squad"></div>
   </section>
 
@@ -2195,7 +2195,7 @@ body.nlnoscroll { overflow: hidden; }
     { k: '히든', a: ['durab', 'resale'] },
     { k: '선수정보', a: ['tage', 'pricev', 'upkeep', 'value'] }
   ];
-  // 내부 계산용 (차 MBTI·플레이 스타일·스쿼드 포지션·뉴스) — 화면 그룹과 별개로 유지
+  // 내부 계산용 (차 MBTI·플레이 스타일·카 스쿼드 포지션·뉴스) — 화면 그룹과 별개로 유지
   const LGROUPS = [
     { k: '정숙', a: ['quiet', 'qvalue'] }, { k: '성능', a: ['accel', 'power', 'torque', 'brake'] },
     { k: '효율', a: ['eff', 'upkeep'] }, { k: '공간', a: ['size', 'room', 'cargo', 'seats'] },
@@ -2687,7 +2687,7 @@ body.nlnoscroll { overflow: hidden; }
       .forEach(([k, v]) => { const d = bio.appendChild(el('div')); d.appendChild(el('span', 'lbl', k)); d.appendChild(el('b', null, v)); });
     const btns = L.appendChild(el('div', 'pbtns'));
     const cb = btns.appendChild(el('button', 'chip', state.cmp.includes(r.id) ? '비교에서 빼기' : '비교에 담기')); cb.addEventListener('click', () => toggleCmp(r.id));
-    const fb = btns.appendChild(el('button', 'chip' + (isFav(r.id) ? ' on' : ''), isFav(r.id) ? '♥ 스쿼드 찜 해제' : '♡ 스쿼드에 찜')); fb.setAttribute('aria-pressed', isFav(r.id)); fb.addEventListener('click', () => { toggleFav(r.id); render(); });
+    const fb = btns.appendChild(el('button', 'chip' + (isFav(r.id) ? ' on' : ''), isFav(r.id) ? '♥ 카 스쿼드 찜 해제' : '♡ 카 스쿼드에 찜')); fb.setAttribute('aria-pressed', isFav(r.id)); fb.addEventListener('click', () => { toggleFav(r.id); render(); });
     const sb = btns.appendChild(el('button', 'chip share', '📇 선수 카드 공유')); sb.addEventListener('click', () => shareCard(r, sb));
     const lb = btns.appendChild(el('button', 'chip share', '🔗 링크 공유')); lb.title = '카톡에 보내면 능력치 카드가 미리보기로 떠요'; lb.addEventListener('click', () => { const url = location.origin + '/car/' + r.id + '?go=1'; const t = `[카스쿼드] ${r.name} 능력치 OVR ${ovrTxt(r)}`; if (navigator.share) { navigator.share({ title: t, url }).catch(() => {}); return; } (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => { lb.textContent = '✓ 링크 복사됨'; setTimeout(() => { lb.textContent = '🔗 링크 공유'; }, 1800); }).catch(() => window.prompt('이 링크를 복사해서 보내세요', url)); });
     const rp = btns.appendChild(el('button', 'chip rep', '🛠 오류 제보')); rp.type = 'button'; rp.title = '틀린 정보를 알려 주세요'; rp.addEventListener('click', () => openReport(r));
@@ -5052,7 +5052,7 @@ body.nlnoscroll { overflow: hidden; }
   }
 
 
-  // ------------------------------------------------------------------ 내 스쿼드 (찜 + 축구·농구·야구 포메이션)
+  // ------------------------------------------------------------------ 내 카 스쿼드 (찜 + 축구·농구·야구 포메이션)
   // 자리마다 [약칭, 이름, 기준 능력치 그룹(OVR=종합), x%, y%]
   // 포지션마다 FM에서 그 자리에 중요한 능력치로 맞춤도를 계산 (화면엔 포지션 이름만)
   const SPORTS = {
@@ -5093,7 +5093,7 @@ body.nlnoscroll { overflow: hidden; }
   function favBtn(r) {
     const on = isFav(r.id);
     const b = el('button', 'fav' + (on ? ' on' : ''), on ? '♥' : '♡');
-    b.type = 'button'; b.title = on ? '스쿼드 찜 해제' : '스쿼드에 찜하기'; b.setAttribute('aria-label', b.title); b.setAttribute('aria-pressed', on);
+    b.type = 'button'; b.title = on ? '카 스쿼드 찜 해제' : '카 스쿼드에 찜하기'; b.setAttribute('aria-label', b.title); b.setAttribute('aria-pressed', on);
     b.addEventListener('click', (e) => { e.stopPropagation(); toggleFav(r.id); render(); });
     return b;
   }
@@ -5118,13 +5118,13 @@ body.nlnoscroll { overflow: hidden; }
     const arr = ids.split('.'), lu = {};
     sp.pos.forEach((p, i) => { const id = arr[i]; if (id && byId[id]) { lu[p[0]] = id; if (!isFav(id)) SQ.fav.push(id); } });
     if (!Object.keys(lu).length) return;
-    SQ.sport = sport; SQ.lu[sport] = lu; saveSQ(); setTimeout(() => backToast('공유받은 스쿼드를 불러왔어요'), 400);
+    SQ.sport = sport; SQ.lu[sport] = lu; saveSQ(); setTimeout(() => backToast('공유받은 카 스쿼드를 불러왔어요'), 400);
   }
   async function shareSquad(btn) {
     const url = location.origin + location.pathname + '#tab=sq&sq=' + encodeURIComponent(sqCode());
-    const title = `[카스쿼드] 내 ${SPORTS[SQ.sport].t} 스쿼드`;
+    const title = `[카스쿼드] 내 ${SPORTS[SQ.sport].t} 카 스쿼드`;
     if (navigator.share) { try { await navigator.share({ title, url }); } catch (e) {} return; }
-    try { await navigator.clipboard.writeText(url); btn.textContent = '✓ 링크 복사됨'; setTimeout(() => { btn.textContent = '🔗 스쿼드 공유'; }, 1800); } catch (e) { window.prompt('이 링크를 복사해서 보내세요', url); }
+    try { await navigator.clipboard.writeText(url); btn.textContent = '✓ 링크 복사됨'; setTimeout(() => { btn.textContent = '🔗 카 스쿼드 공유'; }, 1800); } catch (e) { window.prompt('이 링크를 복사해서 보내세요', url); }
   }
   function renderSquad() {
     const box = $('#squad'); box.textContent = '';
@@ -5142,7 +5142,7 @@ body.nlnoscroll { overflow: hidden; }
     const acts = top.appendChild(el('div', 'sqacts'));
     const ab = acts.appendChild(el('button', 'chip', '✨ 자동 배치')); ab.title = '찜한 차들을 자리마다 가장 잘 맞는 곳에 세웁니다'; ab.addEventListener('click', autoPlace);
     const cb = acts.appendChild(el('button', 'chip', '비우기')); cb.addEventListener('click', () => { SQ.lu[SQ.sport] = {}; sqSel = null; saveSQ(); renderSquad(); });
-    const shb = acts.appendChild(el('button', 'chip', '🔗 스쿼드 공유')); shb.addEventListener('click', () => shareSquad(shb));
+    const shb = acts.appendChild(el('button', 'chip', '🔗 카 스쿼드 공유')); shb.addEventListener('click', () => shareSquad(shb));
 
     const main = box.appendChild(el('div', 'sqmain'));
     const bw = main.appendChild(el('div', 'sqboard ' + sp.board));
@@ -5182,7 +5182,7 @@ body.nlnoscroll { overflow: hidden; }
     }
     const sw = pk.appendChild(el('div', 'sqsearch'));
     const inp = sw.appendChild(el('input')); inp.type = 'search';
-    inp.placeholder = selP ? `${selP[0]} 자리에 넣을 차 검색` : '차를 검색해서 찜하기 (초성 가능)'; inp.setAttribute('aria-label', '스쿼드에 영입할 차 검색');
+    inp.placeholder = selP ? `${selP[0]} 자리에 넣을 차 검색` : '차를 검색해서 찜하기 (초성 가능)'; inp.setAttribute('aria-label', '카 스쿼드에 영입할 차 검색');
     suggestBox(inp, (r) => { toggleFav(r.id, true); if (selP) { const w = Object.keys(lu).find((p) => lu[p] === r.id); if (w) delete lu[w]; lu[selP[0]] = r.id; sqSel = null; } saveSQ(); renderSquad(); });
 
     const fv = side.appendChild(el('div', 'card'));
@@ -5199,7 +5199,7 @@ body.nlnoscroll { overflow: hidden; }
     });
   }
 
-  // ------------------------------------------------------------------ 공용 도우미 (홈 · 놀이터 · 영상)
+  // ------------------------------------------------------------------ 공용 도우미 (홈 · 오락실 · 영상)
   // 휴대폰용 짧은 이름: '더 뉴', '디 올 뉴' 같은 수식어를 뺌
   function shortName(n) { let x = ' ' + n + ' '; for (let i = 0; i < 3; i++) x = x.replace(/ (더|디|올|뉴|The|All|New)(?= )/g, ''); return x.trim(); }
   const btnEl = (cls, text, fn) => { const b = el('button', cls, text); b.type = 'button'; if (fn) b.addEventListener('click', fn); return b; };
@@ -5320,7 +5320,7 @@ body.nlnoscroll { overflow: hidden; }
   }
   const MBBUD = [[0, '예산 전체'], [3000, '3천 이하'], [5000, '5천 이하'], [8000, '8천 이하']];
 
-  // ------------------------------------------------------------------ 놀이터: 이상형 월드컵 + 차 MBTI
+  // ------------------------------------------------------------------ 오락실: 이상형 월드컵 + 차 MBTI
   const PLAY = { mode: 'wc', wc: { stage: 'setup', size: 32, filt: 'all', old: false }, mb: { stage: 'intro', i: 0, ans: [], result: null, me: '', bud: 0 }, sharedWc: null };
   const WC_FILTERS = [
     ['전체', [['all', '🎲 전체 랜덤']]],
@@ -5442,7 +5442,7 @@ body.nlnoscroll { overflow: hidden; }
     const tg = info.appendChild(el('span', 'wtags')); topAttrs(r, 4).forEach((x) => { const v = Math.round(r['s_' + x.k]); tg.appendChild(el('i', cellCls(v), `${x.label} ${v}`)); });
     const bt = info.appendChild(el('div', 'wcbtns'));
     bt.appendChild(btnEl('chip gold', '선수 보기', () => openProfile(r.id)));
-    const fb = bt.appendChild(btnEl('chip', isFav(r.id) ? '♥ 찜함' : '♡ 스쿼드에 찜', () => { toggleFav(r.id, true); fb.textContent = '♥ 찜함'; }));
+    const fb = bt.appendChild(btnEl('chip', isFav(r.id) ? '♥ 찜함' : '♡ 카 스쿼드에 찜', () => { toggleFav(r.id, true); fb.textContent = '♥ 찜함'; }));
     if (ru) bt.appendChild(btnEl('chip', '준우승 차와 비교', () => { state.cmp = [r.id, ru.id]; $('#cmpN').textContent = 2; show('t-cmp'); }));
     const sh = bt.appendChild(btnEl('chip', '🔗 결과 공유', () => { const nt = (($('#dreamNote') || {}).value || '').trim(); shareLink('tab=play&wc=' + r.id, `[카스쿼드] 내 드림카는 ${r.name}!` + (nt ? ` "${nt}"` : ''), sh); }));
     bt.appendChild(btnEl('chip', '↻ 다시 하기', () => { W.stage = 'setup'; renderPlay(); }));
@@ -5496,7 +5496,7 @@ body.nlnoscroll { overflow: hidden; }
     const f = box.appendChild(el('div', 'card'));
     const fh = f.appendChild(el('div', 'ch')); fh.appendChild(el('h2', null, `🎯 ${t} 성향 맞춤 추천`));
     const fl = mbFitList(t, 6, bud);
-    fh.appendChild(btnEl('chip sm', '♡ 모두 찜해서 스쿼드 짜기', () => { fl.forEach(([r]) => toggleFav(r.id, true)); show('t-sq'); }));
+    fh.appendChild(btnEl('chip sm', '♡ 모두 찜해서 카 스쿼드 짜기', () => { fl.forEach(([r]) => toggleFav(r.id, true)); show('t-sq'); }));
     const why = f.appendChild(el('p', 'note mbpad'));
     why.textContent = `${t} 성향을 차 고르는 기준으로 바꾸면 → ` + t.split('').map((c) => MBFIT[c][0]).join(' + ') + ' 중시. 이 기준 점수가 높은 순이에요.';
     mbBudChips(f);
@@ -5562,7 +5562,7 @@ body.nlnoscroll { overflow: hidden; }
     c.appendChild(el('b', 'mbtype jal', t));
     c.appendChild(el('p', 'mbnick jal', info[0]));
     c.appendChild(el('p', 'mbdesc', info[1]));
-    c.appendChild(el('p', 'note', `스쿼드로 치면 ⚽ ${info[2]} 체질 · 대표 차: ${mbExamples(t, 3).join(', ')}`));
+    c.appendChild(el('p', 'note', `카 스쿼드로 치면 ⚽ ${info[2]} 체질 · 대표 차: ${mbExamples(t, 3).join(', ')}`));
     const ax = c.appendChild(el('div', 'mbaxes'));
     MBAX.forEach(([a, b, la, lb], i) => {
       const p = M.result.pct ? M.result.pct[i] : (t[i] === a ? 100 : 0); const row = ax.appendChild(el('div', 'mbax'));
@@ -5637,7 +5637,7 @@ body.nlnoscroll { overflow: hidden; }
     [['네이버 블로그', '오너 장기 시승기', 'https://search.naver.com/search.naver?where=blog&query=' + encodeURIComponent(mk + ' 오너 후기')], ['네이버 카페', '동호회 실사용 글', 'https://search.naver.com/search.naver?where=article&query=' + encodeURIComponent(mk + ' 후기')], ['보배드림', '자동차 커뮤니티', 'https://www.google.com/search?q=' + encodeURIComponent('site:bobaedream.co.kr ' + mk)]].forEach(([n, d, u]) => { const a = tx.appendChild(linkEl('vchan', '', u)); a.appendChild(el('b', null, n)); a.appendChild(el('small', null, d)); });
   }
 
-  // ------------------------------------------------------------------ 리뷰 영상관 (놀이터)
+  // ------------------------------------------------------------------ 리뷰 영상관 (오락실)
   PLAY.vh = { k: 'o', body: 'all', fuel: 'all', q: '', sort: 'ovr', n: 12 };
   function vidEntries(k) {
     const m = new Map(); const V = window.__VIDS || {};
@@ -5747,7 +5747,7 @@ body.nlnoscroll { overflow: hidden; }
     hb.appendChild(linkEl('chip', '🎬 리뷰 영상', YT(modelKey(r) + ' 시승기')));
     // 바로가기
     const qk = box.appendChild(el('div', 'quick'));
-    [['📈', '차생 그래프', 'NEW · 내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['🧠', '차 MBTI', '나는 어떤 차 체질?', () => goPlay('mb')], ['🎯', '추천받기', '질문 5개로 Top 3', () => show('t-wiz')], ['⚽', '내 스쿼드', `찜한 차 ${SQ.fav.length}대`, () => show('t-sq')], ['📊', '랭킹', '조건 걸고 순위', () => show('t-rank')], ['🎬', '리뷰 영상관', '대표 리뷰 모아보기', () => goPlay('vid')], ['🎯', '능력치 퀴즈', '나는 몇 급 스카우트?', () => goPlay('qz')]]
+    [['📈', '차생 그래프', 'NEW · 내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['🧠', '차 MBTI', '나는 어떤 차 체질?', () => goPlay('mb')], ['🎯', '추천받기', '질문 5개로 Top 3', () => show('t-wiz')], ['⚽', '내 카 스쿼드', `찜한 차 ${SQ.fav.length}대`, () => show('t-sq')], ['📊', '랭킹', '조건 걸고 순위', () => show('t-rank')], ['🎬', '리뷰 영상관', '대표 리뷰 모아보기', () => goPlay('vid')], ['🎯', '능력치 퀴즈', '나는 몇 급 스카우트?', () => goPlay('qz')]]
       .forEach(([ic, t, s, fn]) => { const b = qk.appendChild(btnEl('qtile' + (s.startsWith('NEW') ? ' qnew' : ''), '', fn)); b.appendChild(el('span', 'qic', ic)); b.appendChild(el('b', null, t)); b.appendChild(el('small', null, s)); });
     // 최근 본 선수
     const rec = recentList().slice(0, 6);
@@ -5791,7 +5791,7 @@ body.nlnoscroll { overflow: hidden; }
     UPDATES.forEach(([d, t]) => { const li = ul.appendChild(el('li')); li.appendChild(el('b', null, d)); li.appendChild(el('span', null, t)); });
   }
   function favBtnChip(r) {
-    const on = isFav(r.id); const b = btnEl('chip', on ? '♥ 찜함' : '♡ 스쿼드에 찜', () => { toggleFav(r.id); b.textContent = isFav(r.id) ? '♥ 찜함' : '♡ 스쿼드에 찜'; }); return b;
+    const on = isFav(r.id); const b = btnEl('chip', on ? '♥ 찜함' : '♡ 카 스쿼드에 찜', () => { toggleFav(r.id); b.textContent = isFav(r.id) ? '♥ 찜함' : '♡ 카 스쿼드에 찜'; }); return b;
   }
 
   // ------------------------------------------------------------------ 작은 창(모달) 공용
@@ -5940,7 +5940,7 @@ body.nlnoscroll { overflow: hidden; }
     btn.textContent = old; btn.disabled = false;
   }
 
-  // ------------------------------------------------------------------ 놀이터: 차생 그래프 (탔던 차 별점 → 날씨 그래프 + 성향)
+  // ------------------------------------------------------------------ 오락실: 차생 그래프 (탔던 차 별점 → 날씨 그래프 + 성향)
   const LF = { stage: 'edit', list: [], edit: null, draft: null, q: '', consent: false, sent: '' };
   try { const v = JSON.parse(LS.get('life1') || 'null'); if (v && Array.isArray(v.list)) LF.list = v.list.filter((x) => x && x.name && Array.isArray(x.s)).slice(0, 30); if (v && v.dream && byId[v.dream]) LF.dream = v.dream; } catch (e) {}
   if (!LF.list.length) LF.stage = 'intro';
@@ -6536,7 +6536,7 @@ body.nlnoscroll { overflow: hidden; }
   function nlFuel(r) { const c = commuteCost(r); return c ? (c.won / 10000).toFixed(1) + '만' : '–'; }
 
   // ---- 공통 틀: 머리줄(☰ · 로고 · 🔍) + 왼쪽 메뉴 + 시안 띠
-  const NLTITLE = { 't-home': '', 't-rank': '랭킹', 't-play': '놀이터', 't-prof': '선수', 't-sq': '스쿼드', 't-wiz': '추천', 't-cmp': '비교', 't-fun': '펀카', 't-used': '이적시장', 't-all': '전체 명단', 't-how': '기준' };
+  const NLTITLE = { 't-home': '', 't-rank': '랭킹', 't-play': '오락실', 't-prof': '선수', 't-sq': '카 스쿼드', 't-wiz': '추천', 't-cmp': '비교', 't-fun': '펀카', 't-used': '이적시장', 't-all': '전체 명단', 't-how': '기준' };
   function nlShell() {
     const vd = document.querySelector('.vd'); if (!vd || $('#nlhd')) return;
     vd.classList.add('nl', 'nl-' + NL.v); vd.setAttribute('data-theme', 'light'); document.documentElement.classList.add('nlroot');
@@ -6560,7 +6560,7 @@ body.nlnoscroll { overflow: hidden; }
     const grp = (t, items) => { pn.appendChild(el('div', 'nldg', t)); const gw = pn.appendChild(el('div', 'nldgrid')); items.forEach(([ic, label, sub, fn, id]) => { const b = gw.appendChild(btnEl('nldi', '', () => { nlDrawer(false); fn(); })); if (id) b.dataset.tab = id; if (NL.v === 'c' && NLMSYM[label]) { const k = b.appendChild(el('span', 'nldkey')); k.appendChild(el('i')); k.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${NLMSYM[label]}</svg>`); } else b.appendChild(el('span', 'nldic', ic)); const tx = b.appendChild(el('span')); tx.appendChild(el('b', null, label)); if (sub) tx.appendChild(el('small', null, sub)); }); };
     const go = (t) => () => { NL.find = false; NL.cat = ''; NL.view = ''; show(t); };
     grp('차 고르기', [['🏠', '홈', '', go('t-home'), 't-home'], ['🏆', '랭킹', '종합 순위', go('t-rank'), 't-rank'], ['🏭', '제조사별로 찾기', '제조사 → 모델 → 트림', () => nlGoBrowse()], ['👤', '선수', '차 한 대 자세히', go('t-prof'), 't-prof'], ['⚔️', '비교', '최대 4대 맞대결', go('t-cmp'), 't-cmp'], ['🧭', '추천', '5문항 영입 상담', go('t-wiz'), 't-wiz'], ['🔁', '이적시장', '중고 시세', go('t-used'), 't-used'], ['🏎️', '펀카', '슈퍼카~핫해치', go('t-fun'), 't-fun'], ['📋', '전체 명단', '스카우트', go('t-all'), 't-all']]);
-    grp('놀기', [['📈', '차생 그래프', '내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🧠', '차 MBTI', '24문항', () => goPlay('mb')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['⚽', '스쿼드', '찜한 차로 팀 짜기', go('t-sq'), 't-sq']]);
+    grp('오락실', [['📈', '차생 그래프', '내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🧠', '차 MBTI', '24문항', () => goPlay('mb')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['⚽', '카 스쿼드', '찜한 차로 팀 짜기', go('t-sq'), 't-sq']]);
     grp('기타', [['📏', '점수 매기는 법', '', go('t-how'), 't-how']]);
     pn.appendChild(el('p', 'nltm', NLTM));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { nlDrawer(false); const so = $('#nlso'); if (so) so.remove(); } });
@@ -6731,10 +6731,10 @@ body.nlnoscroll { overflow: hidden; }
     const st = style(r); bk.appendChild(el('div', 'nlk', '플레이 스타일')); bk.appendChild(el('p', 'nlbst', st[0] + (st[1] ? ' — ' + st[1] : '')));
     bk.appendChild(el('p', 'nlmut', '차 MBTI ' + carMBTI(r) + ' · 연비 ' + nlFe(r) + ' · 월 기름값 ' + nlFuel(r)));
     const bt = box.appendChild(el('div', 'nlacts c'));
-    bt.appendChild(btnEl('nlbtn dark', isFav(r.id) ? '♥ 스쿼드에 있음' : '스쿼드 영입 +', () => { toggleFav(r.id); nlProfile(); }));
+    bt.appendChild(btnEl('nlbtn dark', isFav(r.id) ? '♥ 카 스쿼드에 있음' : '카 스쿼드 영입 +', () => { toggleFav(r.id); nlProfile(); }));
     bt.appendChild(btnEl('nlbtn', NL.flip ? '앞면 보기 ↻' : '카드 뒤집기 ↻', () => { NL.flip = !NL.flip; cd.classList.toggle('flip', NL.flip); }));
   }
-  const NLMSYM = {"홈": "<path d=\"M3.5 11.5 12 4.5l8.5 7\"/><path d=\"M6 10.5V19h12v-8.5\"/><path d=\"M9 19v-3.5h6V19M9 17.2h6\"/>", "랭킹": "<path d=\"M3.5 19.5h17\"/><path d=\"M5 19.5v-5h4.5v5M9.5 19.5V9.5h5v10M14.5 19.5v-3.5H19v3.5\"/><path d=\"M12 4.2v2.6\"/>", "제조사별로 찾기": "<path d=\"M12 3.5 19 6v6c0 4.3-3 7.3-7 8.5-4-1.2-7-4.2-7-8.5V6z\"/><path d=\"M9 12h6M12 9v6\"/>", "선수": "<path d=\"M8.5 4 4.5 6.5 3 11l3.3 1.3 1-2V20h9.4v-9.7l1 2L21 11l-1.5-4.5L15.5 4c-.9 1.8-6.1 1.8-7 0z\"/><path d=\"M11 11h2.2l-1.6 3h1.8\"/>", "비교": "<path d=\"M4 8h14.5\"/><path d=\"m15.5 5 3 3-3 3\"/><path d=\"M20 16H5.5\"/><path d=\"m8.5 13-3 3 3 3\"/>", "추천": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"2.2\"/><path d=\"M4.2 10.8h5.6M14.2 10.8h5.6M12 14.2V20\"/>", "이적시장": "<path d=\"M6 3.5h9l3 3V20.5H6z\"/><path d=\"M9 9h6M9 12.5h6M9 16h3.5\"/>", "펀카": "<path d=\"M4 17a8 8 0 1 1 16 0\"/><path d=\"m12 17 4.5-5.5\"/><path d=\"M7 13.2l.9.5M12 9.2v1M17 13.2l-.9.5\"/>", "전체 명단": "<path d=\"M8 6h12M8 12h12M8 18h12\"/><circle cx=\"4.5\" cy=\"6\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"12\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"18\" r=\".9\" fill=\"currentColor\"/>", "차생 그래프": "<path d=\"M3.5 19.5h17\"/><path d=\"m4.5 15.5 4.5-4.5 3.5 3 6-6.5\"/>", "드림카까지": "<path d=\"M6 21V4\"/><path d=\"M6 4.5h11.5l-2.5 3.5 2.5 3.5H6\"/>", "차 MBTI": "<path d=\"M4 5h16v10.5H10.5L6.5 19.5v-4H4z\"/><path d=\"M10 8.6a2 2 0 1 1 2.8 1.8c-.6.3-.8.7-.8 1.2\"/><circle cx=\"12\" cy=\"13.6\" r=\".5\" fill=\"currentColor\"/>", "이상형 월드컵": "<path d=\"M8 4.5h8v4.5c0 3-1.8 5-4 5s-4-2-4-5z\"/><path d=\"M8 6.5H5.5c0 3 1.2 4 3 4.2M16 6.5h2.5c0 3-1.2 4-3 4.2\"/><path d=\"M12 14v3.5M8.5 20h7M9.5 17.5h5V20\"/>", "스쿼드": "<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"14\" rx=\"1\"/><path d=\"M12 5v14\"/><circle cx=\"12\" cy=\"12\" r=\"2.8\"/>", "점수 매기는 법": "<path d=\"M3.5 15.5 15.5 3.5l5 5-12 12z\"/><path d=\"m7.5 11.5 1.8 1.8M10.5 8.5l1.3 1.3M13.5 5.5l1.8 1.8\"/>"};
+  const NLMSYM = {"홈": "<path d=\"M3.5 11.5 12 4.5l8.5 7\"/><path d=\"M6 10.5V19h12v-8.5\"/><path d=\"M9 19v-3.5h6V19M9 17.2h6\"/>", "랭킹": "<path d=\"M3.5 19.5h17\"/><path d=\"M5 19.5v-5h4.5v5M9.5 19.5V9.5h5v10M14.5 19.5v-3.5H19v3.5\"/><path d=\"M12 4.2v2.6\"/>", "제조사별로 찾기": "<path d=\"M12 3.5 19 6v6c0 4.3-3 7.3-7 8.5-4-1.2-7-4.2-7-8.5V6z\"/><path d=\"M9 12h6M12 9v6\"/>", "선수": "<path d=\"M8.5 4 4.5 6.5 3 11l3.3 1.3 1-2V20h9.4v-9.7l1 2L21 11l-1.5-4.5L15.5 4c-.9 1.8-6.1 1.8-7 0z\"/><path d=\"M11 11h2.2l-1.6 3h1.8\"/>", "비교": "<path d=\"M4 8h14.5\"/><path d=\"m15.5 5 3 3-3 3\"/><path d=\"M20 16H5.5\"/><path d=\"m8.5 13-3 3 3 3\"/>", "추천": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"2.2\"/><path d=\"M4.2 10.8h5.6M14.2 10.8h5.6M12 14.2V20\"/>", "이적시장": "<path d=\"M6 3.5h9l3 3V20.5H6z\"/><path d=\"M9 9h6M9 12.5h6M9 16h3.5\"/>", "펀카": "<path d=\"M4 17a8 8 0 1 1 16 0\"/><path d=\"m12 17 4.5-5.5\"/><path d=\"M7 13.2l.9.5M12 9.2v1M17 13.2l-.9.5\"/>", "전체 명단": "<path d=\"M8 6h12M8 12h12M8 18h12\"/><circle cx=\"4.5\" cy=\"6\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"12\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"18\" r=\".9\" fill=\"currentColor\"/>", "차생 그래프": "<path d=\"M3.5 19.5h17\"/><path d=\"m4.5 15.5 4.5-4.5 3.5 3 6-6.5\"/>", "드림카까지": "<path d=\"M6 21V4\"/><path d=\"M6 4.5h11.5l-2.5 3.5 2.5 3.5H6\"/>", "차 MBTI": "<path d=\"M4 5h16v10.5H10.5L6.5 19.5v-4H4z\"/><path d=\"M10 8.6a2 2 0 1 1 2.8 1.8c-.6.3-.8.7-.8 1.2\"/><circle cx=\"12\" cy=\"13.6\" r=\".5\" fill=\"currentColor\"/>", "이상형 월드컵": "<path d=\"M8 4.5h8v4.5c0 3-1.8 5-4 5s-4-2-4-5z\"/><path d=\"M8 6.5H5.5c0 3 1.2 4 3 4.2M16 6.5h2.5c0 3-1.2 4-3 4.2\"/><path d=\"M12 14v3.5M8.5 20h7M9.5 17.5h5V20\"/>", "카 스쿼드": "<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"14\" rx=\"1\"/><path d=\"M12 5v14\"/><circle cx=\"12\" cy=\"12\" r=\"2.8\"/>", "점수 매기는 법": "<path d=\"M3.5 15.5 15.5 3.5l5 5-12 12z\"/><path d=\"m7.5 11.5 1.8 1.8M10.5 8.5l1.3 1.3M13.5 5.5l1.8 1.8\"/>"};
   const NLLGLY = {"durab": "<path d=\"M14.5 4.5a4.5 4.5 0 0 0-4.3 5.8L4 16.5 7.5 20l6.2-6.2a4.5 4.5 0 0 0 5.8-4.3l-2.6 2.6-3-.4-.4-3z\"/>", "eff": "<path d=\"M5 20V5.5A1.5 1.5 0 0 1 6.5 4h6A1.5 1.5 0 0 1 14 5.5V20M3.5 20h12\"/><path d=\"M7.5 7.5h4v3.5h-4z\"/><path d=\"M14 9.5h2a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 0 3 0V8.5L18 6\"/>", "safety": "<circle cx=\"10\" cy=\"5\" r=\"1.8\"/><path d=\"M6.5 20v-4.5L5 12.5c-.4-1.6.6-3.5 2.5-3.5h3.5c1.4 0 2.4 1 2.6 2.3l.7 4.7h3.2v4\"/><path d=\"M8.5 9.5 13 15\"/>", "quiet": "<path d=\"M4 9.5h3.5L12 5.5v13l-4.5-4H4z\"/><path d=\"M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10\"/>", "room": "<path d=\"M7 4.5c-1.2 0-2 .9-1.8 2.1L6.5 15h8l1.8 4.5\"/><path d=\"M9.5 15 8 6.5\"/><path d=\"M6.5 15h-1M14.5 15h3.5\"/>", "cargo": "<path d=\"M3 15.5V11l2.5-4.5h9L18 11h3v4.5z\"/><path d=\"M14.5 6.5 18 11\"/><circle cx=\"7\" cy=\"16.5\" r=\"2\"/><circle cx=\"17\" cy=\"16.5\" r=\"2\"/><path d=\"M15 3.5l4 3\"/>", "resale": "<path d=\"M12 3.5 19 6v6c0 4.3-3 7.3-7 8.5-4-1.2-7-4.2-7-8.5V6z\"/><path d=\"m8.8 9 1.3 5.2L12 10l1.9 4.2L15.2 9M8.5 11.5h7\"/>", "tadas": "<path d=\"M7 20 9.5 4M17 20 14.5 4\"/><path d=\"M12 6v2M12 11v2M12 16v2.5\"/><path d=\"M4.5 8.5a5 5 0 0 1 0 7M19.5 8.5a5 5 0 0 0 0 7\"/>"};
   const NLLAMP = [['durab', '🔧', '리콜'], ['eff', '⛽', '연비'], ['safety', '🛡️', '안전'], ['quiet', '🔇', '정숙성'], ['room', '🛋️', '실내 공간'], ['cargo', '📦', '적재력'], ['resale', '💰', '감가 방어'], ['tadas', '🤖', '주행보조']];
   // ---- D: 아이콘 홈 (배민식 카테고리)
@@ -6874,7 +6874,7 @@ body.nlnoscroll { overflow: hidden; }
     run();
     const ft = box.appendChild(el('div', 'nlefoot'));
     ft.appendChild(el('span', null, '국내 판매차 능력치 비교'));
-    ft.appendChild(btnEl('nllink', '🎮 놀이터', () => show('t-play')));
+    ft.appendChild(btnEl('nllink', '🎮 오락실', () => show('t-play')));
   }
   function nlProfE(box, r) {
     const sb = box.appendChild(btnEl('nlfakesearch top', '', () => { NL.q = ''; show('t-home'); })); sb.innerHTML = `<span>🔍</span> ${r.name}`;
@@ -7070,7 +7070,7 @@ body.nlnoscroll { overflow: hidden; }
     const gb = wrap.appendChild(el('div', 'nlhg'));
     const rec = recentList()[0];
     // 6단 + R (실제 수동 기어 노브 순서): 위 R·1·3·5, 아래 (빈칸)·2·4·6, 가운데 줄이 중립(N)
-    const G = [['R', '최근 본 차', 0, 0, () => (rec ? openProfile(rec) : show('t-prof'))], ['1', '차 찾기', 1, 0, () => nlGoBrowse()], ['2', '랭킹', 1, 1, () => show('t-rank')], ['3', '비교', 2, 0, () => show('t-cmp')], ['4', '놀이터', 2, 1, () => show('t-play')], ['5', '스쿼드', 3, 0, () => show('t-sq')], ['6', '추천', 3, 1, () => show('t-wiz')]];
+    const G = [['R', '최근 본 차', 0, 0, () => (rec ? openProfile(rec) : show('t-prof'))], ['1', '차 찾기', 1, 0, () => nlGoBrowse()], ['2', '랭킹', 1, 1, () => show('t-rank')], ['3', '비교', 2, 0, () => show('t-cmp')], ['4', '오락실', 2, 1, () => show('t-play')], ['5', '내 팀', 3, 0, () => show('t-sq')], ['6', '추천', 3, 1, () => show('t-wiz')]];
     const X = (c) => (c * 2 + 1) / 8 * 100, Y = (rw) => (rw ? 85 : 15), NY = 50;
     gb.insertAdjacentHTML('beforeend', `<svg class="nlhgate" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true"><path d="M37.5 24V80M112.5 24V136M187.5 24V136M262.5 24V136M37.5 80H262.5" /></svg>`);
     const knob = gb.appendChild(el('div', 'nlhknob')); knob.appendChild(el('i')); knob.setAttribute('aria-hidden', 'true');
@@ -7337,7 +7337,7 @@ body.nlnoscroll { overflow: hidden; }
      '능력치·순위·추천·차 MBTI는 공개된 자료를 바탕으로 계산한 상대 평가이며 재미와 참고를 위한 것입니다. 정확성과 최신성을 보장하지 않으며, 구매·계약 등 모든 판단과 그 결과에 대한 책임은 이용자에게 있습니다.',
      '가격·중고 시세·유가·옵션 정보는 수집 시점 기준이라 실제와 다를 수 있습니다. 실제 구매 전에는 제조사 공식 가격표, 시승, 전문가 점검으로 꼭 확인하세요.',
      '자동차 이름·브랜드·로고는 각 소유자의 상표입니다. 사진·영상·글은 출처가 표시된 제3자 콘텐츠로 권리는 원저작자에게 있으며, 문제가 있으면 오류·의견 보내기로 알려 주시면 바로 내리겠습니다.',
-     '개인정보: 회원가입·로그인이 없습니다. 찜·스쿼드·체크리스트·내 차·최근 본 차는 이 기기(브라우저)에만 저장됩니다. 사이트 개선을 위해 익명 방문 번호와 많이 본 차를 집계하며, 이름·연락처 같은 개인정보는 수집하지 않습니다. 제보할 때 직접 남긴 연락처는 답변에만 쓰고 공개하지 않습니다.'
+     '개인정보: 회원가입·로그인이 없습니다. 찜·카 스쿼드·체크리스트·내 차·최근 본 차는 이 기기(브라우저)에만 저장됩니다. 사이트 개선을 위해 익명 방문 번호와 많이 본 차를 집계하며, 이름·연락처 같은 개인정보는 수집하지 않습니다. 제보할 때 직접 남긴 연락처는 답변에만 쓰고 공개하지 않습니다.'
     ].forEach((t) => d.appendChild(el('p', null, t))); }
   f.appendChild(el('p', null, '능력치는 재미를 위한 상대 점수입니다. 실제 구매 전에는 시승과 최신 가격표를 꼭 확인하세요.'));
   computeUpkeep(15000); scoreAll(); funAll(); fillSel(); buildWeights(); readHash(); ovrAll();
