@@ -1791,6 +1791,18 @@ body.nlnoscroll { overflow: hidden; }
 .nlext b { font-size: 16px; line-height: 1.35; word-break: keep-all; }
 .nlext small { font-size: 13px; color: #6b7280; }
 .vd.nl #homebox.nlhome.nle { padding-top: 7vh; }
+
+/* 제조사 로고 */
+.nllw { height: 40px; display: flex; align-items: center; justify-content: center; }
+.nllogo { display: block; width: auto; max-width: 92px; object-fit: contain; }
+.nllogo.png { filter: grayscale(1) brightness(.35) contrast(1.4); max-width: 64px; }
+.nllt { font-style: normal; width: 34px; height: 34px; border-radius: 50%; background: #f1f3f6; display: grid; place-items: center; font-weight: 900; font-size: 16px; color: #4b5563; }
+.nlbrand2 { padding-top: 14px; gap: 6px; }
+.nlbh { display: flex; align-items: center; gap: 12px; }
+.nlbh .nlmut { margin: 0; }
+.nllc2 { display: inline-flex; align-items: center; gap: 7px; }
+.nllc2 .nllogo { max-width: 40px; }
+.vd.nl .nltm, .nldpn .nltm { font-size: 12px; color: #9aa1ad; line-height: 1.5; margin: 14px 4px 0; }
 </style>
 </head><body>
 <script>/* 방문자 통계 주소: 구글 Apps Script 웹앱 주소를 따옴표 안에 붙여 넣으세요 */ window.CARRO_STATS_URL = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';</script>
@@ -6430,6 +6442,7 @@ body.nlnoscroll { overflow: hidden; }
     grp('차 고르기', [['🏠', '홈', '', go('t-home'), 't-home'], ['🏆', '랭킹', '종합 순위', go('t-rank'), 't-rank'], ['🏭', '제조사별로 찾기', '제조사 → 모델 → 트림', () => nlGoBrowse()], ['👤', '선수', '차 한 대 자세히', go('t-prof'), 't-prof'], ['⚔️', '비교', '최대 4대 맞대결', go('t-cmp'), 't-cmp'], ['🧭', '추천', '5문항 영입 상담', go('t-wiz'), 't-wiz'], ['🔁', '이적시장', '중고 시세', go('t-used'), 't-used'], ['🏎️', '펀카', '슈퍼카~핫해치', go('t-fun'), 't-fun'], ['📋', '전체 명단', '스카우트', go('t-all'), 't-all']]);
     grp('놀기', [['📈', '차생 그래프', '내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🧠', '차 MBTI', '24문항', () => goPlay('mb')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['⚽', '스쿼드', '찜한 차로 팀 짜기', go('t-sq'), 't-sq']]);
     grp('기타', [['📏', '점수 매기는 법', '', go('t-how'), 't-how']]);
+    pn.appendChild(el('p', 'nltm', NLTM));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { nlDrawer(false); const so = $('#nlso'); if (so) so.remove(); } });
   }
   function nlDrawer(on) { const d = $('#nldraw'); if (!d) return; d.hidden = !on; document.body.classList.toggle('nlnoscroll', on); if (on) d.querySelectorAll('.nldi').forEach((b) => b.classList.toggle('on', b.dataset.tab === cur)); }
@@ -6624,7 +6637,7 @@ body.nlnoscroll { overflow: hidden; }
     box.appendChild(el('div', 'nlsec', '제조사로 찾기'));
     const bs = box.appendChild(el('div', 'nlhscroll chips'));
     const bm = new Map(); activePool().forEach((r) => bm.set(r.brand, (bm.get(r.brand) || 0) + 1));
-    [...bm.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).forEach(([br]) => bs.appendChild(btnEl('nlchip', br, () => nlGoBrowse(br))));
+    [...bm.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).forEach(([br]) => { const c = bs.appendChild(btnEl('nlchip nllc2', '', () => nlGoBrowse(br))); const lg = nlLogo(br, 20); if (lg) c.appendChild(lg); c.appendChild(document.createTextNode(br)); });
     bs.appendChild(btnEl('nlchip', '전체 제조사 →', () => nlGoBrowse()));
     const rnd = rng(seedOf(todayKey())); const pick = NLCAT.slice(0, 4)[Math.floor(rnd() * 4)];
     const strip = (title, list) => { box.appendChild(el('div', 'nlsec', title)); const sc = box.appendChild(el('div', 'nlhscroll')); list.forEach((r) => { const b = sc.appendChild(btnEl('nlhc', '', () => openProfile(r.id))); const ph = b.appendChild(el('div', 'nlhcp')); photo(ph, r); b.appendChild(el('b', null, shortName(nlBrandless(r)))); b.appendChild(el('small', null, `★ ${ovrTxt(r)} · ${nlMan(r.price)}`)); }); };
@@ -6777,6 +6790,10 @@ body.nlnoscroll { overflow: hidden; }
     if (q[3]) { const L = q[3](); if (!L.length) { a.textContent = '비슷한 가격(±12%)에 같은 차종은 마땅한 게 없어요.'; return; } a.appendChild(el('p', null, `같은 ${r.body}, 비슷한 몸값(±12%) 중 OVR 높은 순이에요.`)); L.forEach((x) => a.appendChild(nlRow(x, null, () => openProfile(x.id)))); return; }
     if (q[4]) { const b = q[4](); if (!b) { a.textContent = '비교할 라이벌을 못 찾았어요.'; return; } a.appendChild(el('p', null, `몸값이 가장 비슷한 ${r.body}: ${b.name}`)); nlVsTable(a, r, b); }
   }
+  // ---- 제조사 로고 (가리키는 용도로만 · 모양·색 변형 없음 · logos/README.md)
+  const NLLOGO = {"기아":"kia.svg","현대":"hyundai.svg","BMW":"bmw.svg","벤츠":"mercedes.svg","아우디":"audi.svg","볼보":"volvo.svg","폴스타":"polestar.svg","포드":"ford.svg","테슬라":"tesla.svg","토요타":"toyota.svg","혼다":"honda.svg","닛산":"nissan.svg","폭스바겐":"volkswagen.svg","포르쉐":"porsche.svg","미니":"mini.svg","페라리":"ferrari.svg","람보르기니":"lamborghini.svg","마세라티":"maserati.svg","맥라렌":"mclaren.svg","롤스로이스":"rollsroyce.svg","벤틀리":"bentley.svg","애스턴마틴":"astonmartin.svg","캐딜락":"cadillac.svg","쉐보레":"chevrolet.svg","지프":"jeep.svg","랜드로버":"landrover.svg","램":"ram.svg","르노코리아":"renault.svg","푸조":"peugeot.svg","제네시스":"genesis.png","렉서스":"lexus.png","링컨":"lincoln.png","GMC":"gmc.png","로터스":"lotus.png"};
+  function nlLogo(brand, h) { const f = NLLOGO[brand]; if (!f) return null; const i = el('img', 'nllogo' + (/\.png$/.test(f) ? ' png' : '')); i.src = 'logos/' + f; i.alt = brand; i.loading = 'lazy'; i.style.height = h + 'px'; i.addEventListener('error', () => i.remove()); return i; }
+  const NLTM = '제조사 로고와 명칭은 각 제조사의 상표예요. 카스쿼드는 제조사와 제휴 관계가 아니며, 어느 회사 차인지 알려 드리는 용도로만 써요.';
   // ---- 공통: 제조사 → 모델 → 트림 (엔카·헤이딜러식 단계 찾기)
   const nlModelName = (r) => shortName(modelKey(r).replace(new RegExp('^' + r.brand + '\\s*'), '')) || r.name;
   const nlTrimName = (r) => { const k = modelKey(r); const rest = r.name.slice(k.length).trim(); return rest || r.trim || r.name; };
@@ -6795,12 +6812,13 @@ body.nlnoscroll { overflow: hidden; }
       [['국산', '국산차'], ['수입', '수입차']].forEach(([k, t]) => tabs.appendChild(btnEl(NL.brOrg === k ? 'on' : '', t, () => { NL.brOrg = k; render(); })));
       const m = new Map(); pool.filter((r) => r.origin === NL.brOrg).forEach((r) => { const o = m.get(r.brand) || { n: new Set(), c: 0 }; o.n.add(modelKey(r)); o.c++; m.set(r.brand, o); });
       const g = box.appendChild(el('div', 'nlbrands'));
-      [...m.entries()].sort((a, b) => b[1].n.size - a[1].n.size).forEach(([br, o]) => { const b = g.appendChild(btnEl('nlbrand2', '', () => { B.brand = br; B.model = ''; render(); window.scrollTo({ top: 0 }); })); b.appendChild(el('b', null, br)); b.appendChild(el('small', null, `${o.n.size}모델`)); });
+      [...m.entries()].sort((a, b) => b[1].n.size - a[1].n.size).forEach(([br, o]) => { const b = g.appendChild(btnEl('nlbrand2', '', () => { B.brand = br; B.model = ''; render(); window.scrollTo({ top: 0 }); })); const lw = b.appendChild(el('span', 'nllw')); const lg = nlLogo(br, 34); if (lg) lw.appendChild(lg); else lw.appendChild(el('i', 'nllt', br.slice(0, 1))); b.appendChild(el('b', null, br)); b.appendChild(el('small', null, `${o.n.size}모델`)); });
+      box.appendChild(el('p', 'nltm', NLTM));
       return;
     }
     if (!B.model) {
       const m = new Map(); pool.filter((r) => r.brand === B.brand).forEach((r) => { const k = nlModelName(r); const a = m.get(k) || []; a.push(r); m.set(k, a); });
-      box.appendChild(el('p', 'nlmut', `${B.brand} · ${m.size}모델 · 누르면 트림이 나와요`));
+      const bh = box.appendChild(el('div', 'nlbh')); const bl = nlLogo(B.brand, 40); if (bl) bh.appendChild(bl); bh.appendChild(el('p', 'nlmut', `${B.brand} · ${m.size}모델 · 누르면 트림이 나와요`));
       [...m.entries()].sort((a, b) => Math.max(...b[1].map((r) => r._ovr)) - Math.max(...a[1].map((r) => r._ovr))).forEach(([k, L]) => {
         const best = L.slice().sort((a, b) => b._ovr - a._ovr)[0]; const ps = L.map((r) => r.price);
         const b = box.appendChild(btnEl('nlstore', '', () => { B.model = k; render(); window.scrollTo({ top: 0 }); }));
