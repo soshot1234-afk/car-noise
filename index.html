@@ -6484,6 +6484,9 @@ body.nlnoscroll { overflow: hidden; }
   // ------------------------------------------------------------------ 새 화면 시안 (NL) · ?look=a|b|c 또는 look-a/b/c 주소
   const NL = (() => {
     let v = '';
+    // 본 앱(운영 주소)은 시안 C가 기본 화면, 시안 고르는 띠 없음. 테스트 주소(dream-test·look-x·localhost)에서만 A~E 고르기
+    const TEST = /(^|\.)(dream-test|look-[a-e])\.|^localhost$|^127\./.test(location.hostname) && !/[?&]live\b/.test(location.search);
+    if (!TEST) return { v: 'c', live: true, view: '', br: { brand: '', model: '' }, brOrg: '국산', brOld: false, fmode: 'brand', cg: '', cat: '', q: '', asked: [], budget: 3000, kind: '신차', sort: 'ovr', body: '', more: 0, find: false, fb: 0, fbody: '', flip: false, open: false, pid: null, lamp: null };
     try {
       const q = (new URLSearchParams(location.search).get('look') || '').toLowerCase();
       const h = location.hostname.match(/^look-([a-e])\./);
@@ -6532,7 +6535,7 @@ body.nlnoscroll { overflow: hidden; }
     const lg = document.querySelector('.topbar .logo'); if (lg) br.appendChild(lg.cloneNode(true));
     br.appendChild(el('b', null, 'CAR SQUAD')); br.appendChild(el('span', 'nlwhere', '')).id = 'nlwhere';
     const sb = hd.appendChild(btnEl('nlib', '', () => nlSearch())); sb.setAttribute('aria-label', '차 검색'); sb.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24"><circle cx="10.5" cy="10.5" r="6.5" stroke="#15181e" stroke-width="2.2" fill="none"/><path d="m16 16 4.5 4.5" stroke="#15181e" stroke-width="2.2" stroke-linecap="round"/></svg>';
-    vd.insertBefore(hd, vd.firstChild); vd.insertBefore(strip, vd.firstChild);
+    vd.insertBefore(hd, vd.firstChild); if (!NL.live) vd.insertBefore(strip, vd.firstChild);
     // 왼쪽 메뉴
     const dw = document.body.appendChild(el('div', 'nldraw nlv-' + NL.v)); dw.id = 'nldraw'; dw.hidden = true;
     dw.addEventListener('click', (e) => { if (e.target === dw) nlDrawer(false); });
