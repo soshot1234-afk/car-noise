@@ -1805,6 +1805,41 @@ body.nlnoscroll { overflow: hidden; }
 .nlbgl .nllogo.png { max-width: 44px; }
 .nlbgrid.ring .nlbgl { border-radius: 50%; border: 2px solid #e3e6ea; }
 .nlbg:hover .nlbgl { border-color: #15181e; }
+/* C 다듬기 (11/19 밤): 글자색 고정 · 오른쪽 계기판 모드 · 백미러 검색 · H 기어 */
+.vd.nl h1, .vd.nl h2, .vd.nl h3, .vd.nl .nlcn { color: #15181e; }
+.nlcgr { gap: 0; }
+.nlcgd { appearance: none; border: 0; background: none; padding: 0; cursor: pointer; border-radius: 50%; touch-action: pan-y; width: 100%; display: flex; justify-content: center; }
+.nlcgd svg { max-width: 100%; height: auto; }
+.nlcgd:active { transform: scale(.97); }
+.nlmode { display: flex; align-items: center; justify-content: center; gap: 2px; height: 18px; }
+.nlmode small { white-space: nowrap; font-size: 12px; }
+.nlmb { appearance: none; border: 0; background: none; width: 22px; height: 26px; margin: -4px 0; flex: none; border-radius: 50%; font: 900 20px/1 "Pretendard Variable", Pretendard, sans-serif; color: #15181e; cursor: pointer; display: grid; place-items: center; }
+.nlmb:hover { background: #f1f3f6; }
+.nlmdots { display: flex; gap: 4px; justify-content: center; margin-top: 6px; }
+.nlmdots i { width: 5px; height: 5px; border-radius: 50%; background: #d6dbe1; }
+.nlmdots i.on { width: 14px; border-radius: 3px; background: #15181e; }
+.nlclrow > .nlcg:first-child::after { content: ''; display: block; height: 11px; }
+.nlmirror { position: relative; margin: 2px 22px 0; padding-top: 14px; }
+.nlmstem { position: absolute; left: 50%; top: -12px; width: 18px; height: 28px; margin-left: -9px; border-radius: 6px 6px 4px 4px; background: linear-gradient(90deg, #2b3039, #15181e); }
+.nlmglass { appearance: none; position: relative; width: 100%; border: 6px solid #15181e; border-radius: 22px 22px 34px 34px / 20px 20px 30px 30px; background: linear-gradient(170deg, #f9fafb 0%, #eef1f4 45%, #e3e7ec 100%); box-shadow: 0 6px 14px rgba(0, 0, 0, .12), inset 0 1px 0 #fff; padding: 13px 18px; font: inherit; font-size: 15.5px; color: #6b7280; text-align: center; cursor: pointer; }
+.nlmglass::after { content: ''; position: absolute; left: 12%; top: 6px; width: 30%; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .9); }
+.nlmglass span { margin-right: 6px; }
+.nlmglass:hover { border-color: #2b3039; }
+.nlhgw { background: #15181e; border-radius: 22px; padding: 30px 10px 28px; box-shadow: 0 10px 24px rgba(0, 0, 0, .18); }
+.nlhg { position: relative; height: 150px; }
+.nlhgate { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nlhgate path { fill: none; stroke: #343a46; stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.nlhknob { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f6d27a, #e3b448 55%, #b8860b); box-shadow: 0 6px 12px rgba(0, 0, 0, .5), inset 0 -3px 6px rgba(0, 0, 0, .25); transition: left .2s ease-in-out, top .28s cubic-bezier(.5, 1.5, .5, 1); z-index: 4; pointer-events: none; display: grid; place-items: center; }
+.nlhknob i { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(21, 24, 30, .35); }
+.nlhg.moving .nlhknob { box-shadow: 0 0 0 6px rgba(227, 180, 72, .3), 0 6px 12px rgba(0, 0, 0, .5); }
+.vd.nl .nlhs { appearance: none; position: absolute; width: 84px; height: 44px; margin: -22px 0 0 -42px; border: 0; background: none; cursor: pointer; font: inherit; padding: 0; z-index: 3; display: grid; place-items: center; }
+.vd.nl .nlhs b { width: 44px; height: 44px; display: grid; place-items: center; font: 700 24px/1 "Barlow Condensed", sans-serif; color: #c9ced6; }
+.vd.nl .nlhs small { position: absolute; left: 0; right: 0; text-align: center; font-size: 12.5px; font-weight: 800; color: #9aa3b0; white-space: nowrap; }
+.vd.nl .nlhs.up small { bottom: 100%; margin-bottom: 2px; }
+.vd.nl .nlhs.dn small { top: 100%; margin-top: 2px; }
+.vd.nl .nlhs:hover b, .vd.nl .nlhs:hover small, .vd.nl .nlhs.on small { color: #fff; }
+.nlplogo { appearance: none; border: 0; background: none; padding: 0; margin: 0 0 8px; display: block; cursor: pointer; }
+.nlplogo .nllogo { max-width: 72px; }
 /* 제조사 로고 */
 .nllw { height: 40px; display: flex; align-items: center; justify-content: center; }
 .nllogo { display: block; width: auto; max-width: 92px; object-fit: contain; }
@@ -6938,37 +6973,46 @@ body.nlnoscroll { overflow: hidden; }
     const keys = NLCG.filter((k) => !isNaN(r['s_' + k]));
     if (!NL.cg || NL.cgFor !== r.id || !keys.includes(NL.cg)) { NL.cg = nlCgDefault(r); NL.cgFor = r.id; NL.cgAuto = true; }
     const k = NL.cg, a = A[k];
-    const g = row.appendChild(btnEl('nlcg tap', '', () => { const i = keys.indexOf(NL.cg); NL.cg = keys[(i + 1) % keys.length]; NL.cgAuto = false; render(); }));
-    g.setAttribute('aria-label', '오른쪽 다이얼 능력치 바꾸기');
-    g.innerHTML = nlGauge(nlS(r, k) / 20, size);
+    const step = (d) => { const i = keys.indexOf(NL.cg); NL.cg = keys[(i + d + keys.length) % keys.length]; NL.cgAuto = false; render(); };
+    const g = row.appendChild(el('div', 'nlcg nlcgr'));
+    const dial = g.appendChild(btnEl('nlcgd', '', () => step(1))); dial.setAttribute('aria-label', '오른쪽 계기판 기준 바꾸기');
+    dial.innerHTML = nlGauge(nlS(r, k) / 20, size);
+    // 좌우로 밀어서 바꾸기
+    let sx = null; dial.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    dial.addEventListener('touchend', (e) => { if (sx == null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 30) { e.preventDefault(); step(dx < 0 ? 1 : -1); } });
     g.appendChild(el('b', null, k === 'eff' ? String(num(r.fe) || '–') : String(Math.round(r['s_' + k]))));
-    g.appendChild(el('small', null, k === 'eff' ? '연비 ' + (r.fe_unit || '') : a.label + ' /20'));
-    g.appendChild(el('em', 'nlcgt', (NL.cgAuto ? '대표 강점' : '') + ' ↻'));
+    const md = g.appendChild(el('div', 'nlmode'));
+    md.appendChild(btnEl('nlmb', '‹', () => step(-1))).setAttribute('aria-label', '이전 기준');
+    md.appendChild(el('small', null, k === 'eff' ? '연비 ' + (r.fe_unit || '') : a.label));
+    md.appendChild(btnEl('nlmb', '›', () => step(1))).setAttribute('aria-label', '다음 기준');
+    const dots = g.appendChild(el('div', 'nlmdots')); keys.forEach((x) => dots.appendChild(el('i', x === k ? 'on' : '')));
     return g;
   }
   function nlGearbox(box) {
-    const wrap = box.appendChild(el('div', 'nlgearw'));
-    wrap.appendChild(el('div', 'nlgearh', '기어를 넣어서 이동해요'));
-    const gb = wrap.appendChild(el('div', 'nlgearbox'));
+    const wrap = box.appendChild(el('div', 'nlhgw'));
+    const gb = wrap.appendChild(el('div', 'nlhg'));
     const rec = recentList()[0];
-    const G = [['P', '놀이터', () => show('t-play')], ['R', '최근 본 차', () => (rec ? openProfile(rec) : show('t-prof'))], ['N', '홈', () => {}], ['D', '차 찾기', () => nlGoBrowse()]];
-    const track = gb.appendChild(el('div', 'nltrack'));
-    const knob = gb.appendChild(el('div', 'nlknob')); 
-    const place = (i) => { knob.style.left = `calc(${(i + 0.5) * 25}% - 26px)`; };
-    G.forEach(([k, t, fn], i) => {
-      const b = gb.appendChild(btnEl('nlgk' + (k === 'N' ? ' on' : ''), '', () => {
-        if (k === 'N') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-        gb.querySelectorAll('.nlgk').forEach((x) => x.classList.toggle('on', x === b)); place(i); gb.classList.add('moving');
-        setTimeout(() => { gb.classList.remove('moving'); fn(); }, 380);
+    // 6단 H 패턴: 위 1·3·5, 아래 2·4·R, 가운데 줄이 중립(N)
+    const G = [['1', '차 찾기', 0, 0, () => nlGoBrowse()], ['2', '랭킹', 0, 1, () => show('t-rank')], ['3', '비교', 1, 0, () => show('t-cmp')], ['4', '놀이터', 1, 1, () => show('t-play')], ['5', '스쿼드', 2, 0, () => show('t-sq')], ['R', '최근 본 차', 2, 1, () => (rec ? openProfile(rec) : show('t-prof'))]];
+    const X = (c) => (c * 2 + 1) / 6 * 100, Y = (rw) => (rw ? 85 : 15), NY = 50;
+    gb.insertAdjacentHTML('beforeend', `<svg class="nlhgate" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true"><path d="M50 24V136M150 24V136M250 24V136M50 80H250" /></svg>`);
+    const knob = gb.appendChild(el('div', 'nlhknob')); knob.appendChild(el('i'));
+    const put = (x, y) => { knob.style.left = x + '%'; knob.style.top = y + '%'; };
+    put(50, NY);
+    let busy = false;
+    G.forEach(([n, t, c, rw, fn]) => {
+      const b = gb.appendChild(btnEl('nlhs' + (rw ? ' dn' : ' up'), '', () => {
+        if (busy) return; busy = true; gb.classList.add('moving');
+        put(X(c), NY); setTimeout(() => { put(X(c), Y(rw)); b.classList.add('on'); }, 200);
+        setTimeout(() => { gb.classList.remove('moving'); busy = false; fn(); }, 560);
       }));
-      b.style.left = `${i * 25}%`;
-      b.appendChild(el('b', null, k)); b.appendChild(el('small', null, t));
+      b.style.left = X(c) + '%'; b.style.top = Y(rw) + '%';
+      b.appendChild(el('b', null, n)); b.appendChild(el('small', null, t));
     });
-    place(2);
   }
   function nlHomeC(box) {
     if (NL.view === 'browse') return nlBrowseHome(box);
-    const s = box.appendChild(btnEl('nlfakesearch', '', () => nlSearch())); s.innerHTML = '<span>🔍</span> 차 이름이나 조건으로 검색';
+    const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const s = mir.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.innerHTML = '<span>🔍</span> 차 이름이나 조건으로 검색';
     const rnd = rng(seedOf(todayKey()));
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
     const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
@@ -6987,7 +7031,7 @@ body.nlnoscroll { overflow: hidden; }
   }
   function nlProfC(box, r) {
     const ph = box.appendChild(el('div', 'nlhero short')); photo(ph, r);
-    const hd = box.appendChild(el('div', 'nlchd')); hd.appendChild(el('small', null, [r.brand, r.body, r.powertrain].filter(Boolean).join(' · '))); hd.appendChild(el('h1', 'jal', nlBrandless(r)));
+    const hd = box.appendChild(el('div', 'nlchd')); { const lg = nlLogo(r.brand, 30); if (lg) { const lw = hd.appendChild(btnEl('nlplogo', '', () => nlGoBrowse(r.brand))); lw.setAttribute('aria-label', r.brand + ' 모델 보기'); lw.appendChild(lg); } } hd.appendChild(el('small', null, [r.brand, r.body, r.powertrain].filter(Boolean).join(' · '))); hd.appendChild(el('h1', 'jal', nlBrandless(r)));
     const row = box.appendChild(el('div', 'nlclrow big'));
     const g1 = row.appendChild(el('div', 'nlcg')); g1.innerHTML = nlGauge(r._ovr / 100, 140); g1.appendChild(el('b', null, ovrTxt(r))); g1.appendChild(el('small', null, isNaN(r._rank) ? 'OVR' : `OVR · ${r._rank}위`));
     nlRightGauge(row, r, 140);
