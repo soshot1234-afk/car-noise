@@ -1792,19 +1792,6 @@ body.nlnoscroll { overflow: hidden; }
 .nlext small { font-size: 13px; color: #6b7280; }
 .vd.nl #homebox.nlhome.nle { padding-top: 7vh; }
 
-/* 제조사 필터: 흑백 로고 버튼 (로고는 흰 칸 위에 원본 그대로, 가리키는 용도만 · logos/README.md) */
-.vd .brow { display: flex; align-items: center; gap: 0; flex-basis: 100%; min-width: 0; }
-.vd .bscroll { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 6px; scrollbar-width: thin; min-width: 0; flex: 1; }
-.vd .bbtn { appearance: none; flex: none; display: flex; flex-direction: column; align-items: center; gap: 5px; width: 72px; padding: 6px 4px; border: 1px solid var(--line2); border-radius: 10px; background: var(--pn2); color: var(--mu); font: 600 12px/1.2 "Pretendard Variable", Pretendard, sans-serif; cursor: pointer; }
-.vd .bbtn:hover { color: var(--tx); border-color: var(--mu); }
-.vd .bbtn[aria-pressed=true] { border: 2px solid #45d37f; padding: 5px 3px; color: var(--tx); }
-.vd .bbtn.ball { justify-content: center; font-size: 13.5px; }
-.vd .blogo { width: 44px; height: 32px; border-radius: 7px; background: #fff; display: grid; place-items: center; }
-.vd .blogo .nllogo { max-width: 34px; }
-.vd .blogo .nllogo.png { max-width: 38px; }
-.vd .blt { font-style: normal; font-weight: 900; font-size: 15px; color: #4b5563; }
-.vd .bnm { max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-
 /* 제조사 로고 */
 .nllw { height: 40px; display: flex; align-items: center; justify-content: center; }
 .nllogo { display: block; width: auto; max-width: 92px; object-fit: contain; }
@@ -1846,7 +1833,7 @@ body.nlnoscroll { overflow: hidden; }
     <div class="seg"><span class="flab">가격</span><button class="chip" data-band="all" aria-pressed="true">전체</button><button class="chip" data-band="u1" aria-pressed="false">1억↓</button><button class="chip" data-band="u5" aria-pressed="false">5천↓</button><button class="chip" data-band="u3" aria-pressed="false">3천↓</button></div>
     <div class="seg"><span class="flab">동력</span><button class="chip" data-pt="" aria-pressed="true">전체</button><button class="chip" data-pt="가솔린" aria-pressed="false">가솔린</button><button class="chip" data-pt="디젤" aria-pressed="false">디젤</button><button class="chip" data-pt="하이브리드" aria-pressed="false">HEV</button><button class="chip" data-pt="PHEV" aria-pressed="false">PHEV</button><button class="chip" data-pt="전기" aria-pressed="false">EV</button></div>
     <div class="seg"><span class="flab">리그</span><button class="chip" data-org="" aria-pressed="true">전체</button><button class="chip" data-org="국산" aria-pressed="false">국산</button><button class="chip" data-org="수입" aria-pressed="false">수입</button></div>
-    <div class="brow" id="brandRow" role="group" aria-label="제조사"></div>
+    <select id="brandSel" aria-label="브랜드"><option value="">브랜드 전체</option></select>
     <select id="bodySel" aria-label="차급"><option value="">포지션 전체</option></select>
     <div class="seg"><span class="flab">슈퍼카·1.5억↑</span><button class="chip" data-exo="0" aria-pressed="true">제외</button><button class="chip" data-exo="1" aria-pressed="false">포함</button></div>
     <div class="seg"><span class="flab">세대</span><button class="chip" data-legend="1" aria-pressed="true">전체</button><button class="chip" data-legend="0" aria-pressed="false">현역만</button></div>
@@ -7086,26 +7073,14 @@ body.nlnoscroll { overflow: hidden; }
   chips('exo', (v) => { state.exo = v === '1'; });
   chips('fcls', (v) => { state.fcls = v; });
   function fillSel() {
-    const row = $('#brandRow'), cnt = {};
+    const bs = $('#brandSel'), cnt = {};
     CARS.forEach((r) => { if (!state.org || r.origin === state.org) cnt[r.brand] = (cnt[r.brand] || 0) + 1; });
     const keep = cnt[state.brand] ? state.brand : '';
-    state.brand = keep;
-    row.textContent = '';
-    row.appendChild(el('span', 'flab', '제조사'));
-    const sc = row.appendChild(el('div', 'bscroll'));
-    const pick = (b) => { state.brand = state.brand === b ? '' : b; fillSel(); render(); };
-    const all = sc.appendChild(btnEl('bbtn ball', '전체', () => pick('')));
-    all.setAttribute('aria-pressed', String(!keep));
-    Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a] || a.localeCompare(b, 'ko')).forEach((b) => {
-      const btn = sc.appendChild(btnEl('bbtn', '', () => pick(b)));
-      btn.setAttribute('aria-pressed', String(keep === b)); btn.title = `${b} ${cnt[b]}종`;
-      const tile = btn.appendChild(el('span', 'blogo'));
-      const lg = nlLogo(b, 22);
-      if (lg) tile.appendChild(lg); else tile.appendChild(el('i', 'blt', b.slice(0, 1)));
-      btn.appendChild(el('span', 'bnm', b));
-    });
-    if (keep) { const on = sc.querySelector('.bbtn[aria-pressed=true]:not(.ball)'); if (on) requestAnimationFrame(() => on.scrollIntoView({ block: 'nearest', inline: 'nearest' })); }
+    bs.textContent = ''; bs.appendChild(el('option', null, '브랜드 전체')).value = '';
+    Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a] || a.localeCompare(b, 'ko')).forEach((b) => { const o = bs.appendChild(el('option', null, `${b} (${cnt[b]})`)); o.value = b; });
+    bs.value = keep; state.brand = keep;
   }
+  $('#brandSel').addEventListener('change', (e) => { state.brand = e.target.value; render(); });
   (function () {
     const s = $('#bodySel'), cnt = {};
     CARS.forEach((r) => { if (r.body) cnt[r.body] = (cnt[r.body] || 0) + 1; });
