@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f4ee">
+<title>카스쿼드 관리실</title>
+<link rel="manifest" href="admin.webmanifest"><link rel="icon" href="favicon.svg"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+@font-face{font-family:Jalnan;src:url(fonts/yg-jalnan.woff2) format("woff2");font-display:swap}
+:root{--bg:#f6f4ee;--card:#fff;--ink:#15181e;--sub:#5d6470;--line:#e6e1d4;--r:#e2554c;--o:#e5a443;--y:#c8d758;--g:#45d37f;--gold:#e3b448}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Pretendard Variable",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}button:disabled{opacity:.5;cursor:default}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:calc(12px + env(safe-area-inset-top)) 16px 0}
+.hd{display:flex;align-items:center;gap:10px}.hd svg{width:34px;height:34px;flex:none}.hd b{font:20px Jalnan,sans-serif}
+.hd .meta{margin-left:auto;text-align:right;font-size:12px;color:var(--sub);line-height:1.35}
+.hd .meta button{border:0;background:none;padding:0;color:var(--sub);font-size:12px;text-decoration:underline;text-underline-offset:2px}
+.bar4{display:flex;height:4px;border-radius:2px;overflow:hidden;margin:10px 0 0}.bar4 i{flex:1}
+.tabs{display:flex;gap:6px;margin:12px 0 0;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:9px 0 8px;font-weight:600;font-size:14px;color:var(--sub);position:relative;white-space:nowrap}
+.tabs button[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tabs em{position:absolute;top:-7px;right:-4px;background:var(--r);color:#fff;font:700 11px/18px "Pretendard Variable",sans-serif;min-width:18px;padding:0 5px;border-radius:9px;font-style:normal}
+main{padding:14px 16px calc(40px + env(safe-area-inset-bottom))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+h3{margin:0 0 10px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}h3 span{margin-left:auto;font-size:12px;font-weight:500;color:var(--sub)}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.kpi .card{margin:0}.kpi p{margin:0;font-size:13px;color:var(--sub)}.kpi b{display:block;font-weight:700;font-size:34px;line-height:1.1;letter-spacing:-.02em;margin-top:4px}.kpi small{font-size:12px;font-weight:600;color:var(--sub)}.up{color:#1f9a55!important}.dn{color:var(--r)!important}
+.chart{display:flex;align-items:flex-end;gap:6px;height:120px;padding-top:6px}.chart div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.chart i{display:block;width:100%;min-height:2px;border-radius:6px 6px 2px 2px;background:#d9d3c4}.chart div:last-child i{background:var(--gold)}.chart s{text-decoration:none;font-size:11px;color:var(--sub)}.chart u{text-decoration:none;font-size:11px;font-weight:700}
+ol.top5{margin:0;padding:0;list-style:none}ol.top5 li{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}ol.top5 li:first-child{border-top:0}
+ol.top5 .n{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-weight:700;font-size:12px;color:#fff;flex:none}ol.top5 small{margin-left:auto;color:var(--sub);flex:none}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mini button{border:0;background:var(--bg);border-radius:12px;padding:10px 4px;text-align:center}.mini b{display:block;font-size:20px}.mini span{font-size:12px;color:var(--sub)}
+.seg{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}.seg button{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:6px 12px;font-weight:600;font-size:13px;color:var(--sub)}.seg button[aria-pressed=true]{border-color:var(--ink);color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.rv .who{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.rv .who b{font-size:15px}.rv .who span{font-size:12px;color:var(--sub)}
+.stars{color:var(--o);letter-spacing:1px;font-size:14px}
+blockquote{margin:8px 0;padding:10px 12px;background:var(--bg);border-radius:12px;font-size:15px;white-space:pre-wrap;word-break:break-word}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}.tags span{font-size:12px;padding:2px 8px;border-radius:8px;background:#eaf8ef;color:#1f7a45}.tags span.b{background:#fdeceb;color:#b33a32}
+.chk{font-size:12px;font-weight:600;padding:2px 8px;border-radius:8px;background:#eaf8ef;color:#1f7a45}.chk.warn{background:#fdf3e2;color:#9a6512}
+.acts{display:grid;grid-template-columns:1fr 1fr 64px;gap:8px}
+.btn{border-radius:12px;padding:12px 0;font-weight:700;font-size:15px;background:var(--bg);border:1px solid var(--line)}
+.btn.yes{background:var(--g);border-color:var(--g);color:#0d2b18}.btn.no{background:#fff;color:var(--r);border-color:#f0c4c0}.btn.sm{padding:7px 12px;font-size:13px}
+.done{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);flex-wrap:wrap}.done b{color:#1f7a45}.done b.n{color:var(--r)}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.card>h3+.row{border-top:0;padding-top:2px}
+.row .t{flex:1}.row .t b{display:block;font-size:15px}.row .t span{font-size:12px;color:var(--sub)}
+.sw{width:50px;height:30px;border-radius:15px;background:#d9d3c4;position:relative;flex:none;border:0;padding:0}.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0003;transition:left .2s}
+.sw[aria-checked=true]{background:var(--g)}.sw[aria-checked=true]::after{left:23px}
+input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;font-size:16px;background:#fff;color:var(--ink)}
+.prev{margin-top:8px;border-radius:10px;padding:8px 12px;font-size:13px;font-weight:600;background:#15181e;color:#f4efe2;display:flex;gap:8px;align-items:center}.prev i{width:6px;align-self:stretch;border-radius:3px;background:var(--gold);flex:none}
+.pick{display:flex;gap:8px;align-items:center;margin-top:8px}.pick b{flex:1;font-size:14px}
+.res{margin-top:6px;border:1px solid var(--line);border-radius:12px;overflow:hidden}.res button{display:block;width:100%;text-align:left;border:0;border-top:1px solid var(--line);background:#fff;padding:10px 12px;font-size:14px}.res button:first-child{border-top:0}
+.save{margin-top:6px;width:100%;background:var(--ink);color:#fff;border:0;border-radius:14px;padding:14px;font-weight:700;font-size:16px}
+.note{font-size:12px;color:var(--sub);margin:6px 0 0}
+.q{padding:10px 0;border-top:1px solid var(--line)}.card>h3+.q{border-top:0;padding-top:0}.q p{margin:2px 0 6px;white-space:pre-wrap;word-break:break-word}.q .m{font-size:12px;color:var(--sub)}
+.q .a2{display:flex;gap:6px;flex-wrap:wrap}
+.login{max-width:340px;margin:0 auto;padding:70px 16px;text-align:center}.login svg{width:84px;height:84px}.login h1{font:26px Jalnan,sans-serif;margin:10px 0 2px}.login p{color:var(--sub);margin:0 0 20px}
+.login .btn{width:100%;margin-top:10px;background:var(--ink);color:#fff;border:0}.login .err{color:var(--r);font-size:13px;margin:10px 0 0;min-height:20px}
+.empty{color:var(--sub);font-size:14px;text-align:center;padding:24px 0}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}.toast.on{opacity:1;transform:translate(-50%,0)}
+.demo{display:block;width:max-content;margin:0 auto 16px;font-size:11px;background:#15181ecc;color:#fff;padding:3px 10px;border-radius:10px}
+[hidden]{display:none!important}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="logo" viewBox="0 0 200 200"><g fill="#e2554c"><circle cx="149.5" cy="149.5" r="13"/><circle cx="121.6" cy="166.6" r="13"/><circle cx="89.1" cy="169.1" r="13"/></g><g fill="#e5a443"><circle cx="58.9" cy="156.6" r="13"/><circle cx="37.6" cy="131.8" r="13"/><circle cx="30" cy="100" r="13"/></g><g fill="#c8d758"><circle cx="37.6" cy="68.2" r="13"/><circle cx="58.9" cy="43.4" r="13"/><circle cx="89.1" cy="30.9" r="13"/></g><g fill="#45d37f"><circle cx="121.6" cy="33.4" r="13"/><circle cx="149.5" cy="50.5" r="13"/></g><polygon points="100,50 108,100 100,117 92,100" fill="#15181e" transform="rotate(18 100 100)"/><circle cx="100" cy="100" r="15" fill="#e3b448"/><circle cx="100" cy="100" r="5" fill="#15181e"/></symbol></svg>
+
+<form id="login" class="login" hidden>
+  <svg><use href="#logo"/></svg><h1>카스쿼드 관리실</h1><p>동준 님 전용이에요</p>
+  <input id="key" type="password" autocomplete="current-password" placeholder="관리자 열쇠" maxlength="100">
+  <button class="btn" id="go">들어가기</button>
+  <p class="err" id="err" role="status"></p>
+  <p class="note">한 번 들어가면 이 기기에서는 다시 묻지 않아요</p>
+</form>
+
+<div id="app" hidden>
+  <div class="top">
+    <div class="hd"><svg><use href="#logo"/></svg><b>관리실</b><div class="meta"><span id="at">불러오는 중</span><br><button type="button" id="reload">새로고침</button> · <button type="button" id="out">나가기</button></div></div>
+    <div class="bar4"><i style="background:#e2554c"></i><i style="background:#e5a443"></i><i style="background:#c8d758"></i><i style="background:#45d37f"></i></div>
+    <nav class="tabs" role="tablist"><button role="tab" data-s="home">현황</button><button role="tab" data-s="rv">한줄평</button><button role="tab" data-s="edit">바로 수정</button><button role="tab" data-s="inbox">제보·질문</button></nav>
+  </div>
+  <main id="main"></main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  'use strict';
+  // 공개 주소 (사이트 index.html의 CARRO_STATS_URL과 같아야 함). 비밀 아님.
+  const API = 'https://script.google.com/macros/s/AKfycbzS_oeQxrwc4jbxIyE5TCwLYItjiWD1oK0F1EPAdj9A28Tqqt4eOXVWoOY6R5QhGJB_9A/exec';
+  const KEY_LS = 'carsquad_admin_key';
+  const DEMO = /[?&]demo=1/.test(location.search);
+  const $ = (s) => document.querySelector(s);
+  const ls = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} } };
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  const btn = (cls, txt, fn) => { const b = el('button', cls, txt); b.type = 'button'; if (fn) b.addEventListener('click', fn); return b; };
+  const fmt = (n) => Number(n || 0).toLocaleString('ko-KR');
+  const toast = (m) => { const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2200); };
+  const COLORS = ['#e2554c', '#e5a443', '#c8d758', '#45d37f', '#e3b448'];
+
+  let key = ls.get(KEY_LS) || '';
+  let S = { tab: 'home', dash: null, reviews: null, inbox: null, config: null, rvFilter: '', cars: null };
+
+  // ---------------------------------------------------------------- 서버
+  async function call(op, extra) {
+    if (DEMO) return demoCall(op, extra || {});
+    const r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(Object.assign({ t: 'admin', key, op }, extra || {})) });
+    let j; try { j = await r.json(); } catch (e) { throw new Error('응답을 읽지 못했어요. Apps Script 새 버전 배포를 확인해 주세요'); }
+    if (!j || !j.ok) throw new Error((j && j.error) || '실패했어요');
+    return j;
+  }
+
+  // ---------------------------------------------------------------- 들어가기
+  function showLogin(msg) { $('#app').hidden = true; $('#login').hidden = false; $('#err').textContent = msg || ''; setTimeout(() => $('#key').focus(), 50); }
+  $('#login').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const v = $('#key').value.trim(); if (!v) return;
+    key = v; $('#go').disabled = true; $('#err').textContent = '확인 중…';
+    try { S.dash = await call('dash'); ls.set(KEY_LS, key); ls.set('carro_notrack', '1'); $('#key').value = ''; start(); }
+    catch (err) { key = ''; $('#err').textContent = err.message; }
+    $('#go').disabled = false;
+  });
+  $('#out').addEventListener('click', () => { ls.set(KEY_LS, null); key = ''; S = { tab: 'home', rvFilter: '' }; showLogin('나갔어요. 이 기기에 저장된 열쇠를 지웠어요'); });
+  $('#reload').addEventListener('click', () => loadAll(true));
+  document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => { S.tab = b.dataset.s; try { history.replaceState(null, '', '#' + S.tab); } catch (e) {} render(); scrollTo(0, 0); }));
+
+  function start() {
+    $('#login').hidden = true; $('#app').hidden = false;
+    const h = location.hash.slice(1); if (['home', 'rv', 'edit', 'inbox'].includes(h)) S.tab = h;
+    render(); loadAll();
+  }
+  async function loadAll(manual) {
+    $('#at').textContent = '불러오는 중';
+    try {
+      const [d, r, i, c] = await Promise.all([call('dash'), call('reviews'), call('inbox'), call('config_get')]);
+      S.dash = d; S.reviews = r.items; S.inbox = i.items; S.config = c.config;
+      $('#at').textContent = d.at + ' 기준'; if (manual) toast('새로 불러왔어요');
+      render();
+    } catch (err) {
+      if (/열쇠|ADMIN_KEY|잠겼/.test(err.message)) { ls.set(KEY_LS, null); key = ''; return showLogin(err.message); }
+      $('#at').textContent = '불러오기 실패'; toast(err.message);
+    }
+  }
+
+  // ---------------------------------------------------------------- 그리기
+  function render() {
+    document.querySelectorAll('.tabs button').forEach((b) => {
+      b.setAttribute('aria-selected', b.dataset.s === S.tab);
+      const old = b.querySelector('em'); if (old) old.remove();
+      const n = b.dataset.s === 'rv' ? (S.reviews || []).filter((x) => !x.st).length : b.dataset.s === 'inbox' ? (S.inbox || []).filter((x) => !x.done).length : 0;
+      if (n) b.appendChild(el('em', null, n > 99 ? '99+' : String(n)));
+    });
+    const m = $('#main'); m.textContent = '';
+    ({ home: drawHome, rv: drawReviews, edit: drawEdit, inbox: drawInbox })[S.tab](m);
+    if (DEMO) m.appendChild(el('span', 'demo', '예시 화면 · 숫자와 글은 가짜'));
+  }
+  const loading = (m) => m.appendChild(el('p', 'empty', '불러오는 중이에요…'));
+  const carName = (id) => { const c = (S.cars || []).find((x) => x.id === id); return c ? c.name : id; };
+
+  function drawHome(m) {
+    const d = S.dash; if (!d) return loading(m);
+    const k = m.appendChild(el('div', 'kpi'));
+    const c1 = k.appendChild(el('div', 'card')); c1.appendChild(el('p', null, '오늘 방문자')); c1.appendChild(el('b', null, fmt(d.today)));
+    const diff = d.today - d.yesterday; c1.appendChild(el('small', diff > 0 ? 'up' : diff < 0 ? 'dn' : '', diff === 0 ? '어제와 같아요' : `어제보다 ${diff > 0 ? '+' : ''}${diff}`));
+    const c2 = k.appendChild(el('div', 'card')); c2.appendChild(el('p', null, '총 방문자')); c2.appendChild(el('b', null, fmt(d.total)));
+    c2.appendChild(el('small', null, `${+d.since.slice(5, 7)}월 ${+d.since.slice(8, 10)}일부터`));
+    const ch = m.appendChild(el('div', 'card')); const h = ch.appendChild(el('h3', null, '최근 7일 방문자')); h.appendChild(el('span', null, '1인 1일 1회'));
+    const g = ch.appendChild(el('div', 'chart')); const mx = Math.max(1, ...d.last7.map((x) => x[1]));
+    d.last7.forEach(([day, n], i) => { const c = g.appendChild(el('div')); c.appendChild(el('u', null, String(n))); const bar = c.appendChild(el('i')); bar.style.height = Math.round(n / mx * 86) + '%'; c.appendChild(el('s', null, i === d.last7.length - 1 ? '오늘' : String(+day.slice(8)))); });
+    ch.appendChild(el('p', 'note', `서로 다른 기기 ${fmt(d.devices)}대 · 총 방문자는 날마다 센 사람 수를 더한 값이에요`));
+    const tp = m.appendChild(el('div', 'card')); const h2 = tp.appendChild(el('h3', null, '오늘 많이 본 선수')); h2.appendChild(el('span', null, '조회 수'));
+    const ol = tp.appendChild(el('ol', 'top5'));
+    (d.top || []).forEach(([id, n], i) => { const li = ol.appendChild(el('li')); const s = li.appendChild(el('span', 'n', String(i + 1))); s.style.background = COLORS[i]; if (i === 2 || i === 4) s.style.color = '#15181e'; li.appendChild(el('span', null, carName(id))); li.appendChild(el('small', null, n + '회')); });
+    if (!ol.children.length) tp.appendChild(el('p', 'note', '오늘은 아직 본 선수가 없어요'));
+    const nw = m.appendChild(el('div', 'card')); nw.appendChild(el('h3', null, '오늘 들어온 것'));
+    const mini = nw.appendChild(el('div', 'mini'));
+    [[d.newReviewsToday, '새 한줄평', 'rv'], [d.reportsToday, '오류 제보', 'inbox'], [d.questionsToday, '깡통봇 질문', 'inbox']].forEach(([n, t, to]) => { const b = mini.appendChild(btn('', null, () => { S.tab = to; render(); })); b.appendChild(el('b', null, fmt(n))); b.appendChild(el('span', null, t)); });
+    m.appendChild(el('p', 'note', '이 기기에서 사이트를 봐도 방문자 수에 넣지 않아요. 같은 사람이 하루에 여러 번 와도 1명이에요.'));
+  }
+
+  function drawReviews(m) {
+    const all = S.reviews; if (!all) return loading(m);
+    const flags = new Set((S.inbox || []).filter((x) => x.kind === 'flag' && !x.done).map((x) => x.msg));
+    const seg = m.appendChild(el('div', 'seg'));
+    [['', '기다리는 중'], ['Y', '수락함'], ['N', '거절함']].forEach(([v, t]) => { const n = all.filter((x) => x.st === v).length; const b = seg.appendChild(btn('', `${t} ${n}`, () => { S.rvFilter = v; render(); })); b.setAttribute('aria-pressed', S.rvFilter === v); });
+    let list = all.filter((x) => x.st === S.rvFilter);
+    list = list.filter((x) => flags.has(x.msg)).concat(list.filter((x) => !flags.has(x.msg)));
+    if (!list.length) m.appendChild(el('p', 'empty', S.rvFilter === '' ? '기다리는 한줄평이 없어요' : '아직 없어요'));
+    list.forEach((r) => {
+      const c = m.appendChild(el('div', 'card rv'));
+      const w = c.appendChild(el('div', 'who')); w.appendChild(el('b', null, r.car || r.id)); w.appendChild(el('span', null, [r.when, r.own].filter(Boolean).join(' · ')));
+      const line = c.appendChild(el('div')); line.style.cssText = 'display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap';
+      line.appendChild(el('span', 'stars', '★'.repeat(r.star) + '☆'.repeat(Math.max(0, 5 - r.star))));
+      if (r.auto) line.appendChild(el('span', 'chk' + (/통과/.test(r.auto) ? '' : ' warn'), '자동검사 ' + r.auto));
+      if (flags.has(r.msg)) line.appendChild(el('span', 'chk warn', '신고 들어옴'));
+      c.appendChild(el('blockquote', null, r.msg || '(한줄평 없이 별점만)'));
+      const tg = c.appendChild(el('div', 'tags'));
+      r.good.split(',').filter(Boolean).forEach((x) => tg.appendChild(el('span', null, x)));
+      r.bad.split(',').filter(Boolean).forEach((x) => tg.appendChild(el('span', 'b', x)));
+      if (!tg.children.length) tg.remove();
+      if (r.st) {
+        const dn = c.appendChild(el('div', 'done')); dn.appendChild(el('b', r.st === 'N' ? 'n' : '', r.st === 'Y' ? '수락했어요' : '거절했어요'));
+        dn.appendChild(el('span', null, r.st === 'Y' ? '사이트에 보여요' : '사이트에 안 보여요'));
+        dn.appendChild(btn('btn sm', '되돌리기', () => setReview(r, '')));
+      } else {
+        const a = c.appendChild(el('div', 'acts'));
+        a.appendChild(btn('btn yes', '수락', () => setReview(r, 'Y')));
+        a.appendChild(btn('btn no', '거절', () => setReview(r, 'N')));
+        a.appendChild(btn('btn', '보류', () => { toast('보류: 그대로 기다리는 중에 둘게요'); }));
+      }
+    });
+  }
+  async function setReview(r, v) {
+    const prev = r.st; r.st = v; render();
+    try { await call('review_set', { row: r.row, stamp: r.stamp, val: v }); toast(v === 'Y' ? '수락했어요. 사이트에 바로 보여요' : v === 'N' ? '거절했어요' : '기다리는 중으로 되돌렸어요'); }
+    catch (err) { r.st = prev; render(); toast(err.message); }
+  }
+
+  function drawEdit(m) {
+    const c = S.config; if (!c) return loading(m);
+    const draft = S.draft || (S.draft = Object.assign({}, c));
+    const sw = (k) => { const b = btn('sw', null, () => { draft[k] = !draft[k]; render(); }); b.setAttribute('role', 'switch'); b.setAttribute('aria-checked', !!draft[k]); return b; };
+    const row = (box, title, sub, k) => { const r = box.appendChild(el('div', 'row')); const t = r.appendChild(el('div', 't')); t.appendChild(el('b', null, title)); t.appendChild(el('span', null, sub)); const s = r.appendChild(sw(k)); s.setAttribute('aria-label', title); };
+    const text = (box, k, ph, onInput) => { const i = box.appendChild(el('input')); i.value = draft[k] || ''; i.placeholder = ph; i.maxLength = 120; i.addEventListener('input', () => { draft[k] = i.value; if (onInput) onInput(i.value); }); return i; };
+
+    const n = m.appendChild(el('div', 'card')); n.appendChild(el('h3', null, '사이트 맨 위 공지'));
+    row(n, '공지 띠 보이기', '모든 화면 맨 위에 한 줄로 나와요', 'notice_on');
+    const pv = el('div', 'prev'); pv.appendChild(el('i')); const pt = pv.appendChild(el('span', null, draft.notice_text || '공지 문구를 적어 주세요'));
+    text(n, 'notice_text', '예) 11월 신차 12종 업데이트 완료!', (v) => { pt.textContent = v || '공지 문구를 적어 주세요'; });
+    n.appendChild(pv);
+
+    const p = m.appendChild(el('div', 'card')); p.appendChild(el('h3', null, '오늘의 선수'));
+    row(p, '직접 고르기', '끄면 매일 자동으로 바뀌어요', 'pick_on');
+    const pk = p.appendChild(el('div', 'pick')); pk.appendChild(el('b', null, draft.pick_id ? carName(draft.pick_id) : '아직 안 골랐어요'));
+    pk.appendChild(btn('btn sm', draft.pick_id ? '바꾸기' : '고르기', () => { S.picking = !S.picking; render(); }));
+    if (S.picking) {
+      const q = p.appendChild(el('input')); q.placeholder = '차 이름으로 찾기 (예: 쏘렌토)'; q.style.marginTop = '8px';
+      const res = p.appendChild(el('div', 'res')); res.hidden = true;
+      const run = () => {
+        res.textContent = ''; const s = q.value.replace(/\s/g, '').toLowerCase(); if (!s || !S.cars) { res.hidden = true; return; }
+        const hit = S.cars.filter((x) => x.name.replace(/\s/g, '').toLowerCase().includes(s)).slice(0, 8);
+        hit.forEach((x) => res.appendChild(btn('', x.name, () => { draft.pick_id = x.id; draft.pick_on = true; S.picking = false; render(); })));
+        if (!hit.length) res.appendChild(el('p', 'note', '  찾는 차가 없어요')).style.padding = '8px 12px';
+        res.hidden = false;
+      };
+      q.addEventListener('input', run);
+      if (!S.cars) { p.appendChild(el('p', 'note', '차 목록 불러오는 중…')); loadCars().then(() => render()); }
+      setTimeout(() => q.focus(), 30);
+    }
+
+    const f = m.appendChild(el('div', 'card')); f.appendChild(el('h3', null, '기능 켜고 끄기'));
+    row(f, '깡통봇', '끄면 오른쪽 아래 깡통봇 버튼이 숨어요', 'kkang_on');
+    row(f, '한줄평 받기', "끄면 '잠시 쉬어요' 안내가 나와요", 'review_on');
+    row(f, '점검 중 안내', '켜면 사이트를 열 때 안내 창이 한 번 떠요', 'maint_on');
+    if (draft.maint_on) text(f, 'maint_text', '비워 두면: 잠시 점검 중이에요. 금방 돌아올게요!');
+
+    const changed = Object.keys(draft).some((k) => draft[k] !== c[k]);
+    const sv = m.appendChild(btn('save', changed ? '저장하기 · 1분 안에 사이트에 반영' : '바뀐 것 없음', async () => {
+      if (draft.notice_on && !String(draft.notice_text || '').trim()) return toast('공지 문구를 적어 주세요');
+      if (draft.pick_on && !draft.pick_id) return toast('오늘의 선수를 골라 주세요');
+      sv.disabled = true; sv.textContent = '저장 중…';
+      try { const r = await call('config_set', { config: draft }); S.config = r.config; S.draft = null; toast('저장했어요. 1분 안에 사이트에 반영돼요'); }
+      catch (err) { toast(err.message); }
+      render();
+    }));
+    sv.disabled = !changed;
+    if (changed) m.appendChild(btn('btn sm', '바꾼 것 취소', () => { S.draft = null; render(); })).style.marginTop = '8px';
+    m.appendChild(el('p', 'note', '사이트는 열릴 때 이 설정을 읽어요. 이미 열어 둔 사람은 새로고침하면 바뀌어요.'));
+  }
+
+  function drawInbox(m) {
+    const all = S.inbox; if (!all) return loading(m);
+    const showDone = !!S.showDone;
+    const groups = [['report', '오류 제보'], ['question', '깡통봇이 못 한 질문'], ['flag', '신고된 한줄평']];
+    groups.forEach(([k, t]) => {
+      const items = all.filter((x) => x.kind === k && (showDone || !x.done));
+      const c = m.appendChild(el('div', 'card')); const h = c.appendChild(el('h3', null, t)); h.appendChild(el('span', null, `${all.filter((x) => x.kind === k && !x.done).length}건`));
+      if (!items.length) c.appendChild(el('p', 'note', k === 'flag' ? '신고가 들어오면 여기와 한줄평 탭 맨 위에 같이 떠요' : '새로 들어온 게 없어요')).style.margin = '0';
+      items.slice(0, 30).forEach((x) => {
+        const q = c.appendChild(el('div', 'q'));
+        q.appendChild(el('div', 'm', [x.when, k === 'report' ? x.name : '', k === 'report' && x.kinds ? x.kinds : '', x.contact ? '연락처 있음(시트에서 확인)' : '', x.done ? '· ' + x.done : ''].filter(Boolean).join(' · ')));
+        q.appendChild(el('p', null, x.msg));
+        if (x.src) { const a = q.appendChild(el('a', 'note', '출처 링크 열기')); a.href = x.src; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.style.display = 'block'; a.style.marginBottom = '6px'; }
+        const a2 = q.appendChild(el('div', 'a2'));
+        if (x.done) a2.appendChild(btn('btn sm', '되돌리기', () => setInbox(x, '')));
+        else if (k === 'question') { a2.appendChild(btn('btn sm', '답변 만들 목록에', () => setInbox(x, '답변 목록'))); a2.appendChild(btn('btn sm', '지우기', () => setInbox(x, '지움'))); }
+        else { a2.appendChild(btn('btn sm', '처리함', () => setInbox(x, '처리'))); if (k === 'flag') a2.appendChild(btn('btn sm', '한줄평 탭에서 보기', () => { S.tab = 'rv'; S.rvFilter = 'Y'; render(); })); }
+        if (k === 'report' && /^https:\/\/(dream-test\.)?carsquad\.pages\.dev\//.test(x.page)) { const o = a2.appendChild(el('a', 'btn sm', '그 화면 열기')); o.href = x.page; o.target = '_blank'; o.rel = 'noopener'; o.style.textDecoration = 'none'; o.style.color = 'inherit'; }
+      });
+    });
+    m.appendChild(btn('btn sm', showDone ? '처리한 것 숨기기' : '처리한 것도 보기', () => { S.showDone = !showDone; render(); }));
+    m.appendChild(el('p', 'note', '처리 표시는 시트 「제보」 탭 맨 끝 「처리」 칸에 적혀요. 지우기를 눌러도 시트 내용은 남아 있어요.'));
+  }
+  async function setInbox(x, v) {
+    const prev = x.done; x.done = v; render();
+    try { await call('inbox_set', { row: x.row, stamp: x.stamp, val: v }); toast(v ? '표시했어요' : '되돌렸어요'); }
+    catch (err) { x.done = prev; render(); toast(err.message); }
+  }
+
+  // 차 이름 목록: 사이트 index.html 안의 차 데이터에서 id·이름만 꺼냄
+  async function loadCars() {
+    if (S.cars) return S.cars;
+    try {
+      const t = await (await fetch('index.html', { cache: 'no-cache' })).text();
+      const a = t.indexOf('window.__CARS=['); const b = t.indexOf('}];', a);
+      const raw = t.slice(a + 14, b + 2);
+      S.cars = JSON.parse(raw).map((x) => ({ id: x.id, name: x.name }));
+    } catch (e) { S.cars = []; toast('차 목록을 불러오지 못했어요'); }
+    return S.cars;
+  }
+
+  // ---------------------------------------------------------------- 예시 모드 (?demo=1)
+  function demoCall(op, x) {
+    const D = demoCall.d || (demoCall.d = {
+      config: { notice_on: true, notice_text: '11월 신차 12종 업데이트 완료! 내 차 OVR 다시 확인해 보세요', pick_on: true, pick_id: 'dom1', kkang_on: true, review_on: true, maint_on: false, maint_text: '' },
+      reviews: [
+        { row: 4, stamp: '3', when: '11/19 23:02', day: '', id: 'x', car: '현대 아반떼 1.6 가솔린', star: 4, own: '2~3년', good: '연비 좋아요,가성비', bad: '승차감 딱딱', msg: '출퇴근 3년째인데 기름값 걱정이 없어요. 뒷자리는 좀 딱딱함', auto: '통과', st: '' },
+        { row: 3, stamp: '2', when: '11/19 20:47', day: '', id: 'x', car: '기아 레이 EV', star: 5, own: '1년 정도', good: '넓어요,조용해요', bad: '힘이 약해요', msg: '시내만 다니면 이만한 차 없음. 고속도로는 비추', auto: '통과', st: '' },
+        { row: 2, stamp: '1', when: '11/16 08:51', day: '', id: 'x', car: '르노코리아 아르카나 E-Tech 하이브리드', star: 4, own: '1년 정도', good: '조용해요,연비 좋아요', bad: '좁아요', msg: '출퇴근 용으로는 이만한 차가 없다고 생각함', auto: '통과', st: 'Y' }],
+      inbox: [
+        { row: 5, stamp: '5', when: '11/19 22:41', kind: 'report', name: '현대 싼타페 HEV', kinds: '제원', msg: '연비가 공식 수치랑 달라요', src: '', contact: '', page: '', done: '' },
+        { row: 4, stamp: '4', when: '11/19 21:05', kind: 'question', name: '깡통봇 질문', kinds: '깡통봇 질문', msg: '아반떼 N이랑 골프 GTI 중에 뭐가 유지비 덜 들어?', src: '', contact: '', page: '', done: '' }]
+    });
+    const wait = (v) => new Promise((res) => setTimeout(() => res(Object.assign({ ok: true }, v)), 120));
+    if (op === 'dash') return wait({ today: 27, yesterday: 19, total: 1284, devices: 702, since: '2026-11-02', last7: [['2026-11-14', 12], ['2026-11-15', 15], ['2026-11-16', 22], ['2026-11-17', 31], ['2026-11-18', 24], ['2026-11-19', 19], ['2026-11-20', 27]], top: [['dom1', 14], ['dom2', 11], ['dom3', 9], ['dom4', 7], ['dom5', 6]], pending: 2, newReviewsToday: 2, inbox: 2, reportsToday: 1, questionsToday: 1, at: '11/20 07:12' });
+    if (op === 'reviews') return wait({ items: D.reviews });
+    if (op === 'inbox') return wait({ items: D.inbox });
+    if (op === 'config_get') return wait({ config: D.config });
+    if (op === 'config_set') { Object.assign(D.config, x.config); return wait({ config: Object.assign({}, D.config) }); }
+    return wait({});
+  }
+
+  if (DEMO) { key = 'demo'; S.cars = [{ id: 'dom1', name: '기아 쏘렌토 1.6 터보 하이브리드' }, { id: 'dom2', name: '현대 그랜저 2.5 가솔린' }, { id: 'dom3', name: '기아 EV3 롱레인지' }, { id: 'dom4', name: '현대 캐스퍼' }, { id: 'dom5', name: '제네시스 GV70 2.5T' }]; }
+  if (key) start(); else showLogin();
+})();
+</script>
+</body></html>

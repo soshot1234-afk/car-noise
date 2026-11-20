@@ -1363,6 +1363,11 @@ html, body { margin: 0; background: #14161b; }
 .vd .dgsub{font-size:12px;font-weight:700;color:var(--mu);margin-top:4px}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 
+/* 관리실 설정: 공지 띠 · 깡통봇 숨기기 */
+.cfgnotice { position: relative; z-index: 30; display: flex; font-family: "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; gap: 8px; align-items: center; padding: 8px 14px; background: #15181e; color: #f4efe2; font-size: 13px; font-weight: 600; line-height: 1.4; }
+.cfgnotice i { width: 4px; align-self: stretch; border-radius: 2px; background: #e3b448; flex: none; }
+.cfgnotice span { overflow-wrap: anywhere; }
+.nokk .kkfab, .nokk .kkbub, .nokk .kksheet { display: none !important; }
 /* 깡통봇 */
 .kkfab{position:fixed;right:14px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:900;width:58px;height:58px;border-radius:50%;background:#fff;border:2px solid #e3b448;box-shadow:0 6px 18px rgba(0,0,0,.28);display:grid;place-items:center;padding:0;cursor:pointer;transition:transform .25s,opacity .25s}
 .kkfab svg{width:42px;height:36px}
@@ -3690,6 +3695,7 @@ body.nlnoscroll { overflow: hidden; }
   function openReview(r, done) {
     const { bx, close } = modal('✍️ 오너 한줄평');
     bx.appendChild(el('p', 'csq-note', r.name));
+    if (CFG.review === false) { bx.appendChild(el('p', 'csq-note', '한줄평 받기를 잠시 쉬고 있어요. 조금 뒤에 다시 남겨 주세요!')); return; }
     if (rvMine()[r.id]) { bx.appendChild(el('p', 'csq-note', '이 차에는 이미 한줄평을 남겼어요. 검수 후 게시돼요.')); return; }
     const v = { s: 0, own: '', good: new Set(), bad: new Set() };
     const lab = (t) => bx.appendChild(el('p', 'csq-lab', t));
@@ -5092,10 +5098,31 @@ body.nlnoscroll { overflow: hidden; }
   const STATS_URL = (window.CARRO_STATS_URL || '').trim();
   const VID = (() => { let v = LS.get('carro_vid'); if (!v) { v = Math.random().toString(36).slice(2, 10); LS.set('carro_vid', v); } return v; })();
   function track(t, id) {
-    if (!STATS_URL || /localhost|file:/.test(location.href) || isAdmin()) return;
+    if (!STATS_URL || /localhost|file:/.test(location.href) || isAdmin() || LS.get('carro_notrack') === '1') return; // 관리실에서 들어간 기기는 안 셈
     const key = 'carro_tr_' + t + (id || '') + new Date().toISOString().slice(0, 10);
     if (LS.get(key)) return; LS.set(key, '1'); // 같은 날 같은 사람 중복 집계 방지
     try { fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ t, id: id || '', v: VID }) }); } catch (e) {}
+  }
+  // ---- 관리실 '바로 수정' 설정 (Apps Script ?q=config, 60초 캐시) — 공지 띠·오늘의 선수·깡통봇·한줄평·점검 안내
+  let CFG = {}; try { CFG = JSON.parse(LS.get('carro_cfg') || '{}') || {}; } catch (e) { CFG = {}; }
+  function cfgPick() { const r = CFG.pick && byId[CFG.pick]; return r && !r.legend ? r : null; }
+  function applyCfg() {
+    document.body.classList.toggle('nokk', CFG.kkang === false);
+    let bar = $('#cfgNotice');
+    if (CFG.notice) { if (!bar) { bar = el('div', 'cfgnotice'); bar.id = 'cfgNotice'; bar.setAttribute('role', 'status'); document.body.insertBefore(bar, document.body.firstChild); } bar.textContent = ''; bar.appendChild(el('i')); bar.appendChild(el('span', null, String(CFG.notice).slice(0, 120))); }
+    else if (bar) bar.remove();
+    let seen = false; try { seen = !!sessionStorage.getItem('carro_maint_seen'); } catch (e) {}
+    if (CFG.maint && !seen) { try { sessionStorage.setItem('carro_maint_seen', '1'); } catch (e) {} const { bx, close } = modal('잠시 안내'); bx.appendChild(el('p', 'csq-note', String(CFG.maint).slice(0, 120))); const ft = bx.appendChild(el('div', 'csq-ft')); const ok = ft.appendChild(el('button', 'csq-btn gold', '확인')); ok.type = 'button'; ok.addEventListener('click', close); }
+  }
+  function loadCfg() {
+    applyCfg();
+    if (!STATS_URL || /localhost|file:/.test(location.href)) return;
+    fetch(STATS_URL + (STATS_URL.includes('?') ? '&' : '?') + 'q=config').then((x) => x.json()).then((j) => {
+      if (!j || typeof j !== 'object' || Array.isArray(j) || !('kkang' in j)) return; // 아직 관리실 코드가 없는 Apps Script면 무시
+      const pickChanged = (j.pick || '') !== (CFG.pick || '');
+      CFG = j; LS.set('carro_cfg', JSON.stringify(j)); applyCfg();
+      if (pickChanged && cur === 't-home') render();
+    }).catch(() => {});
   }
   let STATS = null;
   function loadStats() {
@@ -5990,7 +6017,7 @@ body.nlnoscroll { overflow: hidden; }
     const rnd = rng(seedOf(todayKey()));
     // 오늘의 선수
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
-    const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
+    const r = cfgPick() || (pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0]);
     const hero = box.appendChild(el('div', 'card hero'));
     const hp = hero.appendChild(el('div', 'wph')); photo(hp, r);
     const hi = hero.appendChild(el('div', 'heroinfo'));
@@ -7487,7 +7514,7 @@ body.nlnoscroll { overflow: hidden; }
     const mir = box.appendChild(el('div', 'nlmirror')); mir.appendChild(el('i', 'nlmstem')); const mb = mir.appendChild(el('div', 'nlmbody')); const s = mb.appendChild(btnEl('nlmglass', '', () => nlSearch())); s.setAttribute('aria-label', '차 검색'); s.innerHTML = '<i class="nlmcam"></i><span class="nlmin"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="#15181e" stroke-width="2.4" fill="none"/><path d="m16 16 4.5 4.5" stroke="#15181e" stroke-width="2.4" stroke-linecap="round"/></svg><em>어떤 차 찾으세요?</em><i class="nlmcur"></i><b>검색</b></span>'; mb.appendChild(nlHtml('div', 'nlmchin', '<i class="led"></i><b>ETC</b><b class="card"><u></u></b><b></b>')).setAttribute('aria-hidden', 'true');
     const rnd = rng(seedOf(todayKey()));
     const pop = activePool().filter((r) => r.photo && (r.u_n || r.used_n || r.rec_units)).sort((a, b) => (b.u_n || b.used_n * 2.5 || 0) - (a.u_n || a.used_n * 2.5 || 0)).slice(0, 150);
-    const r = pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0];
+    const r = cfgPick() || (pop.length ? pop[Math.floor(rnd() * pop.length)] : activePool()[0]);
     const cl = box.appendChild(el('div', 'nlclu'));
     cl.appendChild(el('div', 'nlk', `오늘의 선수 · ${todayKey().slice(5).replace('-', '.')}`));
     const row = cl.appendChild(el('div', 'nlclrow'));
@@ -8351,7 +8378,7 @@ body.nlnoscroll { overflow: hidden; }
     if (oldBtn) { if (can()) oldBtn.hidden = false; oldBtn.addEventListener('click', go); }
     setTimeout(dot, 0);
   })();
-  window.__carroStyle = style; adminGate(); updAdmin(); navPop = true; show(cur); navPop = false; try { if (!(history.state && history.state.carro)) { history.replaceState({ base: 1 }, '', location.hash); history.pushState({ carro: 1 }, '', location.hash); } } catch (e) {} track('visit'); loadStats();
+  window.__carroStyle = style; loadCfg(); adminGate(); updAdmin(); navPop = true; show(cur); navPop = false; try { if (!(history.state && history.state.carro)) { history.replaceState({ base: 1 }, '', location.hash); history.pushState({ carro: 1 }, '', location.hash); } } catch (e) {} track('visit'); loadStats();
 })();
 </script>
 </body></html>
