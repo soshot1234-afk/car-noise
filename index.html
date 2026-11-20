@@ -1341,7 +1341,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .vchan b { font-size: 13.5px; }
 .vd .vchan small { font-size: 11.5px; color: var(--mu); }
 
-.backtoast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(20,22,28,.92);color:#fff;font-size:14px;padding:10px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:.25s;z-index:1000}.backtoast.on{opacity:1;transform:translate(-50%,0)}
+.backtoast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(20,22,28,.92);color:#fff;font-size:14px;line-height:1.45;padding:10px 16px;border-radius:20px;width:max-content;max-width:calc(100vw - 32px);text-align:center;word-break:keep-all;white-space:pre-line;opacity:0;pointer-events:none;transition:.25s;z-index:1000}.backtoast.on{opacity:1;transform:translate(-50%,0)}
 /* 미니게임 모바일 가독성: 작은 글씨 최소 13px, 선택 버튼은 손가락 크기 */
 @media (max-width:640px){
   .vd #p-play .dgpr .hd small,.vd #p-play .dgstath small,.vd #p-play .dginvo small,.vd #p-play .dgjob small,.vd #p-play .dgagerow b,.vd #p-play .dgquote div,.vd #p-play .dgflow>div,.vd #p-play .dgsum .r small,.vd #p-play .dgdelg small,.vd #p-play .note,.vd #p-play .dgpr .note,.vd #p-play .dgopt small,.vd #p-play .dggauge small,.vd #p-play .dgsub{font-size:13px;line-height:1.45}
@@ -1405,6 +1405,7 @@ body.kkopen{overflow:hidden}
 </style>
 <style>
 /* ===== 새 화면 시안 (NL) ===== */
+#playbox > .playhome { display: block; margin: 0 0 8px; }
 /* 랭킹 C · OVR 클러스터형 */
 .vd.nl #p-rank .nlrkold { display: none !important; }
 .nlrk { display: flex; flex-direction: column; gap: 10px; padding: 4px 0 18px; }
@@ -5669,6 +5670,8 @@ body.nlnoscroll { overflow: hidden; }
   }
   function renderPlay() {
     const box = $('#playbox'); box.textContent = '';
+    // 오락실 모든 탭: 맨 위 '홈으로' (뒤로가기 실수로 입력 날리는 것 막기)
+    box.appendChild(btnEl('nlback playhome', '← 홈으로', () => { if (typeof NL === 'object') { NL.find = false; NL.cat = ''; NL.view = ''; } show('t-home'); window.scrollTo({ top: 0 }); }));
     const seg = box.appendChild(el('div', 'pseg playseg'));
     if (document.querySelector('.vd.nl-c')) {
       // 새 화면(C): 센터페시아 하드키 아이콘 (메뉴·상태등과 같은 식구)
@@ -6446,10 +6449,13 @@ body.nlnoscroll { overflow: hidden; }
       inp.addEventListener('input', () => { res.textContent = ''; const q = inp.value.trim(); if (!q) return; searchCars(q, 12).filter((r) => !r.og).slice(0, 5).forEach((r) => { const b = res.appendChild(btnEl('lfri', '', () => { LF.dream = r.id; lfSave(); renderPlay(); })); b.appendChild(el('b', null, r.name)); b.appendChild(el('small', null, [r.powertrain, r.body, fmt(r.price) + '만'].join(' · '))); }); });
     }
     const go = c.appendChild(el('div', 'lfgo'));
-    const hasCar = LF.list.some((x) => !x.bmw);
+    // 마지막 차는 '목록에 추가'를 안 눌러도 그래프 보기에서 자동으로 넣음
+    const Dd = LF.draft, dOk = !!(Dd && (Dd.id || Dd.name) && ((Dd.id && byId[Dd.id]) || Dd.bmw || (Dd.fuel && Dd.body)));
+    const hasCar = LF.list.some((x) => !x.bmw) || (dOk && !Dd.bmw && LF.edit == null);
+    const nAll = LF.list.length + (dOk && LF.edit == null ? 1 : 0);
     const gb = go.appendChild(btnEl('chip gold big', '📈 차생 그래프 보기', () => { lfCommitDraft(); LF.stage = 'result'; renderPlay(); scrollToSection('t-play'); }));
     gb.disabled = !hasCar;
-    go.appendChild(el('span', 'note', LF.list.length ? `${LF.list.length}대 입력됨${LF.list.length < 2 ? ' · 2대 이상이면 더 재밌어요' : ''}` : '먼저 차를 1대 이상 추가해 주세요'));
+    go.appendChild(el('span', 'note', nAll ? `${nAll}대 입력됨${dOk && LF.edit == null ? ' (지금 쓰는 차 포함)' : ''}${nAll < 2 ? ' · 2대 이상이면 더 재밌어요' : ''}` : '먼저 차를 1대 이상 추가해 주세요'));
     if (LF.list.length) go.appendChild(btnEl('chip sm', '전부 지우기', () => { if (!confirm('입력한 차를 전부 지울까요?')) return; LF.list = []; LF.draft = null; LF.edit = null; lfSave(); renderPlay(); }));
     c.appendChild(el('p', 'note lfpriv', '입력한 내용은 이 기기(브라우저)에만 저장돼요. 결과 화면에서 직접 동의한 경우에만 별점이 익명으로 모입니다.'));
   }
@@ -7392,6 +7398,7 @@ body.nlnoscroll { overflow: hidden; }
     if (state.prof && cur === 't-prof') p.set('p', state.prof);
     if (cur === 't-play') p.set('g', PLAY.mode);
     const nh = '#' + p.toString();
+    playHash = cur === 't-play' ? nh : '';
     try { if (push && !navPop && nh !== location.hash) history.pushState({ carro: 1 }, '', nh); else history.replaceState(history.state, '', nh); } catch (e) {}
   }
   function readHash() {
@@ -7408,11 +7415,17 @@ body.nlnoscroll { overflow: hidden; }
     if (p.get('dr')) { PLAY.mode = 'dg'; PLAY.dgShared = p.get('dr'); cur = 't-play'; }
   }
   // 휴대폰 뒤로가기: 열린 창 닫기 → 이전 탭/차로 → 첫 화면에서는 한 번 더 눌러야 나가기
-  let exitArm = 0;
-  function backToast(msg) { let t = $('#backToast'); if (!t) { t = document.body.appendChild(el('div', 'backtoast')); t.id = 'backToast'; } t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1800); }
+  let exitArm = 0, playArm = 0, playHash = '';
+  function backToast(msg, ms) { let t = $('#backToast'); if (!t) { t = document.body.appendChild(el('div', 'backtoast')); t.id = 'backToast'; } t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), ms || 1800); }
   window.addEventListener('popstate', (e) => {
     if (window.__kk && window.__kk.onPop()) return;
     const ov = document.querySelector('.cardov'); if (ov) { ov.remove(); try { history.pushState({ carro: 1 }, '', location.hash); } catch (er) {} return; }
+    // 오락실: 회원제가 아니라 입력이 날아가니, 뒤로가기는 한 번 더 눌러야 나가게
+    if (cur === 't-play' && playHash && Date.now() - playArm > 3000) {
+      playArm = Date.now(); exitArm = playArm;
+      backToast('뒤로가기를 한 번 더 누르면 나가요\n입력한 내용이 사라질 수 있어요\n맨 위 \'← 홈으로\'를 눌러 주세요', 3000);
+      try { history.pushState({ carro: 1 }, '', playHash); } catch (er) {} return;
+    }
     if (e.state && e.state.base) { // 맨 처음 화면까지 돌아옴
       if (Date.now() - exitArm < 2000) { history.back(); return; }
       exitArm = Date.now(); backToast('뒤로가기를 한 번 더 누르면 나가요');
