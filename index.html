@@ -5926,6 +5926,7 @@ body.nlnoscroll { overflow: hidden; }
 
   // ------------------------------------------------------------------ 홈
   const UPDATES = [
+    ['11.21', '살 차 찾기 보완 — 후보 아래 "조건 더 선택하기"·"더 많은 후보 보기"(예산 안 전체 랭킹) · 새 차는 가장 싼 트림 가격으로 비교'],
     ['11.21', '앱으로 설치 — ☰ 메뉴와 홈에서 홈 화면에 추가 · 새 소식은 ☰에 빨간 점 · 검색으로 찾기 쉬운 페이지(무상 점검(리콜) 기록, 차 몇 년 타야 할까, 조용한 차·첫차·연비·값 덜 떨어지는 차 순위)'],
     ['11.21', '어떤 차 보러 오셨어요? — 홈에서 살 차·내 차·구경 고르기 · 살 차는 예산 → 차 종류 → 후보 → 실제 매물까지 · 선수 화면에 "이 차, 지금 실제로 사면?" 엔카 매물 바로가기와 본 매물 시세 판정 · 내 차 점수와 지금 팔면 얼마(추정)'],
     ['11.20', '오락실 다듬기 — 모든 탭 맨 위에 홈으로, 뒤로가기는 한 번 더 눌러야 나가요(입력 보호) · 차생 그래프는 쓰던 마지막 차도 자동으로 들어가요'],
@@ -7533,7 +7534,7 @@ body.nlnoscroll { overflow: hidden; }
     const s = pan.appendChild(el('div', 'nlksteps'));
     names.forEach((t, i) => { const b = s.appendChild(btnEl(i < at ? 'ok' : i === at ? 'on' : '', t, i < at && go ? () => go(i) : () => {})); if (i > at || (i < at && !go)) b.disabled = i > at; });
   }
-  const nlGoBuy = () => { NL.view = 'buy'; NL.find = false; NL.cat = ''; NL.buy = NL.buy || { st: 0, kind: 'used', bud: 3000, custom: false, types: [], more: false, org: '', brands: [], fuel: [], seats: [], body2: [], awd: false, bmore: false }; NL.buy.st = Math.min(NL.buy.st, 1); if (cur !== 't-home') show('t-home'); else render(); window.scrollTo({ top: 0 }); };
+  const nlGoBuy = () => { loadTrims().then(() => { if (NL.view === 'buy') render(); }); NL.view = 'buy'; NL.find = false; NL.cat = ''; NL.buy = NL.buy || { st: 0, kind: 'used', bud: 3000, custom: false, types: [], more: false, org: '', brands: [], fuel: [], seats: [], body2: [], awd: false, bmore: false }; NL.buy.st = Math.min(NL.buy.st, 1); if (cur !== 't-home') show('t-home'); else render(); window.scrollTo({ top: 0 }); };
   const nlGoMine = () => { NL.view = 'mine'; NL.find = false; NL.cat = ''; NL.mine = { st: 0, id: '', year: 0, km: '' }; NL.br = { brand: '', model: '' }; NL.fq = ''; if (cur !== 't-home') show('t-home'); else render(); window.scrollTo({ top: 0 }); };
   function nlWhy(box) {
     const p = box.appendChild(el('div', 'nlkpan'));
@@ -7544,9 +7545,19 @@ body.nlnoscroll { overflow: hidden; }
     g.appendChild(nlHk('o', nlKi('look'), '구경', '랭킹\n오락실', () => { NL.view = ''; show('t-rank'); window.scrollTo({ top: 0 }); }));
   }
   // 살 차: 가격 기준 (새 차 = 신차가, 중고차 = 예산 안에서 가장 최근 연식 시세)
+  // 새 차는 같은 엔진 라인업의 가장 싼 트림 가격 (카동 가격표 trims.json, 없으면 대표 트림 가격)
+  const NLMIN = {};
+  function nlMinNew(r) {
+    if (r.id in NLMIN) return NLMIN[r.id];
+    const mid = /^cd:(\d+)$/.exec(r.spec_src || ''); const m = mid && TRIMS && TRIMS[mid[1]];
+    if (!TRIMS) return r.price;
+    let v = r.price;
+    if (m && m.l) { const P = r.price * 10000; const ln = m.l.find((l) => l.t.some((t) => Math.abs(t.p - P) < 20000)); if (ln) { const ps = ln.t.map((t) => t.p).filter((x) => x > 0); if (ps.length) v = Math.min(v, Math.round(Math.min(...ps) / 10000)); } }
+    return (NLMIN[r.id] = v);
+  }
   function nlBuyFit(r, B) {
     const out = [];
-    if (B.kind !== 'used' && !r.og && r.price <= B.bud) out.push({ t: 'new', p: r.price, y: 0, n: 0 });
+    if (B.kind !== 'used' && !r.og) { const np = nlMinNew(r); if (np <= B.bud) out.push({ t: 'new', p: np, top: r.price, y: 0, n: 0 }); }
     if (B.kind !== 'new') {
       const u = (r.uy || []).filter((x) => x[1] >= 3 && x[2] <= B.bud).sort((a, b) => b[0] - a[0])[0];
       if (u) out.push({ t: 'used', p: u[2], y: u[0], n: u[1] });
@@ -7656,7 +7667,7 @@ body.nlnoscroll { overflow: hidden; }
       const m = w.appendChild(btnEl('nlkrm', '', () => { NL.fromBuy = ''; openProfile(r.id); window.scrollTo({ top: 0 }); }));
       const g = m.appendChild(el('div', 'nlrg')); g.innerHTML = nlGauge(r._ovr / 100, 46); g.appendChild(el('b', null, ovrTxt(r)));
       const t = m.appendChild(el('div')); t.appendChild(el('b', null, shortName(nlBrandless(r))));
-      t.appendChild(el('small', null, f.t === 'new' ? `새 차 ${nlMan(f.p)} · ${r.brand}` : `${f.y ? f.y + '년식 ' : ''}보통 ${nlMan(f.p)}${f.n ? ' · 매물 ' + fmt(f.n) + '대' : ''}`));
+      t.appendChild(el('small', null, f.t === 'new' ? `새 차 ${nlMan(f.p)}${f.top > f.p ? '부터' : ''} · ${r.brand}` : `${f.y ? f.y + '년식 ' : ''}보통 ${nlMan(f.p)}${f.n ? ' · 매물 ' + fmt(f.n) + '대' : ''}`));
       if (r.ea) w.appendChild(btnEl('nlkgo', '매물 보기', () => { NL.fromBuy = r.id; NL.mk = true; openProfile(r.id); }));
     };
     L.slice(0, lim).forEach((x) => rowOf(card, x));
