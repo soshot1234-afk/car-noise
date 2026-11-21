@@ -1516,6 +1516,25 @@ body.kkopen{overflow:hidden}
 .vd.nl .nlmk { margin-top: 12px; }
 .vd.nl .nlkacts .nlbtn.on { background: #15181e; color: #fff; }
 .vd.nl .nlkrk { font-style: normal; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; color: #9aa0a8; width: 18px; text-align: center; flex: none; }
+/* 선수 화면 등급 카드 */
+.vd.nl .nlgcard { --gc: #45d37f; margin: 4px 0 0; background: #fff; border: 3px solid var(--gc); border-radius: 24px; overflow: hidden; }
+.vd.nl .nlgband { background: var(--gc); color: #15181e; display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; font-size: 14px; font-weight: 900; }
+.vd.nl .nlgband span { font-weight: 800; }
+.vd.nl .nlgin { padding: 12px 12px 14px; }
+.vd.nl .nlgph { height: 190px; border-radius: 14px; }
+.vd.nl .nlgcard-hd { padding: 12px 2px 0; }
+.vd.nl .nlgcard-hd h1 { font-size: 25px; }
+.vd.nl .nlgrow { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 10px; align-items: center; margin-top: 8px; }
+.vd.nl .nlgrow .nlcg b { font-size: 34px; }
+.vd.nl .nlgstats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.vd.nl .nlgstats div { background: #f3f5f7; border-radius: 12px; padding: 7px 10px; display: flex; justify-content: space-between; align-items: center; }
+.vd.nl .nlgstats small { font-size: 13px; font-weight: 800; color: #374151; }
+.vd.nl .nlgstats b { font-family: "Barlow Condensed", sans-serif; font-size: 23px; font-weight: 700; line-height: 1; }
+.vd.nl .nlglegend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0 2px; }
+.vd.nl .nlglegend span { border-top: 4px solid var(--gc); background: #fff; border-radius: 8px; padding: 5px 0; text-align: center; opacity: .55; }
+.vd.nl .nlglegend span.on { opacity: 1; box-shadow: 0 0 0 1.5px var(--gc) inset; }
+.vd.nl .nlglegend b { display: block; font-size: 12.5px; font-weight: 900; color: #15181e; }
+.vd.nl .nlglegend small { font-family: "Barlow Condensed", sans-serif; font-size: 13px; font-weight: 700; color: #6b7280; }
 /* 앱으로 설치 · 새 소식 */
 .nlib, .nldi { position: relative; }
 .nlib.nldot::after, .nldi.nldot::after { content: ''; position: absolute; top: 9px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: #e2554c; box-shadow: 0 0 0 2px #fff; }
@@ -7480,12 +7499,26 @@ body.nlnoscroll { overflow: hidden; }
     nlWhy(box);
     if (window.__inst) window.__inst.card(box);
   }
+  const NLGRADE = [['에이스', NLC.G, '70+'], ['주전', NLC.L, '60~69'], ['로테이션', NLC.O, '50~59'], ['유망주', NLC.R, '~49']];
+  const nlGrade = (o) => (isNaN(o) ? ['유망주', '#cfd4db'] : o >= 70 ? NLGRADE[0] : o >= 60 ? NLGRADE[1] : o >= 50 ? NLGRADE[2] : NLGRADE[3]);
+  // 카드 능력치 6개 = 정숙·성능·효율·공간·안전·가치 묶음 평균 (1~20, 좋을수록 큼)
+  function nlGroupVals(r) {
+    return LGROUPS.map((g) => { const v = g.a.map((k) => nlS(r, k)).filter((x) => !isNaN(x)); return [g.k, v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : NaN, g.a.some((k) => isEst(r, k))]; });
+  }
   function nlProfC(box, r) {
-    const ph = box.appendChild(el('div', 'nlhero short')); photo(ph, r);
-    const hd = box.appendChild(el('div', 'nlchd')); { const lg = nlLogo(r.brand, 30); if (lg) { const lw = hd.appendChild(btnEl('nlplogo', '', () => nlGoBrowse(r.brand))); lw.setAttribute('aria-label', r.brand + ' 모델 보기'); lw.appendChild(lg); } } hd.appendChild(el('small', null, [r.brand, r.body, r.powertrain].filter(Boolean).join(' · '))); hd.appendChild(el('h1', 'jal', nlBrandless(r)));
-    const row = box.appendChild(el('div', 'nlclrow big'));
-    const g1 = row.appendChild(el('div', 'nlcg')); g1.innerHTML = nlGauge(r._ovr / 100, 140); g1.appendChild(el('b', null, ovrTxt(r))); g1.appendChild(el('small', null, isNaN(r._rank) ? 'OVR' : `OVR · ${r._rank}위`));
-    nlRightGauge(row, r, 140);
+    // 등급 선수 카드: OVR 구간마다 테두리 색·등급 이름 (에이스 70+ / 주전 60~69 / 로테이션 50~59 / 유망주 ~49)
+    const gr = nlGrade(r._ovr);
+    const gc = box.appendChild(el('div', 'nlgcard')); gc.style.setProperty('--gc', gr[1]);
+    const band = gc.appendChild(el('div', 'nlgband')); band.appendChild(el('b', null, gr[0] + ' 등급')); band.appendChild(el('span', null, isNaN(r._rank) ? 'OVR ' + ovrTxt(r) : `전체 ${r._rank}위`));
+    const gin = gc.appendChild(el('div', 'nlgin'));
+    const ph = gin.appendChild(el('div', 'nlhero short nlgph')); photo(ph, r);
+    const hd = gin.appendChild(el('div', 'nlchd nlgcard-hd')); { const lg = nlLogo(r.brand, 30); if (lg) { const lw = hd.appendChild(btnEl('nlplogo', '', () => nlGoBrowse(r.brand))); lw.setAttribute('aria-label', r.brand + ' 모델 보기'); lw.appendChild(lg); } } hd.appendChild(el('small', null, [r.brand, r.body, r.powertrain].filter(Boolean).join(' · '))); hd.appendChild(el('h1', 'jal', nlBrandless(r)));
+    const row = gin.appendChild(el('div', 'nlgrow'));
+    const g1 = row.appendChild(el('div', 'nlcg')); g1.innerHTML = nlGauge(r._ovr / 100, 112); g1.appendChild(el('b', null, ovrTxt(r))); g1.appendChild(el('small', null, 'OVR'));
+    const st = row.appendChild(el('div', 'nlgstats'));
+    nlGroupVals(r).forEach(([l, v, est]) => { const d = st.appendChild(el('div')); d.appendChild(el('small', null, l)); const b = d.appendChild(el('b', null, isNaN(v) ? '–' : String(v))); b.style.color = nlTx(v); if (est) d.title = '추정값 포함'; });
+    const lgd = box.appendChild(el('div', 'nlglegend'));
+    NLGRADE.forEach(([n, c, t]) => { const x = lgd.appendChild(el('span', n === gr[0] ? 'on' : '')); x.style.setProperty('--gc', c); x.appendChild(el('b', null, n)); x.appendChild(el('small', null, t)); });
     const inf = box.appendChild(el('div', 'nlinfo'));
     const ret = num(r.retention);
     [['월 출퇴근 기름값', nlFuel(r)], [r.og ? '마지막 신차가' : '몸값(신차)', nlMan(r.price)], ['중고 시세', blank(r.used_price) ? '–' : nlMan(r.used_price)], ['몸값 유지율', isNaN(ret) ? '–' : ret + '%']].forEach(([l, v]) => { const d = inf.appendChild(el('div')); d.appendChild(el('small', null, l)); d.appendChild(el('b', null, v)); });
@@ -7839,7 +7872,7 @@ body.nlnoscroll { overflow: hidden; }
   function show(id) { cur = id; if (window.__kk) window.__kk.vis(id); TABS.forEach(([t, p]) => { $('#' + t).setAttribute('aria-selected', t === id); $('#' + p).hidden = t !== id; }); const vdr = document.querySelector('.vd'); if (vdr) vdr.classList.toggle('nofilt', ['t-home', 't-play'].includes(id)); nlAfterShow(id); render(); writeHash(true); scrollToSection(id); }
   function scrollToSection(id) {
     const pair = TABS.find(([t]) => t === id); const sec = pair && $('#' + pair[1]); if (!sec) return;
-    const tb = $('.tabs'); const cs = tb ? getComputedStyle(tb) : null; const stick = tb && cs.position === 'sticky' ? (parseFloat(cs.top) || 0) + tb.offsetHeight : 0;
+    const tb = $('.tabs'); const cs = tb ? getComputedStyle(tb) : null; const nh = $('.nlhd'); const stick = tb && tb.offsetHeight && cs.position === 'sticky' ? (parseFloat(cs.top) || 0) + tb.offsetHeight : nh && nh.offsetHeight && getComputedStyle(nh).position === 'sticky' ? nh.offsetHeight : 0; // 새 화면: 위 머리띠(sticky)에 선수 카드 윗줄이 가리지 않게
     const target = Math.max(0, sec.getBoundingClientRect().top + window.scrollY - stick - 6);
     window.scrollTo({ top: id === 't-prof' ? target : Math.min(window.scrollY, target) });
   }
