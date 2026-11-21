@@ -362,18 +362,10 @@ function howLongPage(all) {
 ${crumb('차 몇 년 타야 할까')}
 <h1>차 몇 년 타야 할까?</h1>
 <p class="sub">연식별 중고 시세로 본 바꿀 타이밍 · ${TODAY} 기준</p>
-<div class="card"><h2>한 줄 결론</h2>
-<p>중고 시세는 <b>3~5년 차</b>에 가장 가파르게 떨어지고(올해식의 ${at(3)}% → ${at(5)}%), <b>6년</b>쯤부터 떨어지는 속도가 눈에 띄게 느려져요. 신차는 출고하는 순간 한 번 더 값이 빠진다는 점도 감안해야 해요. 그래서 값으로만 보면 <b>새 차는 오래 탈수록</b>, 중고차는 <b>3~5년 된 차</b>를 사서 탈수록 손해가 적은 편이에요.</p></div>
 <div class="card"><h2>올해식을 100으로 보면, 몇 년 차에 얼마나 남을까</h2>
 <div class="curve" style="grid-template-columns:repeat(${rows.length},1fr)">${rows.map((r) => `<div style="height:${r[1]}%"><b>${r[1]}%</b></div>`).join('')}</div>
 <div class="curvex" style="grid-template-columns:repeat(${rows.length},1fr)">${rows.map((r) => `<span>${r[0] ? r[0] + '년' : '올해식'}</span>`).join('')}</div>
-<p class="note">국내 판매 차 ${seen.size}개 모델의 엔카 등록 매물 연식별 평균 시세를 같은 모델 올해식 평균으로 나눈 값의 중간값이에요(연식마다 매물 8대 이상인 경우만). 트림·주행거리가 섞인 평균이라 차마다 차이가 크니 대략적인 흐름으로 봐 주세요.</p></div>
-<div class="card"><h2>타이밍별로 보면</h2><ul>
-<li><b>1~2년:</b> 출고 직후 한 번 크게 빠진 뒤라 매물 시세는 비교적 버텨요.</li>
-<li><b>3~5년:</b> 시세가 가장 빠르게 내려가는 구간이에요. 이때 팔면 손해가 커지기 쉬워요.</li>
-<li><b>6년 차 전후:</b> 하락이 느려지기 시작해요. 다음 차로 갈아탈지 고민하는 사람이 많은 구간이에요.</li>
-<li><b>7년 이후:</b> 시세는 천천히 떨어지지만, 소모품·수리비가 늘어나는지 같이 봐야 해요.</li></ul>
-<p class="note">언제 바꿀지는 시세만이 아니라 주행거리, 수리비, 가족 수 변화 같은 내 상황이 더 중요해요.</p></div>
+<p class="note">엔카 매물 연식별 평균 시세 기준 대략값 (${seen.size}개 모델)</p></div>
 <div class="card"><h2>오래 타도 값이 덜 떨어지는 차</h2><ol class="rank">${low.map((x) => `<li><a href="/car/${x.id}">${esc(x.name)}</a><small>1년 평균 ${x.depy}% 하락</small></li>`).join('')}</ol><p><a href="/best/resale">TOP 20 전체 보기</a></p></div>
 <div class="card start"><h2>내가 탄 차들로 직접 그려 보기</h2><p>지금까지 탄 차를 순서대로 넣고 별점을 매기면, 내 차 인생이 한 장의 그래프가 돼요.</p><div class="cta"><a class="btn gold" href="/#tab=play&amp;g=life">차생 그래프 그려 보기</a></div></div>
 ` + topicNav('/guide/how-long') + FOOT;
