@@ -26,6 +26,18 @@ td:first-child{white-space:nowrap;font-weight:700}td.s{font-weight:800;width:48p
 .btn.gold{background:var(--gold);border-color:var(--gold);color:#15171c}
 ul.links{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px 16px}ul.links li{font-size:14.5px}ul.links small{color:var(--mu);margin-left:6px}
 .note{font-size:12.5px;color:var(--mu)}
+.start{border-color:#e3b448}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:s}
+ol.steps li{counter-increment:s}ol.steps a{display:grid;grid-template-columns:30px 1fr;column-gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--tx)}
+ol.steps a::before{content:counter(s);grid-row:span 2;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font-weight:800}
+ol.steps b{font-size:15px}ol.steps small{color:var(--mu);font-size:13px}
+table.used td,table.used th{white-space:nowrap}table.used td small{color:var(--mu);font-weight:400}
+ul.rec{margin:0 0 8px;padding-left:18px;font-size:14.5px}ul.rec time{font-weight:700;margin-right:6px;font-variant-numeric:tabular-nums}
+.topics{display:flex;flex-wrap:wrap;gap:8px}.topics a{padding:8px 12px;border:1px solid var(--line);border-radius:20px;background:#fff;text-decoration:none;color:var(--tx);font-size:14px;font-weight:700}
+ol.rank{margin:0;padding-left:22px}ol.rank li{padding:6px 0;border-top:1px solid var(--line);font-size:15px}ol.rank li:first-child{border-top:0}ol.rank small{color:var(--mu);margin-left:6px}
+.curve{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;align-items:end;height:180px;margin:28px 0 4px}
+.curve div{background:linear-gradient(180deg,#45d37f,#c8d758);border-radius:6px 6px 0 0;position:relative}.curve div b{position:absolute;top:-20px;left:0;right:0;text-align:center;font-size:12.5px}
+.curvex{display:grid;white-space:nowrap;grid-template-columns:repeat(9,1fr);gap:6px;text-align:center;font-size:12px;color:var(--mu)}
 footer{max-width:960px;margin:0 auto;padding:0 16px 40px;font-size:12.5px;color:var(--mu)}
 .brand-h{margin:22px 0 8px;font-family:Jalnan,sans-serif;font-weight:400;font-size:20px}
 @media (max-width:640px){h1{font-size:25px}.hero{grid-template-columns:1fr}.groups{grid-template-columns:repeat(2,minmax(0,1fr))}.ovr{display:flex;align-items:baseline;gap:10px;justify-content:center}.ovr b{font-size:38px}}

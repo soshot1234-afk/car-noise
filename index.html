@@ -5,6 +5,7 @@
 <meta name="naver-site-verification" content="d200388cefa69d574e6a6f528fc8c87b9b1e51d1" />
 <meta name="google-site-verification" content="msEYavFdHhQdeYy5j4INUz6UYtKOZhg_Z2GZaeFB3dU" />
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="alternate" type="application/rss+xml" title="카스쿼드" href="/rss.xml">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>카스쿼드 · CAR SQUAD — 차를 선수처럼 비교하고 마이 카 스쿼드 짜기</title>
@@ -1410,6 +1411,34 @@ body.kkopen{overflow:hidden}
 </style>
 <style>
 /* ===== 새 화면 시안 (NL) ===== */
+/* 앱으로 설치 · 새 소식 */
+.nlib, .nldi { position: relative; }
+.nlib.nldot::after, .nldi.nldot::after { content: ''; position: absolute; top: 9px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: #e2554c; box-shadow: 0 0 0 2px #fff; }
+.nldi.nldot::after { top: 14px; left: 34px; right: auto; }
+.nlinst { display: flex; align-items: center; gap: 12px; margin: 14px 0 4px; padding: 12px 14px; background: #fff; border: 1.5px solid #e3b448; border-radius: 16px; color: #15181e; }
+.nlinic { flex: none; width: 40px; height: 40px; border-radius: 12px; background: #15181e; color: #e3b448; display: grid; place-items: center; }
+.nlintx { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.nlintx b { font-size: 15px; font-weight: 800; }
+.nlintx small { font-size: 12.5px; color: #6b7280; }
+.nlinbt { display: flex; gap: 6px; flex: none; }
+.nlinbt button { appearance: none; font: inherit; font-size: 14px; font-weight: 800; border-radius: 10px; padding: 9px 12px; cursor: pointer; }
+.nlinno { border: 1px solid #dfe2e7; background: #fff; color: #6b7280; }
+.nlinst .nlinyes, .vd .nlinst .nlinyes { border: 0; background: #15181e; color: #fff; }
+.nlsheet, .nlinst { font-family: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", sans-serif; }
+.nlsheet { position: fixed; inset: 0; z-index: 9000; background: rgba(15,17,21,.45); display: flex; align-items: flex-end; justify-content: center; }
+.nlsbox { width: 100%; max-width: 520px; max-height: 82vh; overflow: auto; background: #fff; color: #15181e; border-radius: 20px 20px 0 0; padding: 18px 18px calc(18px + env(safe-area-inset-bottom)); }
+.nlsbox::before { content: ''; display: block; height: 4px; margin: -6px -18px 14px; background: linear-gradient(90deg, #e2554c 0 25%, #e5a443 25% 50%, #c8d758 50% 75%, #45d37f 75%); border-radius: 2px; }
+.nlshd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.nlshd b { font-family: "Jalnan", "Pretendard Variable", Pretendard, sans-serif; font-size: 20px; font-weight: 400; }
+.nlshd .nlx { appearance: none; border: 0; background: #f1f2f4; width: 36px; height: 36px; border-radius: 50%; font-size: 15px; cursor: pointer; color: #15181e; }
+.nlsteps { margin: 0 0 10px; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 8px; }
+.nlsteps li { counter-increment: s; display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.45; padding: 10px 12px; border: 1px solid #e6e8ec; border-radius: 12px; }
+.nlsteps li::before { content: counter(s); flex: none; width: 24px; height: 24px; border-radius: 50%; background: #15181e; color: #e3b448; font-weight: 800; font-size: 13px; display: grid; place-items: center; }
+.nlsnote { font-size: 12.5px; color: #6b7280; margin: 0 0 6px; }
+.nlnews { list-style: none; margin: 0 0 8px; padding: 0; }
+.nlnews li { display: grid; grid-template-columns: 46px 1fr; gap: 8px; padding: 10px 0; border-top: 1px solid #eceef1; font-size: 14.5px; line-height: 1.45; }
+.nlnews li:first-child { border-top: 0; }
+.nlnews time { font-weight: 800; color: #8a919d; font-variant-numeric: tabular-nums; }
 #playbox > .playhome { display: block; margin: 0 0 8px; }
 /* 랭킹 C · OVR 클러스터형 */
 .vd.nl #p-rank .nlrkold { display: none !important; }
@@ -2193,7 +2222,7 @@ body.nlnoscroll { overflow: hidden; }
     <a class="chip sm" href="#" id="adminOff">끄기</a>
     <textarea id="adminOut" hidden spellcheck="false"></textarea>
   </div>
-  <nav class="seolinks" aria-label="전체 차종"><a href="/cars">전체 차종 능력치 목록 (765종)</a></nav>
+  <nav class="seolinks" aria-label="더 알아보기"><a href="/cars">전체 차종 능력치 목록</a> · <a href="/guide/how-long">차 몇 년 타야 할까</a> · <a href="/best/quiet">조용한 차 순위</a> · <a href="/best/first-car">첫차 추천</a> · <a href="/best/efficient">연비 좋은 차</a> · <a href="/best/resale">값 덜 떨어지는 차</a> · <a href="/recalls">차종별 무상 점검(리콜) 기록</a></nav>
   <footer class="foot" id="foot"></footer>
 </div>
 
@@ -6684,7 +6713,7 @@ body.nlnoscroll { overflow: hidden; }
     const go = (t) => () => { NL.find = false; NL.cat = ''; NL.view = ''; show(t); };
     grp('차 고르기', [['🏠', '홈', '', go('t-home'), 't-home'], ['🏆', '랭킹', '종합 순위', go('t-rank'), 't-rank'], ['🏭', '제조사별로 찾기', '제조사 → 모델 → 트림', () => nlGoBrowse()], ['👤', '선수', '차 한 대 자세히', go('t-prof'), 't-prof'], ['⚔️', '비교', '최대 4대 맞대결', go('t-cmp'), 't-cmp'], ['🧭', '추천', '5문항 영입 상담', go('t-wiz'), 't-wiz'], ['🔁', '이적시장', '중고 시세', go('t-used'), 't-used'], ['🏎️', '펀카', '슈퍼카~핫해치', go('t-fun'), 't-fun'], ['📋', '전체 명단', '스카우트', go('t-all'), 't-all']]);
     grp('오락실', [['📈', '차생 그래프', '내 차 인생 날씨', () => goPlay('life')], ['🏁', '드림카까지', '첫차에서 드림카까지', () => goPlay('dg')], ['🧠', '차 MBTI', '24문항', () => goPlay('mb')], ['🏆', '이상형 월드컵', '16·32·64강', () => goPlay('wc')], ['⚽', '카 스쿼드', '찜한 차로 팀 짜기', go('t-sq'), 't-sq']]);
-    grp('기타', [['📏', '점수 매기는 법', '', go('t-how'), 't-how']]);
+    grp('기타', [['', '새 소식', '업데이트 · 공지', () => window.__inst && window.__inst.news()], ['📏', '점수 매기는 법', '', go('t-how'), 't-how']].concat((window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone ? [] : [['', '앱으로 설치', '홈 화면에 두기', () => window.__inst && window.__inst.go()]]));
     pn.appendChild(el('p', 'nltm', NLTM));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { nlDrawer(false); const so = $('#nlso'); if (so) so.remove(); } });
   }
@@ -6849,7 +6878,7 @@ body.nlnoscroll { overflow: hidden; }
     bt.appendChild(btnEl('nlbtn dark', isFav(r.id) ? '♥ 카 스쿼드에 있음' : '카 스쿼드 영입 +', () => { toggleFav(r.id); nlProfile(); }));
     bt.appendChild(btnEl('nlbtn', NL.flip ? '앞면 보기 ↻' : '카드 뒤집기 ↻', () => { NL.flip = !NL.flip; cd.classList.toggle('flip', NL.flip); }));
   }
-  const NLMSYM = {"홈": "<path d=\"M3.5 11.5 12 4.5l8.5 7\"/><path d=\"M6 10.5V19h12v-8.5\"/><path d=\"M9 19v-3.5h6V19M9 17.2h6\"/>", "랭킹": "<path d=\"M3.5 19.5h17\"/><path d=\"M5 19.5v-5h4.5v5M9.5 19.5V9.5h5v10M14.5 19.5v-3.5H19v3.5\"/><path d=\"M12 4.2v2.6\"/>", "제조사별로 찾기": "<path d=\"M12 3.5 19 6v6c0 4.3-3 7.3-7 8.5-4-1.2-7-4.2-7-8.5V6z\"/><path d=\"M9 12h6M12 9v6\"/>", "선수": "<path d=\"M8.5 4 4.5 6.5 3 11l3.3 1.3 1-2V20h9.4v-9.7l1 2L21 11l-1.5-4.5L15.5 4c-.9 1.8-6.1 1.8-7 0z\"/><path d=\"M11 11h2.2l-1.6 3h1.8\"/>", "비교": "<path d=\"M4 8h14.5\"/><path d=\"m15.5 5 3 3-3 3\"/><path d=\"M20 16H5.5\"/><path d=\"m8.5 13-3 3 3 3\"/>", "추천": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"2.2\"/><path d=\"M4.2 10.8h5.6M14.2 10.8h5.6M12 14.2V20\"/>", "이적시장": "<path d=\"M6 3.5h9l3 3V20.5H6z\"/><path d=\"M9 9h6M9 12.5h6M9 16h3.5\"/>", "펀카": "<path d=\"M4 17a8 8 0 1 1 16 0\"/><path d=\"m12 17 4.5-5.5\"/><path d=\"M7 13.2l.9.5M12 9.2v1M17 13.2l-.9.5\"/>", "전체 명단": "<path d=\"M8 6h12M8 12h12M8 18h12\"/><circle cx=\"4.5\" cy=\"6\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"12\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"18\" r=\".9\" fill=\"currentColor\"/>", "차생 그래프": "<path d=\"M3.5 19.5h17\"/><path d=\"m4.5 15.5 4.5-4.5 3.5 3 6-6.5\"/>", "드림카까지": "<path d=\"M6 21V4\"/><path d=\"M6 4.5h11.5l-2.5 3.5 2.5 3.5H6\"/>", "차 MBTI": "<path d=\"M4 5h16v10.5H10.5L6.5 19.5v-4H4z\"/><path d=\"M10 8.6a2 2 0 1 1 2.8 1.8c-.6.3-.8.7-.8 1.2\"/><circle cx=\"12\" cy=\"13.6\" r=\".5\" fill=\"currentColor\"/>", "이상형 월드컵": "<path d=\"M8 4.5h8v4.5c0 3-1.8 5-4 5s-4-2-4-5z\"/><path d=\"M8 6.5H5.5c0 3 1.2 4 3 4.2M16 6.5h2.5c0 3-1.2 4-3 4.2\"/><path d=\"M12 14v3.5M8.5 20h7M9.5 17.5h5V20\"/>", "카 스쿼드": "<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"14\" rx=\"1\"/><path d=\"M12 5v14\"/><circle cx=\"12\" cy=\"12\" r=\"2.8\"/>", "점수 매기는 법": "<path d=\"M3.5 15.5 15.5 3.5l5 5-12 12z\"/><path d=\"m7.5 11.5 1.8 1.8M10.5 8.5l1.3 1.3M13.5 5.5l1.8 1.8\"/>"};
+  const NLMSYM = {"홈": "<path d=\"M3.5 11.5 12 4.5l8.5 7\"/><path d=\"M6 10.5V19h12v-8.5\"/><path d=\"M9 19v-3.5h6V19M9 17.2h6\"/>", "랭킹": "<path d=\"M3.5 19.5h17\"/><path d=\"M5 19.5v-5h4.5v5M9.5 19.5V9.5h5v10M14.5 19.5v-3.5H19v3.5\"/><path d=\"M12 4.2v2.6\"/>", "제조사별로 찾기": "<path d=\"M12 3.5 19 6v6c0 4.3-3 7.3-7 8.5-4-1.2-7-4.2-7-8.5V6z\"/><path d=\"M9 12h6M12 9v6\"/>", "선수": "<path d=\"M8.5 4 4.5 6.5 3 11l3.3 1.3 1-2V20h9.4v-9.7l1 2L21 11l-1.5-4.5L15.5 4c-.9 1.8-6.1 1.8-7 0z\"/><path d=\"M11 11h2.2l-1.6 3h1.8\"/>", "비교": "<path d=\"M4 8h14.5\"/><path d=\"m15.5 5 3 3-3 3\"/><path d=\"M20 16H5.5\"/><path d=\"m8.5 13-3 3 3 3\"/>", "추천": "<circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"2.2\"/><path d=\"M4.2 10.8h5.6M14.2 10.8h5.6M12 14.2V20\"/>", "이적시장": "<path d=\"M6 3.5h9l3 3V20.5H6z\"/><path d=\"M9 9h6M9 12.5h6M9 16h3.5\"/>", "펀카": "<path d=\"M4 17a8 8 0 1 1 16 0\"/><path d=\"m12 17 4.5-5.5\"/><path d=\"M7 13.2l.9.5M12 9.2v1M17 13.2l-.9.5\"/>", "전체 명단": "<path d=\"M8 6h12M8 12h12M8 18h12\"/><circle cx=\"4.5\" cy=\"6\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"12\" r=\".9\" fill=\"currentColor\"/><circle cx=\"4.5\" cy=\"18\" r=\".9\" fill=\"currentColor\"/>", "차생 그래프": "<path d=\"M3.5 19.5h17\"/><path d=\"m4.5 15.5 4.5-4.5 3.5 3 6-6.5\"/>", "드림카까지": "<path d=\"M6 21V4\"/><path d=\"M6 4.5h11.5l-2.5 3.5 2.5 3.5H6\"/>", "차 MBTI": "<path d=\"M4 5h16v10.5H10.5L6.5 19.5v-4H4z\"/><path d=\"M10 8.6a2 2 0 1 1 2.8 1.8c-.6.3-.8.7-.8 1.2\"/><circle cx=\"12\" cy=\"13.6\" r=\".5\" fill=\"currentColor\"/>", "이상형 월드컵": "<path d=\"M8 4.5h8v4.5c0 3-1.8 5-4 5s-4-2-4-5z\"/><path d=\"M8 6.5H5.5c0 3 1.2 4 3 4.2M16 6.5h2.5c0 3-1.2 4-3 4.2\"/><path d=\"M12 14v3.5M8.5 20h7M9.5 17.5h5V20\"/>", "카 스쿼드": "<rect x=\"3.5\" y=\"5\" width=\"17\" height=\"14\" rx=\"1\"/><path d=\"M12 5v14\"/><circle cx=\"12\" cy=\"12\" r=\"2.8\"/>", "점수 매기는 법": "<path d=\"M3.5 15.5 15.5 3.5l5 5-12 12z\"/><path d=\"m7.5 11.5 1.8 1.8M10.5 8.5l1.3 1.3M13.5 5.5l1.8 1.8\"/>", "앱으로 설치": "<rect x=\"6.5\" y=\"3\" width=\"11\" height=\"18\" rx=\"2\"/><path d=\"M12 7.5v6.5M9.3 11.4 12 14l2.7-2.6M10 18h4\"/>", "새 소식": "<path d=\"M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 1.5H5z\"/><path d=\"M10 20.5h4\"/>"};
   const NLLGLY = {"durab": "<path d=\"M14.5 4.5a4.5 4.5 0 0 0-4.3 5.8L4 16.5 7.5 20l6.2-6.2a4.5 4.5 0 0 0 5.8-4.3l-2.6 2.6-3-.4-.4-3z\"/>", "eff": "<path d=\"M5 20V5.5A1.5 1.5 0 0 1 6.5 4h6A1.5 1.5 0 0 1 14 5.5V20M3.5 20h12\"/><path d=\"M7.5 7.5h4v3.5h-4z\"/><path d=\"M14 9.5h2a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 0 3 0V8.5L18 6\"/>", "safety": "<circle cx=\"10\" cy=\"5\" r=\"1.8\"/><path d=\"M6.5 20v-4.5L5 12.5c-.4-1.6.6-3.5 2.5-3.5h3.5c1.4 0 2.4 1 2.6 2.3l.7 4.7h3.2v4\"/><path d=\"M8.5 9.5 13 15\"/>", "quiet": "<path d=\"M4 9.5h3.5L12 5.5v13l-4.5-4H4z\"/><path d=\"M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10\"/>", "room": "<path d=\"M7 4.5c-1.2 0-2 .9-1.8 2.1L6.5 15h8l1.8 4.5\"/><path d=\"M9.5 15 8 6.5\"/><path d=\"M6.5 15h-1M14.5 15h3.5\"/>", "cargo": "<path d=\"M3 15.5V11l2.5-4.5h9L18 11h3v4.5z\"/><path d=\"M14.5 6.5 18 11\"/><circle cx=\"7\" cy=\"16.5\" r=\"2\"/><circle cx=\"17\" cy=\"16.5\" r=\"2\"/><path d=\"M15 3.5l4 3\"/>", "resale": "<path d=\"M12 3.5 19 6v6c0 4.3-3 7.3-7 8.5-4-1.2-7-4.2-7-8.5V6z\"/><path d=\"m8.8 9 1.3 5.2L12 10l1.9 4.2L15.2 9M8.5 11.5h7\"/>", "tadas": "<path d=\"M7 20 9.5 4M17 20 14.5 4\"/><path d=\"M12 6v2M12 11v2M12 16v2.5\"/><path d=\"M4.5 8.5a5 5 0 0 1 0 7M19.5 8.5a5 5 0 0 0 0 7\"/>"};
   const NLLAMP = [['durab', '🔧', '리콜'], ['eff', '⛽', '연비'], ['safety', '🛡️', '안전'], ['quiet', '🔇', '정숙성'], ['room', '🛋️', '실내 공간'], ['cargo', '📦', '적재력'], ['resale', '💰', '감가 방어'], ['tadas', '🤖', '주행보조']];
   // ---- D: 아이콘 홈 (배민식 카테고리)
@@ -7354,6 +7383,7 @@ body.nlnoscroll { overflow: hidden; }
     cl.appendChild(el('h2', 'jal nlcn', r.name));
     cl.appendChild(btnEl('nlgo nlmore', '자세히 보기 ›', () => openProfile(r.id)));
     nlGearbox(box);
+    if (window.__inst) window.__inst.card(box);
     box.appendChild(el('div', 'nlsec', '제조사로 찾기'));
     nlBrandGrid(box, 11, 'ring');
   }
@@ -7824,29 +7854,69 @@ body.nlnoscroll { overflow: hidden; }
   KK.vis(cur);
   window.__carroExport = () => CARS.map((r) => ({ id: r.id, name: r.name, short: shortName(r.name), model: modelKey(r), brand: r.brand, body: r.body, pt: r.powertrain, origin: r.origin, price: r.price, used: r.used_price, gyears: r.gyears || '', og: !!r.og, ex: !!r.ex, fun: !!r.fun, ovr: r._ovr, rank: r._rank, mbti: carMBTI(r), mbtiNick: MBTI[carMBTI(r)][0], style: style(r), groups: Object.fromEntries(GROUPS.map((g) => [g.k, r['g_' + g.k]])), attrs: ATTR.filter((x) => !isNaN(r['s_' + x.k])).map((x) => [x.k, x.label, r['s_' + x.k], String(x.fmtv(r)), isEst(r, x.k) ? 1 : 0]), nreal: ATTR.filter((x) => !isNaN(r['s_' + x.k]) && !isEst(r, x.k)).length }));
 
-  // ------------------------------------------------------------------ 앱으로 설치 (PWA)
+  // ------------------------------------------------------------------ 앱으로 설치 (PWA) · 새 소식
   (function () {
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) navigator.serviceWorker.register('sw.js').catch(() => {});
-    const standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
-    if (standalone) return;
-    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios/i.test(navigator.userAgent);
-    const inApp = /KAKAOTALK|NAVER|Instagram|FBAN|FBAV|Line\//i.test(navigator.userAgent);
+    const standalone = !!((window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone);
+    const ua = navigator.userAgent;
+    const ios = /iphone|ipad|ipod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    const iosOther = ios && /crios|fxios|edgios|whale/i.test(ua);
+    const inApp = /KAKAOTALK|NAVER\(|Instagram|FBAN|FBAV|Line\/|everytimeApp|DaumApps/i.test(ua);
+    const mobile = ios || /android|mobile/i.test(ua);
     let deferred = null;
-    const btn = $('#instBtn');
-    const showBtn = () => { btn.hidden = false; };
-    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferred = e; showBtn(); });
-    if (ios || inApp) showBtn();
-    window.addEventListener('appinstalled', () => { btn.hidden = true; });
-    btn.addEventListener('click', async () => {
-      if (deferred) { deferred.prompt(); const r = await deferred.userChoice; if (r && r.outcome === 'accepted') btn.hidden = true; deferred = null; return; }
-      const ov = document.body.appendChild(el('div', 'cardov')); const bx = ov.appendChild(el('div', 'cardbox instguide'));
-      bx.appendChild(el('h3', null, '📲 카스쿼드를 앱으로 설치하기'));
-      const ol = bx.appendChild(el('ol'));
-      (inApp ? ['오른쪽 위(또는 아래) ⋮ / 공유 메뉴를 누르세요', '"다른 브라우저로 열기"(사파리·크롬)를 고르세요', '열린 화면에서 이 버튼을 다시 누르면 설치할 수 있어요']
-        : ios ? ['사파리 아래쪽의 공유 버튼(□↑)을 누르세요', '메뉴를 내려 "홈 화면에 추가"를 누르세요', '오른쪽 위 "추가"를 누르면 홈 화면에 카스쿼드 아이콘이 생겨요']
-        : ['크롬 오른쪽 위 ⋮ 메뉴를 누르세요', '"앱 설치" 또는 "홈 화면에 추가"를 누르세요', '설치하면 앱처럼 주소창 없이 열려요']).forEach((t) => ol.appendChild(el('li', null, t)));
-      const c = bx.appendChild(el('button', 'chip', '닫기')); c.addEventListener('click', () => ov.remove()); ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
-    });
+    const oldBtn = $('#instBtn');
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferred = e; });
+    window.addEventListener('appinstalled', () => { LS.set('cs_inst', 'done'); const c = $('#nlinst'); if (c) c.remove(); track('install'); });
+    // 들른 날 기록 (설치 안내는 두 번째 날부터)
+    const today = todayKey(); let days = []; try { days = JSON.parse(LS.get('cs_days') || '[]'); } catch (e) {}
+    if (days[days.length - 1] !== today) { days.push(today); days = days.slice(-30); LS.set('cs_days', JSON.stringify(days)); }
+    if (standalone && LS.get('cs_inst') !== 'done') { LS.set('cs_inst', 'done'); track('open-app'); }
+    const can = () => !standalone && LS.get('cs_inst') !== 'done' && (mobile || !!deferred);
+    const sheet = (title, build) => {
+      const ov = document.body.appendChild(el('div', 'nlsheet')); const bx = ov.appendChild(el('div', 'nlsbox'));
+      const close = () => ov.remove();
+      const hd = bx.appendChild(el('div', 'nlshd')); hd.appendChild(el('b', 'jal', title)); hd.appendChild(btnEl('nlx', '✕', close)).setAttribute('aria-label', '닫기');
+      build(bx, close); ov.addEventListener('click', (e) => { if (e.target === ov) close(); }); return ov;
+    };
+    function go() {
+      if (deferred) { const d = deferred; deferred = null; d.prompt(); d.userChoice.then((r) => { track('install-' + (r && r.outcome)); if (r && r.outcome === 'accepted') { LS.set('cs_inst', 'done'); const c = $('#nlinst'); if (c) c.remove(); } }).catch(() => {}); return; }
+      track('install-guide');
+      sheet('홈 화면에 카스쿼드 두기', (bx, close) => {
+        const steps = inApp ? ['오른쪽 위(또는 아래) ⋮ 메뉴를 눌러요', '"다른 브라우저로 열기"를 골라요 (아이폰은 사파리, 안드로이드는 크롬)', '열린 화면에서 ☰ 메뉴 → 앱으로 설치를 다시 눌러요']
+          : iosOther ? ['이 화면 주소를 복사해서 사파리에서 열어요', '아래쪽 공유 버튼(네모에 위 화살표)을 눌러요', '"홈 화면에 추가" → 오른쪽 위 "추가"']
+          : ios ? ['아래쪽 공유 버튼(네모에 위 화살표)을 눌러요', '목록을 내려 "홈 화면에 추가"를 눌러요', '오른쪽 위 "추가"를 누르면 홈 화면에 아이콘이 생겨요']
+          : ['크롬 오른쪽 위 ⋮ 메뉴를 눌러요', '"홈 화면에 추가" 또는 "앱 설치"를 눌러요', '설치하면 주소창 없이 앱처럼 열려요'];
+        const ol = bx.appendChild(el('ol', 'nlsteps')); steps.forEach((t) => ol.appendChild(el('li', null, t)));
+        bx.appendChild(el('p', 'nlsnote', '앱 마켓 설치가 아니라 바로가기라서 용량을 거의 차지하지 않고, 언제든 길게 눌러 지울 수 있어요.'));
+        bx.appendChild(btnEl('nlgo', '알겠어요', close));
+      });
+    }
+    // 홈 안내 카드: 두 번째 날부터, '다음에'를 누르면 14일 쉬기
+    function card(box) {
+      if (!can() || days.length < 2) return;
+      const snooze = Number(LS.get('cs_inst_snooze') || 0); if (snooze && Date.now() < snooze) return;
+      const c = box.appendChild(el('div', 'nlinst')); c.id = 'nlinst';
+      const ic = c.appendChild(el('span', 'nlinic')); ic.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="3" width="11" height="18" rx="2"/><path d="M12 7.5v6.5M9.3 11.4 12 14l2.7-2.6M10 18h4"/></svg>';
+      const tx = c.appendChild(el('div', 'nlintx')); tx.appendChild(el('b', null, '홈 화면에 추가')); tx.appendChild(el('small', null, '다음엔 앱처럼 바로 열려요'));
+      const bt = c.appendChild(el('div', 'nlinbt'));
+      bt.appendChild(btnEl('nlinno', '다음에', () => { LS.set('cs_inst_snooze', String(Date.now() + 14 * 864e5)); c.remove(); track('install-later'); }));
+      bt.appendChild(btnEl('nlinyes', '설치', go));
+    }
+    // 새 소식: 업데이트가 생기면 ☰ 버튼에 점
+    const latest = UPDATES[0] ? UPDATES[0][0] + '|' + UPDATES[0][1].slice(0, 10) : '';
+    const unseen = () => latest && LS.get('cs_news_seen') !== latest;
+    function dot() { const b = document.querySelector('.nlib'); if (b) b.classList.toggle('nldot', !!unseen()); const it = [...document.querySelectorAll('.nldi')].find((x) => /새 소식/.test(x.textContent)); if (it) it.classList.toggle('nldot', !!unseen()); }
+    function news() {
+      LS.set('cs_news_seen', latest); dot(); track('news');
+      sheet('새 소식', (bx, close) => {
+        const ul = bx.appendChild(el('ul', 'nlnews'));
+        UPDATES.slice(0, 8).forEach(([d, t]) => { const li = ul.appendChild(el('li')); li.appendChild(el('time', null, d)); li.appendChild(el('span', null, t)); });
+        bx.appendChild(btnEl('nlgo', '닫기', close));
+      });
+    }
+    window.__inst = { can, go, card, news, dot };
+    if (oldBtn) { if (can()) oldBtn.hidden = false; oldBtn.addEventListener('click', go); }
+    setTimeout(dot, 0);
   })();
   window.__carroStyle = style; loadCfg(); adminGate(); updAdmin(); navPop = true; show(cur); navPop = false; try { if (!(history.state && history.state.carro)) { history.replaceState({ base: 1 }, '', location.hash); history.pushState({ carro: 1 }, '', location.hash); } } catch (e) {} track('visit'); loadStats();
 })();
