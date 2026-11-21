@@ -1514,6 +1514,8 @@ body.kkopen{overflow:hidden}
 .vd.nl .nlkacts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
 .vd.nl .nlkacts .wide { grid-column: 1 / -1; }
 .vd.nl .nlmk { margin-top: 12px; }
+.vd.nl .nlkacts .nlbtn.on { background: #15181e; color: #fff; }
+.vd.nl .nlkrk { font-style: normal; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; color: #9aa0a8; width: 18px; text-align: center; flex: none; }
 /* 앱으로 설치 · 새 소식 */
 .nlib, .nldi { position: relative; }
 .nlib.nldot::after, .nldi.nldot::after { content: ''; position: absolute; top: 9px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: #e2554c; box-shadow: 0 0 0 2px #fff; }
@@ -7649,17 +7651,31 @@ body.nlnoscroll { overflow: hidden; }
     card.appendChild(el('div', 'nlkh2 jal', '이 돈이면 이 차들이에요'));
     card.appendChild(el('div', 'nlks2', `${B.kind === 'new' ? '새 차' : B.kind === 'used' ? '중고' : '새 차·중고'} ${B.bud > 10000 ? '예산 상관없음' : nlMan(B.bud) + ' 원 이하'} · ${nlBuyTypeTxt(B) || '전체'} · OVR 높은 순 · ${L.length}종`));
     const lim = 15 + (B.lim || 0);
-    L.slice(0, lim).forEach(({ r, f }) => {
-      const w = card.appendChild(el('div', 'nlkrow'));
+    const rowOf = (cd, { r, f }) => {
+      const w = cd.appendChild(el('div', 'nlkrow'));
       const m = w.appendChild(btnEl('nlkrm', '', () => { NL.fromBuy = ''; openProfile(r.id); window.scrollTo({ top: 0 }); }));
       const g = m.appendChild(el('div', 'nlrg')); g.innerHTML = nlGauge(r._ovr / 100, 46); g.appendChild(el('b', null, ovrTxt(r)));
       const t = m.appendChild(el('div')); t.appendChild(el('b', null, shortName(nlBrandless(r))));
       t.appendChild(el('small', null, f.t === 'new' ? `새 차 ${nlMan(f.p)} · ${r.brand}` : `${f.y ? f.y + '년식 ' : ''}보통 ${nlMan(f.p)}${f.n ? ' · 매물 ' + fmt(f.n) + '대' : ''}`));
       if (r.ea) w.appendChild(btnEl('nlkgo', '매물 보기', () => { NL.fromBuy = r.id; NL.mk = true; openProfile(r.id); }));
-    });
-    if (!L.length) card.appendChild(el('p', 'nlmut', '조건에 맞는 차가 없어요. 위 단계를 눌러 조건을 바꿔 보세요'));
+    };
+    L.slice(0, lim).forEach((x) => rowOf(card, x));
+    if (!L.length) card.appendChild(el('p', 'nlmut', '조건에 맞는 차가 없어요. 아래 \'조건 더 선택하기\'로 조건을 바꿔 보세요'));
     if (L.length > lim) card.appendChild(btnEl('nlmore', `${L.length - lim}종 더 보기`, () => { B.lim = (B.lim || 0) + 15; render(); }));
     card.appendChild(el('p', 'nlkn left dark', '차 이름을 누르면 선수 화면, \'매물 보기\'는 선수 화면의 실제 매물 칸으로 가요. 중고 가격은 엔카 2026.10 연식별 중간값(주행 3~7만km)이에요.'));
+    const act = box.appendChild(el('div', 'nlkacts'));
+    act.appendChild(btnEl('nlbtn', '조건 더 선택하기', () => { B.st = 1; B.more = true; render(); window.scrollTo({ top: 0 }); }));
+    act.appendChild(btnEl('nlbtn' + (B.wide ? ' on' : ''), B.wide ? '더 많은 후보 접기' : '더 많은 후보 보기', () => { B.wide = !B.wide; B.wlim = 0; render(); if (B.wide) setTimeout(() => { const c = $('#nlkwide'); if (c) window.scrollTo({ top: Math.max(0, c.getBoundingClientRect().top + window.scrollY - 70) }); }, 30); }));
+    if (B.wide) {
+      const seen = new Set(L.map((x) => x.r.id));
+      const W = nlBuyPool(Object.assign({}, B, { types: [], org: '', brands: [], fuel: [], seats: [], body2: [], awd: false })).filter((x) => !seen.has(x.r.id));
+      const wc = box.appendChild(el('div', 'nlkcard')); wc.id = 'nlkwide';
+      wc.appendChild(el('div', 'nlkh2 jal', '예산 안 전체 랭킹'));
+      wc.appendChild(el('div', 'nlks2', `차 종류 조건을 풀고 ${B.bud > 10000 ? '' : nlMan(B.bud) + ' 원 안에서 '}OVR 높은 순 · ${W.length}종`));
+      const wl = 20 + (B.wlim || 0);
+      W.slice(0, wl).forEach((x, i) => { rowOf(wc, x); wc.lastChild.firstChild.insertBefore(el('i', 'nlkrk', String(i + 1)), wc.lastChild.firstChild.firstChild); });
+      if (W.length > wl) wc.appendChild(btnEl('nlmore', `${W.length - wl}종 더 보기`, () => { B.wlim = (B.wlim || 0) + 30; render(); }));
+    }
   }
   function nlBuyTypeTxt(B) {
     const T = { sedan: '세단', suv: 'SUV', small: '경차·소형', ev: '전기차', hev: '하이브리드' };
