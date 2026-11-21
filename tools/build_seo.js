@@ -228,7 +228,6 @@ function carPage(r, all, byBrand) {
       <div class="facts"><span>${r.og ? '중고 시세' : '신차'} <b>${won(r.og ? r.used : r.price)}</b></span>${!r.og && r.used ? `<span>중고 시세(3~7만km) <b>${won(r.used)}</b></span>` : ''}<span>차 MBTI <b>${esc(r.mbti)}</b> ${esc(r.mbtiNick)}</span>${r.style && r.style[0] ? `<span>플레이 스타일 <b>${esc(r.style[0])}</b></span>` : ''}</div>
     </div>
   </div>
-  <p class="lead">${esc(lead)}</p>
   <div class="cta"><a class="btn gold" href="/#tab=prof&amp;p=${r.id}">앱에서 자세히 보기</a></div>
 </div>
 <div class="card start">
