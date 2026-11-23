@@ -2,7 +2,7 @@
   "id": "./admin.html",
   "name": "카스쿼드 관리실",
   "short_name": "관리실",
-  "start_url": "./admin.html",
+  "start_url": "./admin.html?app=1",
   "scope": "./admin.html",
   "display": "standalone",
   "orientation": "portrait",

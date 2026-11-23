@@ -316,12 +316,22 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
   window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEvt = e; if (S.tab === 'home') render(); });
   window.addEventListener('appinstalled', () => { ls.set('carsquad_admin_inst', '1'); installEvt = null; toast('홈 화면에 추가했어요'); render(); });
   function installCard(m) {
-    if (standalone() || ls.get('carsquad_admin_inst') === '1') return;
+    if (/[?&]app=1/.test(location.search)) ls.set('carsquad_admin_inst', '1'); // 홈 화면의 관리실 아이콘으로 열면 주소에 app=1
+    if (ls.get('carsquad_admin_inst') === '1') return;
     const c = m.appendChild(el('div', 'card inst'));
     const t = c.appendChild(el('div', 't')); t.appendChild(el('b', null, '홈 화면에 관리실 추가')); t.appendChild(el('span', null, '다음엔 아이콘 눌러서 앱처럼 바로 열려요'));
     c.appendChild(btn('btn', '추가', installGo));
   }
   function installGo() {
+    if (standalone()) { // 카스쿼드 앱(바로가기) 안에서 관리실을 연 경우: 여기선 추가가 안 돼서 브라우저로 안내
+      const ov = document.body.appendChild(el('div', 'sheet')); const bx = ov.appendChild(el('div'));
+      bx.appendChild(el('h4', null, '브라우저에서 추가해 주세요'));
+      bx.appendChild(el('p', null, '지금은 카스쿼드 앱 안에서 열려 있어서 관리실 아이콘을 따로 만들 수 없어요. 아래 주소를 크롬(아이폰은 사파리)에서 열고 [추가]를 눌러 주세요.'));
+      const u = 'https://carsquad.pages.dev/admin.html'; bx.appendChild(el('p', null, u)).style.cssText = 'font-weight:700;word-break:break-all';
+      bx.appendChild(btn('btn', '주소 복사', () => { try { navigator.clipboard.writeText(u).then(() => toast('주소를 복사했어요')); } catch (e) { toast(u); } ov.remove(); }));
+      ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
+      return;
+    }
     if (installEvt) { const e = installEvt; installEvt = null; e.prompt(); e.userChoice.then((r) => { if (r && r.outcome === 'accepted') { ls.set('carsquad_admin_inst', '1'); render(); } }).catch(() => {}); return; }
     const ua = navigator.userAgent;
     const ios = /iphone|ipad|ipod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
