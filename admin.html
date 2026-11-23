@@ -2,7 +2,7 @@
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f4ee">
 <title>카스쿼드 관리실</title>
-<link rel="manifest" href="admin.webmanifest"><link rel="icon" href="favicon.svg"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="admin.webmanifest"><meta name="apple-mobile-web-app-title" content="관리실"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="favicon.svg"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <style>
 @font-face{font-family:Jalnan;src:url(fonts/yg-jalnan.woff2) format("woff2");font-display:swap}
@@ -54,6 +54,9 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
 .login .btn{width:100%;margin-top:10px;background:var(--ink);color:#fff;border:0}.login .err{color:var(--r);font-size:13px;margin:10px 0 0;min-height:20px}
 .empty{color:var(--sub);font-size:14px;text-align:center;padding:24px 0}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}.toast.on{opacity:1;transform:translate(-50%,0)}
+.inst{display:flex;align-items:center;gap:12px}.inst .t{flex:1}.inst .t b{display:block;font-size:15px}.inst .t span{font-size:12px;color:var(--sub)}.inst .btn{padding:10px 16px;background:var(--ink);color:#fff;border-color:var(--ink);flex:none}
+.sheet{position:fixed;inset:0;z-index:20;background:#15181e88;display:flex;align-items:flex-end;justify-content:center}.sheet>div{background:var(--card);width:100%;max-width:480px;border-radius:20px 20px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom))}
+.sheet h4{margin:0 0 10px;font:19px Jalnan,sans-serif}.sheet ol{margin:0 0 12px;padding-left:22px;line-height:1.8}.sheet .btn{width:100%;background:var(--ink);color:#fff;border-color:var(--ink)}
 .demo{display:block;width:max-content;margin:0 auto 16px;font-size:11px;background:#15181ecc;color:#fff;padding:3px 10px;border-radius:10px}
 [hidden]{display:none!important}
 </style></head><body>
@@ -171,6 +174,7 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
     const mini = nw.appendChild(el('div', 'mini'));
     [[d.newReviewsToday, '새 한줄평', 'rv'], [d.reportsToday, '오류 제보', 'inbox'], [d.questionsToday, '깡통봇 질문', 'inbox']].forEach(([n, t, to]) => { const b = mini.appendChild(btn('', null, () => { S.tab = to; render(); })); b.appendChild(el('b', null, fmt(n))); b.appendChild(el('span', null, t)); });
     m.appendChild(el('p', 'note', '이 기기에서 사이트를 봐도 방문자 수에 넣지 않아요. 같은 사람이 하루에 여러 번 와도 1명이에요.'));
+    installCard(m);
   }
 
   function drawReviews(m) {
@@ -304,6 +308,33 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
       S.cars = JSON.parse(raw).map((x) => ({ id: x.id, name: x.name }));
     } catch (e) { S.cars = []; toast('차 목록을 불러오지 못했어요'); }
     return S.cars;
+  }
+
+  // ---------------------------------------------------------------- 홈 화면에 추가 (앱처럼 열기)
+  let installEvt = null;
+  const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); installEvt = e; if (S.tab === 'home') render(); });
+  window.addEventListener('appinstalled', () => { ls.set('carsquad_admin_inst', '1'); installEvt = null; toast('홈 화면에 추가했어요'); render(); });
+  function installCard(m) {
+    if (standalone() || ls.get('carsquad_admin_inst') === '1') return;
+    const c = m.appendChild(el('div', 'card inst'));
+    const t = c.appendChild(el('div', 't')); t.appendChild(el('b', null, '홈 화면에 관리실 추가')); t.appendChild(el('span', null, '다음엔 아이콘 눌러서 앱처럼 바로 열려요'));
+    c.appendChild(btn('btn', '추가', installGo));
+  }
+  function installGo() {
+    if (installEvt) { const e = installEvt; installEvt = null; e.prompt(); e.userChoice.then((r) => { if (r && r.outcome === 'accepted') { ls.set('carsquad_admin_inst', '1'); render(); } }).catch(() => {}); return; }
+    const ua = navigator.userAgent;
+    const ios = /iphone|ipad|ipod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    const inApp = /KAKAOTALK|NAVER\(|Instagram|FBAN|FBAV|Line\//i.test(ua);
+    const steps = inApp ? ['오른쪽 위(또는 아래) ⋮ 메뉴를 눌러요', '"다른 브라우저로 열기"를 골라요 (아이폰은 사파리, 안드로이드는 크롬)', '열린 화면에서 다시 [추가]를 눌러요']
+      : ios && /crios|fxios|edgios|whale/i.test(ua) ? ['이 주소를 복사해서 사파리에서 열어요', '아래쪽 공유 버튼(네모에 위 화살표)을 눌러요', '"홈 화면에 추가" → 오른쪽 위 "추가"']
+      : ios ? ['아래쪽 공유 버튼(네모에 위 화살표)을 눌러요', '목록을 내려 "홈 화면에 추가"를 눌러요', '오른쪽 위 "추가"를 누르면 아이콘이 생겨요']
+      : ['오른쪽 위 ⋮ 메뉴를 눌러요', '"홈 화면에 추가" 또는 "앱 설치"를 눌러요', '아이콘 이름이 "관리실"로 생겨요'];
+    const ov = document.body.appendChild(el('div', 'sheet')); const bx = ov.appendChild(el('div'));
+    bx.appendChild(el('h4', null, '홈 화면에 관리실 두기'));
+    const ol = bx.appendChild(el('ol')); steps.forEach((x) => ol.appendChild(el('li', null, x)));
+    bx.appendChild(btn('btn', '알겠어요', () => ov.remove()));
+    ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
   }
 
   // ---------------------------------------------------------------- 예시 모드 (?demo=1)
