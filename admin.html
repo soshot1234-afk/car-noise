@@ -153,6 +153,7 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
 
   function drawHome(m) {
     const d = S.dash; if (!d) return loading(m);
+    if (!S.cars && (d.top || []).length) loadCars().then(() => { if (S.tab === 'home') render(); }); // 많이 본 선수를 차 이름으로
     const k = m.appendChild(el('div', 'kpi'));
     const c1 = k.appendChild(el('div', 'card')); c1.appendChild(el('p', null, '오늘 방문자')); c1.appendChild(el('b', null, fmt(d.today)));
     const diff = d.today - d.yesterday; c1.appendChild(el('small', diff > 0 ? 'up' : diff < 0 ? 'dn' : '', diff === 0 ? '어제와 같아요' : `어제보다 ${diff > 0 ? '+' : ''}${diff}`));
@@ -213,6 +214,7 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
   function drawEdit(m) {
     const c = S.config; if (!c) return loading(m);
     const draft = S.draft || (S.draft = Object.assign({}, c));
+    if (!S.cars && draft.pick_id) loadCars().then(() => { if (S.tab === 'edit') render(); });
     const sw = (k) => { const b = btn('sw', null, () => { draft[k] = !draft[k]; render(); }); b.setAttribute('role', 'switch'); b.setAttribute('aria-checked', !!draft[k]); return b; };
     const row = (box, title, sub, k) => { const r = box.appendChild(el('div', 'row')); const t = r.appendChild(el('div', 't')); t.appendChild(el('b', null, title)); t.appendChild(el('span', null, sub)); const s = r.appendChild(sw(k)); s.setAttribute('aria-label', title); };
     const text = (box, k, ph, onInput) => { const i = box.appendChild(el('input')); i.value = draft[k] || ''; i.placeholder = ph; i.maxLength = 120; i.addEventListener('input', () => { draft[k] = i.value; if (onInput) onInput(i.value); }); return i; };
@@ -292,7 +294,8 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
   }
 
   // 차 이름 목록: 사이트 index.html 안의 차 데이터에서 id·이름만 꺼냄
-  async function loadCars() {
+  function loadCars() { return S.carsP || (S.carsP = loadCarsOnce()); }
+  async function loadCarsOnce() {
     if (S.cars) return S.cars;
     try {
       const t = await (await fetch('index.html', { cache: 'no-cache' })).text();
@@ -324,7 +327,7 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
     return wait({});
   }
 
-  if (DEMO) { key = 'demo'; S.cars = [{ id: 'dom1', name: '기아 쏘렌토 1.6 터보 하이브리드' }, { id: 'dom2', name: '현대 그랜저 2.5 가솔린' }, { id: 'dom3', name: '기아 EV3 롱레인지' }, { id: 'dom4', name: '현대 캐스퍼' }, { id: 'dom5', name: '제네시스 GV70 2.5T' }]; }
+  if (DEMO) key = 'demo';
   if (key) start(); else showLogin();
 })();
 </script>
