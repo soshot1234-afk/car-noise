@@ -1,0 +1,8 @@
+id,항목,새 값,근거,출처
+dom69,z100,5.9,해외 실측 환산(추정) · Car and Driver 0-60mph 5.5초(2021 G80 2.5T AWD) ×1.07,https://www.0-60specs.com/genesis/g80-0-60-times
+dom70,z100,5.4,해외 실측 환산(추정) · Car and Driver 0-60mph 5.0초(2026 G80 3.5T AWD) ×1.07,https://www.0-60specs.com/genesis/g80-0-60-times
+dom77,z100,6.5,해외 실측 환산(추정) · Car and Driver 0-60mph 6.1초(2021 GV80 2.5T) ×1.07,https://www.0-60specs.com/genesis/gv80-0-60-times
+dom78,z100,6.1,해외 실측 환산(추정) · Car and Driver 0-60mph 5.7초(2025 GV80 3.5T AWD) ×1.07,https://www.0-60specs.com/genesis/gv80-0-60-times
+dom55,z100,5.7,제조사 발표(기아 유럽 · 같은 81.4kWh 듀얼모터),https://www.kia.com/de/modelle/ev-gt-modelle/
+dom57,z100,5.6,제조사 발표(기아 유럽 · 같은 81.4kWh 듀얼모터),https://www.kia.com/de/modelle/ev-gt-modelle/
+dom59,z100,6.2,제조사 발표(기아 유럽 · 같은 81.4kWh 듀얼모터),https://www.kia.com/de/modelle/ev5-gt/
