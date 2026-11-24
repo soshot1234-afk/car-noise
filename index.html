@@ -5995,7 +5995,7 @@ body.nlnoscroll { overflow: hidden; }
     }
     renderPlay(); scrollToSection('t-play');
   }
-  function duoStartQuiz(D, turn) { PLAY.mb = Object.assign(PLAY.mb, { stage: 'quiz', i: 0, ans: [], qs: MBQ_QUICK.slice(), quick: true, off: 0, duo: D }); D.turn = turn; renderPlay(); scrollToSection('t-play'); }
+  function duoStartQuiz(D, turn) { PLAY.mb = Object.assign(PLAY.mb, { stage: 'quiz', i: 0, ans: [], qs: MBQ.map((q, j) => j), quick: false, off: 0, duo: D }); D.turn = turn; renderPlay(); scrollToSection('t-play'); }
   function renderDuo(box) {
     const M = PLAY.mb, D = M.duo;
     if (!D) return mbReset('intro');
@@ -6011,16 +6011,16 @@ body.nlnoscroll { overflow: hidden; }
       [['a', '나'], ['b', '상대']].forEach(([k, ph]) => { const ip = nm.appendChild(el('input')); ip.value = D[k]; ip.placeholder = ph; ip.maxLength = 10; ip.addEventListener('input', () => { D[k] = ip.value.replace(/[~#&]/g, '').trim(); }); });
       c.appendChild(el('p', 'duolab', '예산'));
       const r3 = c.appendChild(el('div', 'duochips')); DUO_BUD.forEach(([v, t]) => { const b = r3.appendChild(btnEl('chip', t, () => { D.bud = v; renderPlay(); })); b.setAttribute('aria-pressed', v === D.bud); });
-      c.appendChild(el('p', 'duohint duostep', `내가 먼저 12문항 → 카톡으로 링크 보내기 → 상대가 12문항 → ${duoWho(D)}의 결과`));
-      c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', '12문항 시작', () => duoStartQuiz(D, 0)));
+      c.appendChild(el('p', 'duohint duostep', `내가 먼저 24문항 → 카톡으로 링크 보내기 → 상대가 24문항 → ${duoWho(D)}의 결과`));
+      c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', '24문항 시작', () => duoStartQuiz(D, 0)));
       return;
     }
     if (M.stage === 'duolink') {
       const c = box.appendChild(el('div', 'card mbintro m2 duopass'));
       c.appendChild(el('span', 'kick', '링크로 같이 하기'));
       const ph = c.appendChild(el('div', 'duophone')); ph.appendChild(el('b', 'done', `${duoNm(D, 'a')} ${D.ta}`)); ph.insertAdjacentHTML('beforeend', DK_ARR); ph.appendChild(el('b', 'wait', '?'));
-      c.appendChild(el('p', 'mbdesc', `${jo(D.b || '상대', '이', '가')} 12문항을 끝내면 ${duoWho(D)}의 결과가 떠요`));
-      c.appendChild(el('div', 'mbstart mbc')).appendChild(kkBtn('카카오톡으로 링크 보내기', (sp) => kakaoShare(duoCode(D), `[카스쿼드] ${jo(duoNm(D, 'a'), '이랑', '랑')} 같이 탈 차 찾기`, '12문항(1분)만 하면 우리의 붕붕카가 나와요', '같이 하기', sp), true));
+      c.appendChild(el('p', 'mbdesc', `${jo(D.b || '상대', '이', '가')} 24문항을 끝내면 ${duoWho(D)}의 결과가 떠요`));
+      c.appendChild(el('div', 'mbstart mbc')).appendChild(kkBtn('카카오톡으로 링크 보내기', (sp) => kakaoShare(duoCode(D), `[카스쿼드] ${jo(duoNm(D, 'a'), '이랑', '랑')} 같이 탈 차 찾기`, '24문항(3분)만 하면 우리의 붕붕카가 나와요', '같이 하기', sp), true));
       c.appendChild(el('p', 'duohint', STATS_URL ? '이 화면을 열어 두거나, 나중에 같은 링크를 다시 열면 결과가 보여요' : '상대가 결과 링크를 보내 주면 볼 수 있어요'));
       if (STATS_URL) duoPoll(D);
       return;
@@ -6031,7 +6031,7 @@ body.nlnoscroll { overflow: hidden; }
       const ph = c.appendChild(el('div', 'duophone')); ph.appendChild(el('b', 'done', `${duoNm(D, 'a')} ${D.ta}`)); ph.insertAdjacentHTML('beforeend', DK_ARR); ph.appendChild(el('b', 'wait', '나'));
       c.appendChild(el('p', 'mbdesc', `${jo(duoNm(D, 'a'), '이', '가')} 같이 탈 차 찾자고 해요`));
       const nm = c.appendChild(el('div', 'duonm one')); const ip = nm.appendChild(el('input')); ip.placeholder = '내 이름 (선택)'; ip.maxLength = 10; ip.value = D.b || ''; ip.addEventListener('input', () => { D.b = ip.value.replace(/[~#&]/g, '').trim(); });
-      c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', '12문항 시작', () => duoStartQuiz(D, 1)));
+      c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', '24문항 시작', () => duoStartQuiz(D, 1)));
       return;
     }
     // 결과
