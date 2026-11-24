@@ -1437,6 +1437,8 @@ body.kkopen{overflow:hidden}
 .vd .duorole { display: flex; gap: 8px; margin-top: 12px; width: 100%; } .vd .duorole span { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 10px; border-radius: 12px; background: linear-gradient(180deg, #3a4049, #1a1d23); } .vd .duorole small { color: #aab1bc; font-size: 11.5px; font-weight: 700; } .vd .duorole b { color: #fff; font-size: 16px; }
 .vd .duotag { font-size: 12px; font-weight: 800; color: var(--mu); }
 .vd .duosat { display: flex; gap: 6px; margin-top: 4px; } .vd .duosat span { font-size: 11.5px; font-weight: 800; color: #15181c; padding: 2px 7px; border-radius: 6px; }
+.vd .kkbtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 0; border-radius: 10px; background: #fee500; color: #191919; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; } .vd .kkbtn.big { padding: 13px 22px; font-size: 16px; border-radius: 12px; } .vd .kkbtn:active { transform: translateY(1px); }
+.vd .duostep { margin-top: 12px; }
 .vd .duomore { margin: 10px auto 12px; display: table; width: auto; }
 .vd .duoup { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; padding: 12px 14px; border: 1.5px solid #e3b448; border-radius: 12px; background: var(--pn2); font: inherit; cursor: pointer; } .vd .duoup b { color: var(--hi); font-size: 14px; } .vd .duoup span { color: #b8730c; font-weight: 800; font-size: 13px; }
 </style>
@@ -5914,7 +5916,8 @@ body.nlnoscroll { overflow: hidden; }
   };
   const DK_ARR = '<svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#e3b448" stroke-width="2" stroke-linecap="round"><path d="M4 12h15M14 7l5 5-5 5"/></svg>';
   function dkBtn(ic, t, fn, on) { const b = btnEl('arck' + (on ? ' on' : ''), '', fn); const k = b.appendChild(el('span', 'k')); k.appendChild(el('i')); k.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#eef1f5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${DK[ic]}</svg>`); b.appendChild(el('span', null, t)); return b; }
-  function duoNew() { return { rel: 'couple', a: '', b: '', bud: 5000, how: 'phone', turn: 0 }; }
+  function duoNew() { return { rel: 'couple', a: '', b: '', bud: 5000, how: 'link', turn: 0 }; }
+  const jo = (n, a, b) => { const c = String(n).charCodeAt(String(n).length - 1); return n + (c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 ? a : b); };
   const duoNm = (D, k) => (k === 'a' ? D.a || '나' : D.b || '상대');
   function duoRank(type, bud) { const m = {}; let n = 0; mbFitList(type, 9999, bud).forEach(([r]) => { m[modelKey(r)] = ++n; }); return (r) => m[modelKey(r)] || n; }
   function duoList(D, n) {
@@ -5969,6 +5972,8 @@ body.nlnoscroll { overflow: hidden; }
     });
     return kakaoP;
   }
+  const KK_ICON = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#191919" d="M12 3.6c-5 0-9 3.1-9 7 0 2.5 1.7 4.7 4.2 6l-.9 3.4c-.1.3.3.5.5.4l4-2.7c.4 0 .8.1 1.2.1 5 0 9-3.1 9-7s-4-7.2-9-7.2Z"/></svg>';
+  function kkBtn(t, fn, big) { const b = el('button', 'kkbtn' + (big ? ' big' : '')); b.type = 'button'; b.insertAdjacentHTML('beforeend', KK_ICON); const sp = b.appendChild(el('span', null, t)); b.addEventListener('click', () => fn(sp)); return b; }
   function kakaoShare(code, title, desc, btnTxt, btn) {
     const url = duoUrl(code);
     kakaoReady().then((K) => {
@@ -5982,8 +5987,7 @@ body.nlnoscroll { overflow: hidden; }
     const M = PLAY.mb, D = M.duo, r = mbtiType(M.ans);
     if (!D.turn) {
       D.ta = r.type; D.pa = r.pct;
-      if (D.how === 'link') { D.room = 'd' + Math.random().toString(36).slice(2, 8).padEnd(6, '0'); duoSave(D); M.stage = 'duolink'; }
-      else { D.turn = 1; M.ans = []; M.i = 0; M.stage = 'duopass'; }
+      D.room = 'd' + Math.random().toString(36).slice(2, 8).padEnd(6, '0'); duoSave(D); M.stage = 'duolink';
     } else {
       D.tb = r.type; D.pb = r.pct; M.stage = 'duores';
       if (D.guest) { duoPost(D); duoSave(D); }
@@ -6006,28 +6010,16 @@ body.nlnoscroll { overflow: hidden; }
       [['a', '나'], ['b', '상대']].forEach(([k, ph]) => { const ip = nm.appendChild(el('input')); ip.value = D[k]; ip.placeholder = ph; ip.maxLength = 10; ip.addEventListener('input', () => { D[k] = ip.value.replace(/[~#&]/g, '').trim(); }); });
       c.appendChild(el('p', 'duolab', '예산'));
       const r3 = c.appendChild(el('div', 'duochips')); DUO_BUD.forEach(([v, t]) => { const b = r3.appendChild(btnEl('chip', t, () => { D.bud = v; renderPlay(); })); b.setAttribute('aria-pressed', v === D.bud); });
-      c.appendChild(el('p', 'duolab', '어떻게?'));
-      const g = c.appendChild(el('div', 'playseg arcade duo2'));
-      g.appendChild(dkBtn('p', '한 폰으로', () => { D.how = 'phone'; renderPlay(); }, D.how === 'phone'));
-      g.appendChild(dkBtn('l', '링크로', () => { D.how = 'link'; renderPlay(); }, D.how === 'link'));
-      c.appendChild(el('p', 'duohint', D.how === 'phone' ? '폰을 넘겨 가며 각자 12문항' : '내가 먼저 하고 카톡으로 링크 보내기'));
-      c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', `${duoNm(D, 'a')}부터 시작`, () => duoStartQuiz(D, 0)));
-      return;
-    }
-    if (M.stage === 'duopass') {
-      const c = box.appendChild(el('div', 'card mbintro m2 duopass'));
-      c.appendChild(el('span', 'kick', '1 / 2 완료'));
-      const ph = c.appendChild(el('div', 'duophone')); ph.appendChild(el('b', 'done', duoNm(D, 'a'))); ph.insertAdjacentHTML('beforeend', DK_ARR); ph.appendChild(el('b', null, duoNm(D, 'b')));
-      c.appendChild(el('p', 'mbdesc', `폰을 ${duoNm(D, 'b')}에게 넘겨 주세요`));
-      c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', `${duoNm(D, 'b')} 시작`, () => duoStartQuiz(D, 1)));
+      c.appendChild(el('p', 'duohint duostep', '내가 먼저 12문항 → 카톡으로 링크 보내기 → 상대가 12문항 → 둘의 결과'));
+      c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', '12문항 시작', () => duoStartQuiz(D, 0)));
       return;
     }
     if (M.stage === 'duolink') {
       const c = box.appendChild(el('div', 'card mbintro m2 duopass'));
       c.appendChild(el('span', 'kick', '링크로 같이 하기'));
       const ph = c.appendChild(el('div', 'duophone')); ph.appendChild(el('b', 'done', `${duoNm(D, 'a')} ${D.ta}`)); ph.insertAdjacentHTML('beforeend', DK_ARR); ph.appendChild(el('b', 'wait', '?'));
-      c.appendChild(el('p', 'mbdesc', `${D.b || '상대'}가 링크로 12문항을 끝내면 둘의 결과가 떠요`));
-      const sb = c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', '카톡으로 링크 보내기', () => kakaoShare(duoCode(D), `[카스쿼드] ${duoNm(D, 'a')}랑 같이 탈 차 찾기`, '12문항(1분)만 하면 둘 다 만족하는 차가 나와요', '같이 하기', sb)));
+      c.appendChild(el('p', 'mbdesc', `${jo(D.b || '상대', '이', '가')} 12문항을 끝내면 둘의 결과가 떠요`));
+      c.appendChild(el('div', 'mbstart mbc')).appendChild(kkBtn('카카오톡으로 링크 보내기', (sp) => kakaoShare(duoCode(D), `[카스쿼드] ${jo(duoNm(D, 'a'), '이랑', '랑')} 같이 탈 차 찾기`, '12문항(1분)만 하면 둘 다 만족하는 차가 나와요', '같이 하기', sp), true));
       c.appendChild(el('p', 'duohint', STATS_URL ? '이 화면을 열어 두거나, 나중에 같은 링크를 다시 열면 결과가 보여요' : '상대가 결과 링크를 보내 주면 볼 수 있어요'));
       if (STATS_URL) duoPoll(D);
       return;
@@ -6036,7 +6028,7 @@ body.nlnoscroll { overflow: hidden; }
       const c = box.appendChild(el('div', 'card mbintro m2 duopass'));
       c.appendChild(el('span', 'kick', `둘이 같이 탈 차 · ${DUO_REL[D.rel][0]}`));
       const ph = c.appendChild(el('div', 'duophone')); ph.appendChild(el('b', 'done', `${duoNm(D, 'a')} ${D.ta}`)); ph.insertAdjacentHTML('beforeend', DK_ARR); ph.appendChild(el('b', 'wait', '나'));
-      c.appendChild(el('p', 'mbdesc', `${duoNm(D, 'a')}가 같이 탈 차 찾자고 해요`));
+      c.appendChild(el('p', 'mbdesc', `${jo(duoNm(D, 'a'), '이', '가')} 같이 탈 차 찾자고 해요`));
       const nm = c.appendChild(el('div', 'duonm one')); const ip = nm.appendChild(el('input')); ip.placeholder = '내 이름 (선택)'; ip.maxLength = 10; ip.value = D.b || ''; ip.addEventListener('input', () => { D.b = ip.value.replace(/[~#&]/g, '').trim(); });
       c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', '12문항 시작', () => duoStartQuiz(D, 1)));
       return;
@@ -6074,9 +6066,9 @@ body.nlnoscroll { overflow: hidden; }
     });
     if (!M.more && list.length >= 3) f.appendChild(btnEl('chip sm duomore', '더 보기 (5대)', () => { M.more = true; renderPlay(); }));
     const bt = box.appendChild(el('div', 'wcbtns'));
-    if (D.guest) { const sb = bt.appendChild(btnEl('chip gold', `${na}에게 결과 보내기`, () => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} 같이 탈 차`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sb))); }
+    if (D.guest) bt.appendChild(kkBtn(`${na}에게 결과 보내기`, (sp) => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} 같이 탈 차`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sp)));
     const cb = bt.appendChild(btnEl('chip' + (D.guest ? '' : ' gold'), '결과 카드 저장', () => saveBlob(() => makeDuoCard(D), 'carsquad_duo_' + A + '_' + B + '.png', cb)));
-    if (!D.guest && D.room) { const sb = bt.appendChild(btnEl('chip', '공유', () => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} 같이 탈 차`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sb))); }
+    if (!D.guest && D.room) bt.appendChild(kkBtn('카톡 공유', (sp) => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} 같이 탈 차`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sp)));
     bt.appendChild(btnEl('chip', '다른 사람이랑 하기', () => { PLAY.mb = { stage: 'duoset', i: 0, ans: [], result: null, me: '', bud: 0, duo: duoNew() }; renderPlay(); scrollToSection('t-play'); }));
   }
   async function makeDuoCard(D) {
