@@ -1439,7 +1439,7 @@ body.kkopen{overflow:hidden}
 .vd .duosat { display: flex; gap: 6px; margin-top: 4px; } .vd .duosat span { font-size: 11.5px; font-weight: 800; color: #15181c; padding: 2px 7px; border-radius: 6px; }
 .vd .kkbtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 0; border-radius: 10px; background: #fee500; color: #191919; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; } .vd .kkbtn.big { padding: 13px 22px; font-size: 16px; border-radius: 12px; } .vd .kkbtn:active { transform: translateY(1px); }
 .vd .duostep { margin-top: 12px; }
-.vd .duomore { margin: 10px auto 12px; display: table; width: auto; }
+.vd .duomorew { text-align: center; padding: 10px 0 12px; } .vd .duomorew .chip { width: auto; margin: 0; }
 .vd .duoup { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; padding: 12px 14px; border: 1.5px solid #e3b448; border-radius: 12px; background: var(--pn2); font: inherit; cursor: pointer; } .vd .duoup b { color: var(--hi); font-size: 14px; } .vd .duoup span { color: #b8730c; font-weight: 800; font-size: 13px; }
 </style>
 <style>
@@ -5904,7 +5904,8 @@ body.nlnoscroll { overflow: hidden; }
   // ---- 간단 검사(12) · 세부 검사(24) · 둘이 같이 탈 차 (11/24)
   const MBQ_QUICK = [0, 1, 2, 3, 4, 5, 6, 7, 12, 13, 22, 15]; // 축마다 3문항
   function mbStart(full) { const b = PLAY.mb.bud || 0; PLAY.mb = { stage: 'quiz', i: 0, ans: [], result: null, me: '', bud: b, qs: full ? MBQ.map((q, j) => j) : MBQ_QUICK.slice(), quick: !full }; renderPlay(); scrollToSection('t-play'); }
-  const DUO_REL = { couple: ['커플', '승차감·정숙', { 정숙: 0.5, 안전: 0.2 }], friend: ['친구', '트렁크·연비', { 공간: 0.4, 효율: 0.4 }], family: ['가족', '공간·안전', { 공간: 0.6, 안전: 0.5 }] };
+  const duoWho = (D) => (D.rel === 'couple' ? '우리 커플' : '우리들');
+  const DUO_REL = { couple: ['커플', '승차감·정숙', { 정숙: 0.5, 안전: 0.2 }], friend: ['친구·동료', '트렁크·연비', { 공간: 0.4, 효율: 0.4 }], family: ['가족', '공간·안전', { 공간: 0.6, 안전: 0.5 }] };
   const DUO_BUD = [[3000, '3천'], [5000, '5천'], [8000, '8천'], [0, '상관없음']];
   const DUO_NM = ['판박이 콤비', '찰떡 콤비', '밀당 콤비', '보완 콤비', '정반대 콤비'];
   const DK = {
@@ -6010,7 +6011,7 @@ body.nlnoscroll { overflow: hidden; }
       [['a', '나'], ['b', '상대']].forEach(([k, ph]) => { const ip = nm.appendChild(el('input')); ip.value = D[k]; ip.placeholder = ph; ip.maxLength = 10; ip.addEventListener('input', () => { D[k] = ip.value.replace(/[~#&]/g, '').trim(); }); });
       c.appendChild(el('p', 'duolab', '예산'));
       const r3 = c.appendChild(el('div', 'duochips')); DUO_BUD.forEach(([v, t]) => { const b = r3.appendChild(btnEl('chip', t, () => { D.bud = v; renderPlay(); })); b.setAttribute('aria-pressed', v === D.bud); });
-      c.appendChild(el('p', 'duohint duostep', '내가 먼저 12문항 → 카톡으로 링크 보내기 → 상대가 12문항 → 둘의 결과'));
+      c.appendChild(el('p', 'duohint duostep', `내가 먼저 12문항 → 카톡으로 링크 보내기 → 상대가 12문항 → ${duoWho(D)}의 결과`));
       c.appendChild(el('div', 'mbstart mbc')).appendChild(btnEl('chip gold big', '12문항 시작', () => duoStartQuiz(D, 0)));
       return;
     }
@@ -6018,15 +6019,15 @@ body.nlnoscroll { overflow: hidden; }
       const c = box.appendChild(el('div', 'card mbintro m2 duopass'));
       c.appendChild(el('span', 'kick', '링크로 같이 하기'));
       const ph = c.appendChild(el('div', 'duophone')); ph.appendChild(el('b', 'done', `${duoNm(D, 'a')} ${D.ta}`)); ph.insertAdjacentHTML('beforeend', DK_ARR); ph.appendChild(el('b', 'wait', '?'));
-      c.appendChild(el('p', 'mbdesc', `${jo(D.b || '상대', '이', '가')} 12문항을 끝내면 둘의 결과가 떠요`));
-      c.appendChild(el('div', 'mbstart mbc')).appendChild(kkBtn('카카오톡으로 링크 보내기', (sp) => kakaoShare(duoCode(D), `[카스쿼드] ${jo(duoNm(D, 'a'), '이랑', '랑')} 같이 탈 차 찾기`, '12문항(1분)만 하면 둘 다 만족하는 차가 나와요', '같이 하기', sp), true));
+      c.appendChild(el('p', 'mbdesc', `${jo(D.b || '상대', '이', '가')} 12문항을 끝내면 ${duoWho(D)}의 결과가 떠요`));
+      c.appendChild(el('div', 'mbstart mbc')).appendChild(kkBtn('카카오톡으로 링크 보내기', (sp) => kakaoShare(duoCode(D), `[카스쿼드] ${jo(duoNm(D, 'a'), '이랑', '랑')} 같이 탈 차 찾기`, '12문항(1분)만 하면 우리의 붕붕카가 나와요', '같이 하기', sp), true));
       c.appendChild(el('p', 'duohint', STATS_URL ? '이 화면을 열어 두거나, 나중에 같은 링크를 다시 열면 결과가 보여요' : '상대가 결과 링크를 보내 주면 볼 수 있어요'));
       if (STATS_URL) duoPoll(D);
       return;
     }
     if (M.stage === 'duoinvite') {
       const c = box.appendChild(el('div', 'card mbintro m2 duopass'));
-      c.appendChild(el('span', 'kick', `둘이 같이 탈 차 · ${DUO_REL[D.rel][0]}`));
+      c.appendChild(el('span', 'kick', `${duoWho(D)}의 붕붕카 찾기`));
       const ph = c.appendChild(el('div', 'duophone')); ph.appendChild(el('b', 'done', `${duoNm(D, 'a')} ${D.ta}`)); ph.insertAdjacentHTML('beforeend', DK_ARR); ph.appendChild(el('b', 'wait', '나'));
       c.appendChild(el('p', 'mbdesc', `${jo(duoNm(D, 'a'), '이', '가')} 같이 탈 차 찾자고 해요`));
       const nm = c.appendChild(el('div', 'duonm one')); const ip = nm.appendChild(el('input')); ip.placeholder = '내 이름 (선택)'; ip.maxLength = 10; ip.value = D.b || ''; ip.addEventListener('input', () => { D.b = ip.value.replace(/[~#&]/g, '').trim(); });
@@ -6036,7 +6037,7 @@ body.nlnoscroll { overflow: hidden; }
     // 결과
     const A = D.ta, B = D.tb, d = [0, 1, 2, 3].filter((i) => A[i] !== B[i]).length, ov = duoOverlap(D), na = duoNm(D, 'a'), nb = duoNm(D, 'b');
     const c = box.appendChild(el('div', 'card mbres duores m2'));
-    c.appendChild(el('span', 'kick', `둘이 같이 탈 차 · ${DUO_REL[D.rel][0]}`));
+    c.appendChild(el('span', 'kick', `${duoWho(D)}의 결과`));
     const pair = c.appendChild(el('div', 'duopair'));
     [[na, A], [nb, B]].forEach(([n, t], i) => { const p = pair.appendChild(el('div', 'duop')); p.appendChild(el('small', null, n)); p.appendChild(el('b', 'mbtype sm jal', t)); p.appendChild(el('span', 'nk', MBTI[t][0])); if (!i) pair.appendChild(el('span', 'duox', '×')); });
     const gr = c.appendChild(el('div', 'duogrow')); const g = gr.appendChild(el('div', 'duog'));
@@ -6055,7 +6056,7 @@ body.nlnoscroll { overflow: hidden; }
     const drv = A[0] === 'E' ? na : B[0] === 'E' ? nb : na, dj = drv === na ? nb : na;
     const rl = c.appendChild(el('div', 'duorole')); [['운전대', drv], ['조수석 DJ', dj]].forEach(([k, v]) => { const s = rl.appendChild(el('span')); s.appendChild(el('small', null, k)); s.appendChild(el('b', null, v)); });
     const f = box.appendChild(el('div', 'card'));
-    const fh = f.appendChild(el('div', 'ch')); fh.appendChild(el('h2', null, '둘 다 만족하는 차'));
+    const fh = f.appendChild(el('div', 'ch')); fh.appendChild(el('h2', null, `${duoWho(D)}의 붕붕카`));
     fh.appendChild(el('span', 'duotag', `${DUO_REL[D.rel][0]} · ${D.bud ? DUO_BUD.find((x) => x[0] === D.bud)[1] + ' 이하' : '예산 전체'}`));
     const list = duoList(D, M.more ? 5 : 3);
     if (!list.length) f.appendChild(el('p', 'note mbpad', '이 예산 안에는 차가 없어요.'));
@@ -6064,11 +6065,11 @@ body.nlnoscroll { overflow: hidden; }
       const sat = row.querySelector('.nm2').appendChild(el('span', 'duosat'));
       sat.appendChild(el('span', 'ma', `${na} ${x.a}위`)); sat.appendChild(el('span', 'mb', `${nb} ${x.b}위`));
     });
-    if (!M.more && list.length >= 3) f.appendChild(btnEl('chip sm duomore', '더 보기 (5대)', () => { M.more = true; renderPlay(); }));
+    if (!M.more && list.length >= 3) f.appendChild(el('div', 'duomorew')).appendChild(btnEl('chip sm duomore', '더 보기 (5대)', () => { M.more = true; renderPlay(); }));
     const bt = box.appendChild(el('div', 'wcbtns'));
-    if (D.guest) bt.appendChild(kkBtn(`${na}에게 결과 보내기`, (sp) => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} 같이 탈 차`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sp)));
+    if (D.guest) bt.appendChild(kkBtn(`${na}에게 결과 보내기`, (sp) => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} ${duoWho(D)}의 붕붕카`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sp)));
     const cb = bt.appendChild(btnEl('chip' + (D.guest ? '' : ' gold'), '결과 카드 저장', () => saveBlob(() => makeDuoCard(D), 'carsquad_duo_' + A + '_' + B + '.png', cb)));
-    if (!D.guest && D.room) bt.appendChild(kkBtn('카톡 공유', (sp) => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} 같이 탈 차`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sp)));
+    if (!D.guest && D.room) bt.appendChild(kkBtn('카톡 공유', (sp) => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} ${duoWho(D)}의 붕붕카`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sp)));
     bt.appendChild(btnEl('chip', '다른 사람이랑 하기', () => { PLAY.mb = { stage: 'duoset', i: 0, ans: [], result: null, me: '', bud: 0, duo: duoNew() }; renderPlay(); scrollToSection('t-play'); }));
   }
   async function makeDuoCard(D) {
@@ -6080,14 +6081,14 @@ body.nlnoscroll { overflow: hidden; }
     const COLS = ['#e2554c', '#e5a443', '#c8d758', '#45d37f'];
     g.fillStyle = '#0f1115'; g.fillRect(0, 0, W, 96); COLS.forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, 90, W / 4, 6); });
     g.fillStyle = '#e3b448'; g.font = J(40); g.fillText('CAR SQUAD', 44, 62);
-    g.fillStyle = '#c9ced7'; g.font = P('700', 26); g.textAlign = 'right'; g.fillText(`둘이 같이 탈 차 · ${DUO_REL[D.rel][0]}`, W - 44, 60);
+    g.fillStyle = '#c9ced7'; g.font = P('700', 26); g.textAlign = 'right'; g.fillText(`차 MBTI · ${duoWho(D)}의 결과`, W - 44, 60);
     g.textAlign = 'center';
     [[na, D.ta, 230], [nb, D.tb, 850]].forEach(([n, t, x]) => { g.fillStyle = '#a9afbb'; g.font = P('700', 34); g.fillText(n, x, 210); g.fillStyle = '#e3b448'; g.font = J(104); g.fillText(t, x, 320); g.fillStyle = '#f4efe2'; g.font = P('700', 30); g.fillText(MBTI[t][0], x, 372); });
     const cx = W / 2, cy = 270, R = 96, GC = ['#e2554c', '#e2554c', '#e2554c', '#e5a443', '#e5a443', '#c8d758', '#c8d758', '#c8d758', '#45d37f', '#45d37f', '#45d37f'];
     for (let i = 0; i < 11; i++) { const a = (135 + i * 27) * Math.PI / 180; g.fillStyle = i <= Math.round(ov / 10) ? GC[i] : '#2a2f39'; g.beginPath(); g.arc(cx + R * Math.cos(a), cy + R * Math.sin(a), 13, 0, 7); g.fill(); }
     g.fillStyle = '#f4efe2'; g.font = J(52); g.fillText(ov + '%', cx, cy + 18); g.fillStyle = '#a9afbb'; g.font = P('700', 24); g.fillText('취향 겹침', cx, cy + 112);
     g.fillStyle = '#e3b448'; g.font = J(64); g.fillText(DUO_NM[d], W / 2, 500);
-    g.textAlign = 'left'; g.fillStyle = '#f4efe2'; g.font = J(44); g.fillText('둘 다 만족하는 차', 44, 620);
+    g.textAlign = 'left'; g.fillStyle = '#f4efe2'; g.font = J(44); g.fillText(`${duoWho(D)}의 붕붕카`, 44, 620);
     let y = 650;
     duoList(D, 3).forEach((x, i) => {
       g.fillStyle = '#1f2430'; rr(g, 44, y, W - 88, 150, 18); g.fill(); g.fillStyle = COLS[i]; g.fillRect(44, y, 8, 150);
@@ -6100,7 +6101,7 @@ body.nlnoscroll { overflow: hidden; }
     g.fillStyle = '#c9ced7'; g.font = P('700', 32); g.fillText(`운전대 ${drv} · 조수석 DJ ${drv === na ? nb : na}`, 44, y + 50);
     g.fillStyle = '#0f1115'; g.fillRect(0, H - 86, W, 86); COLS.forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, H - 8, W / 4, 8); });
     g.fillStyle = '#e3b448'; g.font = P('800', 32); g.fillText('carsquad.pages.dev', 44, H - 34);
-    g.fillStyle = '#c9ced7'; g.font = P('600', 26); g.textAlign = 'right'; g.fillText('우리 둘이 탈 차는? 차 MBTI', W - 44, H - 36);
+    g.fillStyle = '#c9ced7'; g.font = P('600', 26); g.textAlign = 'right'; g.fillText(D.rel === 'couple' ? '우리 커플의 붕붕카는? 차 MBTI' : '우리들의 붕붕카는? 차 MBTI', W - 44, H - 36);
     return new Promise((res) => cv.toBlob(res, 'image/png'));
   }
   function renderPlay() {
@@ -6222,6 +6223,7 @@ body.nlnoscroll { overflow: hidden; }
 
   // ------------------------------------------------------------------ 홈
   const UPDATES = [
+    ['11.24', '차 MBTI — 간단 검사(12문항)와 세부 검사(24문항)로 나눴어요. 커플·친구·가족과 둘이 같이 해서 우리의 붕붕카를 찾는 "둘이 같이"도 생겼어요'],
     ['11.23', '차 데이터 최신화 — 판매 중인 차 가격 36대를 최신 가격표로 바꾸고 트렁크·무게·제로백·주행거리 등 빈칸 약 460칸을 채웠어요. 디 올 뉴 투싼 트림 16개, 중고 시세 259대도 새로 반영'],
     ['11.22', '운영 정비 — 맨 위 공지 한 줄과 오늘의 선수를 바로바로 바꿀 수 있게 했어요'],
     ['11.22', '선수 카드 — 선수 화면 맨 위가 등급 카드로 바뀌었어요. OVR에 따라 에이스(70+)·주전(60대)·로테이션(50대)·유망주(~49) 색 테두리, 능력치 6개(정숙·성능·효율·공간·안전·가치)를 한눈에'],
