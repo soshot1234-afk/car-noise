@@ -5920,10 +5920,10 @@ body.nlnoscroll { overflow: hidden; }
   function duoNew() { return { rel: 'couple', a: '', b: '', bud: 5000, how: 'link', turn: 0 }; }
   const jo = (n, a, b) => { const c = String(n).charCodeAt(String(n).length - 1); return n + (c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 ? a : b); };
   const duoNm = (D, k) => (k === 'a' ? D.a || '나' : D.b || '상대');
-  function duoRank(type, bud) { const m = {}; let n = 0; mbFitList(type, 9999, bud).forEach(([r]) => { m[modelKey(r)] = ++n; }); return (r) => m[modelKey(r)] || n; }
+  function duoRank(type, bud) { const m = {}; let n = 0; mbFitList(type, 9999, bud).filter(([r]) => !r.legend).forEach(([r]) => { m[modelKey(r)] = ++n; }); // 단종(레전드) 빼고 지금 살 수 있는 차만 return (r) => m[modelKey(r)] || n; }
   function duoList(D, n) {
     const ra = duoRank(D.ta, D.bud), rb = duoRank(D.tb, D.bud), w = (DUO_REL[D.rel] || DUO_REL.couple)[2]; const seen = new Set();
-    return mbBudPool(D.bud).map((r) => { const a = ra(r), b = rb(r); let z = 0; Object.entries(w).forEach(([k, v]) => { z += v * zg(r, k); }); return { r, a, b, s: Math.max(a, b) + 0.3 * (a + b) - z * 12 }; })
+    return mbBudPool(D.bud).filter((r) => !r.legend).map((r) => { const a = ra(r), b = rb(r); let z = 0; Object.entries(w).forEach(([k, v]) => { z += v * zg(r, k); }); return { r, a, b, s: Math.max(a, b) + 0.3 * (a + b) - z * 12 }; })
       .sort((x, y) => x.s - y.s).filter((x) => { const k = modelKey(x.r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
   }
   function duoOverlap(D) { let s = 0; for (let i = 0; i < 4; i++) s += Math.abs(D.pa[i] - D.pb[i]); return Math.round(100 - s / 4 * 0.8); } // 정반대여도 20%
