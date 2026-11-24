@@ -2543,7 +2543,7 @@ body.nlnoscroll { overflow: hidden; }
     CARS.forEach((r) => {
       r.safety_pts = safetyPts(r); r.depy = r.dep && r.dep.r > 0.5 && r.dep.r < 1.02 ? Math.round((1 - r.dep.r) * 1000) / 10 : NaN;
       const e = EST[r.id] || {};
-      if (isNaN(r.safety_pts) && e.safety_pts) { r.safety_pts = e.safety_pts[0]; r._e.safety_pts = { s: e.safety_pts[1], c: e.safety_pts[2] }; }
+      if (isNaN(r.safety_pts) && e.safety_pts) { r.safety_pts = Math.round((e.safety_pts[0] - 1.5) * 10) / 10; r._e.safety_pts = { s: e.safety_pts[1] + ' · 충돌평가 없어 1.5점 낮춤', c: e.safety_pts[2] }; } /* 추정 안전 점수가 실제 평가받은 차보다 높게 나오지 않게 */
       if (isNaN(r.depy) && e.depy) { r.depy = e.depy[0]; r._e.depy = { s: e.depy[1], c: e.depy[2] }; }
     });
     // 세대 보정(살짝): ① 이전 세대는 차가 오래될수록 1년 감가율이 커 보이는 만큼의 절반만 빼 줌 ② 옛날 신차가는 물가(연 2.3%)만큼 지금 돈으로 바꿔서 몸값 비교
@@ -2591,6 +2591,7 @@ body.nlnoscroll { overflow: hidden; }
       });
       if (a.pool === 'fe') CARS.forEach((r) => { if (blank(V(r, 'fe'))) r['s_' + a.k] = NaN; });
       if (a.k === 'quiet' || a.k === 'qvalue') CARS.forEach((r) => { if (r.noise_conf === '낮음') r['s_' + a.k] = NaN; });
+      if (a.k === 'durab') CARS.forEach((r) => { if (r.rec_n === 0 && r.tage >= 3) r.s_durab = NaN; }); /* 나온 지 3년 넘었는데 리콜 0건 = 자료 누락 가능성 → 점수에서 뺌 */
     });
     groupAll();
   }
@@ -5617,9 +5618,12 @@ body.nlnoscroll { overflow: hidden; }
     return { sc, top: parts.filter((x) => x[1] > 0.2).slice(0, 2).map((x) => x[0]) };
   }
   function mbBudPool(bud) { return activePool().filter((r) => !isNaN(r._ovr) && (!bud || r.price <= bud)); }
+  // 판매량 (다나와 자동차 판매실적 = KAMA·KAIDA, 2026년 1~10월 누적, 2026.11.24 확인) — 점수가 같으면 많이 팔린 차 먼저
+  const SALES26 = {"BMW|iX":1055,"폴스타|폴스타 3":208,"현대|그랜저":68740,"제네시스|GV70":20711,"기아|K8":17317,"볼보|EX90":485,"제네시스|G80":24404,"아우디|A6":2611,"BMW|X5":5584,"BMW|X3":6793,"KGM|렉스턴":798,"GMC|캐니언":198,"아우디|Q5":2472,"아우디|Q8":525,"포드|익스페디션":19,"벤츠|EQE":513,"현대|아이오닉 6":7150,"BMW|iX3":864,"아우디|S5":807,"제네시스|GV80":17325,"제네시스|G90":3978,"현대|쏘나타":46075,"아우디|S6":124,"램|1500":0,"기아|EV3":29823,"KGM|무쏘":15954,"기아|EV5":28263,"토요타|하이랜더":242,"벤츠|GLC":6948,"링컨|노틸러스":96,"벤츠|GLE":5504,"기아|쏘렌토":81717,"기아|카니발":52161,"쉐보레|콜로라도":36,"벤츠|E클래스":21205,"아우디|Q7":371,"현대|아이오닉 5":18264,"테슬라|사이버트럭":570,"벤츠|EQS":142,"테슬라|모델 3":15459,"폴스타|폴스타 4":3753,"GMC|아카디아":275,"볼보|S90":1366,"아우디|Q6":149,"BMW|5시리즈":21952,"BYD|씰":1363,"혼다|어코드":57,"혼다|오딧세이":72,"현대|아이오닉 9":11083,"르노코리아|그랑 콜레오스":12249,"제네시스|G70":1153,"BMW|i5":2635,"현대|팰리세이드":30311,"BYD|씨라이언 6":1231,"볼보|EX30":3050,"기아|EV6":7872,"토요타|프리우스":810,"테슬라|모델 Y":78631,"벤츠|C클래스":1206,"토요타|캠리":2074,"볼보|XC60":3721,"혼다|파일럿":68,"GMC|시에라":161,"쉐보레|트레일블레이저":1502,"기아|K5":25628,"볼보|V60":439,"토요타|시에나":646,"렉서스|RX":2548,"볼보|XC90":1444,"현대|코나":26141,"기아|셀토스":44517,"폭스바겐|아틀라스":695,"렉서스|ES":3698,"BMW|4시리즈":1364,"푸조|3008":173,"BMW|X1":1643,"기아|스포티지":53723,"현대|싼타페":33615,"BMW|3시리즈":5173,"현대|베뉴":7966,"벤츠|EQB":807,"지프|그랜드 체로키":68,"르노코리아|필랑트":11834,"기아|EV9":2938,"벤츠|CLE":2451,"쉐보레|트랙스":6563,"토요타|RAV4":2868,"벤츠|CLA":601,"KGM|티볼리":4545,"기아|PV5":23792,"렉서스|NX":4425,"현대|아반떼":45789,"혼다|CR-V":371,"BYD|돌핀":8938,"포드|익스플로러":103,"르노코리아|세닉":358,"지프|랭글러":738,"포르쉐|마칸":1165,"미니|컨트리맨":1192,"BMW|1시리즈":810,"토요타|GR86":190,"아우디|A3":974,"BMW|M2":386,"폭스바겐|골프":1612,"미니|쿠퍼":4789,"아우디|RS 3":974,"BMW|2시리즈":1640,"BMW|M3":202,"BMW|M4":183,"BMW|X2":603,"BMW|X4":1239,"BMW|X6":2398,"BMW|Z4":400,"BMW|i4":637,"BMW|iX1":1067,"BMW|iX2":636,"BYD|씨라이언 7":7413,"BYD|아토 3":2786,"KGM|토레스":4742,"KGM|액티언":4811,"기아|EV4":10766,"기아|K9":951,"기아|니로":13552,"기아|레이":42003,"기아|모닝":20830,"기아|타스만":3601,"랜드로버|디스커버리":54,"랜드로버|디스커버리 스포츠":0,"랜드로버|디펜더":1051,"랜드로버|레인지로버 벨라":340,"랜드로버|레인지로버 스포츠":1199,"랜드로버|레인지로버 이보크":167,"렉서스|LM":565,"렉서스|UX":970,"르노코리아|아르카나":5466,"미니|에이스맨":789,"벤츠|GLB":598,"벤츠|EQA":385,"벤츠|GLA":305,"볼보|ES90":473,"볼보|XC40":1304,"아우디|A5":807,"아우디|Q3":434,"아우디|Q4":1971,"아우디|SQ6":149,"아우디|SQ7":371,"이네오스|그레나디어":0,"제네시스|GV60":1107,"지커|7X":178,"지프|글래디에이터":148,"지프|어벤저":0,"토요타|알파드":1630,"토요타|크라운":1091,"포르쉐|카이엔":2223,"포르쉐|타이칸":1820,"폭스바겐|ID.4":1707,"폭스바겐|ID.5":665,"폭스바겐|투아렉":470,"푸조|308":31,"푸조|408":94,"푸조|5008":198,"현대|캐스퍼":13453,"현대|스타리아":26650,"현대|넥쏘":4654,"포드|머스탱":262,"현대|투싼":25799,"제네시스|GV90":5};
+  const salesOf = (r) => SALES26[r.mk + '|' + r.md] || 0;
   function mbFitList(type, n, bud) {
     const seen = new Set();
-    return mbBudPool(bud).map((r) => [r, fitScore(r, type)]).sort((x, y) => y[1].sc - x[1].sc).filter(([r]) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
+    return mbBudPool(bud).map((r) => [r, fitScore(r, type)]).sort((x, y) => Math.round(y[1].sc * 10) - Math.round(x[1].sc * 10) || salesOf(y[0]) - salesOf(x[0])).filter(([r]) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
   }
   function mbSameList(type, n, bud) {
     const pool = mbBudPool(bud); let a = pool.filter((r) => carMBTI(r) === type);
@@ -5921,10 +5925,12 @@ body.nlnoscroll { overflow: hidden; }
   const jo = (n, a, b) => { const c = String(n).charCodeAt(String(n).length - 1); return n + (c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 ? a : b); };
   const duoNm = (D, k) => (k === 'a' ? D.a || '나' : D.b || '상대');
   function duoRank(type, bud) { const m = {}; let n = 0; mbFitList(type, 9999, bud).filter(([r]) => !r.legend).forEach(([r]) => { m[modelKey(r)] = ++n; }); /* 단종(레전드) 빼고 지금 살 수 있는 차만 */ return (r) => m[modelKey(r)] || n; }
+  // 관계별 차 종류: 가족 = SUV·미니밴·왜건 (세단·픽업·고성능 빼기), 커플·친구 = 픽업만 빼기
+  function duoFit(rel, r) { return rel === 'family' ? /SUV|MPV|왜건/.test(r.body) && !r.fun : r.body !== '픽업'; }
   function duoList(D, n) {
     const ra = duoRank(D.ta, D.bud), rb = duoRank(D.tb, D.bud), w = (DUO_REL[D.rel] || DUO_REL.couple)[2]; const seen = new Set();
-    return mbBudPool(D.bud).filter((r) => !r.legend).map((r) => { const a = ra(r), b = rb(r); let z = 0; Object.entries(w).forEach(([k, v]) => { z += v * zg(r, k); }); return { r, a, b, s: Math.max(a, b) + 0.3 * (a + b) - z * 12 }; })
-      .sort((x, y) => x.s - y.s).filter((x) => { const k = modelKey(x.r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
+    return mbBudPool(D.bud).filter((r) => !r.legend && duoFit(D.rel, r)).map((r) => { const a = ra(r), b = rb(r); let z = 0; Object.entries(w).forEach(([k, v]) => { z += v * zg(r, k); }); return { r, a, b, s: Math.max(a, b) + 0.3 * (a + b) - z * 12 }; })
+      .sort((x, y) => Math.round(x.s) - Math.round(y.s) || salesOf(y.r) - salesOf(x.r)).filter((x) => { const k = modelKey(x.r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
   }
   function duoOverlap(D) { let s = 0; for (let i = 0; i < 4; i++) s += Math.abs(D.pa[i] - D.pb[i]); return Math.round(100 - s / 4 * 0.8); } // 정반대여도 20%
   // 링크: #tab=play&duo=방~A유형~A%~관계~예산~A이름[~B유형~B%~B이름]
