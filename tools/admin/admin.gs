@@ -21,12 +21,14 @@ var ADM_CONFIG_DEFAULT = { notice_on: false, notice_text: '', pick_on: false, pi
 function admGet(e) {
   var q = e && e.parameter && e.parameter.q;
   if (q === 'config') return admJson(admConfigPublic());
+  if (q === 'duo') return admJson(duoRead(e.parameter.room));
   return null; // 나머지는 기존 doGet이 처리
 }
 
 function admPost(e) {
   var body;
   try { body = JSON.parse((e && e.postData && e.postData.contents) || '{}'); } catch (err) { return null; }
+  if (body && body.t === 'duo') return admJson(duoWrite(body));
   if (!body || body.t !== 'admin') return null; // 관리실 요청이 아니면 기존 doPost가 처리
   var gate = admCheckKey(body.key);
   if (gate) return admJson({ ok: false, error: gate });
@@ -248,4 +250,33 @@ function admConfigPublic() {
   };
   cache.put('adm_cfg', JSON.stringify(pub), 60);
   return pub;
+}
+
+
+// ---------------------------------------------------------------- 차 MBTI '둘이 같이' 결과 우편함 (11/24)
+// 링크로 같이 할 때 상대의 결과(유형·축 %)만 잠깐 맡아 둡니다. 이름은 받지 않고, 7일 지나면 지웁니다.
+var DUO_TAB = 'duo';
+var DUO_TYPES = /^[EI][SN][TF][JP]$/;
+function duoSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet(); var sh = ss.getSheetByName(DUO_TAB);
+  if (!sh) { sh = ss.insertSheet(DUO_TAB); sh.appendRow(['time', 'room', 'tb', 'pb']); }
+  return sh;
+}
+function duoRoomOk(room) { return typeof room === 'string' && /^[a-z0-9]{6,10}$/.test(room); }
+function duoRead(room) {
+  if (!duoRoomOk(room)) return { ok: false };
+  var v = duoSheet().getDataRange().getValues();
+  for (var i = v.length - 1; i >= 1; i--) if (String(v[i][1]) === room) return { ok: true, tb: String(v[i][2]), pb: String(v[i][3]).split('.').map(Number) };
+  return { ok: true, tb: '' };
+}
+function duoWrite(b) {
+  if (!duoRoomOk(b.room) || !DUO_TYPES.test(String(b.tb || '')) || !Array.isArray(b.pb) || b.pb.length !== 4) return { ok: false };
+  var pb = b.pb.map(function (x) { x = Math.round(Number(x)); return isNaN(x) ? 50 : Math.max(0, Math.min(100, x)); });
+  var lock = LockService.getScriptLock(); lock.waitLock(5000);
+  try {
+    var sh = duoSheet(), v = sh.getDataRange().getValues(), cut = Date.now() - 7 * 864e5;
+    for (var i = v.length - 1; i >= 1; i--) { var t = v[i][0] instanceof Date ? v[i][0].getTime() : Number(v[i][0]); if (String(v[i][1]) === b.room) return { ok: true, dup: true }; if (t && t < cut) sh.deleteRow(i + 1); }
+    sh.appendRow([new Date(), b.room, b.tb, pb.join('.')]);
+    return { ok: true };
+  } finally { lock.releaseLock(); }
 }
