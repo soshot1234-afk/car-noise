@@ -5949,11 +5949,37 @@ body.nlnoscroll { overflow: hidden; }
   const duoNm = (D, k) => (k === 'a' ? D.a || '나' : D.b || '상대');
   function duoRank(type, bud) { const m = {}; let n = 0; mbFitList(type, 9999, bud).filter(([r]) => !r.legend).forEach(([r]) => { m[modelKey(r)] = ++n; }); /* 단종(레전드) 빼고 지금 살 수 있는 차만 */ return (r) => m[modelKey(r)] || n; }
   // 관계별 차 종류: 가족 = SUV·미니밴·왜건 (세단·픽업·고성능 빼기), 커플·친구 = 픽업만 빼기
-  function duoFit(rel, r) { return rel === 'family' ? /SUV|MPV|왜건/.test(r.body) && !r.fun : r.body !== '픽업'; }
+  function duoFit(rel, r, bud) { return rel === 'family' ? (bud === 3000 ? /SUV|MPV|왜건|세단|해치백/ : /SUV|MPV|왜건/).test(r.body) && !r.fun : r.body !== '픽업'; } // 가족 3천 이하는 SUV가 몇 종 없어 세단·해치백도 (11/27)
+  // 둘이 같이 붕붕카 (11/27): 두 사람 순위(나쁜 쪽 + 합의 0.3배) + 관계 기준(승차감·트렁크·공간 등) 점수는 그대로,
+  // 같은 차가 여러 쌍의 1위·TOP3를 독차지하지 않게 차마다 횟수 상한을 두고,
+  // 상한 찬 차 대신 올라오는 차도 점수 차 12 안 + 두 사람 다 15위(2·3위는 20위) 안인 차만 (원래 차가 더 낮으면 그 순위 안).
+  // 두 사람 모두 1·2위로 꼽은 차는 상한과 상관없이 그 자리 그대로
+  const MBPAIRS = []; MBTYPES.forEach((a, i) => MBTYPES.slice(i).forEach((b) => MBPAIRS.push([a, b])));
+  const DUOC = {}; const pk = (a, b) => [a, b].sort().join('');
+  function duoCtx(rel, bud) {
+    const pool = mbBudPool(bud).filter((r) => !r.legend && duoFit(rel, r, bud)); const key = rel + '|' + (bud || 0) + '|' + pool.length;
+    if (DUOC[key]) return DUOC[key];
+    const w = (DUO_REL[rel] || DUO_REL.couple)[2]; const RK = {}; MBTYPES.forEach((t) => { RK[t] = duoRank(t, bud); });
+    const rz = new Map(pool.map((r) => { let z = 0; Object.entries(w).forEach(([k, v]) => { z += v * Math.max(-2, Math.min(2, zg(r, k))); }); return [r, z]; }));
+    const L = {}; const models = new Set(pool.map(modelKey)).size;
+    MBPAIRS.forEach(([a, b]) => { const seen = new Set();
+      L[pk(a, b)] = pool.map((r) => { const x = RK[a](r), y = RK[b](r); return { r, a: x, b: y, s: Math.max(x, y) + 0.3 * (x + y) - rz.get(r) * 12 }; })
+        .sort((x, y) => Math.round(x.s) - Math.round(y.s) || salesOf(y.r) - salesOf(x.r))
+        .filter((x) => { const k = modelKey(x.r); if (seen.has(k)) return false; seen.add(k); return true; }); L[pk(a, b)].ta = a; });
+    // 1위는 136쌍 중 8번까지, TOP3 등장은 30번까지 (예산 안 차종이 적으면 더 넉넉히)
+    const cap1 = Math.max(8, Math.ceil(MBPAIRS.length * 1.3 / Math.max(1, models))), cap3 = Math.max(30, Math.ceil(MBPAIRS.length * 3 * 1.3 / Math.max(1, models)));
+    const c1 = {}, c3 = {}; const worst = (x) => Math.max(x.a, x.b);
+    const gap = (l, p) => (l[p + 1] ? l[p + 1].s - l[p].s : 99); // 그 자리 점수 차가 큰 쌍(누가 봐도 그 차)부터
+    const LS = MBPAIRS.map(([a, b]) => L[pk(a, b)]).filter((l) => l.length);
+    [0, 1, 2].forEach((p) => LS.filter((l) => l.length > p).sort((x, y) => gap(y, p) - gap(x, p)).forEach((l) => {
+      const lim = Math.max(p ? 20 : 15, worst(l[p])), top = l[p].s + 12;
+      let i = worst(l[p]) <= 2 ? p : l.findIndex((x, j) => j >= p && (c3[modelKey(x.r)] || 0) < cap3 && (p || (c1[modelKey(x.r)] || 0) < cap1) && x.s <= top && worst(x) <= lim); if (i < 0) i = p;
+      if (i !== p) l.splice(p, 0, l.splice(i, 1)[0]); const k = modelKey(l[p].r); c3[k] = (c3[k] || 0) + 1; if (!p) c1[k] = (c1[k] || 0) + 1; }));
+    return (DUOC[key] = L);
+  }
   function duoList(D, n) {
-    const ra = duoRank(D.ta, D.bud), rb = duoRank(D.tb, D.bud), w = (DUO_REL[D.rel] || DUO_REL.couple)[2]; const seen = new Set();
-    return mbBudPool(D.bud).filter((r) => !r.legend && duoFit(D.rel, r)).map((r) => { const a = ra(r), b = rb(r); let z = 0; Object.entries(w).forEach(([k, v]) => { z += v * zg(r, k); }); return { r, a, b, s: Math.max(a, b) + 0.3 * (a + b) - z * 12 }; })
-      .sort((x, y) => Math.round(x.s) - Math.round(y.s) || salesOf(y.r) - salesOf(x.r)).filter((x) => { const k = modelKey(x.r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
+    const l = duoCtx(D.rel, D.bud)[pk(D.ta, D.tb)] || []; const sw = D.ta !== l.ta; // a·b를 사람 순서로 맞춰 줌
+    return l.slice(0, n).map((x) => ({ r: x.r, a: sw ? x.b : x.a, b: sw ? x.a : x.b, s: x.s }));
   }
   function duoOverlap(D) { let s = 0; for (let i = 0; i < 4; i++) s += Math.abs(D.pa[i] - D.pb[i]); return Math.round(100 - s / 4 * 0.8); } // 정반대여도 20%
   // 링크: #tab=play&duo=방~A유형~A%~관계~예산~A이름[~B유형~B%~B이름]
@@ -6252,6 +6278,7 @@ body.nlnoscroll { overflow: hidden; }
 
   // ------------------------------------------------------------------ 홈
   const UPDATES = [
+    ['11.27', '둘이 같이 붕붕카가 더 다양해졌어요 — 같은 차가 여러 조합의 1위를 독차지하지 않게, 가족 3천 이하는 세단·해치백도 같이 봐요'],
     ['11.27', '차 MBTI 추천을 손봤어요 — 16유형마다 1위 차가 겹치지 않고, N 유형은 전기·하이브리드 위주로. 둘이 같이 붕붕카는 지금 살 수 있는 차만, 같은 점수면 많이 팔린 차 먼저'],
     ['11.24', '차 MBTI — 간단 검사(12문항)와 세부 검사(24문항)로 나눴어요. 커플·친구·가족과 둘이 같이 해서 우리의 붕붕카를 찾는 "둘이 같이"도 생겼어요'],
     ['11.23', '차 데이터 최신화 — 판매 중인 차 가격 36대를 최신 가격표로 바꾸고 트렁크·무게·제로백·주행거리 등 빈칸 약 460칸을 채웠어요. 디 올 뉴 투싼 트림 16개, 중고 시세 259대도 새로 반영'],
