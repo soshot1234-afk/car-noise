@@ -69,6 +69,7 @@ ol.steps li{counter-increment:s}ol.steps a{display:grid;grid-template-columns:30
 ol.steps a::before{content:counter(s);grid-row:span 2;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font-weight:800}
 ol.steps b{font-size:15px}ol.steps small{color:var(--mu);font-size:13px}
 table.used td,table.used th{white-space:nowrap}table.used td small{color:var(--mu);font-weight:400}
+@media(max-width:360px){table.used{font-size:13px}table.used td,table.used th{padding:8px 3px}}
 ul.rec{margin:0 0 8px;padding-left:18px;font-size:14.5px}ul.rec time{font-weight:700;margin-right:6px;font-variant-numeric:tabular-nums}
 .topics{display:flex;flex-wrap:wrap;gap:8px}.topics a{padding:8px 12px;border:1px solid var(--line);border-radius:20px;background:#fff;text-decoration:none;color:var(--tx);font-size:14px;font-weight:700}
 ol.rank{margin:0;padding-left:22px}ol.rank li{padding:6px 0;border-top:1px solid var(--line);font-size:15px}ol.rank li:first-child{border-top:0}ol.rank small{color:var(--mu);margin-left:6px}
