@@ -5605,17 +5605,27 @@ body.nlnoscroll { overflow: hidden; }
     T: ['연비·가성비', { 효율: 0.7, 가치: 0.5 }], F: ['공간·안락함', { 공간: 0.7, 정숙: 0.4 }],
     J: ['안전·신뢰', { 안전: 0.9 }], P: ['재미·개성', { 성능: 0.3 }]
   };
-  function fitScore(r, type) {
+  // 11/26 손봄: 점수 한쪽으로 쏠림 막기 — 능력치 차이는 ±2까지만, 충돌평가 없는 추정 안전은 0.5 낮춤, N은 전동화 아니면 -2, 픽업은 생활차가 아니라 -1.5
+  function fitBase(r, type) {
     if (!Object.keys(GSTAT).length) gstat();
     const w = {}; type.split('').forEach((c) => Object.entries(MBFIT[c][1]).forEach(([k, v]) => { w[k] = (w[k] || 0) + v; }));
     let sc = 0; const parts = [];
-    Object.entries(w).forEach(([k, v]) => { const z = zg(r, k); sc += v * z; parts.push([k, v * z]); });
+    Object.entries(w).forEach(([k, v]) => { let z = Math.max(-2, Math.min(2, zg(r, k))); if (k === '안전' && r._e && r._e.safety_pts) z -= 0.5; sc += v * z; parts.push([k, v * z]); });
     const elec = /전기|PHEV|수소/.test(r.powertrain), hyb = /하이브리드/.test(r.powertrain);
-    if (type[1] === 'N') sc += elec ? 1.2 : hyb ? 0.6 : -1; else sc += elec ? -0.6 : 0.2;
+    if (type[1] === 'N') sc += elec ? 1.2 : hyb ? 0.6 : -2; else sc += elec ? -1.2 : 0.2;
     if (type[3] === 'P') sc += (r.fun ? 0.6 : 0) + (/쿠페|컨버터블/.test(r.body) ? 0.3 : 0);
+    if (r.body === '픽업') sc -= 1.5;
     sc += isNaN(r._ovr) ? -1 : (r._ovr - 60) / 15 * 0.6;
     parts.sort((x, y) => y[1] - x[1]);
     return { sc, top: parts.filter((x) => x[1] > 0.2).slice(0, 2).map((x) => x[0]) };
+  }
+  // 모든 유형에 두루 높은 '만능 차'가 16유형을 다 차지하지 않게, 16유형 평균 점수의 절반을 빼서 "이 유형에 특히 맞는 정도"로 줄 세움
+  const MBTYPES = ['ISTJ', 'ISFJ', 'INFJ', 'INTJ', 'ISTP', 'ISFP', 'INFP', 'INTP', 'ESTP', 'ESFP', 'ENFP', 'ENTP', 'ESTJ', 'ESFJ', 'ENFJ', 'ENTJ'];
+  const FITAVG = new Map();
+  function fitScore(r, type) {
+    const b = fitBase(r, type);
+    if (!FITAVG.has(r.id)) FITAVG.set(r.id, MBTYPES.reduce((a, t) => a + fitBase(r, t).sc, 0) / 16);
+    return { sc: b.sc - 0.5 * FITAVG.get(r.id), top: b.top };
   }
   function mbBudPool(bud) { return activePool().filter((r) => !isNaN(r._ovr) && (!bud || r.price <= bud)); }
   // 판매량 (다나와 자동차 판매실적 = KAMA·KAIDA, 2026년 1~10월 누적, 2026.11.24 확인) — 점수가 같으면 많이 팔린 차 먼저
@@ -5624,6 +5634,19 @@ body.nlnoscroll { overflow: hidden; }
   function mbFitList(type, n, bud) {
     const seen = new Set();
     return mbBudPool(bud).map((r) => [r, fitScore(r, type)]).sort((x, y) => Math.round(y[1].sc * 10) - Math.round(x[1].sc * 10) || salesOf(y[0]) - salesOf(x[0])).filter(([r]) => { const k = modelKey(r); if (seen.has(k)) return false; seen.add(k); return true; }).slice(0, n);
+  }
+  // 유형별 대표 차(1위)는 16유형끼리 겹치지 않게 — 점수가 가장 확실한 유형부터 차를 하나씩 배정
+  const MBREP = {};
+  function mbRepList(type, n, bud) {
+    const key = (bud || 0) + '|' + mbBudPool(bud).length;
+    if (!MBREP[key]) {
+      const L = {}; MBTYPES.forEach((t) => { L[t] = mbFitList(t, 9999, bud).filter(([r]) => !r.legend); });
+      const rep = {}, used = new Set();
+      for (let i = 0; i < 16; i++) { let best = null; MBTYPES.forEach((t) => { if (rep[t]) return; const c = L[t].find(([r]) => !used.has(modelKey(r))); if (c && (!best || c[1].sc > best[1][1].sc)) best = [t, c]; }); if (!best) break; rep[best[0]] = best[1]; used.add(modelKey(best[1][0])); }
+      MBREP[key] = { L, rep };
+    }
+    const { L, rep } = MBREP[key]; const r0 = rep[type]; if (!r0) return L[type].slice(0, n);
+    return [r0].concat(L[type].filter(([r]) => modelKey(r) !== modelKey(r0[0]))).slice(0, n);
   }
   function mbSameList(type, n, bud) {
     const pool = mbBudPool(bud); let a = pool.filter((r) => carMBTI(r) === type);
@@ -5807,10 +5830,10 @@ body.nlnoscroll { overflow: hidden; }
     opt = opt || {}; const bud = PLAY.mb.bud || 0;
     const f = box.appendChild(el('div', 'card'));
     const fh = f.appendChild(el('div', 'ch')); fh.appendChild(el('h2', null, `🎯 ${t} 성향 맞춤 추천`));
-    const fl = mbFitList(t, 6, bud);
+    const fl = mbRepList(t, 6, bud);
     fh.appendChild(btnEl('chip sm', '♡ 모두 찜해서 카 스쿼드 짜기', () => { fl.forEach(([r]) => toggleFav(r.id, true)); show('t-sq'); }));
     const why = f.appendChild(el('p', 'note mbpad'));
-    why.textContent = `${t} 성향을 차 고르는 기준으로 바꾸면 → ` + t.split('').map((c) => MBFIT[c][0]).join(' + ') + ' 중시. 이 기준 점수가 높은 순이에요.';
+    why.textContent = `${t} 성향을 차 고르는 기준으로 바꾸면 → ` + t.split('').map((c) => MBFIT[c][0]).join(' + ') + ' 중시. 1위는 16유형마다 겹치지 않는 대표 차이고, 2위부터는 이 기준 점수 순이에요.';
     mbBudChips(f);
     if (!fl.length) f.appendChild(el('p', 'note mbpad', '이 예산 안에는 차가 없어요. 예산을 넓혀 보세요.'));
     fl.forEach(([r, x], i) => f.appendChild(miniRow(r, `${i + 1}위 · ${x.top.length ? x.top.join('·') + ' 강점 · ' : ''}${r.powertrain} · ${r.body} · ${priceTxt(r)} 원`)));
