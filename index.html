@@ -5949,7 +5949,7 @@ body.nlnoscroll { overflow: hidden; }
   const duoNm = (D, k) => (k === 'a' ? D.a || '나' : D.b || '상대');
   function duoRank(type, bud) { const m = {}; let n = 0; mbFitList(type, 9999, bud).filter(([r]) => !r.legend).forEach(([r]) => { m[modelKey(r)] = ++n; }); /* 단종(레전드) 빼고 지금 살 수 있는 차만 */ return (r) => m[modelKey(r)] || n; }
   // 관계별 차 종류: 가족 = SUV·미니밴·왜건 (세단·픽업·고성능 빼기), 커플·친구 = 픽업만 빼기
-  function duoFit(rel, r) { return rel === 'family' ? /SUV|MPV|왜건/.test(r.body) && !r.fun : r.body !== '픽업'; }
+  function duoFit(rel, r, bud) { return rel === 'family' ? (bud === 3000 ? /SUV|MPV|왜건|세단|해치백/ : /SUV|MPV|왜건/).test(r.body) && !r.fun : r.body !== '픽업'; } // 가족 3천 이하는 SUV가 몇 종 없어 세단·해치백도 (11/27)
   // 둘이 같이 붕붕카 (11/27): 두 사람 순위(나쁜 쪽 + 합의 0.3배) + 관계 기준(승차감·트렁크·공간 등) 점수는 그대로,
   // 같은 차가 여러 쌍의 1위·TOP3를 독차지하지 않게 차마다 횟수 상한을 두고,
   // 상한 찬 차 대신 올라오는 차도 점수 차 12 안 + 두 사람 다 15위(2·3위는 20위) 안인 차만 (원래 차가 더 낮으면 그 순위 안).
@@ -5957,7 +5957,7 @@ body.nlnoscroll { overflow: hidden; }
   const MBPAIRS = []; MBTYPES.forEach((a, i) => MBTYPES.slice(i).forEach((b) => MBPAIRS.push([a, b])));
   const DUOC = {}; const pk = (a, b) => [a, b].sort().join('');
   function duoCtx(rel, bud) {
-    const pool = mbBudPool(bud).filter((r) => !r.legend && duoFit(rel, r)); const key = rel + '|' + (bud || 0) + '|' + pool.length;
+    const pool = mbBudPool(bud).filter((r) => !r.legend && duoFit(rel, r, bud)); const key = rel + '|' + (bud || 0) + '|' + pool.length;
     if (DUOC[key]) return DUOC[key];
     const w = (DUO_REL[rel] || DUO_REL.couple)[2]; const RK = {}; MBTYPES.forEach((t) => { RK[t] = duoRank(t, bud); });
     const rz = new Map(pool.map((r) => { let z = 0; Object.entries(w).forEach(([k, v]) => { z += v * Math.max(-2, Math.min(2, zg(r, k))); }); return [r, z]; }));
