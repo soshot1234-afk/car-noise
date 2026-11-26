@@ -5136,7 +5136,7 @@ body.nlnoscroll { overflow: hidden; }
   const VID = (() => { let v = LS.get('carro_vid'); if (!v) { v = Math.random().toString(36).slice(2, 10); LS.set('carro_vid', v); } return v; })();
   function track(t, id) {
     if (!STATS_URL || /localhost|file:/.test(location.href) || isAdmin() || LS.get('carro_notrack') === '1') return; // 관리실에서 들어간 기기는 안 셈
-    const key = 'carro_tr_' + t + (id || '') + new Date().toISOString().slice(0, 10);
+    const key = 'carro_tr_' + t + (id || '') + new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10); // 한국 날짜(KST) 기준 — 관리실 집계와 맞춤
     if (LS.get(key)) return; LS.set(key, '1'); // 같은 날 같은 사람 중복 집계 방지
     try { fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ t, id: id || '', v: VID }) }); } catch (e) {}
   }
