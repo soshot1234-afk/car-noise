@@ -51,6 +51,26 @@ const X = `
 .at b small{font-size:20px;color:#8d93a1;font-weight:700;margin-left:10px}
 .at i{display:block;height:14px;border-radius:9px;background:#263049;overflow:hidden}.at i em{display:block;height:100%;border-radius:9px}
 .at span{font-family:J;font-size:40px;text-align:right;grid-row:1}
+.fc{position:relative;width:640px;height:900px;margin:0 auto;clip-path:polygon(50% 0,100% 4%,100% 90%,50% 100%,0 90%,0 4%);background:linear-gradient(160deg,#f7e3a1 0%,#e3b448 38%,#b8862a 70%,#e9c46a 100%)}
+.fc .in{position:absolute;inset:12px;clip-path:polygon(50% 0,100% 4%,100% 90%,50% 100%,0 90%,0 4%);overflow:hidden;background:linear-gradient(160deg,#1f2741 0%,#131a2b 100%)}
+.fc .pic{position:absolute;left:0;right:0;top:24px;height:360px}
+.fc .pic img{width:100%;height:100%;object-fit:cover;object-position:62% 72%}
+.fc .pic:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,26,43,.8) 0%,rgba(19,26,43,0) 38%,rgba(19,26,43,0) 60%,#18203a 100%)}
+.fc .ov{position:absolute;left:40px;top:50px;z-index:2;text-align:center;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+.fc .ov b{display:block;font-family:J;font-weight:400;font-size:118px;line-height:.9;color:#f3d27a}
+.fc .ov small{display:block;font-size:24px;font-weight:900;letter-spacing:.14em;color:#fff;margin-top:6px}
+.fc .ov i{display:block;font-style:normal;font-size:21px;font-weight:800;color:#e9edf3;margin-top:12px}
+.fc .ov .lg{display:inline-grid;place-items:center;width:58px;height:58px;border-radius:50%;background:#fff;margin-top:12px;font-size:17px;font-weight:900;color:#15181e;text-shadow:none}
+.fc .nm{position:absolute;left:0;right:0;top:362px;text-align:center}
+.fc .nm h4{font-family:J;font-weight:400;font-size:54px;color:#fff;line-height:1.1}
+.fc .nm p{font-size:25px;font-weight:800;color:#e3b448;margin-top:8px}
+.fc .ln{position:absolute;left:70px;right:70px;top:478px;height:2px;background:linear-gradient(90deg,transparent,#e3b448,transparent)}
+.fc .st{position:absolute;left:80px;right:80px;top:494px;display:grid;grid-template-columns:1fr 2px 1fr;column-gap:26px}
+.fc .st .sep{background:linear-gradient(180deg,transparent,#e3b448,transparent)}
+.fc .st ul{list-style:none;display:flex;flex-direction:column;gap:0}
+.fc .st li{display:flex;align-items:baseline;gap:14px;font-size:27px;font-weight:800;color:#dfe3ea}
+.fc .st li b{font-family:J;font-weight:400;font-size:44px;min-width:58px;text-align:right}
+.fc .bt{position:absolute;left:0;right:0;top:812px;text-align:center;font-size:19px;font-weight:800;letter-spacing:.2em;color:#e3b448}
 .tm{font-size:22px;color:#6b7280;font-weight:600;margin-top:34px}
 `;
 const K = '신차 집중 분석';
@@ -123,11 +143,15 @@ const slides = [
     ${row('출시 혜택', '<em>12월 31일</em>까지 출고하면<br>소모품 케어 패키지<small>엔진오일·오일필터·에어컨필터·와이퍼 각 2회 무상 교환</small>')}
     ${row('정비', '서비스센터 <em>115개 이상</em><small>GM한국사업장 네트워크</small>')}</div>
     <div class="src">${SRC2}</div>`),
-  // 9 카스쿼드 능력치 카드
-  ttl('카스쿼드<br><b>능력치 카드</b>') + main(`<div class="ovr"><div class="o">73<small>OVR</small></div><div><h5>지치지 않는 풀백</h5><p>넓고 연비 좋은,<br>매일 출퇴근·주말 나들이 겸용 타입</p></div></div>
-    <div class="atg"><div class="at"><b>파워<small>224ps</small></b><span style="color:#e3b448">13</span><i><em style="width:65%;background:#e3b448"></em></i></div><div class="at"><b>토크<small>33.7kgf·m</small></b><span style="color:#e3b448">11</span><i><em style="width:55%;background:#e3b448"></em></i></div><div class="at"><b>연비<small>14.1km/ℓ</small></b><span style="color:#e3b448">15</span><i><em style="width:75%;background:#e3b448"></em></i></div><div class="at"><b>차체 크기<small>전장 4,850mm</small></b><span style="color:#e3b448">13</span><i><em style="width:65%;background:#e3b448"></em></i></div><div class="at"><b>실내 공간<small>휠베이스 2,850mm</small></b><span style="color:#e3b448">12</span><i><em style="width:60%;background:#e3b448"></em></i></div><div class="at"><b>몸값<small>5,299만 원</small></b><span style="color:#e3b448">11</span><i><em style="width:55%;background:#e3b448"></em></i></div><div class="at"><b>가성비<small>같은 가격대 평균 능력치보다 위</small></b><span style="color:#3ddc84">18</span><i><em style="width:90%;background:#3ddc84"></em></i></div></div>
-    <div class="note">프리미어 기준 · 공식 제원 7개 항목만으로 계산(20점 만점) · 소음·가속·안전 실측이 나오면 점수가 바뀔 수 있어요</div>
-    <div class="src">계산: <b>카스쿼드</b> 능력치 기준 · 제원: GM한국사업장·뷰익코리아 발표 (2026.11.23)</div>`),
+  // 9 카스쿼드 선수 카드 (트레이딩 카드 모양)
+  `<div style="position:absolute;left:0;right:0;top:112px;text-align:center;font-family:J;font-size:56px">카스쿼드 <b style="color:#e3b448;font-weight:400">선수 카드</b></div>
+   <div style="position:absolute;left:0;right:0;top:200px"><div class="fc"><div class="in">
+    <div class="pic"><img src="${PH(1)}"></div>
+    <div class="ov"><b>73</b><small>OVR</small><i>SUV · PHEV</i><i style="color:#e3b448;font-size:17px;letter-spacing:.12em;margin-top:6px">2026 SEASON</i><span class="lg">뷰익</span></div>
+    <div class="nm"><h4>엘렉트라 E7</h4><p>지치지 않는 풀백</p></div><div class="ln"></div>
+    <div class="st"><ul><li><b style="color:#f3d27a">13</b>파워</li><li><b style="color:#f3d27a">11</b>토크</li><li><b style="color:#f3d27a">15</b>연비</li><li><b style="color:#f3d27a">13</b>차체</li></ul><div class="sep"></div><ul><li><b style="color:#f3d27a">12</b>공간</li><li><b style="color:#f3d27a">11</b>몸값</li><li><b style="color:#3ddc84">18</b>가성비</li></ul></div>
+    </div></div></div>
+   <div class="note" style="position:absolute;left:64px;right:64px;top:1118px;text-align:center">프리미어 기준 · 공식 제원 7개 항목만으로 계산(20점 만점) · 실측 나오면 바뀔 수 있어요<br>${CR}</div>`,
   // 10 끝
   `<div class="end"><h2>엘렉트라 E7<br><b style="color:#e3b448;font-weight:400">총정리 끝</b></h2><p>궁금한 차 있으면 댓글로<br>다음 집중 분석 해 드릴게요</p>${dots()}<div class="lk">관심 차 능력치 카드 → <b>프로필 링크</b></div><div class="tm">제조사 로고는 각 회사의 상표예요 · 정보 구분용<br>사진: GM한국사업장 제공 보도용 이미지</div></div>`,
 ];
