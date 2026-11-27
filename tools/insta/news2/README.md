@@ -20,6 +20,16 @@
 ## 신차 집중 분석 (2026-11-27 동준 님 결정)
 - 화제 신차(가격 공개·출시)는 차 소식 카드와 별도로 **한 차만 자세히** 게시물(10장 이하) + 릴스 1개를 따로 만든다.
 - 예시: 게시물 `2026-11-27-e7.js`, 릴스 `reel/2026-11-27-e7.html`
-- 구성: 표지(공식 사진 크게) → 한눈에 → 트림별 가격 → 트림별 추가 사양 → 제원 → 실내 → 2열·주행보조 → 색상·혜택·일정 → **카스쿼드 능력치 카드** → 끝
+- 구성: 표지(공식 사진 크게) → 한눈에 → 트림별 가격 → 트림별 추가 사양 → 제원 → 실내 → 2열·주행보조 → 색상·혜택·일정 → **카스쿼드 선수 카드**(트레이딩 카드 모양, 금색 테두리 방패형, OVR·스타일·항목 점수, 공식 사진) → 끝
 - 능력치: `carstats.js`로 사이트 계산식 그대로 계산(공식 제원만 넣기). 카드에 "공식 제원 N개 항목만으로 계산 · 실측 나오면 바뀔 수 있어요" 표기, 순위는 안 씀
 - 사진: 제조사 보도자료 페이지의 보도용 사진(예: GM한국 뉴스룸 이미지 maxw_1600)만, `photos/날짜/차/`에 저장
+
+## 빠른 소식 출처 (2026-11-27 조사)
+1. 뉴스와이어 자동차 RSS: https://api.newswire.co.kr/rss/industry/1806 (기업이 직접 배포한 보도자료, 현대차그룹·KGM 등)
+2. 현대자동차그룹 뉴스룸: https://www.hyundaimotorgroup.com/ko/news/newsMain (현대·기아·제네시스)
+3. BMW그룹 코리아 뉴스룸: https://newsroom.bmwgroup.com/apac/ko-ko/
+4. 르노코리아 뉴스: https://www.renault.co.kr/ko/inside/news_list.jsp
+5. GM한국 뉴스룸: https://news.gm-korea.co.kr (보도자료 페이지에 보도용 사진)
+6. 정책브리핑 보도자료 목록: https://www.korea.kr/briefing/pressReleaseList.do (국토부 리콜·KNCAP·보조금; RSS는 2026-07-01 종료)
+7. 자동차리콜센터 리콜현황: https://www.car.go.kr/ri/stat/list.do (상세: POST /ri/stat/detail.do recallId=번호&ctype=O)
+- 구글 뉴스 검색은 '무슨 일이 있나' 찾는 용도로만, 인용은 위 공식 페이지로
