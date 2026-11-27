@@ -4,7 +4,7 @@ const DIR = __dirname;
 const LOGO = fs.readFileSync(path.join(DIR, 'logo.svg'), 'utf8');
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const n = (v) => v.toLocaleString('ko-KR');
-const LG = { 기아: 'kia.svg', 현대: 'hyundai.svg', 제네시스: 'genesis.png', 르노코리아: 'renault.svg', 쉐보레: 'chevrolet.svg', 테슬라: 'tesla.svg', BMW: 'bmw.svg', 벤츠: 'mercedes.svg', 렉서스: 'lexus.png', 볼보: 'volvo.svg', 아우디: 'audi.svg', 토요타: 'toyota.svg', 포르쉐: 'porsche.svg', 미니: 'mini.svg', 르노: 'renault.svg', 람보르기니: 'lamborghini.svg', 폭스바겐: 'volkswagen.svg' };
+const LG = { 기아: 'kia.svg', 현대: 'hyundai.svg', 제네시스: 'genesis.png', 르노코리아: 'renault.svg', 쉐보레: 'chevrolet.svg', 테슬라: 'tesla.svg', BMW: 'bmw.svg', 벤츠: 'mercedes.svg', 렉서스: 'lexus.png', 볼보: 'volvo.svg', 아우디: 'audi.svg', 토요타: 'toyota.svg', 포르쉐: 'porsche.svg', 미니: 'mini.svg', 르노: 'renault.svg', 람보르기니: 'lamborghini.svg', 폭스바겐: 'volkswagen.svg', 캐딜락: 'cadillac.svg' };
 const mark = (brand, size) => { const b = String(brand || '').split(' ')[0]; const f = LG[b]; return `<span class="mk" style="width:${size}px;height:${size}px">${f ? `<img src="logos/${f}">` : `<em style="font-size:${Math.round(size * (b.length > 2 ? 0.26 : 0.32))}px">${esc(b)}</em>`}</span>`; };
 const C = { R: '#e2554c', O: '#e5a443', L: '#c8d758', G: '#45d37f', GOLD: '#e3b448' };
 const CSS = `

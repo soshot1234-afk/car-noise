@@ -21,9 +21,10 @@ const pageN = (body, i, total, kick) => L.page(body, i, total, kick).replace('</
 // items: [{brand, tag, tagCls, short, title(<b> 금색 가능), lead, rows:[[label, html]], one, src}]
 function newsPost({ range, items, outro }) {
   const total = items.length + 2;
-  const cover = `<div class="cv" style="justify-content:flex-start;padding-top:190px"><span class="pill">이번 주 차 소식</span><h1 style="font-size:104px;margin-top:36px">놓치면 아까운<br><b>${items.length}가지</b></h1><p style="margin-top:22px;font-size:34px;color:#a9afbb">${esc(range)}</p>
-<div class="rk" style="width:100%;margin-top:50px;text-align:left">${items.map((x, j) => `<div class="row r1" style="padding:22px 30px"><span class="no">${j + 1}</span><h5 style="font-size:38px">${mark(x.brand, 60)}${esc(x.short)}</h5></div>`).join('')}</div>
-<div class="note" style="margin-top:30px;font-size:25px;color:#8d93a1;font-weight:600">제조사·정부 발표로 확인된 것만 담았어요</div></div>`;
+  const many = items.length > 4; // 5개 이상이면 표지 간격을 줄여 아래 로고와 겹치지 않게
+  const cover = `<div class="cv" style="justify-content:flex-start;padding-top:${many ? 130 : 190}px"><span class="pill">이번 주 차 소식</span><h1 style="font-size:${many ? 92 : 104}px;margin-top:${many ? 28 : 36}px">놓치면 아까운<br><b>${items.length}가지</b></h1><p style="margin-top:22px;font-size:34px;color:#a9afbb">${esc(range)}</p>
+<div class="rk" style="width:100%;margin-top:${many ? 34 : 50}px;text-align:left${many ? ';gap:10px' : ''}">${items.map((x, j) => `<div class="row r1" style="padding:${many ? '12px 30px' : '22px 30px'}"><span class="no">${j + 1}</span><h5 style="font-size:38px">${mark(x.brand, 60)}${esc(x.short)}</h5></div>`).join('')}</div>
+<div class="note" style="margin-top:${many ? 22 : 30}px;font-size:25px;color:#8d93a1;font-weight:600">제조사·정부 발표로 확인된 것만 담았어요</div></div>`;
   const cards = items.map((x) => `<div class="ttl" style="font-size:76px;top:120px"><div class="ntag">${mark(x.brand, 70)}<span class="t ${x.tagCls || ''}">${esc(x.tag)}</span></div>${x.title}</div>
 <div class="main" style="top:420px;bottom:120px">${x.lead ? `<div class="lead">${x.lead}</div>` : ''}<div class="cmp" style="display:flex;flex-direction:column;gap:12px">${x.rows.map(([k, v]) => `<div class="nrow"><b>${esc(k)}</b><span>${v}</span></div>`).join('')}</div>
 ${x.one ? `<div class="one">${x.one}</div>` : ''}<div class="src">${x.src}</div></div>`);
