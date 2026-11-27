@@ -1444,6 +1444,7 @@ body.kkopen{overflow:hidden}
 .vd .kkbtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 0; border-radius: 10px; background: #fee500; color: #191919; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; } .vd .kkbtn.big { padding: 13px 22px; font-size: 16px; border-radius: 12px; } .vd .kkbtn:active { transform: translateY(1px); }
 .vd .duostep { margin-top: 12px; }
 .vd .duomorew { text-align: center; padding: 10px 0 12px; } .vd .duomorew .chip { width: auto; margin: 0; }
+.vd .stbtn { margin-top: 14px; text-align: center; } .vd .stbtn .chip { width: 100%; border-radius: 12px; padding: 13px 16px; } .vd .stbtn small { display: block; margin-top: 6px; color: var(--mut, #8d93a1); font-size: 12px; line-height: 1.45; word-break: keep-all; }
 .vd .duoup { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; padding: 12px 14px; border: 1.5px solid #e3b448; border-radius: 12px; background: var(--pn2); font: inherit; cursor: pointer; word-break: keep-all; } .vd .duoup b { color: var(--hi); font-size: 14px; } .vd .duoup span { color: #b8730c; font-weight: 800; font-size: 13px; }
 </style>
 <style>
@@ -5947,9 +5948,10 @@ body.nlnoscroll { overflow: hidden; }
       up.appendChild(el('b', null, close.length ? close.slice(0, 2).join(' · ') + ' 아슬아슬' : '더 정확히 보기'));
       up.appendChild(el('span', null, '세부 검사 +12문항 →'));
     }
+    if (!M.dex && !M.shared) stBtn(c, () => makeMbStory(t, M.result.pct), 'carsquad_story_' + t + '.png');
     mbRecs(box, t);
     const bt = box.appendChild(el('div', 'wcbtns'));
-    const sh = bt.appendChild(btnEl('chip gold', '🔗 결과 공유', () => shareLink('tab=play&mb=' + t, `[카스쿼드] ${M.dex ? '차 MBTI' : '나의 차 MBTI는'} ${t} ${info[0]}!`, sh)));
+    const sh = bt.appendChild(btnEl('chip', '🔗 결과 공유', () => shareLink('tab=play&mb=' + t, `[카스쿼드] ${M.dex ? '차 MBTI' : '나의 차 MBTI는'} ${t} ${info[0]}!`, sh)));
     bt.appendChild(btnEl('chip', M.dex || M.shared ? '🧠 나도 테스트하기' : '↻ 다시 하기', () => mbReset('quiz')));
     bt.appendChild(btnEl('chip', '둘이 같이 하기', () => { PLAY.mb = { stage: 'duoset', i: 0, ans: [], result: null, me: '', bud: 0, duo: duoNew() }; renderPlay(); scrollToSection('t-play'); }));
     bt.appendChild(btnEl('chip', '⚡ 진짜 내 MBTI로 추천받기', () => mbReset('me')));
@@ -6143,6 +6145,7 @@ body.nlnoscroll { overflow: hidden; }
     });
     const drv = A[0] === 'E' ? na : B[0] === 'E' ? nb : na, dj = drv === na ? nb : na;
     const rl = c.appendChild(el('div', 'duorole')); [['운전대', drv], ['조수석 DJ', dj]].forEach(([k, v]) => { const s = rl.appendChild(el('span')); s.appendChild(el('small', null, k)); s.appendChild(el('b', null, v)); });
+    stBtn(c, () => makeDuoStory(D), 'carsquad_story_' + A + '_' + B + '.png');
     const f = box.appendChild(el('div', 'card'));
     const fh = f.appendChild(el('div', 'ch')); fh.appendChild(el('h2', null, `${duoWho(D)}의 붕붕카`));
     fh.appendChild(el('span', 'duotag', `${DUO_REL[D.rel][0]} · ${D.bud ? DUO_BUD.find((x) => x[0] === D.bud)[1] + ' 이하' : '예산 전체'}`));
@@ -6156,7 +6159,7 @@ body.nlnoscroll { overflow: hidden; }
     if (!M.more && list.length >= 3) f.appendChild(el('div', 'duomorew')).appendChild(btnEl('chip sm duomore', '더 보기 (5대)', () => { M.more = true; renderPlay(); }));
     const bt = box.appendChild(el('div', 'wcbtns'));
     if (D.guest) bt.appendChild(kkBtn(`${na}에게 결과 보내기`, (sp) => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} ${duoWho(D)}의 붕붕카`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sp)));
-    const cb = bt.appendChild(btnEl('chip' + (D.guest ? '' : ' gold'), '결과 카드 저장', () => saveBlob(() => makeDuoCard(D), 'carsquad_duo_' + A + '_' + B + '.png', cb)));
+    const cb = bt.appendChild(btnEl('chip', '결과 카드 저장', () => saveBlob(() => makeDuoCard(D), 'carsquad_duo_' + A + '_' + B + '.png', cb)));
     if (!D.guest && D.room) bt.appendChild(kkBtn('카톡 공유', (sp) => kakaoShare(duoCode(D, true), `[카스쿼드] ${na} × ${nb} ${duoWho(D)}의 붕붕카`, `${A} × ${B} ${DUO_NM[d]} · 취향 겹침 ${ov}%`, '결과 보기', sp)));
     bt.appendChild(btnEl('chip', '다른 사람이랑 하기', () => { PLAY.mb = { stage: 'duoset', i: 0, ans: [], result: null, me: '', bud: 0, duo: duoNew() }; renderPlay(); scrollToSection('t-play'); }));
   }
@@ -6191,6 +6194,83 @@ body.nlnoscroll { overflow: hidden; }
     g.fillStyle = '#e3b448'; g.font = P('800', 32); g.fillText('carsquad.kr', 44, H - 34);
     g.fillStyle = '#c9ced7'; g.font = P('600', 26); g.textAlign = 'right'; g.fillText(D.rel === 'couple' ? '우리 커플의 붕붕카는? 차 MBTI' : '우리들의 붕붕카는? 차 MBTI', W - 44, H - 36);
     return new Promise((res) => cv.toBlob(res, 'image/png'));
+  }
+  // ------------------------------------------------------------------ 스토리용 세로 이미지 (1080×1920) — 차 MBTI·둘이 같이 결과
+  // 인스타 스토리 위·아래 약 220px은 계정 이름·답장칸이 덮으니 글자를 넣지 않음
+  const ST_COLS = ['#e2554c', '#e5a443', '#c8d758', '#45d37f'];
+  async function stBase(kick) {
+    const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+    const P = (w, s) => `${w} ${s}px "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif`, J = (s) => `${s}px Jalnan, "Pretendard Variable", Pretendard, sans-serif`;
+    try { await Promise.all([document.fonts.load(J(40), '차체질'), document.fonts.load(P('700', 30), '가')]); await document.fonts.ready; } catch (e) {}
+    const bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#171b24'); bg.addColorStop(1, '#0d0f13'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    ST_COLS.forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, 0, W / 4, 10); g.fillRect(i * W / 4, H - 10, W / 4, 10); });
+    g.textAlign = 'center'; g.fillStyle = '#e3b448'; g.font = J(40); g.fillText('CAR SQUAD', W / 2, 250);
+    g.fillStyle = '#c9ced7'; g.font = P('700', 34); g.fillText(kick, W / 2, 312);
+    return { W, H, cv, g, P, J };
+  }
+  async function stPhoto(S, r, x, y, w, h, label) {
+    const { g, P, J } = S; const m = manual(r); const pinfo = photoCache[r.photo];
+    const img = await loadImg(m ? m.url : (thumbUrl(r, 1280) || (pinfo && pinfo.url)), m ? null : r);
+    g.save(); rr(g, x, y, w, h, 28); g.clip();
+    if (img) { const sc = Math.max(w / img.width, h / img.height), iw = img.width * sc, ih = img.height * sc; g.drawImage(img, x + (w - iw) / 2, y + (h - ih) / 2, iw, ih); }
+    else { g.fillStyle = '#232936'; g.fillRect(x, y, w, h); g.fillStyle = '#5b6372'; g.font = J(90); g.textAlign = 'center'; g.fillText(r.brand, x + w / 2, y + h / 2); }
+    const sh = g.createLinearGradient(0, y + h - 190, 0, y + h); sh.addColorStop(0, 'rgba(13,15,19,0)'); sh.addColorStop(1, 'rgba(13,15,19,.92)'); g.fillStyle = sh; g.fillRect(x, y + h - 190, w, 190);
+    g.restore();
+    g.textAlign = 'left';
+    g.font = P('800', 28); const lw = g.measureText(label).width + 36; g.fillStyle = '#e3b448'; rr(g, x + 24, y + 24, lw, 52, 26); g.fill(); g.fillStyle = '#15171c'; g.fillText(label, x + 42, y + 61);
+    const nm = shortName(r.name); let fs = 46; g.font = P('800', fs); while (fs > 32 && g.measureText(nm).width > w - 64) { fs -= 2; g.font = P('800', fs); }
+    g.fillStyle = '#f4efe2'; g.fillText(wrapLines(g, nm, w - 64, 1)[0], x + 32, y + h - 40);
+  }
+  function stFoot(S, ask) {
+    const { W, g, P, J } = S; g.textAlign = 'center';
+    g.fillStyle = '#f4efe2'; g.font = J(54); g.fillText(ask, W / 2, 1560);
+    g.fillStyle = '#e3b448'; rr(g, W / 2 - 250, 1600, 500, 92, 46); g.fill();
+    g.fillStyle = '#15171c'; g.font = P('800', 44); g.fillText('carsquad.kr', W / 2, 1662);
+  }
+  function stBtn(box, make, fn) {
+    const w = box.appendChild(el('div', 'stbtn'));
+    const b = w.appendChild(btnEl('chip gold big', '인스타 스토리에 올리기', () => saveBlob(make, fn, b)));
+    w.appendChild(el('small', null, '세로 그림으로 저장돼요 · 스토리에서 링크 스티커로 carsquad.kr 붙이면 친구가 바로 해 봐요'));
+  }
+  async function makeMbStory(t, pct) {
+    const S = await stBase('나의 차 MBTI'), { W, g, P, J } = S; const info = MBTI[t];
+    const tw = 200, gap = 22, x0 = (W - (tw * 4 + gap * 3)) / 2;
+    t.split('').forEach((ch, i) => { g.fillStyle = ST_COLS[i]; rr(g, x0 + i * (tw + gap), 360, tw, 220, 26); g.fill(); g.fillStyle = '#15171c'; g.font = J(150); g.textAlign = 'center'; g.fillText(ch, x0 + i * (tw + gap) + tw / 2, 530); });
+    g.fillStyle = '#e3b448'; g.font = J(66); g.fillText(info[0], W / 2, 690);
+    g.fillStyle = '#c9ced7'; g.font = P('600', 34); wrapLines(g, info[1], W - 180, 2).forEach((l, i) => g.fillText(l, W / 2, 760 + i * 50));
+    const top = mbRepList(t, 1, 0)[0];
+    if (top) await stPhoto(S, top[0], 90, 860, W - 180, 420, '나랑 맞는 차 1위');
+    g.textAlign = 'left'; let y = 1340;
+    MBAX.forEach(([a, b, la, lb], i) => {
+      const p = pct ? pct[i] : (t[i] === a ? 100 : 0), on = p >= 50; const yy = y + i * 40;
+      g.font = P('800', 26); g.fillStyle = on ? '#f4efe2' : '#6c7380'; g.textAlign = 'left'; g.fillText(a, 90, yy + 9);
+      g.fillStyle = on ? '#6c7380' : '#f4efe2'; g.textAlign = 'right'; g.fillText(b, W - 90, yy + 9);
+      g.fillStyle = '#262b36'; rr(g, 130, yy - 9, W - 260, 18, 9); g.fill();
+      g.fillStyle = ST_COLS[i]; const fw = Math.max(18, (W - 260) * (on ? p : 100 - p) / 100); rr(g, on ? 130 : W - 130 - fw, yy - 9, fw, 18, 9); g.fill();
+    });
+    stFoot(S, '너는 무슨 차 체질?');
+    return new Promise((res) => S.cv.toBlob(res, 'image/png'));
+  }
+  async function makeDuoStory(D) {
+    const S = await stBase(`차 MBTI · ${duoWho(D)}의 결과`), { W, g, P, J } = S;
+    const na = duoNm(D, 'a'), nb = duoNm(D, 'b'), d = [0, 1, 2, 3].filter((i) => D.ta[i] !== D.tb[i]).length, ov = duoOverlap(D);
+    g.textAlign = 'center';
+    [[na, D.ta, 230], [nb, D.tb, 850]].forEach(([n, t, x]) => { g.fillStyle = '#a9afbb'; g.font = P('700', 34); g.fillText(n, x, 420); g.fillStyle = '#e3b448'; g.font = J(104); g.fillText(t, x, 530); g.fillStyle = '#f4efe2'; g.font = P('700', 30); g.fillText(MBTI[t][0], x, 584); });
+    const cx = W / 2, cy = 480, R = 96, GC = ['#e2554c', '#e2554c', '#e2554c', '#e5a443', '#e5a443', '#c8d758', '#c8d758', '#c8d758', '#45d37f', '#45d37f', '#45d37f'];
+    for (let i = 0; i < 11; i++) { const a = (135 + i * 27) * Math.PI / 180; g.fillStyle = i <= Math.round(ov / 10) ? GC[i] : '#2a2f39'; g.beginPath(); g.arc(cx + R * Math.cos(a), cy + R * Math.sin(a), 13, 0, 7); g.fill(); }
+    g.fillStyle = '#f4efe2'; g.font = J(52); g.fillText(ov + '%', cx, cy + 18); g.fillStyle = '#a9afbb'; g.font = P('700', 24); g.fillText('취향 겹침', cx, cy + 112);
+    g.fillStyle = '#e3b448'; g.font = J(72); g.fillText(DUO_NM[d], W / 2, 730);
+    const L = duoList(D, 3);
+    if (L[0]) await stPhoto(S, L[0].r, 90, 790, W - 180, 420, `${duoWho(D)}의 붕붕카 1위`);
+    let y = 1250; g.textAlign = 'left';
+    L.slice(1).forEach((x, i) => {
+      g.fillStyle = '#1f2430'; rr(g, 90, y, W - 180, 104, 18); g.fill(); g.fillStyle = ST_COLS[i + 1]; g.fillRect(90, y, 8, 104);
+      g.fillStyle = '#e3b448'; g.font = J(50); g.fillText(String(i + 2), 124, y + 70);
+      g.fillStyle = '#f4efe2'; g.font = P('800', 36); g.fillText(wrapLines(g, shortName(x.r.name), W - 340, 1)[0], 190, y + 66);
+      y += 120;
+    });
+    stFoot(S, D.rel === 'couple' ? '너희 커플 붕붕카는?' : '너희 붕붕카는?');
+    return new Promise((res) => S.cv.toBlob(res, 'image/png'));
   }
   function renderPlay() {
     const box = $('#playbox'); box.textContent = '';
