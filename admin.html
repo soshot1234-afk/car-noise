@@ -327,7 +327,7 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
       const ov = document.body.appendChild(el('div', 'sheet')); const bx = ov.appendChild(el('div'));
       bx.appendChild(el('h4', null, '브라우저에서 추가해 주세요'));
       bx.appendChild(el('p', null, '지금은 카스쿼드 앱 안에서 열려 있어서 관리실 아이콘을 따로 만들 수 없어요. 아래 주소를 크롬(아이폰은 사파리)에서 열고 [추가]를 눌러 주세요.'));
-      const u = 'https://carsquad.pages.dev/admin.html'; bx.appendChild(el('p', null, u)).style.cssText = 'font-weight:700;word-break:break-all';
+      const u = 'https://carsquad.kr/admin.html'; bx.appendChild(el('p', null, u)).style.cssText = 'font-weight:700;word-break:break-all';
       bx.appendChild(btn('btn', '주소 복사', () => { try { navigator.clipboard.writeText(u).then(() => toast('주소를 복사했어요')); } catch (e) { toast(u); } ov.remove(); }));
       ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
       return;

@@ -70,7 +70,7 @@ function page(body, i, total, kick) {
   return `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body><div class="bar4"></div>
 ${kick ? `<div class="top"><span class="kk">${kick}</span><span class="pg">${total > 1 ? `${i} / ${total}` : ''}</span></div>` : ''}
 ${body}
-<div class="ft"><span class="br">${LOGO}CAR SQUAD</span><span class="u">carsquad.pages.dev</span></div></body></html>`;
+<div class="ft"><span class="br">${LOGO}CAR SQUAD</span><span class="u">carsquad.kr</span></div></body></html>`;
 }
 // 판매 대수 줄 — 막대 색: 1위 금색, 나머지 로고 4색 순환 대신 초록→노랑 그라데이션
 function rows(list, max, start, small) {

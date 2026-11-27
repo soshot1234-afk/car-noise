@@ -1,6 +1,6 @@
 # 카스쿼드 관리실 — 처음 한 번만 하는 설정
 
-관리실 주소: `https://carsquad.pages.dev/admin.html` (테스트: `https://dream-test.carsquad.pages.dev/admin.html`)
+관리실 주소: `https://carsquad.kr/admin.html` (테스트: `https://dream-test.carsquad.pages.dev/admin.html`)
 예시 화면(가짜 숫자): 주소 뒤에 `?demo=1`
 
 관리실은 지금 쓰는 구글 시트 「카롱도르 방문통계」의 Apps Script를 통해 움직입니다.
