@@ -1,7 +1,7 @@
 const { newsPost, renderNews: render } = require('./newslib.js');
 const RC = ['내 차 확인', '<em>자동차리콜센터</em>(car.go.kr)에<br>차량번호 입력'];
 const items = [
-  { brand: '뷰익', tag: '신차 출시', short: '뷰익 일렉트라 E7 가격 공개', title: '뷰익 일렉트라 E7<br><b>가격 공개·계약 시작</b>',
+  { brand: '뷰익', tag: '신차 출시', short: '뷰익 엘렉트라 E7 가격 공개', title: '뷰익 엘렉트라 E7<br><b>가격 공개·계약 시작</b>',
     img: 'photos/2026-11-27/e7.jpg', imgCredit: '사진: GM한국사업장 제공',
     rows: [['가격', '<em>4,360만 ~ 5,299만 원</em><small>어반 4,360 · 모던 4,710 · 리저브 4,960 · 프리미어 5,299만</small>'],
            ['계약', '사전예약 고객 11월 23일부터<br>일반 고객 11월 25일부터']],
