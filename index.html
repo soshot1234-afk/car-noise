@@ -841,7 +841,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .qtile { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 14px 14px 12px; border: 1px solid var(--line); background: var(--pn); border-radius: 10px; cursor: pointer; color: var(--tx); text-align: left; font: inherit; min-height: 92px; }
 .vd .qtile:hover { border-color: #e3b448; background: var(--pn2); }
 .vd .qtile .qic { font-size: 24px; line-height: 1; margin-bottom: 4px; }
-.vd .qtile b { font-family: "Jalnan", "Pretendard Variable", sans-serif; font-weight: 400; font-size: 16px; }
+.vd .qtile b { font-family: "Jalnan", "Pretendard Variable", sans-serif; font-weight: 400; font-size: 16px; word-break: keep-all; overflow-wrap: anywhere; }
 .vd .qtile small { font-size: 12px; color: var(--mu); }
 .vd .recent { display: flex; gap: 8px; overflow-x: auto; padding: 12px; }
 .vd .rchip { flex: none; display: flex; align-items: center; gap: 8px; max-width: 240px; padding: 6px 12px 6px 6px; border: 1px solid var(--line); background: var(--pn2); border-radius: 30px; cursor: pointer; color: var(--tx); font: inherit; font-size: 13px; }
@@ -1056,11 +1056,12 @@ html, body { margin: 0; background: #14161b; }
 .vd .mbax .l { text-align: right; } .vd .mbax .r { text-align: left; }
 .vd .mbax .on { color: var(--hi); font-weight: 800; }
 @media (max-width: 520px) { .vd .mbax { grid-template-columns: 92px minmax(0, 1fr) 92px; font-size: 11.5px; } .vd .mbtype { font-size: 58px; } }
+@media (max-width: 340px) { .vd .mbax { grid-template-columns: 78px minmax(0, 1fr) 78px; gap: 6px; word-break: keep-all; } .vd .mbax .wbar { min-width: 0; } } /* 320px에서 막대가 오른쪽 글자('조용한 편안함 I')를 덮던 문제 */
 .vd .mbline { margin: 0; font-size: 13px; }
 .vd .mbbadge { font: 700 14px/1 var(--cond); letter-spacing: .08em; padding: 4px 8px; border-radius: 4px; border: 1px solid #e3b448; background: var(--deep); color: #e3b448; cursor: pointer; }
 .vd .mbpad { margin: 0; padding: 10px 14px 4px; }
 .vd .mbintro { padding: 22px 18px; display: flex; flex-direction: column; gap: 10px; border-top: 3px solid #e3b448; }
-.vd .mbh { margin: 0; font-size: 28px; color: var(--hi); }
+.vd .mbh { margin: 0; font-size: 28px; color: var(--hi); word-break: keep-all; }
 .vd .mbintro .mbdesc { max-width: 640px; }
 .vd .mbaxlist { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; margin-top: 4px; }
 .vd .mbaxi { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--pn2); }
@@ -1070,7 +1071,7 @@ html, body { margin: 0; background: #14161b; }
 .vd .mbstart { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .vd .mbstart .chip { margin-left: 0; border-radius: 8px; }
 .vd .mbdex { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; padding: 10px 14px 14px; }
-.vd .mbtile { display: flex; flex-direction: column; gap: 3px; text-align: left; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--pn2); color: var(--tx); font: inherit; cursor: pointer; }
+.vd .mbtile { word-break: keep-all; overflow-wrap: anywhere; display: flex; flex-direction: column; gap: 3px; text-align: left; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--pn2); color: var(--tx); font: inherit; cursor: pointer; }
 .vd .mbtile:hover { border-color: #e3b448; }
 .vd .mbtile b { font-size: 24px; color: #e3b448; letter-spacing: .04em; }
 .vd .mbtile .nk { font-weight: 800; color: var(--hi); font-size: 14px; }
@@ -1105,7 +1106,7 @@ html, body { margin: 0; background: #14161b; }
 /* 미니게임: 드림카까지 */
 .vd .dgh{margin:14px 0 6px;font-size:16px;color:var(--hi)}
 .vd .dggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
-.vd .dgopt{display:flex;flex-direction:column;gap:3px;text-align:left;padding:12px;border:2px solid var(--line);border-radius:10px;background:var(--pn2);color:var(--tx);font:inherit;cursor:pointer}
+.vd .dgopt{display:flex;flex-direction:column;gap:3px;text-align:left;padding:12px;border:2px solid var(--line);border-radius:10px;background:var(--pn2);color:var(--tx);font:inherit;cursor:pointer;word-break:keep-all;overflow-wrap:anywhere}
 .vd .dgopt b{font-size:15px;color:var(--hi)}.vd .dgopt small{font-size:12px;color:var(--mu)}.vd .dgopt em{font-style:normal;font-size:11px;font-weight:800;color:#e3b448}
 .vd .dgopt[aria-pressed="true"]{border-color:#e3b448;background:var(--hd)}
 .vd .dgstat{display:grid;grid-template-columns:repeat(6,1fr);gap:0;padding:0}
@@ -1429,9 +1430,10 @@ body.kkopen{overflow:hidden}
 .vd .duopair { display: flex; align-items: center; justify-content: center; gap: 4px; width: 100%; }
 .vd .duop { display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; min-width: 0; } .vd .duop small { color: var(--mu); font-weight: 700; } .vd .duop .nk { font-weight: 800; font-size: 12px; color: var(--hi); }
 .vd .duop .mbtype.sm { font-size: 44px; } .vd .duox { font-size: 22px; color: var(--mu); font-weight: 800; }
+@media (max-width: 340px) { .vd .duop .mbtype.sm { font-size: 36px; } } /* 320px에서 'ESTJ × INFP' 글자가 × 와 겹치던 문제 */
 .vd .duogrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 10px; }
 .vd .duog { position: relative; width: 92px; height: 92px; flex: none; } .vd .duog b { position: absolute; left: 0; right: 0; top: 34px; text-align: center; font: 900 24px/1 "Barlow Condensed", sans-serif; color: var(--hi); }
-.vd .duogt { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; } .vd .duogt small { color: var(--mu); font-weight: 700; font-size: 12px; } .vd .duogt b { font-size: 26px; color: var(--hi); }
+.vd .duogt { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; } .vd .duogt small { color: var(--mu); font-weight: 700; font-size: 12px; } .vd .duogt b { font-size: 26px; color: var(--hi); word-break: keep-all; }
 .vd .mbax.duoax { grid-template-columns: 74px minmax(0, 1fr) 74px; }
 .vd .duobar { position: relative; height: 22px; border-radius: 11px; background: var(--pn2); border: 1px solid var(--line); }
 .vd .duobar i { position: absolute; top: 50%; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; font-size: 11px; font-weight: 800; line-height: 22px; font-style: normal; text-align: center; color: #15181c; }
@@ -1442,7 +1444,7 @@ body.kkopen{overflow:hidden}
 .vd .kkbtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 0; border-radius: 10px; background: #fee500; color: #191919; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; } .vd .kkbtn.big { padding: 13px 22px; font-size: 16px; border-radius: 12px; } .vd .kkbtn:active { transform: translateY(1px); }
 .vd .duostep { margin-top: 12px; }
 .vd .duomorew { text-align: center; padding: 10px 0 12px; } .vd .duomorew .chip { width: auto; margin: 0; }
-.vd .duoup { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; padding: 12px 14px; border: 1.5px solid #e3b448; border-radius: 12px; background: var(--pn2); font: inherit; cursor: pointer; } .vd .duoup b { color: var(--hi); font-size: 14px; } .vd .duoup span { color: #b8730c; font-weight: 800; font-size: 13px; }
+.vd .duoup { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 14px; padding: 12px 14px; border: 1.5px solid #e3b448; border-radius: 12px; background: var(--pn2); font: inherit; cursor: pointer; word-break: keep-all; } .vd .duoup b { color: var(--hi); font-size: 14px; } .vd .duoup span { color: #b8730c; font-weight: 800; font-size: 13px; }
 </style>
 <style>
 /* ===== 새 화면 시안 (NL) ===== */
@@ -1455,7 +1457,7 @@ body.kkopen{overflow:hidden}
 .vd.nl .nlkeys.k4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .vd.nl .nlkey { appearance: none; font: inherit; cursor: pointer; position: relative; background: #232833; border: 1.5px solid #343a46; border-radius: 16px; padding: 14px 6px 12px; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #fff; text-align: center; min-height: 64px; }
 .vd.nl .nlkey b { font-size: 16px; font-weight: 800; color: #fff; }
-.vd.nl .nlkey small { font-size: 12px; color: #aab1bd; line-height: 1.35; white-space: pre-line; }
+.vd.nl .nlkey small { font-size: 12px; color: #aab1bd; line-height: 1.35; white-space: pre-line; word-break: keep-all; }
 .vd.nl .nlkey .big { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; line-height: 1; color: #fff; }
 .vd.nl .nlkey.num > b { font-family: 'Barlow Condensed', 'Pretendard Variable', sans-serif; font-size: 26px; line-height: 1.05; }
 .vd.nl .nlkey.num.txt > b { font-family: inherit; font-size: 18px; line-height: 1.45; }
@@ -1569,8 +1571,9 @@ body.kkopen{overflow:hidden}
 .vd.nl .nlgrow .nlcg b { font-size: 34px; }
 .vd.nl .nlgstats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .vd.nl .nlgstats div { background: #f3f5f7; border-radius: 12px; padding: 7px 10px; display: flex; justify-content: space-between; align-items: center; }
-.vd.nl .nlgstats small { font-size: 13px; font-weight: 800; color: #374151; }
+.vd.nl .nlgstats small { font-size: 13px; font-weight: 800; color: #374151; white-space: nowrap; }
 .vd.nl .nlgstats b { font-family: "Barlow Condensed", sans-serif; font-size: 23px; font-weight: 700; line-height: 1; }
+@media (max-width: 340px) { .vd.nl .nlgstats div { padding: 7px 6px; gap: 2px; } } /* 320px(갤럭시 플립·큰 글씨)에서 '정숙'이 '정/숙' 두 줄로 쪼개지던 문제 */
 .vd.nl .nlglegend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0 2px; }
 .vd.nl .nlglegend span { border-top: 4px solid var(--gc); background: #fff; border-radius: 8px; padding: 5px 0; text-align: center; opacity: .55; }
 .vd.nl .nlglegend span.on { opacity: 1; box-shadow: 0 0 0 1.5px var(--gc) inset; }
