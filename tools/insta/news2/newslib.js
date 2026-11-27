@@ -15,10 +15,14 @@ const NCSS = `
 .lead{font-size:31px;color:#c9ced7;font-weight:700;line-height:1.5;margin-bottom:24px}
 .one{margin-top:20px;font-size:30px;line-height:1.5;color:#fff;font-weight:800;background:rgba(227,180,72,.12);border:2px solid #e3b448;border-radius:22px;padding:18px 26px}
 .src b{color:#c9ced7}
+.ph{position:relative;height:400px;border-radius:26px;overflow:hidden;margin-bottom:20px;background:#1a2236;flex:none}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph i{position:absolute;right:14px;bottom:12px;font-style:normal;font-size:20px;font-weight:700;color:#fff;background:rgba(13,18,32,.7);padding:4px 12px;border-radius:12px}
 .tm{font-size:22px;color:#6b7280;font-weight:600;margin-top:34px}
 `;
 const pageN = (body, i, total, kick) => L.page(body, i, total, kick).replace('</style>', NCSS + '</style>');
-// items: [{brand, tag, tagCls, short, title(<b> 금색 가능), lead, rows:[[label, html]], one, src}]
+// items: [{brand, tag, tagCls, short, title(<b> 금색 가능), lead, rows:[[label, html]], one, src, img, imgCredit}]
+// img: 제조사 공식 보도사진(미디어센터 배포분)만. news2 폴더 기준 경로(예: 'photos/2026-11-30/e7.jpg') 또는 file:// 절대경로. 사진이 있으면 lead 대신 사진(높이 400px)이 들어가고 rows는 3줄 이하로.
 function newsPost({ range, items, outro }) {
   const total = items.length + 2;
   const many = items.length > 4; // 5개 이상이면 표지 간격을 줄여 아래 로고와 겹치지 않게
@@ -26,7 +30,7 @@ function newsPost({ range, items, outro }) {
 <div class="rk" style="width:100%;margin-top:${many ? 34 : 50}px;text-align:left${many ? ';gap:10px' : ''}">${items.map((x, j) => `<div class="row r1" style="padding:${many ? '12px 30px' : '22px 30px'}"><span class="no">${j + 1}</span><h5 style="font-size:38px">${mark(x.brand, 60)}${esc(x.short)}</h5></div>`).join('')}</div>
 <div class="note" style="margin-top:${many ? 22 : 30}px;font-size:25px;color:#8d93a1;font-weight:600">제조사·정부 발표로 확인된 것만 담았어요</div></div>`;
   const cards = items.map((x) => `<div class="ttl" style="font-size:76px;top:120px"><div class="ntag">${mark(x.brand, 70)}<span class="t ${x.tagCls || ''}">${esc(x.tag)}</span></div>${x.title}</div>
-<div class="main" style="top:420px;bottom:120px">${x.lead ? `<div class="lead">${x.lead}</div>` : ''}<div class="cmp" style="display:flex;flex-direction:column;gap:12px">${x.rows.map(([k, v]) => `<div class="nrow"><b>${esc(k)}</b><span>${v}</span></div>`).join('')}</div>
+<div class="main" style="top:420px;bottom:120px">${x.img ? `<div class="ph"><img src="${x.img}"><i>${esc(x.imgCredit || '사진: 제조사 제공')}</i></div>` : (x.lead ? `<div class="lead">${x.lead}</div>` : '')}<div class="cmp" style="display:flex;flex-direction:column;gap:12px">${x.rows.map(([k, v]) => `<div class="nrow"><b>${esc(k)}</b><span>${v}</span></div>`).join('')}</div>
 ${x.one ? `<div class="one">${x.one}</div>` : ''}<div class="src">${x.src}</div></div>`);
   const end = `<div class="end"><h2>${outro.t}</h2><p>${outro.s}</p>${dots()}<div class="lk">관심 차 능력치 카드 → <b>프로필 링크</b></div><div class="tm">제조사 로고는 각 회사의 상표예요 · 정보 구분용</div></div>`;
   return [cover, ...cards, end].map((b, i) => pageN(b, i + 1, total, i ? '이번 주 차 소식' : ''));
