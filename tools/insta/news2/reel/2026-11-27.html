@@ -32,6 +32,9 @@ body{width:1080px;height:1920px;background:radial-gradient(1300px 900px at 50% -
 .r span small{display:block;font-family:P;font-size:28px;color:#8d93a1;font-weight:600;margin-top:6px}
 .src{position:absolute;left:70px;right:70px;bottom:230px;font-size:30px;color:#8d93a1;font-weight:600;line-height:1.45}
 .src b{color:#c9ced7}
+.ph{position:absolute;left:70px;right:70px;top:730px;height:440px;border-radius:30px;overflow:hidden;background:#1a2236}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph i{position:absolute;right:16px;bottom:14px;font-style:normal;font-size:24px;font-weight:700;color:#fff;background:rgba(13,18,32,.7);padding:5px 14px;border-radius:12px}
 .prog{position:absolute;left:70px;right:70px;top:226px;height:8px;background:#263049;border-radius:4px;overflow:hidden}
 .prog i{display:block;height:100%;background:#e3b448}
 /* 끝 */
@@ -47,18 +50,18 @@ body{width:1080px;height:1920px;background:radial-gradient(1300px 900px at 50% -
 <div class="bar4" id="bar"></div>
 <div class="sc" id="intro"><svg id="g" viewBox="-400 -400 800 800"></svg><div class="it1" id="it1">CAR SQUAD</div><div class="it2" id="it2"><span>차 소식 11.27</span></div></div>
 <div class="sc" id="news"><div class="kk">차 소식 11.27</div><div class="pg" id="pg"></div><div class="prog"><i id="pr"></i></div>
-<div class="tg" id="tg"></div><div class="ti" id="ti"></div><div class="rows" id="rows"></div><div class="src" id="src"></div></div>
+<div class="tg" id="tg"></div><div class="ti" id="ti"></div><div class="ph" id="ph"><img id="phi"><i id="phc"></i></div><div class="rows" id="rows"></div><div class="src" id="src"></div></div>
 <div class="sc" id="end"><div class="e1" id="e1">자세한 건 카스쿼드에서<br><b>비교해 봐요</b></div>
 <div class="dots" id="dots"><i style="background:#e2554c"></i><i style="background:#e5a443"></i><i style="background:#c8d758"></i><i style="background:#45d37f"></i></div>
 <div class="elogo" id="elogo"><img src="../logo.svg">CAR SQUAD</div><div class="e2" id="e2">carsquad.kr · 프로필 링크</div><div class="tm" id="tm">제조사 로고는 각 회사의 상표예요 · 정보 구분용</div></div>
 <div class="ft" id="ft"><span class="br"><img src="../logo.svg">CAR SQUAD</span><span class="u">carsquad.kr</span></div>
 <script>
 const N = [
- {logo:'', name:'뷰익', tag:'신차 출시', t1:'뷰익 일렉트라 E7', t2:'가격 공개', rows:[['어반','<em>4,360만 원</em>'],['프리미어','<em>5,299만 원</em><small>4개 트림 · 모던 4,710만 · 리저브 4,960만</small>'],['계약','일반 고객 11월 25일부터']], src:'출처: <b>GM한국사업장</b> 발표 2026.11.23 (언론 보도 교차 확인)'},
- {logo:'tesla.svg', tag:'무상 점검(리콜)', g:1, t1:'테슬라 Model 3 등', t2:'무상 점검', rows:[['대상','Model 3 등 <em>2차종</em>'],['내용','하향등 관련'],['내 차 확인','<em>car.go.kr</em> 차량번호 조회']], src:'출처: <b>국토교통부 자동차리콜센터</b> 2026.11.27 등재 · 제조사 자발적 시정조치'},
- {logo:'chevrolet.svg', tag:'무상 점검(리콜)', g:1, t1:'트랙스 크로스오버 등', t2:'무상 점검', rows:[['대상','트랙스 크로스오버 등 <em>2차종</em>'],['내용','후방 카메라 관련'],['내 차 확인','<em>car.go.kr</em> 차량번호 조회']], src:'출처: <b>국토교통부 자동차리콜센터</b> 2026.11.27 등재 · 제조사 자발적 시정조치'},
- {logo:'cadillac.svg', tag:'무상 점검(리콜)', g:1, t1:'캐딜락 리릭 등', t2:'무상 점검', rows:[['대상','리릭 등 <em>2차종</em>'],['내용','전자식 브레이크 컨트롤<br>모듈 소프트웨어 관련'],['내 차 확인','<em>car.go.kr</em> 차량번호 조회']], src:'출처: <b>국토교통부 자동차리콜센터</b> 2026.11.27 등재 · 제조사 자발적 시정조치'},
- {logo:'mercedes.svg', tag:'무상 점검(리콜)', g:1, t1:'벤츠 S 450·GLE 등', t2:'무상 점검 2건', rows:[['1건','S 450 4MATIC 등 <em>4차종</em><small>드라이브 샤프트 유니버설 조인트 관련</small>'],['2건','GLE 300 d 4MATIC 등 <em>25차종</em><small>후방 안개등 표시기호 관련</small>'],['내 차 확인','<em>car.go.kr</em> 차량번호 조회']], src:'출처: <b>국토교통부 자동차리콜센터</b> 2026.11.25 등재 · 제조사 자발적 시정조치'},
+ {logo:'', name:'뷰익', tag:'신차 출시', t1:'뷰익 일렉트라 E7', t2:'가격 공개', img:'../photos/2026-11-27/e7.jpg', cr:'사진: GM한국사업장 제공', rows:[['가격','<em>4,360만 ~ 5,299만 원</em><small>4개 트림</small>'],['계약','일반 고객 11월 25일부터']], src:'출처: <b>GM한국사업장</b> 발표 2026.11.23 (언론 보도 교차 확인)'},
+ {logo:'tesla.svg', tag:'무상 점검(리콜)', g:1, t1:'테슬라 Model 3·Y', t2:'무상 점검', rows:[['대상','Model 3 · Model Y <em>191대</em>'],['내용','전조등 하향등 광도 관련'],['시작','<em>11월 27일</em>부터'],['내 차 확인','<em>car.go.kr</em> 차량번호 조회']], src:'출처: <b>국토교통부 자동차리콜센터</b> 2026.11.27 등재 · 제조사 자발적 시정조치'},
+ {logo:'chevrolet.svg', tag:'무상 점검(리콜)', g:1, t1:'쉐보레 트랙스 등', t2:'무상 점검', rows:[['대상','트랙스 크로스오버 · 트레일블레이저<br><em>14,857대</em><small>2024.04 ~ 2024.12 생산분</small>'],['내용','후방 카메라 케이스 접착 관련'],['시작','<em>11월 27일</em>부터'],['내 차 확인','<em>car.go.kr</em> 차량번호 조회']], src:'출처: <b>국토교통부 자동차리콜센터</b> 2026.11.27 등재 · 제조사 자발적 시정조치'},
+ {logo:'cadillac.svg', tag:'무상 점검(리콜)', g:1, t1:'캐딜락 리릭·비스틱', t2:'무상 점검', img:'../photos/2026-11-27/lyriq.jpg', pos:'20% 60%', cr:'사진: 캐딜락 제공 (리릭)', rows:[['대상','리릭 · 비스틱 <em>337대</em>'],['내용','브레이크 컨트롤 모듈<br>소프트웨어 업데이트'],['시작','<em>11월 27일</em>부터']], src:'출처: <b>국토교통부 자동차리콜센터</b> 2026.11.27 등재 · 제조사 자발적 시정조치'},
+ {logo:'mercedes.svg', tag:'무상 점검(리콜)', g:1, t1:'벤츠 S 450·GLE 등', t2:'무상 점검 2건', rows:[['1건','S 450 4MATIC 등 4차종 <em>7대</em><small>드라이브 샤프트 교체</small>'],['2건','GLE 300 d 4MATIC 등 <em>25차종</em><small>후방 안개등 표시기호 관련</small>'],['내 차 확인','<em>car.go.kr</em> 차량번호 조회']], src:'출처: <b>국토교통부 자동차리콜센터</b> 2026.11.25 등재 · 제조사 자발적 시정조치'},
 ];
 const T_IN = 1.5, T_N = 3.2, T_END = 2.0, TOTAL = T_IN + N.length * T_N + T_END;
 const $ = (i) => document.getElementById(i);
@@ -87,7 +90,9 @@ function setNews(i) {
   $('tg').innerHTML = `<span class="mk">${x.logo ? `<img src="../logos/${x.logo}">` : `<em>${x.name}</em>`}</span><span class="t ${x.g ? 'grn' : ''}">${x.tag}</span>`;
   $('ti').innerHTML = `<div>${x.t1}</div><div><b>${x.t2}</b></div>`;
   $('rows').innerHTML = x.rows.map(([k, v]) => `<div class="r"><b>${k}</b><span>${v}</span></div>`).join('');
-  $('src').innerHTML = x.src; $('pg').textContent = `${i + 1} / ${N.length}`;
+  $('src').innerHTML = x.src;
+  $('ph').style.display = x.img ? 'block' : 'none'; if (x.img) { $('phi').src = x.img; $('phi').style.objectPosition = x.pos || '50% 50%'; $('phc').textContent = x.cr; }
+  $('rows').style.top = x.img ? '1200px' : '760px'; $('pg').textContent = `${i + 1} / ${N.length}`;
 }
 function render(t) {
   ['intro', 'news', 'end'].forEach((k) => $(k).style.display = 'none');
@@ -111,8 +116,9 @@ function render(t) {
     const tl = $('ti').children;
     for (let k = 0; k < tl.length; k++) { const d = 0.12 + k * 0.14; tl[k].style.cssText = `opacity:${cl((u - d) / 0.15) * (1 - out)};transform:translateX(${(1 - eo((u - d) / 0.35)) * 260 - out * 260}px)`; }
     const rs = $('rows').children;
-    for (let k = 0; k < rs.length; k++) { const d = 0.55 + k * 0.17; rs[k].style.cssText = `opacity:${cl((u - d) / 0.18) * (1 - out)};transform:translateY(${(1 - eo((u - d) / 0.35)) * 90}px) scale(${0.94 + 0.06 * eb((u - d) / 0.35)})`; }
+    for (let k = 0; k < rs.length; k++) { const d = (N[i].img ? 0.75 : 0.55) + k * 0.17; rs[k].style.cssText = `opacity:${cl((u - d) / 0.18) * (1 - out)};transform:translateY(${(1 - eo((u - d) / 0.35)) * 90}px) scale(${0.94 + 0.06 * eb((u - d) / 0.35)})`; }
     $('src').style.opacity = cl((u - 1.1) / 0.3) * (1 - out);
+    if (N[i].img) { $('ph').style.opacity = cl((u - 0.3) / 0.2) * (1 - out); $('ph').style.transform = `translateY(${(1 - eo((u - 0.3) / 0.4)) * 80}px)`; $('phi').style.transform = `scale(${1.12 - 0.12 * eo(u / T_N)})`; }
     return;
   }
   $('end').style.display = 'block';
