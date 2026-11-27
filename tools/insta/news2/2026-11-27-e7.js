@@ -39,6 +39,18 @@ const X = `
 .one{font-size:28px;line-height:1.5;color:#fff;font-weight:800;background:rgba(227,180,72,.12);border:2px solid #e3b448;border-radius:22px;padding:16px 24px}
 .note{font-size:22px;color:#8d93a1;font-weight:600;line-height:1.45}
 .src b{color:#c9ced7}
+.ovr{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:center;background:#1f2741;border:3px solid #e3b448;border-radius:28px;padding:18px 28px}
+.ovr .o{font-family:J;font-size:120px;line-height:.9;color:#e3b448;text-align:center}
+.ovr .o small{display:block;font-family:P;font-size:24px;color:#a9afbb;font-weight:800;letter-spacing:.14em;margin-top:8px}
+.ovr h5{font-family:J;font-weight:400;font-size:44px;line-height:1.2}
+.ovr p{font-size:25px;color:#c9ced7;font-weight:700;margin-top:10px;line-height:1.45}
+.atg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.at{display:grid;grid-template-columns:1fr 64px;grid-template-rows:auto auto;column-gap:12px;row-gap:8px;align-items:center;background:#1a2236;border:1px solid #2c3550;border-radius:18px;padding:12px 20px}
+.at b{grid-column:1;grid-row:1;white-space:nowrap}.at span{grid-column:2!important;grid-row:1}.at i{grid-column:1 / 3;grid-row:2}.at:last-child{grid-column:1 / 3}
+.at b{font-size:27px;font-weight:800}
+.at b small{font-size:20px;color:#8d93a1;font-weight:700;margin-left:10px}
+.at i{display:block;height:14px;border-radius:9px;background:#263049;overflow:hidden}.at i em{display:block;height:100%;border-radius:9px}
+.at span{font-family:J;font-size:40px;text-align:right;grid-row:1}
 .tm{font-size:22px;color:#6b7280;font-weight:600;margin-top:34px}
 `;
 const K = '신차 집중 분석';
@@ -111,7 +123,12 @@ const slides = [
     ${row('출시 혜택', '<em>12월 31일</em>까지 출고하면<br>소모품 케어 패키지<small>엔진오일·오일필터·에어컨필터·와이퍼 각 2회 무상 교환</small>')}
     ${row('정비', '서비스센터 <em>115개 이상</em><small>GM한국사업장 네트워크</small>')}</div>
     <div class="src">${SRC2}</div>`),
-  // 9 끝
+  // 9 카스쿼드 능력치 카드
+  ttl('카스쿼드<br><b>능력치 카드</b>') + main(`<div class="ovr"><div class="o">73<small>OVR</small></div><div><h5>지치지 않는 풀백</h5><p>넓고 연비 좋은,<br>매일 출퇴근·주말 나들이 겸용 타입</p></div></div>
+    <div class="atg"><div class="at"><b>파워<small>224ps</small></b><span style="color:#e3b448">13</span><i><em style="width:65%;background:#e3b448"></em></i></div><div class="at"><b>토크<small>33.7kgf·m</small></b><span style="color:#e3b448">11</span><i><em style="width:55%;background:#e3b448"></em></i></div><div class="at"><b>연비<small>14.1km/ℓ</small></b><span style="color:#e3b448">15</span><i><em style="width:75%;background:#e3b448"></em></i></div><div class="at"><b>차체 크기<small>전장 4,850mm</small></b><span style="color:#e3b448">13</span><i><em style="width:65%;background:#e3b448"></em></i></div><div class="at"><b>실내 공간<small>휠베이스 2,850mm</small></b><span style="color:#e3b448">12</span><i><em style="width:60%;background:#e3b448"></em></i></div><div class="at"><b>몸값<small>5,299만 원</small></b><span style="color:#e3b448">11</span><i><em style="width:55%;background:#e3b448"></em></i></div><div class="at"><b>가성비<small>같은 가격대 평균 능력치보다 위</small></b><span style="color:#3ddc84">18</span><i><em style="width:90%;background:#3ddc84"></em></i></div></div>
+    <div class="note">프리미어 기준 · 공식 제원 7개 항목만으로 계산(20점 만점) · 소음·가속·안전 실측이 나오면 점수가 바뀔 수 있어요</div>
+    <div class="src">계산: <b>카스쿼드</b> 능력치 기준 · 제원: GM한국사업장·뷰익코리아 발표 (2026.11.23)</div>`),
+  // 10 끝
   `<div class="end"><h2>엘렉트라 E7<br><b style="color:#e3b448;font-weight:400">총정리 끝</b></h2><p>궁금한 차 있으면 댓글로<br>다음 집중 분석 해 드릴게요</p>${dots()}<div class="lk">관심 차 능력치 카드 → <b>프로필 링크</b></div><div class="tm">제조사 로고는 각 회사의 상표예요 · 정보 구분용<br>사진: GM한국사업장 제공 보도용 이미지</div></div>`,
 ];
 (async () => {
