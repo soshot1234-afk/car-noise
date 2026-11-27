@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /tools/
 
-Sitemap: https://carsquad.pages.dev/sitemap.xml
+Sitemap: https://carsquad.kr/sitemap.xml

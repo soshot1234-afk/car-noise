@@ -9,7 +9,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 
 const ROOT = path.resolve(__dirname, '..');
-const SITE = 'https://carsquad.pages.dev';
+const SITE = 'https://carsquad.kr';
 const TODAY = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
 
 function serve() {
@@ -32,7 +32,7 @@ const REC_SRC = '한국교통안전공단 차종별 리콜 자료(공공데이�
 const recTxt = (t) => String(t || '').replace(/^(현대자동차|기아|한국지엠|르노코리아|케이지모빌리티|쌍용자동차)㈜?(\(주\))?에서는\s*/, '').trim();
 const LBL = { durab: '무상 점검(리콜)' };
 const CUR_Y = Number(TODAY.slice(0, 4));
-const REDIRECT = "<script>(function(){var h=location.hostname,p=location.pathname;if(/github\\.io$/.test(h)){p=p.replace(/^\\/car-noise/,'');}else if(!/(^|\\.)carrodor\\.pages\\.dev$/.test(h)){var m=p.match(/^\\/car\\/([\\w-]+)/);if(m&&/[?&]go=1/.test(location.search)){location.replace('/#tab=prof&p='+m[1]);}return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>";
+const REDIRECT = "<script>(function(){var h=location.hostname,p=location.pathname;if(/github\\.io$/.test(h)){p=p.replace(/^\\/car-noise/,'');}else if(!/(^|\\.)carrodor\\.pages\\.dev$|^carsquad\\.pages\\.dev$/.test(h)){var m=p.match(/^\\/car\\/([\\w-]+)/);if(m&&/[?&]go=1/.test(location.search)){location.replace('/#tab=prof&p='+m[1]);}return;}location.replace('https://carsquad.kr'+p+location.search+location.hash);})();</script>";
 
 const CSS = `
 @font-face{font-family:Jalnan;src:url(/fonts/yg-jalnan.woff2) format("woff2");font-display:swap}
@@ -163,7 +163,7 @@ body{width:1200px;height:630px;background:#0f1115;color:#f4efe2;font-family:P,"N
 <div class="sub">${esc([r.pt, r.body, price].filter(Boolean).join(' · '))}</div>
 ${strong.length ? `<div class="chips">${strong.map((t) => `<span>💪 ${esc(t)}</span>`).join('')}</div>` : ''}</div>
 <div class="r"><h3>능력치 (1~20)</h3>${G.map((k) => { const v = r.groups[k]; const ok = v != null && !isNaN(v); return `<div class="g"><span>${k}</span><i><em style="width:${ok ? Math.max(4, v / 20 * 100) : 0}%;background:${GCOL(v)}"></em></i><b style="color:${GCOL(v)}">${ok ? Math.round(v) : '–'}</b></div>`; }).join('')}</div>
-<div class="url">carsquad.pages.dev · ${G.n || 760}종 능력치 비교</div><div class="bar"></div></body></html>`;
+<div class="url">carsquad.kr · ${G.n || 760}종 능력치 비교</div><div class="bar"></div></body></html>`;
 }
 
 const G = { recId: {}, rec: {}, mp: {} };

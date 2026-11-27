@@ -20,7 +20,7 @@ identity:
   stage: 초창기(일 방문자 매우 적음) → 베타 테스트 기간
 
 urls:
-  live: https://carsquad.pages.dev            # Cloudflare Pages, main 자동 배포
+  live: https://carsquad.kr                   # Cloudflare Pages, main 자동 배포
   test: https://dream-test.carsquad.pages.dev # dream-test 브랜치
   test_looks: "https://dream-test.carsquad.pages.dev/?look=a|b|c|d|e  (off = 지금 화면)"
   look_branches: [look-a, look-b, look-c, look-d, look-e]   # dream-test와 같은 커밋 강제 push. 주소 look-a.carsquad.pages.dev (작동 미확인 → ?look 주소 권장)

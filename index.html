@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko"><head>
-<script>/* 예전 주소(깃허브·carrodor)로 오면 새 주소로 이동 */(function(){var h=location.hostname,p=location.pathname;if(/github\.io$/.test(h)){p=p.replace(/^\/car-noise/,'');}else if(!/(^|\.)carrodor\.pages\.dev$/.test(h)){return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>
-<link rel="canonical" href="https://carsquad.pages.dev/">
+<script>/* 예전 주소(깃허브·carrodor)로 오면 새 주소로 이동 */(function(){var h=location.hostname,p=location.pathname;if(/github\.io$/.test(h)){p=p.replace(/^\/car-noise/,'');}else if(!/(^|\.)carrodor\.pages\.dev$|^carsquad\.pages\.dev$/.test(h)){return;}location.replace('https://carsquad.kr'+p+location.search+location.hash);})();</script>
+<link rel="canonical" href="https://carsquad.kr/">
 <meta name="naver-site-verification" content="d200388cefa69d574e6a6f528fc8c87b9b1e51d1" />
 <meta name="google-site-verification" content="msEYavFdHhQdeYy5j4INUz6UYtKOZhg_Z2GZaeFB3dU" />
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -13,9 +13,9 @@
 <meta property="og:title" content="카스쿼드 CAR SQUAD — 차를 선수처럼 비교하고 마이 카 스쿼드 짜기">
 <meta property="og:description" content="국내 승용차 760여 종(이전 세대 포함)을 축구게임 선수처럼 1~20 능력치로 비교 — 소음·제로백·안전·감가·리콜까지">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://carsquad.pages.dev/">
+<meta property="og:url" content="https://carsquad.kr/">
 <meta property="og:site_name" content="카스쿼드">
-<meta property="og:image" content="https://carsquad.pages.dev/og.png">
+<meta property="og:image" content="https://carsquad.kr/og.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://upload.wikimedia.org">
@@ -5350,7 +5350,7 @@ body.nlnoscroll { overflow: hidden; }
     traits(r).slice(0, 3).forEach((t) => { y += 40; let s = '· ' + t; while (g.measureText(s).width > W - 80 && s.length > 4) s = s.slice(0, -1); g.fillStyle = '#c9cfdb'; g.fillText(s, 40, y); });
     // footer
     g.fillStyle = '#0f1115'; g.fillRect(0, H - 70, W, 70);
-    g.fillStyle = '#fff'; g.font = F('600', 24); g.fillText('carsquad.pages.dev', 40, H - 26);
+    g.fillStyle = '#fff'; g.font = F('600', 24); g.fillText('carsquad.kr', 40, H - 26);
     g.textAlign = 'right'; g.fillStyle = '#e3b448'; g.fillText('made by ktc', W - 40, H - 26); g.textAlign = 'left';
     return new Promise((res) => cv.toBlob((b) => res(b), 'image/png'));
   }
@@ -6062,7 +6062,7 @@ body.nlnoscroll { overflow: hidden; }
     const url = duoUrl(code);
     kakaoReady().then((K) => {
       if (K && K.Share) {
-        try { K.Share.sendDefault({ objectType: 'feed', content: { title, description: desc, imageUrl: 'https://carsquad.pages.dev/og.png', link: { mobileWebUrl: url, webUrl: url } }, buttons: [{ title: btnTxt, link: { mobileWebUrl: url, webUrl: url } }] }); return; } catch (e) {}
+        try { K.Share.sendDefault({ objectType: 'feed', content: { title, description: desc, imageUrl: 'https://carsquad.kr/og.png', link: { mobileWebUrl: url, webUrl: url } }, buttons: [{ title: btnTxt, link: { mobileWebUrl: url, webUrl: url } }] }); return; } catch (e) {}
       }
       shareLink(code, title + '\n' + desc, btn);
     });
@@ -6183,7 +6183,7 @@ body.nlnoscroll { overflow: hidden; }
     const drv = D.ta[0] === 'E' ? na : D.tb[0] === 'E' ? nb : na;
     g.fillStyle = '#c9ced7'; g.font = P('700', 32); g.fillText(`운전대 ${drv} · 조수석 DJ ${drv === na ? nb : na}`, 44, y + 50);
     g.fillStyle = '#0f1115'; g.fillRect(0, H - 86, W, 86); COLS.forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, H - 8, W / 4, 8); });
-    g.fillStyle = '#e3b448'; g.font = P('800', 32); g.fillText('carsquad.pages.dev', 44, H - 34);
+    g.fillStyle = '#e3b448'; g.font = P('800', 32); g.fillText('carsquad.kr', 44, H - 34);
     g.fillStyle = '#c9ced7'; g.font = P('600', 26); g.textAlign = 'right'; g.fillText(D.rel === 'couple' ? '우리 커플의 붕붕카는? 차 MBTI' : '우리들의 붕붕카는? 차 MBTI', W - 44, H - 36);
     return new Promise((res) => cv.toBlob(res, 'image/png'));
   }
@@ -6552,7 +6552,7 @@ body.nlnoscroll { overflow: hidden; }
     if (info.semi.length) { g.fillStyle = '#8d93a1'; g.font = P('600', 25); g.fillText('4강까지 올라온 차 · ' + wrapLines(g, info.semi.map((x) => shortName(x.name)).join(' · '), W - 330, 1)[0], 44, Math.min(y + 20, H - 120)); }
     // 바닥
     g.fillStyle = '#0f1115'; g.fillRect(0, H - 86, W, 86); COLS.forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, H - 8, W / 4, 8); });
-    g.fillStyle = '#e3b448'; g.font = P('800', 32); g.fillText('carsquad.pages.dev', 44, H - 34);
+    g.fillStyle = '#e3b448'; g.font = P('800', 32); g.fillText('carsquad.kr', 44, H - 34);
     g.fillStyle = '#c9ced7'; g.font = P('600', 26); g.textAlign = 'right'; g.fillText('너의 드림카는? 이상형 월드컵 하러 가기', W - 44, H - 36); g.textAlign = 'left';
     return new Promise((res) => cv.toBlob(res, 'image/png'));
   }
@@ -7120,7 +7120,7 @@ body.nlnoscroll { overflow: hidden; }
       g.fillStyle = '#ffd23f'; g.font = P('900', 28); g.fillText('🏁 다음 목적지 · 드림카', px + 30, py + ph - 70);
       g.fillStyle = '#fff'; g.font = P('900', 40); g.fillText(wrapLines(g, r.name, pw - 60, 1)[0], px + 30, py + ph - 24);
     }
-    g.fillStyle = '#fff'; g.font = P('900', 36); g.fillText('CAR SQUAD · carsquad.pages.dev', 64, H - 64);
+    g.fillStyle = '#fff'; g.font = P('900', 36); g.fillText('CAR SQUAD · carsquad.kr', 64, H - 64);
     g.font = P('800', 32); g.textAlign = 'right'; g.fillText('너의 차생 그래프는? →', W - 64, H - 64); g.textAlign = 'left';
     return new Promise((res) => cv.toBlob(res, 'image/png'));
   }
