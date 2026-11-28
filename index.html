@@ -1320,6 +1320,45 @@ html, body { margin: 0; background: #14161b; }
 .csq-stars{display:flex;gap:4px}
 .csq-star{appearance:none;border:0;background:none;font-size:30px;color:#3e4757;cursor:pointer;padding:0 2px}.csq-star.on{color:#e3b448}
 .csq-agree{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#c9ced7;line-height:1.45;margin-top:4px}.csq-agree input{margin-top:3px;accent-color:#e3b448}
+/* 오너 한줄평: 선수 첫 화면 칸 · 아래에서 올라오는 작성 창 · 올라갔어요 알림 */
+.nlrv{margin:14px 14px 0;font-family:"Pretendard Variable",Pretendard,"Apple SD Gothic Neo",sans-serif;background:#fff;color:#15181e;border:2px solid #e3b448;border-radius:20px;padding:14px 16px 16px;word-break:keep-all}
+.nlrvbar{display:flex;height:5px;border-radius:5px;overflow:hidden;margin:0 0 12px}.nlrvbar i{flex:1}.nlrvbar i:nth-child(1){background:#e2554c}.nlrvbar i:nth-child(2){background:#e5a443}.nlrvbar i:nth-child(3){background:#c8d758}.nlrvbar i:nth-child(4){background:#45d37f}
+.nlrvh{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.nlrvh b{font-family:Jalnan,"Pretendard Variable",sans-serif;font-weight:400;font-size:18px}
+.nlrvs{font-size:15px;font-weight:800}.nlrvs i{font-style:normal;color:#e3b448}.nlrvs small{color:#5b6270;font-weight:600;font-size:13px;margin-left:4px}
+.nlrvq{margin:10px 0 4px;font-size:15.5px;line-height:1.5;font-weight:700}
+.nlrvw{font-size:12.5px;color:#5b6270}
+.nlrvsub{margin:4px 0 0;font-size:13.5px;line-height:1.5;color:#4b5563}
+.nlrvt{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.nlrvt span{font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px}
+.nlrvt .g{background:#e7f8ee;color:#1f7a47}.nlrvt .b{background:#fdeceb;color:#a8362e}
+.nlrvbt{display:flex;gap:8px;margin-top:12px}
+.nlrvbt button{flex:1;appearance:none;border:0;border-radius:14px;padding:12px 8px;font:800 14.5px "Pretendard Variable",Pretendard,sans-serif;cursor:pointer;background:#f1f3f6;color:#15181e}
+.nlrvbt button.p{background:#e3b448}.nlrvbt button:disabled{opacity:.6;cursor:default}
+.csq-ov.rvs{align-items:flex-end;padding:0}
+.csq-ov.rvs .csq-box{max-width:520px;max-height:92vh;background:#fff;color:#15181e;border-top:0;border-radius:24px 24px 0 0;padding:10px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+.csq-ov.rvs .csq-box::before{content:"";display:block;width:44px;height:5px;border-radius:5px;background:#d6dae1;margin:0 auto 10px}
+.csq-ov.rvs .csq-x{color:#6b7280}.csq-ov.rvs .csq-x:hover{background:#f1f3f6;color:#15181e}
+.csq-ov.rvs .csq-note{color:#6b7280;margin:2px 0 6px;font-size:13px;text-align:left}
+.csq-ov.rvs .csq-lab{color:#15181e;font-size:13.5px;font-weight:800;margin:14px 0 8px}.csq-ov.rvs .csq-lab small{font-weight:600;color:#6b7280;margin-left:4px}
+.csq-ov.rvs .csq-star{font-size:38px;color:#d6dae1}.csq-ov.rvs .csq-star.on{color:#e3b448}
+.csq-ov.rvs .csq-chips{gap:7px;margin-bottom:0}
+.csq-ov.rvs .csq-chip{font-size:13.5px;font-weight:700;padding:8px 12px;border-radius:999px;border:1.5px solid transparent;background:#f1f3f6;color:#374151}
+.csq-ov.rvs .csq-chip[aria-pressed=true]{background:#fff7e3;border-color:#e3b448;color:#15181e}
+.csq-ov.rvs .rvgood .csq-chip[aria-pressed=true]{background:#e7f8ee;border-color:#45d37f}
+.csq-ov.rvs .rvmore{display:block;width:100%;margin-top:14px;appearance:none;background:none;border:1.5px dashed #cfd4db;border-radius:14px;padding:11px 14px;text-align:left;font:700 14px "Pretendard Variable",Pretendard,sans-serif;color:#4b5563;cursor:pointer}
+.csq-ov.rvs .csq-f{margin:12px 0 0;color:#15181e}.csq-ov.rvs .csq-f textarea{background:#f7f8fa;color:#15181e;border-color:#d6dae1}
+.csq-ov.rvs .csq-agree{color:#4b5563;margin-top:12px}
+.csq-ov.rvs .csq-status{color:#b45309}
+.csq-ov.rvs .csq-ft{margin-top:12px}.csq-ov.rvs .csq-ft .csq-btn{flex:1;border-radius:16px;padding:14px;font-size:16px}.csq-ov.rvs .csq-ft .csq-btn:not(.gold){flex:0 0 auto;background:#f1f3f6;border-color:#f1f3f6;color:#15181e}
+.csq-ov.rvs .csq-done{font-size:40px}
+.csq-ov.rvs .rvall{display:grid;gap:8px;margin-top:6px}
+.csq-ov.rvs .rvit{position:relative;padding:12px 14px;border-radius:14px;background:#f5f6f8}
+.csq-ov.rvs .rvit p{margin:4px 0 0;font-size:14.5px;line-height:1.5}
+.csq-ov.rvs .rvtop{display:flex;gap:8px;align-items:center;font-size:12px;color:#6b7280}.csq-ov.rvs .rvtop b{color:#e3b448;letter-spacing:1px}
+.csq-ov.rvs .rvtags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.csq-ov.rvs .rvtags span{font-size:11.5px;padding:2px 8px;border-radius:12px;background:#fff}
+.csq-ov.rvs .rvrep{position:absolute;top:10px;right:10px;appearance:none;border:0;background:none;color:#9aa1ad;font-size:11.5px;cursor:pointer}
+.rvpost{position:fixed;left:12px;right:12px;top:calc(68px + env(safe-area-inset-top,0px));z-index:900;max-width:480px;margin:0 auto;box-shadow:0 14px 40px rgba(0,0,0,.28)}
+.rvpost .nlrvh button{appearance:none;border:0;background:none;color:#6b7280;font:600 14px "Pretendard Variable",Pretendard,sans-serif;cursor:pointer;padding:4px}
 .vd .qzopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px}
 @media (max-width:520px){.vd .qzopts{grid-template-columns:1fr}}
 .vd .qzopt{display:flex;flex-direction:column;gap:4px;text-align:left;padding:16px;border:2px solid var(--line);border-radius:12px;background:var(--pn2);color:var(--tx);font:inherit;cursor:pointer}
@@ -3731,6 +3770,78 @@ body.nlnoscroll { overflow: hidden; }
     return RVLOAD;
   }
   function rvMine() { try { return JSON.parse(LS.get('carro_myrv') || '{}'); } catch (e) { return {}; } }
+  // 올라간(수락된) 한줄평: [별점, 탄 기간, 좋은 점, 아쉬운 점, 글, 날짜]. 글 없이 별점·태그만인 평도 받음. 최신 먼저
+  function rvList(D, id) { const a = D && Array.isArray(D[id]) ? D[id].filter((x) => Array.isArray(x) && +x[0] >= 1 && (x[4] || x[2] || x[3])) : []; return a.slice().sort((x, y) => String(y[5] || '').localeCompare(String(x[5] || ''))); }
+  function rvIsMine(x, m) { if (!m) return false; if (m.m) return String(x[4] || '').trim() === m.m; return +x[0] === m.s && (x[1] || '') === (m.o || '') && (x[2] || '') === (m.g || '') && (x[3] || '') === (m.b || ''); }
+  function rvAvg(arr) { return (arr.reduce((a, x) => a + (+x[0] || 0), 0) / arr.length).toFixed(1); }
+  function rvTagCount(arr) { const c = {}; arr.forEach((x) => { (x[2] || '').split(',').filter(Boolean).forEach((t) => { c['g' + t] = (c['g' + t] || 0) + 1; }); (x[3] || '').split(',').filter(Boolean).forEach((t) => { c['b' + t] = (c['b' + t] || 0) + 1; }); }); return Object.entries(c).sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)); }
+  function rvItem(list, x, r) {
+    const [st, own, good, bad, msg, date] = x;
+    const it = list.appendChild(el('div', 'rvit'));
+    const top = it.appendChild(el('div', 'rvtop')); top.appendChild(el('b', null, '★'.repeat(+st || 0) + '☆'.repeat(5 - (+st || 0)))); top.appendChild(el('span', null, `${own || ''} 오너 · ${date || ''}`));
+    if (msg) it.appendChild(el('p', null, msg));
+    const tg = it.appendChild(el('div', 'rvtags')); (good || '').split(',').filter(Boolean).forEach((t) => tg.appendChild(el('span', 'g', '좋아요 · ' + t))); (bad || '').split(',').filter(Boolean).forEach((t) => tg.appendChild(el('span', 'b', '아쉬워요 · ' + t)));
+    const rp = it.appendChild(btnEl('rvrep', '신고', () => { if (!STATS_URL) return; fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ t: 'report', id: r.id, name: r.name, kinds: '한줄평 신고', msg: msg || `(글 없음) ★${st} ${good || ''}/${bad || ''}`, src: '', contact: '', page: location.href, v: VID }) }).catch(() => {}); rp.textContent = '신고 접수됨'; rp.disabled = true; }));
+    rp.title = '부적절한 한줄평 신고';
+  }
+  function rvAll(r) {
+    const { ov, bx } = modal('오너 한줄평'); ov.classList.add('rvs');
+    bx.appendChild(el('p', 'csq-note', r.name));
+    const L = bx.appendChild(el('div', 'rvall')); L.appendChild(el('p', 'csq-note', '불러오는 중…'));
+    rvLoad().then((D) => { L.textContent = ''; const arr = rvList(D, r.id); if (arr.length) L.appendChild(el('p', 'csq-note', `오너 평점 ★ ${rvAvg(arr)} · ${arr.length}명`)); arr.slice(0, 50).forEach((x) => rvItem(L, x, r)); if (!arr.length) L.appendChild(el('p', 'csq-note', '아직 한줄평이 없어요.')); });
+    bx.appendChild(el('p', 'csq-small', '실제 오너가 남긴 의견이에요. 욕설·비방·개인정보·광고는 운영자 검수에서 걸러지고, 신고가 들어오면 다시 확인해요.'));
+  }
+  // 선수 첫 화면(새 화면) — 시세 칸 바로 아래 '오너 한줄평' 칸
+  function nlRvCard(box, r) {
+    if (r.legend) return;
+    const c = el('div', 'nlrv'); const at = box.querySelector('.nlinfo'), acts = box.querySelector('.nlacts');
+    if (at) at.after(c); else if (acts) box.insertBefore(c, acts); else box.appendChild(c);
+    c.appendChild(el('div', 'nlrvbar')).innerHTML = '<i></i><i></i><i></i><i></i>';
+    const hd = c.appendChild(el('div', 'nlrvh')); hd.appendChild(el('b', null, '오너 한줄평')); const sc = hd.appendChild(el('span', 'nlrvs'));
+    const body = c.appendChild(el('div')); body.appendChild(el('p', 'nlrvsub', '불러오는 중…'));
+    const again = () => { renderProfile(); if (typeof NL === 'object' && NL.v) nlProfile(); };
+    rvLoad().then((D) => {
+      body.textContent = ''; const arr = rvList(D, r.id), mine = rvMine()[r.id], posted = mine && arr.some((x) => rvIsMine(x, mine));
+      const bt = el('div', 'nlrvbt');
+      if (arr.length) {
+        sc.innerHTML = `<i>★</i> ${rvAvg(arr)} <small>오너 ${arr.length}명</small>`;
+        const q = arr.find((x) => x[4]);
+        if (q) { body.appendChild(el('p', 'nlrvq', `“${q[4]}”`)); body.appendChild(el('div', 'nlrvw', `${q[1] || ''} 탄 오너 · ${String(q[5] || '').replace(/^\d{4}\./, '')}`)); }
+        const tg = body.appendChild(el('div', 'nlrvt')); rvTagCount(arr).slice(0, 4).forEach(([k, n]) => tg.appendChild(el('span', k[0], `${k.slice(1)} ${n}`)));
+        bt.appendChild(btnEl('', `${arr.length}개 전부 보기`, () => rvAll(r)));
+        const w = bt.appendChild(btnEl('p', mine ? (posted ? '내 한줄평 올라감' : '내 한줄평 검수 중') : '나도 한줄평', () => openReview(r, again))); if (mine) w.disabled = true;
+      } else if (mine) {
+        sc.appendChild(el('small', null, '검수 중'));
+        body.appendChild(el('p', 'nlrvq', '내 한줄평을 확인하고 있어요'));
+        body.appendChild(el('p', 'nlrvsub', '운영자 확인 후 1~3일 안에 여기 걸려요. 올라가면 앱을 열 때 알려 드려요.'));
+      } else {
+        sc.appendChild(el('small', null, '아직 없어요'));
+        body.appendChild(el('p', 'nlrvq', '이 차 타 보셨어요?'));
+        body.appendChild(el('p', 'nlrvsub', '별점이랑 좋은 점만 눌러도 끝나요. 글은 안 써도 돼요. 첫 한줄평은 이 차 첫 화면에 바로 걸려요.'));
+        bt.appendChild(btnEl('p', '첫 한줄평 남기기', () => openReview(r, again)));
+      }
+      if (bt.children.length) c.appendChild(bt);
+    });
+  }
+  // 내 한줄평이 수락되면 다음에 앱을 열 때 한 번만 알림 (휴대폰 푸시 아님)
+  function rvNotify() {
+    if ($('.rvpost') || $('.csq-ov')) return;
+    const my = rvMine(), ids = Object.keys(my).filter((id) => my[id] && !my[id].seen && byId[id]); if (!ids.length) return;
+    rvLoad().then((D) => {
+      let id = '', x = null; ids.some((k) => { x = rvList(D, k).find((y) => rvIsMine(y, my[k])); if (x) id = k; return !!x; });
+      if (!id) return; const r = byId[id], all = rvList(D, id);
+      my[id].seen = 1; LS.set('carro_myrv', JSON.stringify(my));
+      const c = document.body.appendChild(el('div', 'nlrv rvpost')); c.setAttribute('role', 'status');
+      const hd = c.appendChild(el('div', 'nlrvh')); hd.appendChild(el('b', null, '내 한줄평이 올라갔어요'));
+      const close = () => c.remove(); hd.appendChild(btnEl('', '닫기 ✕', close));
+      c.appendChild(el('p', 'nlrvq', `${shortName(r.name)} · ${'★'.repeat(+x[0])}${'☆'.repeat(5 - +x[0])}${x[4] ? ' “' + x[4] + '”' : ''}`));
+      c.appendChild(el('p', 'nlrvsub', `${shortName(r.name)} 첫 화면에 걸려 있어요. 이 차 오너 한줄평은 지금까지 ${all.length}개예요.`));
+      const bt = c.appendChild(el('div', 'nlrvbt'));
+      const sb = bt.appendChild(btnEl('', '스토리에 올리기', () => saveBlob(() => makeRvStory(r, x), 'carsquad_한줄평.png', sb)));
+      bt.appendChild(btnEl('p', '보러 가기', () => { close(); openProfile(id); window.scrollTo({ top: 0 }); }));
+    });
+  }
+  setTimeout(() => { try { rvNotify(); } catch (e) {} }, 2500);
   function reviewPanel(box, r) {
     if (r.legend) return;
     const W = box.appendChild(el('div', 'pmoney prev'));
@@ -3741,62 +3852,61 @@ body.nlnoscroll { overflow: hidden; }
     if (mine) wb.textContent = '✓ 내 한줄평 검수 중';
     rvLoad().then((D) => {
       list.textContent = '';
-      const arr = D && Array.isArray(D[r.id]) ? D[r.id].filter((x) => Array.isArray(x) && x[4]) : [];
-      if (mine) { const it = list.appendChild(el('div', 'rvit pend')); it.appendChild(el('div', 'rvtop', '⏳ 내가 쓴 한줄평 · 검수 후 모두에게 보여요')); it.appendChild(el('p', null, '★'.repeat(mine.s) + '☆'.repeat(5 - mine.s) + '  ' + mine.m)); }
+      const arr = rvList(D, r.id);
+      if (mine && !arr.some((x) => rvIsMine(x, mine))) { const it = list.appendChild(el('div', 'rvit pend')); it.appendChild(el('div', 'rvtop', '⏳ 내가 쓴 한줄평 · 검수 후 모두에게 보여요')); it.appendChild(el('p', null, '★'.repeat(mine.s) + '☆'.repeat(5 - mine.s) + '  ' + mine.m)); }
       if (!arr.length && !mine) { list.appendChild(el('p', 'note', '아직 한줄평이 없어요. 이 차 오너라면 첫 한줄평을 남겨 주세요!')); }
       if (arr.length) { const avg = arr.reduce((a, x) => a + (+x[0] || 0), 0) / arr.length; list.appendChild(el('p', 'rvavg', `오너 평점 ★ ${avg.toFixed(1)} · ${arr.length}명`)); }
-      arr.slice(0, 20).forEach((x) => {
-        const [st, own, good, bad, msg, date] = x;
-        const it = list.appendChild(el('div', 'rvit'));
-        const top = it.appendChild(el('div', 'rvtop')); top.appendChild(el('b', null, '★'.repeat(+st || 0) + '☆'.repeat(5 - (+st || 0)))); top.appendChild(el('span', null, `${own || ''} 오너 · ${date || ''}`));
-        it.appendChild(el('p', null, msg));
-        const tg = it.appendChild(el('div', 'rvtags')); (good || '').split(',').filter(Boolean).forEach((t) => tg.appendChild(el('span', 'g', '👍 ' + t))); (bad || '').split(',').filter(Boolean).forEach((t) => tg.appendChild(el('span', 'b', '👎 ' + t)));
-        const rp = it.appendChild(btnEl('rvrep', '🚩 신고', () => { if (!STATS_URL) return; fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ t: 'report', id: r.id, name: r.name, kinds: '한줄평 신고', msg: msg, src: '', contact: '', page: location.href, v: VID }) }).catch(() => {}); rp.textContent = '✓ 신고 접수'; rp.disabled = true; }));
-        rp.title = '부적절한 한줄평 신고';
-      });
+      arr.slice(0, 20).forEach((x) => rvItem(list, x, r));
       W.appendChild(el('p', 'note', '실제 오너가 남긴 의견이에요. 욕설·비방·개인정보·광고는 운영자 검수에서 걸러지고, 신고가 들어오면 다시 확인해요.'));
     });
   }
   function openReview(r, done) {
-    const { bx, close } = modal('✍️ 오너 한줄평');
+    const { ov, bx, close } = modal('타 보니 어때요?'); ov.classList.add('rvs');
     bx.appendChild(el('p', 'csq-note', r.name));
     if (CFG.review === false) { bx.appendChild(el('p', 'csq-note', '한줄평 받기를 잠시 쉬고 있어요. 조금 뒤에 다시 남겨 주세요!')); return; }
     if (rvMine()[r.id]) { bx.appendChild(el('p', 'csq-note', '이 차에는 이미 한줄평을 남겼어요. 검수 후 게시돼요.')); return; }
     const v = { s: 0, own: '', good: new Set(), bad: new Set() };
-    const lab = (t) => bx.appendChild(el('p', 'csq-lab', t));
+    const lab = (t, sm) => { const p = bx.appendChild(el('p', 'csq-lab', t)); if (sm) p.appendChild(el('small', null, sm)); };
     lab('별점');
     const stars = bx.appendChild(el('div', 'csq-stars'));
     for (let i = 1; i <= 5; i++) { const b = stars.appendChild(el('button', 'csq-star', '★')); b.type = 'button'; b.setAttribute('aria-label', i + '점'); b.addEventListener('click', () => { v.s = i; [...stars.children].forEach((x, j) => x.classList.toggle('on', j < i)); }); }
-    lab('얼마나 타셨나요?');
+    const tags = (title, sm, arr, set, cls) => { lab(title, sm); const w = bx.appendChild(el('div', 'csq-chips ' + (cls || ''))); arr.forEach((t) => { const b = w.appendChild(el('button', 'csq-chip', t)); b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => { set.has(t) ? set.delete(t) : set.size < 3 && set.add(t); b.setAttribute('aria-pressed', set.has(t)); }); }); };
+    tags('좋은 점', '최대 3개', RV_GOOD, v.good, 'rvgood'); tags('아쉬운 점', '없으면 넘어가요', RV_BAD, v.bad);
+    lab('얼마나 탔어요?');
     const ow = bx.appendChild(el('div', 'csq-chips'));
     RV_OWN.forEach((t) => { const b = ow.appendChild(el('button', 'csq-chip', t)); b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => { v.own = t; [...ow.children].forEach((x) => x.setAttribute('aria-pressed', x === b)); }); });
-    const tags = (title, arr, set) => { lab(title); const w = bx.appendChild(el('div', 'csq-chips')); arr.forEach((t) => { const b = w.appendChild(el('button', 'csq-chip', t)); b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => { set.has(t) ? set.delete(t) : set.size < 3 && set.add(t); b.setAttribute('aria-pressed', set.has(t)); }); }); };
-    tags('좋은 점 (최대 3개)', RV_GOOD, v.good); tags('아쉬운 점 (최대 3개)', RV_BAD, v.bad);
-    const msg = field(bx, '한 줄 평 (10~80자)', 'textarea', { rows: 2, maxLength: 80, placeholder: '예) 출퇴근용으로 조용하고 연비가 좋아요. 뒷좌석은 조금 좁아요.' });
+    const more = bx.appendChild(el('button', 'rvmore', '+ 한 줄 더 쓰기 (안 써도 돼요)')); more.type = 'button';
+    const mw = el('div'); let msg = null;
+    more.addEventListener('click', () => { more.replaceWith(mw); msg = field(mw, '한 줄 평 (10~80자)', 'textarea', { rows: 2, maxLength: 80, placeholder: '예) 출퇴근용으로 조용하고 연비가 좋아요. 뒷좌석은 조금 좁아요.' }); msg.focus(); });
     const agW = bx.appendChild(el('label', 'csq-agree')); const ag = agW.appendChild(el('input')); ag.type = 'checkbox';
-    agW.appendChild(el('span', null, '실제로 타 본 차예요. 욕설·비방·개인정보·광고는 쓰지 않을게요. (운영자 검수 후 게시)'));
+    agW.appendChild(el('span', null, '실제로 타 본 차예요. 욕설·비방·개인정보·광고는 쓰지 않을게요. (운영자 확인 후 올라가요)'));
+    const igW = bx.appendChild(el('label', 'csq-agree')); const ig = igW.appendChild(el('input')); ig.type = 'checkbox';
+    igW.appendChild(el('span', null, "카스쿼드 인스타 '오너 한줄평'에 소개해도 좋아요 (선택 · 이름은 안 나가요)"));
     const st = bx.appendChild(el('p', 'csq-status')); st.setAttribute('role', 'status');
     const ft = bx.appendChild(el('div', 'csq-ft'));
     const cancel = ft.appendChild(el('button', 'csq-btn', '취소')); cancel.type = 'button'; cancel.addEventListener('click', close);
     const send = ft.appendChild(el('button', 'csq-btn gold', '남기기')); send.type = 'submit';
     bx.addEventListener('submit', (e) => {
       e.preventDefault();
-      const m = msg.value.trim().replace(/\s+/g, ' ');
+      const m = msg ? msg.value.trim().replace(/\s+/g, ' ') : '';
       if (!v.s) { st.textContent = '별점을 골라 주세요.'; return; }
-      if (!v.own) { st.textContent = '얼마나 타셨는지 골라 주세요.'; return; }
-      if (m.length < 10) { st.textContent = '한 줄 평을 10자 이상 적어 주세요.'; msg.focus(); return; }
-      const bad = rvCheck(m); if (bad) { st.textContent = bad; msg.focus(); return; }
+      if (!v.good.size && !v.bad.size && !m) { st.textContent = '좋은 점이나 아쉬운 점을 하나 이상 골라 주세요.'; return; }
+      if (!v.own) { st.textContent = '얼마나 탔는지 골라 주세요.'; return; }
+      if (m && m.length < 10) { st.textContent = '한 줄 평은 10자 이상 적거나 비워 주세요.'; msg.focus(); return; }
+      const bad = m ? rvCheck(m) : ''; if (bad) { st.textContent = bad; msg.focus(); return; }
       if (!ag.checked) { st.textContent = '안내에 동의해 주세요.'; return; }
       const dk = 'carro_rv_' + new Date().toISOString().slice(0, 10); const n = +(LS.get(dk) || 0);
       if (n >= 3) { st.textContent = '한줄평은 하루 3개까지 남길 수 있어요.'; return; }
       if (!STATS_URL) { st.textContent = '지금은 받을 수 없어요. 잠시 뒤 다시 시도해 주세요.'; return; }
       send.disabled = true; st.textContent = '보내는 중…';
-      const body = JSON.stringify({ t: 'review', id: r.id, name: r.name, star: v.s, own: v.own, good: [...v.good].join(','), bad: [...v.bad].join(','), msg: m, v: VID });
+      const g = [...v.good].join(','), b = [...v.bad].join(',');
+      const body = JSON.stringify({ t: 'review', id: r.id, name: r.name, star: v.s, own: v.own, good: g, bad: b, msg: m, ig: ig.checked ? 'Y' : '', v: VID });
       fetch(STATS_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body })
-        .then(() => { LS.set(dk, String(n + 1)); const my = rvMine(); my[r.id] = { s: v.s, m }; LS.set('carro_myrv', JSON.stringify(my)); bx.textContent = ''; bx.appendChild(el('div', 'csq-done', '🙌')); bx.appendChild(el('h3', null, '고마워요! 잘 받았어요')); bx.appendChild(el('p', 'csq-note', '운영자 검수 후 1~3일 안에 게시돼요.')); setTimeout(() => { close(); done && done(); }, 1800); })
+        .then(() => { LS.set(dk, String(n + 1)); const my = rvMine(); my[r.id] = { s: v.s, m, o: v.own, g, b, t: Date.now() }; LS.set('carro_myrv', JSON.stringify(my)); bx.textContent = ''; bx.appendChild(el('div', 'csq-done', '★')); bx.appendChild(el('h3', null, '고마워요! 잘 받았어요')); bx.appendChild(el('p', 'csq-note', '운영자 확인 후 1~3일 안에 올라가요. 올라가면 앱을 열 때 알려 드릴게요.')); setTimeout(() => { close(); done && done(); }, 1800); })
         .catch(() => { send.disabled = false; st.textContent = '보내지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.'; });
     });
   }
+
 
 
   // ------------------------------------------------------------------ 미니게임: 첫차에서 드림카까지 (v2: 평생 커리어)
@@ -6189,6 +6299,56 @@ body.nlnoscroll { overflow: hidden; }
     g.fillStyle = '#c9ced7'; g.font = P('600', 26); g.textAlign = 'right'; g.fillText(D.rel === 'couple' ? '우리 커플의 붕붕카는? 차 MBTI' : '우리들의 붕붕카는? 차 MBTI', W - 44, H - 36);
     return new Promise((res) => cv.toBlob(res, 'image/png'));
   }
+  // ------------------------------------------------------------------ 스토리용 세로 이미지 (1080×1920) — 오너 한줄평
+  // 인스타 스토리 위·아래 약 220px은 계정 이름·답장칸이 덮으니 글자를 넣지 않음
+  const ST_COLS = ['#e2554c', '#e5a443', '#c8d758', '#45d37f'];
+  async function stBase(kick) {
+    const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+    const P = (w, s) => `${w} ${s}px "Pretendard Variable", Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif`, J = (s) => `${s}px Jalnan, "Pretendard Variable", Pretendard, sans-serif`;
+    try { await Promise.all([document.fonts.load(J(40), '차체질'), document.fonts.load(P('700', 30), '가')]); await document.fonts.ready; } catch (e) {}
+    const bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#171b24'); bg.addColorStop(1, '#0d0f13'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    ST_COLS.forEach((c, i) => { g.fillStyle = c; g.fillRect(i * W / 4, 0, W / 4, 10); g.fillRect(i * W / 4, H - 10, W / 4, 10); });
+    g.textAlign = 'center'; g.fillStyle = '#e3b448'; g.font = J(40); g.fillText('CAR SQUAD', W / 2, 250);
+    g.fillStyle = '#c9ced7'; g.font = P('700', 34); g.fillText(kick, W / 2, 312);
+    return { W, H, cv, g, P, J };
+  }
+  async function stPhoto(S, r, x, y, w, h, label) {
+    const { g, P, J } = S; const m = manual(r); const pinfo = photoCache[r.photo];
+    const img = await loadImg(m ? m.url : (thumbUrl(r, 1280) || (pinfo && pinfo.url)), m ? null : r);
+    g.save(); rr(g, x, y, w, h, 28); g.clip();
+    if (img) { const sc = Math.max(w / img.width, h / img.height), iw = img.width * sc, ih = img.height * sc; g.drawImage(img, x + (w - iw) / 2, y + (h - ih) / 2, iw, ih); }
+    else { g.fillStyle = '#232936'; g.fillRect(x, y, w, h); g.fillStyle = '#5b6372'; g.font = J(90); g.textAlign = 'center'; g.fillText(r.brand, x + w / 2, y + h / 2); }
+    const sh = g.createLinearGradient(0, y + h - 190, 0, y + h); sh.addColorStop(0, 'rgba(13,15,19,0)'); sh.addColorStop(1, 'rgba(13,15,19,.92)'); g.fillStyle = sh; g.fillRect(x, y + h - 190, w, 190);
+    g.restore();
+    g.textAlign = 'left';
+    g.font = P('800', 28); const lw = g.measureText(label).width + 36; g.fillStyle = '#e3b448'; rr(g, x + 24, y + 24, lw, 52, 26); g.fill(); g.fillStyle = '#15171c'; g.fillText(label, x + 42, y + 61);
+    const nm = shortName(r.name); let fs = 46; g.font = P('800', fs); while (fs > 32 && g.measureText(nm).width > w - 64) { fs -= 2; g.font = P('800', fs); }
+    g.fillStyle = '#f4efe2'; g.fillText(wrapLines(g, nm, w - 64, 1)[0], x + 32, y + h - 40);
+  }
+  function stFoot(S, ask) {
+    const { W, g, P, J } = S; g.textAlign = 'center';
+    g.fillStyle = '#f4efe2'; g.font = J(54); g.fillText(ask, W / 2, 1560);
+    g.fillStyle = '#e3b448'; rr(g, W / 2 - 250, 1600, 500, 92, 46); g.fill();
+    g.fillStyle = '#15171c'; g.font = P('800', 44); g.fillText('carsquad.kr', W / 2, 1662);
+  }
+  async function makeRvStory(r, x) {
+    const S = await stBase('내 차 한줄평'), { W, g, P, J } = S;
+    await stPhoto(S, r, 90, 370, W - 180, 520, `${x[1] || ''} 탄 오너`.trim());
+    g.textAlign = 'center'; const sx = W / 2 - 2 * 92; g.font = P('800', 92);
+    for (let i = 0; i < 5; i++) { g.fillStyle = i < +x[0] ? '#e3b448' : '#2a2f39'; g.fillText('★', sx + i * 92, 1020); }
+    let y = 1120;
+    if (x[4]) { let fs = 64; g.font = J(fs); const wrapW = (t) => { const out = []; let line = ''; t.split(' ').forEach((w) => { const c = line ? line + ' ' + w : w; if (g.measureText(c).width <= W - 180 || !line) line = c; else { out.push(line); line = w; } }); if (line) out.push(line); return out.flatMap((l) => g.measureText(l).width > W - 180 ? wrapLines(g, l, W - 180, 9) : [l]); };
+      let L = wrapW(`“${x[4]}”`); while (L.length > 3 && fs > 44) { fs -= 4; g.font = J(fs); L = wrapW(`“${x[4]}”`); } L = L.slice(0, 4); g.fillStyle = '#f4efe2'; L.forEach((l, i) => g.fillText(l, W / 2, y + i * fs * 1.3)); y += L.length * fs * 1.3 + 10; }
+    const T = (x[2] || '').split(',').filter(Boolean).map((t) => ['g', t]).concat((x[3] || '').split(',').filter(Boolean).map((t) => ['b', t]));
+    if (T.length) {
+      const fs = x[4] ? 32 : 44; g.font = P('800', fs); const pad = fs * .8, h = fs * 1.9, gap = 16;
+      const rows = [[]]; let rw = 0; T.forEach((t) => { const w = g.measureText(t[1]).width + pad * 2; if (rw + w > W - 180 && rows[rows.length - 1].length) { rows.push([]); rw = 0; } rows[rows.length - 1].push([t, w]); rw += w + gap; });
+      rows.slice(0, 2).forEach((row, ri) => { const tw = row.reduce((a, c) => a + c[1], 0) + gap * (row.length - 1); let xx = (W - tw) / 2; const yy = y + ri * (h + 14);
+        row.forEach(([t, w]) => { g.fillStyle = t[0] === 'g' ? 'rgba(69,211,127,.18)' : 'rgba(226,85,76,.18)'; rr(g, xx, yy, w, h, h / 2); g.fill(); g.fillStyle = t[0] === 'g' ? '#7fe3a7' : '#f08b84'; g.textAlign = 'center'; g.fillText(t[1], xx + w / 2, yy + h * .66); xx += w + gap; }); });
+    }
+    stFoot(S, '네 차는 한 줄로 뭐야?');
+    return new Promise((res) => S.cv.toBlob(res, 'image/png'));
+  }
   function renderPlay() {
     const box = $('#playbox'); box.textContent = '';
     // 오락실 모든 탭: 맨 위 '홈으로' (뒤로가기 실수로 입력 날리는 것 막기)
@@ -7307,6 +7467,7 @@ body.nlnoscroll { overflow: hidden; }
     let box = $('#nlprof'); if (!box) { box = el('div', 'nlprof'); box.id = 'nlprof'; sec.insertBefore(box, sec.firstChild); }
     box.textContent = '';
     if (NL.v === 'a') nlProfA(box, r); else if (NL.v === 'b') nlProfB(box, r); else if (NL.v === 'd') nlProfD(box, r); else if (NL.v === 'e') nlProfE(box, r); else nlProfC(box, r);
+    nlRvCard(box, r);
     const act = box.appendChild(el('div', 'nlacts'));
     act.appendChild(favBtnChip(r)).className = 'nlbtn';
     act.appendChild(btnEl('nlbtn', state.cmp.includes(r.id) ? '비교에서 빼기' : '⚔️ 비교에 담기', () => toggleCmp(r.id)));
