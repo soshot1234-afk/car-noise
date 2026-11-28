@@ -6,7 +6,7 @@ D = json.load(open(os.path.join(H, 'cars.json'), encoding='utf-8'))
 T = json.load(open('os.path.join(os.path.dirname(H), '..', 'trims.json')', encoding='utf-8'))
 by = {r['id']: r for r in D}
 DATE = '2026.11.17'
-SITE = 'https://carsquad.pages.dev/'
+SITE = 'https://carsquad.kr/'
 G = ['피지컬', '멘탈', '테크닉', '히든', '선수정보']
 FUELP = {'가솔린': 1855.5, '하이브리드': 1855.5, '디젤': 1841.88, 'LPG': 1175.61}
 

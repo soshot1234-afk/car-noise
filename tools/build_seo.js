@@ -9,7 +9,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 
 const ROOT = path.resolve(__dirname, '..');
-const SITE = 'https://carsquad.pages.dev';
+const SITE = 'https://carsquad.kr';
 const TODAY = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
 
 function serve() {
@@ -32,7 +32,7 @@ const REC_SRC = '한국교통안전공단 차종별 리콜 자료(공공데이�
 const recTxt = (t) => String(t || '').replace(/^(현대자동차|기아|한국지엠|르노코리아|케이지모빌리티|쌍용자동차)㈜?(\(주\))?에서는\s*/, '').trim();
 const LBL = { durab: '무상 점검(리콜)' };
 const CUR_Y = Number(TODAY.slice(0, 4));
-const REDIRECT = "<script>(function(){var h=location.hostname,p=location.pathname;if(/github\\.io$/.test(h)){p=p.replace(/^\\/car-noise/,'');}else if(!/(^|\\.)carrodor\\.pages\\.dev$/.test(h)){var m=p.match(/^\\/car\\/([\\w-]+)/);if(m&&/[?&]go=1/.test(location.search)){location.replace('/#tab=prof&p='+m[1]);}return;}location.replace('https://carsquad.pages.dev'+p+location.search+location.hash);})();</script>";
+const REDIRECT = "<script>(function(){var h=location.hostname,p=location.pathname;if(/github\\.io$/.test(h)){p=p.replace(/^\\/car-noise/,'');}else if(!/(^|\\.)carrodor\\.pages\\.dev$|^carsquad\\.pages\\.dev$/.test(h)){var m=p.match(/^\\/car\\/([\\w-]+)/);if(m&&/[?&]go=1/.test(location.search)){location.replace('/#tab=prof&p='+m[1]);}return;}location.replace('https://carsquad.kr'+p+location.search+location.hash);})();</script>";
 
 const CSS = `
 @font-face{font-family:Jalnan;src:url(/fonts/yg-jalnan.woff2) format("woff2");font-display:swap}
@@ -69,6 +69,7 @@ ol.steps li{counter-increment:s}ol.steps a{display:grid;grid-template-columns:30
 ol.steps a::before{content:counter(s);grid-row:span 2;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font-weight:800}
 ol.steps b{font-size:15px}ol.steps small{color:var(--mu);font-size:13px}
 table.used td,table.used th{white-space:nowrap}table.used td small{color:var(--mu);font-weight:400}
+@media(max-width:360px){table.used{font-size:13px}table.used td,table.used th{padding:8px 3px}}
 ul.rec{margin:0 0 8px;padding-left:18px;font-size:14.5px}ul.rec time{font-weight:700;margin-right:6px;font-variant-numeric:tabular-nums}
 .topics{display:flex;flex-wrap:wrap;gap:8px}.topics a{padding:8px 12px;border:1px solid var(--line);border-radius:20px;background:#fff;text-decoration:none;color:var(--tx);font-size:14px;font-weight:700}
 ol.rank{margin:0;padding-left:22px}ol.rank li{padding:6px 0;border-top:1px solid var(--line);font-size:15px}ol.rank li:first-child{border-top:0}ol.rank small{color:var(--mu);margin-left:6px}
@@ -162,7 +163,7 @@ body{width:1200px;height:630px;background:#0f1115;color:#f4efe2;font-family:P,"N
 <div class="sub">${esc([r.pt, r.body, price].filter(Boolean).join(' · '))}</div>
 ${strong.length ? `<div class="chips">${strong.map((t) => `<span>💪 ${esc(t)}</span>`).join('')}</div>` : ''}</div>
 <div class="r"><h3>능력치 (1~20)</h3>${G.map((k) => { const v = r.groups[k]; const ok = v != null && !isNaN(v); return `<div class="g"><span>${k}</span><i><em style="width:${ok ? Math.max(4, v / 20 * 100) : 0}%;background:${GCOL(v)}"></em></i><b style="color:${GCOL(v)}">${ok ? Math.round(v) : '–'}</b></div>`; }).join('')}</div>
-<div class="url">carsquad.pages.dev · ${G.n || 760}종 능력치 비교</div><div class="bar"></div></body></html>`;
+<div class="url">carsquad.kr · ${G.n || 760}종 능력치 비교</div><div class="bar"></div></body></html>`;
 }
 
 const G = { recId: {}, rec: {}, mp: {} };
