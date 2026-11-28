@@ -1357,6 +1357,11 @@ html, body { margin: 0; background: #14161b; }
 .csq-ov.rvs .rvtop{display:flex;gap:8px;align-items:center;font-size:12px;color:#6b7280}.csq-ov.rvs .rvtop b{color:#e3b448;letter-spacing:1px}
 .csq-ov.rvs .rvtags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.csq-ov.rvs .rvtags span{font-size:11.5px;padding:2px 8px;border-radius:12px;background:#fff}
 .csq-ov.rvs .rvrep{position:absolute;top:10px;right:10px;appearance:none;border:0;background:none;color:#9aa1ad;font-size:11.5px;cursor:pointer}
+.hrv{display:flex;gap:12px;align-items:center;width:auto;margin:14px 14px 0;padding:12px 14px;background:#fff;border:1px solid #e6e9ee;border-radius:18px;text-align:left;font-family:"Pretendard Variable",Pretendard,sans-serif;color:#15181e;cursor:pointer;word-break:keep-all}
+.hrv[hidden]{display:none}
+.hrvph{flex:none;width:58px;height:58px;border-radius:12px;overflow:hidden;background:#eef0f3}.hrvph img{width:100%;height:100%;object-fit:cover;display:block}.hrvph .nophoto{font-size:11px;padding:4px;color:#6b7280}.hrvph .ptools,.hrvph .padm{display:none}
+.hrvtx{min-width:0;flex:1}.hrvk{font-size:11.5px;font-weight:800;color:#8a6512}.hrvq{font-size:14px;font-weight:700;line-height:1.4;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.hrvw{font-size:11.5px;color:#6b7280;margin-top:2px}
+.hrvd{display:flex;gap:4px;margin-top:6px}.hrvd i{width:6px;height:6px;border-radius:3px;background:#d6dae1;transition:width .2s}.hrvd i.on{background:#e3b448;width:14px}
 .rvpost{position:fixed;left:12px;right:12px;top:calc(68px + env(safe-area-inset-top,0px));z-index:900;max-width:480px;margin:0 auto;box-shadow:0 14px 40px rgba(0,0,0,.28)}
 .rvpost .nlrvh button{appearance:none;border:0;background:none;color:#6b7280;font:600 14px "Pretendard Variable",Pretendard,sans-serif;cursor:pointer;padding:4px}
 .vd .qzopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px}
@@ -3821,6 +3826,23 @@ body.nlnoscroll { overflow: hidden; }
         bt.appendChild(btnEl('p', '첫 한줄평 남기기', () => openReview(r, again)));
       }
       if (bt.children.length) c.appendChild(bt);
+    });
+  }
+  // 홈 맨 아래 한 줄 띠 — 최근 올라온 한줄평(글 있는 것)이 3개 이상일 때만, 5초마다 바뀜. 누르면 그 차 화면
+  function nlHomeRv(box) {
+    const w = box.appendChild(el('button', 'hrv')); w.type = 'button'; w.hidden = true;
+    rvLoad().then((D) => {
+      const L = []; Object.keys(D || {}).forEach((id) => { if (byId[id]) rvList(D, id).filter((x) => x[4]).forEach((x) => L.push([id, x])); });
+      L.sort((a, b) => String(b[1][5] || '').localeCompare(String(a[1][5] || ''))); const T = L.slice(0, 6);
+      if (T.length < 3 || !w.isConnected) return;
+      const ph = w.appendChild(el('div', 'hrvph')), tx = w.appendChild(el('div', 'hrvtx'));
+      const k = tx.appendChild(el('div', 'hrvk')), q = tx.appendChild(el('div', 'hrvq')), who = tx.appendChild(el('div', 'hrvw')), dots = tx.appendChild(el('div', 'hrvd'));
+      T.forEach(() => dots.appendChild(el('i')));
+      let i = 0;
+      const draw = () => { const [id, x] = T[i], r = byId[id]; k.textContent = `오너 한줄평 · ${shortName(r.name)} ${'★'.repeat(+x[0])}`; q.textContent = `“${x[4]}”`; who.textContent = `${x[1] || ''} 탄 오너 · 누르면 그 차 화면으로`; photo(ph, r); [...dots.children].forEach((d, j) => d.classList.toggle('on', j === i)); };
+      w.addEventListener('click', () => openProfile(T[i][0]));
+      draw(); w.hidden = false;
+      if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) { const t = setInterval(() => { if (!w.isConnected) return clearInterval(t); i = (i + 1) % T.length; draw(); }, 5000); }
     });
   }
   // 내 한줄평이 수락되면 다음에 앱을 열 때 한 번만 알림 (휴대폰 푸시 아님)
@@ -8030,6 +8052,7 @@ body.nlnoscroll { overflow: hidden; }
     cl.appendChild(btnEl('nlgo nlmore', '자세히 보기 ›', () => openProfile(r.id)));
     nlGearbox(box);
     nlWhy(box);
+    nlHomeRv(box);
     if (window.__inst) window.__inst.card(box);
   }
   const NLGRADE = [['에이스', NLC.G, '70+'], ['주전', NLC.L, '60~69'], ['로테이션', NLC.O, '50~59'], ['유망주', NLC.R, '~49']];
