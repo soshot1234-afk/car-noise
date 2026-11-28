@@ -143,15 +143,8 @@ const slides = [
     ${row('출시 혜택', '<em>12월 31일</em>까지 출고하면<br>소모품 케어 패키지<small>엔진오일·오일필터·에어컨필터·와이퍼 각 2회 무상 교환</small>')}
     ${row('정비', '서비스센터 <em>115개 이상</em><small>GM한국사업장 네트워크</small>')}</div>
     <div class="src">${SRC2}</div>`),
-  // 9 카스쿼드 선수 카드 (트레이딩 카드 모양)
-  `<div style="position:absolute;left:0;right:0;top:112px;text-align:center;font-family:J;font-size:56px">카스쿼드 <b style="color:#e3b448;font-weight:400">선수 카드</b></div>
-   <div style="position:absolute;left:0;right:0;top:200px"><div class="fc"><div class="in">
-    <div class="pic"><img src="${PH(1)}"></div>
-    <div class="ov"><b>73</b><small>OVR</small><i>SUV · PHEV</i><i style="color:#e3b448;font-size:17px;letter-spacing:.12em;margin-top:6px">2026 SEASON</i><span class="lg">뷰익</span></div>
-    <div class="nm"><h4>엘렉트라 E7</h4><p>지치지 않는 풀백</p></div><div class="ln"></div>
-    <div class="st"><ul><li><b style="color:#f3d27a">13</b>파워</li><li><b style="color:#f3d27a">11</b>토크</li><li><b style="color:#f3d27a">15</b>연비</li><li><b style="color:#f3d27a">13</b>차체</li></ul><div class="sep"></div><ul><li><b style="color:#f3d27a">12</b>공간</li><li><b style="color:#f3d27a">11</b>몸값</li><li><b style="color:#3ddc84">18</b>가성비</li></ul></div>
-    </div></div></div>
-   <div class="note" style="position:absolute;left:64px;right:64px;top:1118px;text-align:center">프리미어 기준 · 공식 제원 7개 항목만으로 계산(20점 만점) · 실측 나오면 바뀔 수 있어요<br>${CR}</div>`,
+  // 9 카스쿼드 앱 선수 카드: appcard.js로 앱이 직접 그린 카드(photos/2026-11-27/e7/appcard.png)를 그대로 씀
+  'APPCARD',
   // 10 끝
   `<div class="end"><h2>엘렉트라 E7<br><b style="color:#e3b448;font-weight:400">총정리 끝</b></h2><p>궁금한 차 있으면 댓글로<br>다음 집중 분석 해 드릴게요</p>${dots()}<div class="lk">관심 차 능력치 카드 → <b>프로필 링크</b></div><div class="tm">제조사 로고는 각 회사의 상표예요 · 정보 구분용<br>사진: GM한국사업장 제공 보도용 이미지</div></div>`,
 ];
@@ -159,6 +152,7 @@ const slides = [
   const out = process.argv[2] || __dirname + '/out-e7'; fs.mkdirSync(out, { recursive: true });
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1080, height: 1350 } });
   for (let i = 0; i < slides.length; i++) {
+    if (slides[i] === 'APPCARD') { await p.goto('file://' + path.join(__dirname, 'photos/2026-11-27/e7/appcard.png')); await p.screenshot({ path: path.join(out, String(i + 1).padStart(2, '0') + '.jpg'), type: 'jpeg', quality: 92 }); continue; }
     const html = L.page(slides[i], i + 1, slides.length, i ? K : '').replace('</style>', X + '</style>');
     const f = path.join(__dirname, '_e7_tmp.html'); fs.writeFileSync(f, html);
     await p.goto('file://' + f); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(150);
