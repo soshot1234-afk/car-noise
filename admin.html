@@ -2,6 +2,7 @@
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><meta name="color-scheme" content="light"><meta name="theme-color" content="#f6f4ee">
 <title>카스쿼드 관리실</title>
+<script>/* 관리실은 본 앱(carsquad.kr)과 주소를 나눠야 폰에 따로 설치돼요 → 본 앱 주소로 열면 이 기기를 방문 집계에서 빼고 전용 주소로 이동 */(function(){if(!/^(www\.)?carsquad\.kr$|^carsquad\.pages\.dev$/.test(location.hostname))return;try{localStorage.setItem('carro_notrack','1');}catch(e){}location.replace('https://admin.carsquad.pages.dev/admin.html'+location.search+location.hash);})();</script>
 <link rel="manifest" href="admin.webmanifest"><meta name="apple-mobile-web-app-title" content="관리실"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="favicon.svg"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <style>
@@ -327,7 +328,7 @@ input,textarea{width:100%;border:1px solid var(--line);border-radius:12px;paddin
       const ov = document.body.appendChild(el('div', 'sheet')); const bx = ov.appendChild(el('div'));
       bx.appendChild(el('h4', null, '브라우저에서 추가해 주세요'));
       bx.appendChild(el('p', null, '지금은 카스쿼드 앱 안에서 열려 있어서 관리실 아이콘을 따로 만들 수 없어요. 아래 주소를 크롬(아이폰은 사파리)에서 열고 [추가]를 눌러 주세요.'));
-      const u = 'https://carsquad.kr/admin.html'; bx.appendChild(el('p', null, u)).style.cssText = 'font-weight:700;word-break:break-all';
+      const u = 'https://admin.carsquad.pages.dev/admin.html'; bx.appendChild(el('p', null, u)).style.cssText = 'font-weight:700;word-break:break-all';
       bx.appendChild(btn('btn', '주소 복사', () => { try { navigator.clipboard.writeText(u).then(() => toast('주소를 복사했어요')); } catch (e) { toast(u); } ov.remove(); }));
       ov.addEventListener('click', (e) => { if (e.target === ov) ov.remove(); });
       return;
