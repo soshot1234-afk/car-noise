@@ -29,6 +29,7 @@ function admPost(e) {
   var body;
   try { body = JSON.parse((e && e.postData && e.postData.contents) || '{}'); } catch (err) { return null; }
   if (body && body.t === 'duo') return admJson(duoWrite(body));
+  if (body && body.t === 'review' && body.ig === 'Y') { try { rvIgSave(body); } catch (err) {} } // 인스타 소개 동의만 따로 적고, 한줄평 저장은 기존 doPost가 그대로
   if (!body || body.t !== 'admin') return null; // 관리실 요청이 아니면 기존 doPost가 처리
   var gate = admCheckKey(body.key);
   if (gate) return admJson({ ok: false, error: gate });
@@ -279,4 +280,14 @@ function duoWrite(b) {
     sh.appendRow([new Date(), b.room, b.tb, pb.join('.')]);
     return { ok: true };
   } finally { lock.releaseLock(); }
+}
+
+// ---------------------------------------------------------------- 한줄평 인스타 소개 동의 (11/28)
+// 앱 작성 창의 "인스타 '오너 한줄평'에 소개해도 좋아요" 체크. 체크한 평만 이 탭에 한 줄씩 쌓임
+var RV_IG_TAB = '인스타동의';
+function rvIgSave(b) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet(), sh = ss.getSheetByName(RV_IG_TAB);
+  if (!sh) { sh = ss.insertSheet(RV_IG_TAB); sh.appendRow(['time', 'id', 'car', 'star', 'own', 'good', 'bad', 'msg']); }
+  var cut = function (v, n) { return String(v == null ? '' : v).slice(0, n); };
+  sh.appendRow([new Date(), cut(b.id, 20), cut(b.name, 60), Number(b.star) || 0, cut(b.own, 20), cut(b.good, 80), cut(b.bad, 80), cut(b.msg, 100)]);
 }
