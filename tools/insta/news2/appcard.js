@@ -4,17 +4,19 @@
 // 사용: 저장소 루트에서 python3 -m http.server 8765 & →
 //   node tools/insta/news2/appcard.js 차.json 사진경로(저장소 기준) 출력폴더
 // 결과: 출력폴더/card.png (앱 선수 카드 1080×1350), 출력폴더/screen.png (앱 선수 화면, 폭 430)
+// 앱에 이미 있는 차: 차.json = {"id":"dom103","name":"(앱의 이름 그대로)","existing":true} → 앱 데이터 그대로, 사진만 공식 보도사진으로
 // 규칙: 차.json에는 공식 발표 숫자만. id는 'tmp'로 시작. 순위가 붙지 않도록 ex:true를 넣음(자료가 적은 신차라 순위 비교가 공정하지 않음)
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path');
 (async () => {
   const [inp, photo, out] = process.argv.slice(2); fs.mkdirSync(out, { recursive: true });
-  const car = Object.assign({ ex: true }, JSON.parse(fs.readFileSync(inp, 'utf8')));
+  const raw = JSON.parse(fs.readFileSync(inp, 'utf8')); const car = raw.existing ? raw : Object.assign({ ex: true }, raw); // existing:true = 앱에 이미 있는 차(id·name만), 끼워 넣지 않음
   const b = await chromium.launch(); const ctx = await b.newContext({ viewport: { width: 430, height: 1800 }, deviceScaleFactor: 2.5, acceptDownloads: true });
   await ctx.addInitScript(([name, url]) => { try { localStorage.setItem('carro_photos_v1', JSON.stringify({ [name]: { url } })); } catch (e) {} }, [car.name, 'http://localhost:8765/' + photo]);
   const p = await ctx.newPage();
   await p.route(/^(?!http:\/\/localhost)/, (r) => r.abort());
   await p.route('http://localhost:8765/', async (r) => {
-    const res = await r.fetch(); const body = (await res.text()).replace(/window\.__CARS\s*=\s*\[/, (m) => m + JSON.stringify(car) + ',');
+    const res = await r.fetch(); if (car.existing) return r.fulfill({ response: res });
+    const body = (await res.text()).replace(/window\.__CARS\s*=\s*\[/, (m) => m + JSON.stringify(car) + ',');
     r.fulfill({ response: res, body, headers: { ...res.headers(), 'content-type': 'text/html; charset=utf-8' } });
   });
   await p.goto('http://localhost:8765/#tab=prof&p=' + car.id); await p.waitForTimeout(3000);
